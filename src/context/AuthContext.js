@@ -72,7 +72,6 @@ export const AuthContextProvider = ({ children }) => {
   //google signIn
 
   const googleSignIn = async () => {
-    console.log("here");
     setLoginByGoogle(true);
     setLoading(true);
     // const googleProvider = new auth.GoogleAuthProvider();

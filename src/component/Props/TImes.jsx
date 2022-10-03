@@ -3,9 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 
 export default function Times({ selectCardId, mode }) {
-  useEffect(() => {
-    console.log(mode);
-  }, [mode]);
   return (
     <Box
       sx={{

@@ -31,7 +31,6 @@ const EnterYourDetail = ({ mode, setMode }) => {
     } else {
       setDisableButton(true);
     }
-    console.log(email);
   }, [email, name]);
   const switchMode = () => {
     if (mode === "dark") {
