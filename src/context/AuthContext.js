@@ -27,17 +27,17 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   //google login
-  const success = (res) => {
-    console.log("success:", res);
-    setUser(res.profileObj);
-    setAccessToken(res.accessToken);
-    setIdToken(res.tokenId);
-    setLoading(false);
-  };
-  const fail = (err) => {
-    setLoading(false);
-    console.log(err);
-  };
+  // const success = (res) => {
+  //   console.log("success:", res);
+  //   setUser(res.profileObj);
+  //   setAccessToken(res.accessToken);
+  //   setIdToken(res.tokenId);
+  //   setLoading(false);
+  // };
+  // const fail = (err) => {
+  //   setLoading(false);
+  //   console.log(err);
+  // };
 
   //apple login
   useEffect(() => {
@@ -61,6 +61,18 @@ export const AuthContextProvider = ({ children }) => {
     setLoading(true);
     const appleProvider = new OAuthProvider("apple.com");
     await signInWithPopup(auth, appleProvider);
+  };
+
+  //google signIn
+
+  const googleSignIn = async () => {
+    console.log("here");
+    setLoginByGoogle(true);
+    setLoading(true);
+    // const googleProvider = new auth.GoogleAuthProvider();
+    // googleProvider.setCustomParameters({ prompt: "select_account" });
+    const googleProvider = new GoogleAuthProvider();
+    await signInWithPopup(auth, googleProvider);
   };
 
   //logout
@@ -91,10 +103,11 @@ export const AuthContextProvider = ({ children }) => {
         setLoginByGoogle,
         loading,
         setLoading,
-        success,
-        fail,
         notAllowSameEmail,
         setNotAllowSameEmail,
+        // success,
+        // fail,
+        googleSignIn,
       }}
     >
       {children}

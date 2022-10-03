@@ -57,14 +57,24 @@ const LoginFlow = ({ mode, setMode }) => {
     setLoginByGoogle,
     loading,
     setLoading,
-    success,
-    fail,
     notAllowSameEmail,
     setNotAllowSameEmail,
+    // success,
+    // fail,
+    googleSignIn,
   } = UserAuth();
 
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      await googleSignIn();
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   const handleAppleLogin = async () => {
     try {
+      setLoading(true);
       await appleSignIn();
     } catch (error) {
       setLoading(false);
@@ -173,6 +183,7 @@ const LoginFlow = ({ mode, setMode }) => {
                   },
                   height: { xs: "64px", xxxs: "50px" },
                 }}
+                // onClick={()=>{setLoading(true)}}
               >
                 <Button
                   startIcon={<GoogleIcon />}
@@ -189,10 +200,11 @@ const LoginFlow = ({ mode, setMode }) => {
                     bgcolor: "primary.main",
                     zIndex: "40",
                   }}
+                  onClick={handleGoogleLogin}
                 >
                   Login with Google
                 </Button>
-                <div
+                {/* <div
                   style={{
                     opacity: "0",
                     cursor: "pointer",
@@ -225,13 +237,18 @@ const LoginFlow = ({ mode, setMode }) => {
                     cookiePolicy={"single_host_origin"}
                     isSignedIn={false}
                   />
-                </div>
+                </div> */}
               </Box>
-              <Button
-                onClick={handleAppleLogin}
-                startIcon={<AppleIcon />}
+              <Box
                 sx={{
-                  color: "secondary.dark_gray",
+                  border: 2,
+                  borderRadius: "5px",
+                  borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
+                  "&:hover": {
+                    borderColor: `${mode === "dark" ? "white" : "black"}`,
+                    background: "rgb(7, 177, 77, 0.42)",
+                  },
+                  position: "relative",
                   width: {
                     md: "196px",
                     sm: "190px",
@@ -240,21 +257,29 @@ const LoginFlow = ({ mode, setMode }) => {
                     xxxs: "120px",
                   },
                   height: { xs: "64px", xxxs: "50px" },
-                  fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
-                  border: 2,
-                  borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
-                  borderRadius: "5px",
-                  "&.MuiButtonBase-root:hover": {
-                    borderColor: `${mode === "dark" ? "white" : "black"}`,
-                    bgcolor: "primary.main",
-                  },
-                  textTransform: "none",
-                  fontFamily: "Poppins",
-                  bgcolor: "primary.main",
                 }}
+                // onClick={()=>{setLoading(true)}}
               >
-                Login with Apple
-              </Button>
+                <Button
+                  onClick={handleAppleLogin}
+                  startIcon={<AppleIcon />}
+                  sx={{
+                    color: "secondary.dark_gray",
+                    width: "100%",
+                    height: "100%",
+                    fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                    "&.MuiButtonBase-root:hover": {
+                      bgcolor: "primary.main",
+                    },
+                    textTransform: "none",
+                    fontFamily: "Poppins",
+                    bgcolor: "primary.main",
+                    zIndex: "40",
+                  }}
+                >
+                  Login with Apple
+                </Button>
+              </Box>
             </Box>
             <InputComponentLogin
               placeholder={"User Name"}
