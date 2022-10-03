@@ -47,7 +47,7 @@ export const AuthContextProvider = ({ children }) => {
         let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
         //get first name letter
-        let firstNameLetter = currentUser.displayName.slice(0, 2);
+        let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         setUser(currentUser);
         setLoading(false);
