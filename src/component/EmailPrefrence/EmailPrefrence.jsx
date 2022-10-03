@@ -37,7 +37,7 @@ export default function EmailPrefrence({ setOpenTag }) {
   let navigate = useNavigate();
   const propsOpen = () => {
     setOpenTag("props");
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
   };
   return (
     <Box

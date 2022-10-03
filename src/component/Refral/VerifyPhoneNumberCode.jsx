@@ -12,7 +12,7 @@ import "./refralBonus.css";
 export default function VerifyPhoneNumberCode({ number, mode }) {
   const navigate = useNavigate();
   const goRefralBonusCashRandoom = () => {
-    navigate("/logged?deposit=go-refral-bonus-cash-randoom", { replace: true });
+    navigate("/home?deposit=go-refral-bonus-cash-randoom", { replace: true });
   };
   const theme = createTheme({
     palette: {
@@ -38,7 +38,7 @@ export default function VerifyPhoneNumberCode({ number, mode }) {
 
   const goAddCashPage = () => {
     setTimeout(() => {
-      navigate("/logged?deposit=refral-bonus-cash-code", { replace: true });
+      navigate("/home?deposit=refral-bonus-cash-code", { replace: true });
     }, 2000);
   };
   useEffect(() => {

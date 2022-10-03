@@ -34,7 +34,7 @@ const LoginFlow = ({ mode, setMode }) => {
   }, [name, password]);
   let navigate = useNavigate();
   const handleContinue = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
   };
   const switchMode = () => {
     if (mode === "dark") {

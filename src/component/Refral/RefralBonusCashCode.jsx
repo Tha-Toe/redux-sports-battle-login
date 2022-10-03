@@ -43,7 +43,7 @@ export default function RefralBonusCashCode({ number, setNumber }) {
     },
   });
   const goVerifyPhoneNumberCode = () => {
-    navigate("/logged?deposit=verify-phone-number-code", { replace: true });
+    navigate("/home?deposit=verify-phone-number-code", { replace: true });
   };
   const [success, setSuccess] = useState(false);
   const handleClick = () => {

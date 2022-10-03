@@ -12,14 +12,14 @@ import FailVerify from "./FailVerify";
 export default function NewAddCashFrom({ address, setNewUser, mode }) {
   let navigate = useNavigate();
   const goDepositVerify = () => {
-    navigate("/logged?deposit=new&page=verify", { replace: true });
+    navigate("/home?deposit=new&page=verify", { replace: true });
   };
   const goDepositAddress = () => {
-    navigate("/logged?deposit=new&page=address", { replace: true });
+    navigate("/home?deposit=new&page=address", { replace: true });
   };
   const goAddCashPage = () => {
     setTimeout(() => {
-      navigate("/logged?deposit=old-user", { replace: true });
+      navigate("/home?deposit=old-user", { replace: true });
     }, 2000);
   };
 

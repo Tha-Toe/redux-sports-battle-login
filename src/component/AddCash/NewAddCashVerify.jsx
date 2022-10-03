@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function NewAddCashVerify() {
   let navigate = useNavigate();
   const goDepositForm = () => {
-    navigate("/logged?deposit=new&page=form", { replace: true });
+    navigate("/home?deposit=new&page=form", { replace: true });
   };
   return (
     <Box

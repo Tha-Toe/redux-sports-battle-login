@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import "./dashboard.css";
+import "./home.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Props from "../../Props/Props";
@@ -32,7 +32,7 @@ import Clear from "@mui/icons-material/Clear";
 import AddAddress from "../../AddCash/AddAddress";
 import { UserAuth } from "../../../context/AuthContext";
 
-export function Dashboard({ mode, setMode }) {
+export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -41,56 +41,56 @@ export function Dashboard({ mode, setMode }) {
   };
 
   const propsOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("props");
   };
   const knowMoreOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("know-more");
   };
   const emailPrefrenceOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("email-prefrence");
   };
   const myProfileOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("my-profile");
   };
   const transactionHistoryOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("transaction-history");
   };
   const goDepositNewUser = () => {
     if (newUser) {
-      navigate("/logged?deposit=new&page=verify", { replace: true });
+      navigate("/home?deposit=new&page=verify", { replace: true });
     } else {
-      navigate("/logged?deposit=old-user", { replace: true });
+      navigate("/home?deposit=old-user", { replace: true });
     }
   };
   const goAddCashBonus = () => {
-    navigate("/logged?deposit=old-user", { replace: true });
+    navigate("/home?deposit=old-user", { replace: true });
   };
   const goRefralBonusCashRadeem = () => {
     setOpenTag("enter-referral-code");
-    navigate("/logged?deposit=go-refral-bonus-cash-randoom", { replace: true });
+    navigate("/home?deposit=go-refral-bonus-cash-randoom", { replace: true });
     setOpenSideNav(false);
   };
   const goVerifyPhoneNumberCode = () => {
-    navigate("/logged?deposit=verify-phone-number-code", { replace: true });
+    navigate("/home?deposit=verify-phone-number-code", { replace: true });
   };
   const goEmailPrefrencePage = () => {
     setOpenDropDown(false);
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("email-prefrence");
   };
   const myPropsOpen = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("my-props");
   };
@@ -182,12 +182,12 @@ export function Dashboard({ mode, setMode }) {
   const [selectSrc, setSelectSrc] = useState("/mlb.png");
   const [selectColor, setSelectColor] = useState("blue");
 
-  const loggedRef = useRef();
-  const loggedContainerRef = useRef();
+  const homeRef = useRef();
+  const homeContainerRef = useRef();
 
   useEffect(() => {
-    loggedRef.current.scrollTop = 0;
-    loggedContainerRef.current.scrollTop = 0;
+    homeRef.current.scrollTop = 0;
+    homeContainerRef.current.scrollTop = 0;
   }, [location]);
 
   const {
@@ -203,7 +203,7 @@ export function Dashboard({ mode, setMode }) {
     setLoginByGoogle,
   } = UserAuth();
   return (
-    <div className="logged-container" ref={loggedContainerRef}>
+    <div className="logged-container" ref={homeContainerRef}>
       <Box
         component="div"
         sx={{
@@ -847,7 +847,7 @@ export function Dashboard({ mode, setMode }) {
             bgcolor: "primary.dark_gray",
             height: "100%",
           }}
-          ref={loggedRef}
+          ref={homeRef}
         >
           {!location.search && openTag === "props" && (
             <Props

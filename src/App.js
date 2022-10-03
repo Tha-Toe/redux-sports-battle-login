@@ -18,7 +18,7 @@ import CreateUserName from "./component/SignUp/createUserName/CreateUserName";
 import EnterYourName from "./component/SignUp/enter-your-name/EnterYourName";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CheckMail from "./component/Forgot/checkMail/CheckMail";
-import { Dashboard } from "./component/Dashboard/dashboard/Dashboard";
+import { Home } from "./component/Home/home/Home";
 import { useContext, useState, useEffect, useRef } from "react";
 import Protected from "./protected/Protected";
 import Redirect from "./protected/Redirect";
@@ -95,14 +95,14 @@ function App() {
       },
     },
   });
-  const loggedRef = useRef();
+  const homeRef = useRef();
 
   useEffect(() => {
-    loggedRef.current.scrollTop = 0;
+    homeRef.current.scrollTop = 0;
   }, []);
   return (
     <div
-      ref={loggedRef}
+      ref={homeRef}
       style={{
         width: "100vw",
         maxWidth: "100vw",
@@ -167,10 +167,10 @@ function App() {
               element={<CreateUserName mode={mode} setMode={setMode} />}
             />
             <Route
-              path="/logged"
+              path="/home"
               element={
                 <Protected>
-                  <Dashboard mode={mode} setMode={setMode} />
+                  <Home mode={mode} setMode={setMode} />
                 </Protected>
               }
             />

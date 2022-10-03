@@ -27,11 +27,11 @@ import SelectState from "./SelectState";
 export default function AddAddress({ setAddress, mode }) {
   let navigate = useNavigate();
   const goAddress = () => {
-    navigate("/logged?deposit=new&page=address", { replace: true });
+    navigate("/home?deposit=new&page=address", { replace: true });
   };
   const [openStatePicker, setOpenStatePicker] = useState(false);
   const goDepositForm = () => {
-    navigate("/logged?deposit=new&page=form", { replace: true });
+    navigate("/home?deposit=new&page=form", { replace: true });
   };
   return (
     <Box

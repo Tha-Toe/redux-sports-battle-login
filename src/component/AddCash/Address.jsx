@@ -10,10 +10,10 @@ export default function Address({ setAddress }) {
   let navigate = useNavigate();
 
   const goDepositForm = () => {
-    navigate("/logged?deposit=new&page=form", { replace: true });
+    navigate("/home?deposit=new&page=form", { replace: true });
   };
   const goAddAddressPage = () => {
-    navigate("/logged?deposit=new&page=add-address", { replace: true });
+    navigate("/home?deposit=new&page=add-address", { replace: true });
   };
   return (
     <Box

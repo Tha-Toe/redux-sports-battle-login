@@ -16,11 +16,11 @@ export default function RefralBonusCashRandoom({
 }) {
   let navigate = useNavigate();
   const backPropsPage = () => {
-    navigate("/logged", { replace: true });
+    navigate("/home", { replace: true });
     setOpenTag("props");
   };
   const goVerifyPhoneNumberCode = () => {
-    navigate("/logged?deposit=verify-phone-number-code", { replace: true });
+    navigate("/home?deposit=verify-phone-number-code", { replace: true });
   };
   const [disableVerify, setDisableVerify] = useState(true);
   useEffect(() => {

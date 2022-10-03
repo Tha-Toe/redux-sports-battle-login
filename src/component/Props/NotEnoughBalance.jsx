@@ -100,7 +100,7 @@ export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
             }}
             onClick={() => {
               setNotEnoughBalance(false);
-              navigate("/logged?deposit=old-user", { replace: true });
+              navigate("/home?deposit=old-user", { replace: true });
             }}
           >
             Add Cash{" "}

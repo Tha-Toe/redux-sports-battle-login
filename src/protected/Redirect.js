@@ -4,7 +4,7 @@ import { UserAuth } from "../context/AuthContext";
 export default function Redirect({ children }) {
   const { user } = UserAuth();
   if (user) {
-    return <Navigate to="/logged" />;
+    return <Navigate to="/home" />;
   }
   return children;
 }
