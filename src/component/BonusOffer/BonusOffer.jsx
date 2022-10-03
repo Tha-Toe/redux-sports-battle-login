@@ -157,8 +157,9 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
             mt: "29px",
           }}
         >
-          {referNote.map((e) => (
+          {referNote.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 display: "flex",
                 flexDirection: "rows",

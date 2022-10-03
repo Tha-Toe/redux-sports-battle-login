@@ -224,8 +224,9 @@ export default function MyProps({ mode }) {
           mb: "12px",
         }}
       >
-        {myPropsAppBar.map((e) => (
+        {myPropsAppBar.map((e, index) => (
           <Button
+            key={index}
             sx={{
               fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
               fontWeight: 600,

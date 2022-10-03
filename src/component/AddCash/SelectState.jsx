@@ -130,8 +130,9 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                 alignItems: "center",
               }}
             >
-              {stateList.map((e) => (
+              {stateList.map((e, index) => (
                 <Box
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "row",

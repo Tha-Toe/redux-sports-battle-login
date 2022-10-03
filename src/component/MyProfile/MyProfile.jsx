@@ -467,8 +467,9 @@ export default function MyProfile({
               flexWrap: "wrap",
             }}
           >
-            {wallet.map((e) => (
+            {wallet.map((e, index) => (
               <Box
+                key={index}
                 sx={{
                   width: { xs: "24%", xxxs: "48%" },
                   bgcolor: "primary.main",
@@ -520,8 +521,9 @@ export default function MyProfile({
             ))}
           </Box>
         </Box>
-        {info.map((e) => (
+        {info.map((e, index) => (
           <Box
+            key={index}
             sx={{
               width: "100%",
               display: "flex",
@@ -627,8 +629,9 @@ export default function MyProfile({
               flexWrap: "wrap",
             }}
           >
-            {history.map((e) => (
+            {history.map((e, index) => (
               <Box
+                key={index}
                 sx={{
                   width: { xs: "48%", xxxs: "90%" },
                   bgcolor: "primary.main",

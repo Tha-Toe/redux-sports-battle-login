@@ -148,8 +148,9 @@ export default function OperatingState() {
           </Typography>
         </Box>
       </Box>
-      {operatingState.map((e) => (
+      {operatingState.map((e, index) => (
         <Box
+          key={index}
           sx={{
             width: "90%",
             borderBottom: "1px solid #494949",

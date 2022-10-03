@@ -137,8 +137,9 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             alignItems: "center",
           }}
         >
-          {header.map((e) => (
+          {header.map((e, index) => (
             <Button
+              key={index}
               sx={{
                 color: `${openTag === e.name ? "#4831D4" : "secondary.main"}`,
                 borderBottom: `${
@@ -210,8 +211,9 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             alignItems: "center",
           }}
         >
-          {T20T10.map((e) => (
+          {T20T10.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 width: "90%",
                 display: "flex",
@@ -328,8 +330,9 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             alignItems: "center",
           }}
         >
-          {Points.map((e) => (
+          {Points.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 width: "90%",
                 display: "flex",
@@ -435,8 +438,9 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             alignItems: "center",
           }}
         >
-          {Penalties.map((e) => (
+          {Penalties.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 width: "90%",
                 display: "flex",
@@ -542,8 +546,9 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             alignItems: "center",
           }}
         >
-          {Other.map((e) => (
+          {Other.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 width: "90%",
                 display: "flex",

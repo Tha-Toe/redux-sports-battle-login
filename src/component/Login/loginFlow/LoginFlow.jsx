@@ -12,6 +12,13 @@ import {
   InputComponentLogin,
   PasswordInputComponentLogin,
 } from "../../defaultComponent/DefaultComponent";
+import { UserAuth } from "../../../context/AuthContext";
+import { GoogleLogin } from "@leecheuk/react-google-login";
+import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
+import NotAllowSameEmail from "../../NotAllowPopup/NotAllowSameEmail";
+const clientId =
+  "555618407648-lkittruvsnt5jr327s088990pgv3bi9t.apps.googleusercontent.com";
+
 const LoginFlow = ({ mode, setMode }) => {
   const [showPass, setShowPass] = useState(false);
   const [name, setName] = useState(null);
@@ -36,6 +43,34 @@ const LoginFlow = ({ mode, setMode }) => {
       setMode("dark");
     }
   };
+
+  const {
+    logOut,
+    user,
+    setUser,
+    appleSignIn,
+    idToken,
+    setIdToken,
+    loginByGoogle,
+    accessToken,
+    setAccessToken,
+    setLoginByGoogle,
+    loading,
+    setLoading,
+    success,
+    fail,
+    notAllowSameEmail,
+    setNotAllowSameEmail,
+  } = UserAuth();
+
+  const handleAppleLogin = async () => {
+    try {
+      await appleSignIn();
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="login-flow-container">
       <Box
@@ -119,10 +154,16 @@ const LoginFlow = ({ mode, setMode }) => {
                 mb: "7px",
               }}
             >
-              <Button
-                startIcon={<GoogleIcon />}
+              <Box
                 sx={{
-                  color: "secondary.dark_gray",
+                  border: 2,
+                  borderRadius: "5px",
+                  borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
+                  "&:hover": {
+                    borderColor: `${mode === "dark" ? "white" : "black"}`,
+                    background: "rgb(7, 177, 77, 0.42)",
+                  },
+                  position: "relative",
                   width: {
                     md: "196px",
                     sm: "190px",
@@ -131,22 +172,63 @@ const LoginFlow = ({ mode, setMode }) => {
                     xxxs: "120px",
                   },
                   height: { xs: "64px", xxxs: "50px" },
-                  fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
-                  border: 2,
-                  borderRadius: "5px",
-                  borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
-                  "&.MuiButtonBase-root:hover": {
-                    borderColor: `${mode === "dark" ? "white" : "black"}`,
-                    bgcolor: "primary.main",
-                  },
-                  textTransform: "none",
-                  fontFamily: "Poppins",
-                  bgcolor: "primary.main",
                 }}
               >
-                Login with Google
-              </Button>
+                <Button
+                  startIcon={<GoogleIcon />}
+                  sx={{
+                    color: "secondary.dark_gray",
+                    width: "100%",
+                    height: "100%",
+                    fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                    "&.MuiButtonBase-root:hover": {
+                      bgcolor: "primary.main",
+                    },
+                    textTransform: "none",
+                    fontFamily: "Poppins",
+                    bgcolor: "primary.main",
+                    zIndex: "40",
+                  }}
+                >
+                  Login with Google
+                </Button>
+                <div
+                  style={{
+                    opacity: "0",
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    zIndex: "50",
+                    background: "blue",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  onClick={() => {
+                    setLoading(true);
+                  }}
+                >
+                  <GoogleLogin
+                    clientId={clientId}
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                        style={{ width: "100%", height: "100%" }}
+                      >
+                        This is my custom Google button
+                      </button>
+                    )}
+                    buttonText="Sign in with Google"
+                    onSuccess={success}
+                    onFailure={fail}
+                    cookiePolicy={"single_host_origin"}
+                    isSignedIn={false}
+                  />
+                </div>
+              </Box>
               <Button
+                onClick={handleAppleLogin}
                 startIcon={<AppleIcon />}
                 sx={{
                   color: "secondary.dark_gray",
@@ -273,6 +355,13 @@ const LoginFlow = ({ mode, setMode }) => {
         className="switchMode"
         onClick={switchMode}
       />
+      {loading && <LoadingSpinner />}{" "}
+      {notAllowSameEmail && (
+        <NotAllowSameEmail
+          mode={mode}
+          setNotAllowSameEmail={setNotAllowSameEmail}
+        />
+      )}
     </div>
   );
 };

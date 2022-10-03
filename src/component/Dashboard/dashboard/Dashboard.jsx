@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import "./logged.css";
+import "./dashboard.css";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Props from "../../Props/Props";
@@ -30,7 +30,9 @@ import MyProps from "../../MyProps/MyProps";
 import TransactionHistory from "../../TransactionHistory/TransactionHistory";
 import Clear from "@mui/icons-material/Clear";
 import AddAddress from "../../AddCash/AddAddress";
-export function Logged({ mode, setMode }) {
+import { UserAuth } from "../../../context/AuthContext";
+
+export function Dashboard({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -180,9 +182,6 @@ export function Logged({ mode, setMode }) {
   const [selectSrc, setSelectSrc] = useState("/mlb.png");
   const [selectColor, setSelectColor] = useState("blue");
 
-  const logout = () => {
-    navigate("/", { replace: true });
-  };
   const loggedRef = useRef();
   const loggedContainerRef = useRef();
 
@@ -190,6 +189,19 @@ export function Logged({ mode, setMode }) {
     loggedRef.current.scrollTop = 0;
     loggedContainerRef.current.scrollTop = 0;
   }, [location]);
+
+  const {
+    logOut,
+    user,
+    setUser,
+    appleSignIns,
+    idToken,
+    setIdToken,
+    loginByGoogle,
+    accessToken,
+    setAccessToken,
+    setLoginByGoogle,
+  } = UserAuth();
   return (
     <div className="logged-container" ref={loggedContainerRef}>
       <Box
@@ -463,7 +475,9 @@ export function Logged({ mode, setMode }) {
                         textAlign: "end",
                         cursor: "pointer",
                       }}
-                      onClick={() => logout()}
+                      onClick={() => {
+                        logOut();
+                      }}
                     >
                       Log Out
                     </Box>
@@ -550,8 +564,9 @@ export function Logged({ mode, setMode }) {
                 mt: "20px",
               }}
             >
-              {sideBar.map((e) => (
+              {sideBar.map((e, index) => (
                 <Box
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: { lg: "row", sm: "column", xxxs: "row" },
@@ -625,8 +640,9 @@ export function Logged({ mode, setMode }) {
               >
                 Other
               </Typography>
-              {sideBarOther.map((e) => (
+              {sideBarOther.map((e, index) => (
                 <Box
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: { lg: "row", sm: "column", xxxs: "row" },

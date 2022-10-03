@@ -100,8 +100,9 @@ export default function Detail({
               bgcolor: "secondary.dark_gray",
             }}
           ></Box>
-          {detailData.map((e) => (
+          {detailData.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 width: "100%",
                 display: "flex",

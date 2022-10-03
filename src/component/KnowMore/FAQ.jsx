@@ -74,8 +74,9 @@ export default function FAQ() {
           About
         </Typography>
       </Box>
-      {FAQnote.map((e) => (
+      {FAQnote.map((e, index) => (
         <Box
+          key={index}
           sx={{
             width: "90%",
             borderBottom: "1px solid #494949",

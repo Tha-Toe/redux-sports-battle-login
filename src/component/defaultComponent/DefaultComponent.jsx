@@ -211,7 +211,6 @@ export function PasswordInputComponent({
         placeholder={placeholder}
         type={showPass ? "text" : "password"}
         variant="outlined"
-        disableUnderline
         className={`${"input-component"} ${
           mode !== "dark" && "input-light-mode"
         }`}
@@ -308,7 +307,6 @@ export function PasswordInputComponentLogin({
         placeholder={placeholder}
         type={showPass ? "text" : "password"}
         variant="outlined"
-        disableUnderline
         className={`${"input-component"} ${
           mode !== "dark" && "input-light-mode"
         }`}

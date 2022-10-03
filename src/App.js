@@ -18,10 +18,26 @@ import CreateUserName from "./component/SignUp/createUserName/CreateUserName";
 import EnterYourName from "./component/SignUp/enter-your-name/EnterYourName";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CheckMail from "./component/Forgot/checkMail/CheckMail";
-import { Logged } from "./component/Logged/Logged/Logged";
+import { Dashboard } from "./component/Dashboard/dashboard/Dashboard";
 import { useContext, useState, useEffect, useRef } from "react";
+import Protected from "./protected/Protected";
+import Redirect from "./protected/Redirect";
+import { gapi } from "gapi-script";
+
+const clientId =
+  "555618407648-lkittruvsnt5jr327s088990pgv3bi9t.apps.googleusercontent.com";
 
 function App() {
+  useEffect(() => {
+    const initClient = () => {
+      gapi.auth2.init({
+        clientId: clientId,
+        scope: "",
+      });
+    };
+    gapi.load("auth2", initClient);
+  });
+
   const [mode, setMode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
@@ -106,7 +122,11 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<LoginFlow mode={mode} setMode={setMode} />}
+              element={
+                <Redirect>
+                  <LoginFlow mode={mode} setMode={setMode} />
+                </Redirect>
+              }
             />
             <Route
               path="/choose"
@@ -148,7 +168,11 @@ function App() {
             />
             <Route
               path="/logged"
-              element={<Logged mode={mode} setMode={setMode} />}
+              element={
+                <Protected>
+                  <Dashboard mode={mode} setMode={setMode} />
+                </Protected>
+              }
             />
           </Routes>
         </BrowserRouter>

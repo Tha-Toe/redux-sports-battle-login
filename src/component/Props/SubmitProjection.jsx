@@ -23,9 +23,7 @@ const SubmitProjection = ({
   useEffect(() => {
     if (selectCardId.length === 0) {
       setStartSelect(false);
-      console.log("false");
     } else {
-      console.log("true");
       setStartSelect(true);
       if (selectCardId.length > 1) {
         setMoreThanOneCard(true);

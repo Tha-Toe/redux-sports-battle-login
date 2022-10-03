@@ -104,8 +104,8 @@ export default function MyWithDraw({ mode }) {
         }}
       ></Box>
       <Grid container sx={{ width: "100%" }}>
-        {detail.map((e) => (
-          <Grid item md={6} xxxs={12} sx={{ mb: "12px" }}>
+        {detail.map((e, index) => (
+          <Grid item md={6} xxxs={12} sx={{ mb: "12px" }} key={index}>
             <Card
               sx={{
                 display: "flex",

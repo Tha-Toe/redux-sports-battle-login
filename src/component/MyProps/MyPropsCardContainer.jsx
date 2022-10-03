@@ -276,8 +276,8 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                   mt: "8px",
                 }}
               >
-                {e.start.map((each) => (
-                  <img src={each} style={{ marginRight: "6px" }} />
+                {e.start.map((each, index) => (
+                  <img src={each} key={index} style={{ marginRight: "6px" }} />
                 ))}
               </Box>
               <Box

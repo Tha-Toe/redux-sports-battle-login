@@ -238,8 +238,9 @@ export default function KnowMore({ mode }) {
             ref={sportsRef}
           >
             <div className="statsChild">
-              {overUnderNav.map((e) => (
+              {overUnderNav.map((e, index) => (
                 <Box
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -350,8 +351,9 @@ export default function KnowMore({ mode }) {
               mb: "12px",
             }}
           ></Box>
-          {general.map((e) => (
+          {general.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -422,8 +424,9 @@ export default function KnowMore({ mode }) {
               mb: "12px",
             }}
           ></Box>
-          {legal.map((e) => (
+          {legal.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 display: "flex",
                 flexDirection: "row",

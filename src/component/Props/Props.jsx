@@ -500,8 +500,9 @@ export default function Props({
           ref={sportsRef}
         >
           <div className="statsChild" ref={propsChildRef}>
-            {propsNav.map((e) => (
+            {propsNav.map((e, index) => (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -588,8 +589,9 @@ export default function Props({
               width: { xs: "50%", xxxs: "55%" },
             }}
           >
-            {propsGuide.map((e) => (
+            {propsGuide.map((e, index) => (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   flexDirection: { sm: "row", xxxs: "column" },
@@ -777,8 +779,9 @@ export default function Props({
           </Typography>
           <div className="matchesContainer" ref={matchsRef}>
             <div className="matchesChild">
-              {matches.map((e) => (
+              {matches.map((e, index) => (
                 <div
+                  key={index}
                   className="matchesButton"
                   style={{
                     background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,

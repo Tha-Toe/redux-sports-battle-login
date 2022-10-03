@@ -96,8 +96,9 @@ export default function ChooseAWithDraw({ setOpenTag }) {
           Choose a withdraw method{" "}
         </Typography>
       </Box>
-      {chooseType.map((e) => (
+      {chooseType.map((e, index) => (
         <Box
+          key={index}
           sx={{
             width: "100%",
             display: "flex",
