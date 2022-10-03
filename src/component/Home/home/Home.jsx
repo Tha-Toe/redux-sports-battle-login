@@ -590,12 +590,11 @@ export function Home({ mode, setMode }) {
                   }}
                 >
                   <Box sx={{ width: "auto" }}>
-                    <img
-                      src={
-                        openTag === e.activeName ? e.activeSrc : e.unactiveSrc
-                      }
-                      className="side-bar-icon"
-                    />
+                    {openTag === e.activeName ? (
+                      <img src={e.activeSrc} className="side-bar-icon" />
+                    ) : (
+                      <img src={e.unactiveSrc} className="side-bar-icon" />
+                    )}
                   </Box>
                   <Typography
                     sx={{
@@ -665,10 +664,11 @@ export function Home({ mode, setMode }) {
                     e.func();
                   }}
                 >
-                  <img
-                    src={openTag === e.activeName ? e.activeSrc : e.unactiveSrc}
-                    className="other-logo"
-                  />
+                  {openTag === e.activeName ? (
+                    <img src={e.activeSrc} className="other-logo" />
+                  ) : (
+                    <img src={e.unactiveSrc} className="other-logo" />
+                  )}
                   <Typography
                     sx={{
                       fontFamily: "poppins",
