@@ -11,8 +11,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { UserAuth } from "../../context/AuthContext";
 
 export default function ProfileComplete({ mode, setOpenTag }) {
+  const { user } = UserAuth();
   return (
     <Box
       sx={{
@@ -32,7 +34,7 @@ export default function ProfileComplete({ mode, setOpenTag }) {
           mt: "26px",
         }}
       >
-        JohnSmith
+        {user && user.userName}
       </Typography>
       <Box
         sx={{
