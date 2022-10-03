@@ -23,6 +23,7 @@ import SelectAddressPaperCheck from "./SelectAddressPaperCheck";
 import AddPhoneNumber from "./AddPhoneNumber";
 import VerifycationCode from "./VerifycationCode";
 import AccountSetup from "./AccountSetup";
+import { UserAuth } from "../../context/AuthContext";
 
 export default function MyProfile({
   mode,
@@ -120,13 +121,12 @@ export default function MyProfile({
   const [openTag, setOpenTag] = useState("profile");
   const [alreadyChooseWidthDraw, setAlreadyChooseWidthDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);
-  useEffect(() => {
-    console.log(openTag);
-  }, [openTag]);
 
   const [address, setAddress] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [verify, setVerify] = useState(false);
+
+  const { user } = UserAuth();
 
   if (openTag === "WidthDrawCash") {
     return (
@@ -236,7 +236,7 @@ export default function MyProfile({
                 justifyContent: "center",
               }}
             >
-              JS
+              {user && user.firstNameLetter}
             </Typography>
             <Box
               sx={{
@@ -254,7 +254,7 @@ export default function MyProfile({
                   color: "secondary.main",
                 }}
               >
-                John Smith{" "}
+                {user && user.userName}
               </Typography>
               <Typography
                 sx={{
@@ -265,7 +265,7 @@ export default function MyProfile({
                   mt: "2px",
                 }}
               >
-                johnsmith{" "}
+                {user && user.userName.split(" ").join("").toLowerCase()}
               </Typography>
             </Box>
           </Box>
@@ -326,7 +326,7 @@ export default function MyProfile({
                 mt: "11px",
               }}
             >
-              johnsmith@gmail.com{" "}
+              {user && user.email}
             </Typography>
           </Box>
           <Box

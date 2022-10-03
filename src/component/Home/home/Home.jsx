@@ -55,6 +55,9 @@ export function Home({ mode, setMode }) {
     setOpenSideNav(false);
     setOpenTag("email-prefrence");
   };
+  const supportChatOpen = () => {
+    return;
+  };
   const myProfileOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
@@ -154,6 +157,7 @@ export function Home({ mode, setMode }) {
       activeSrc: "/nomore-active.png",
       unactiveSrc: "/nomore-unactive.png",
       activeName: "support-chat",
+      func: supportChatOpen,
     },
   ]);
 
@@ -423,7 +427,7 @@ export function Home({ mode, setMode }) {
                     alignItems: "center",
                   }}
                 >
-                  JD
+                  {user && user.firstNameLetter}
                 </Box>
                 {/* <img src="/profile.png" className="accountImage" /> */}
                 {openDropDown ? (

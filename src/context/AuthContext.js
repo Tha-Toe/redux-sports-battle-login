@@ -43,6 +43,12 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const appleUser = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        //get user name
+        let userName = currentUser.displayName.replace("+", " ").toString();
+        currentUser.userName = userName;
+        //get first name letter
+        let firstNameLetter = currentUser.displayName.slice(0, 2);
+        currentUser.firstNameLetter = firstNameLetter;
         setUser(currentUser);
         setLoading(false);
         console.log(currentUser);
