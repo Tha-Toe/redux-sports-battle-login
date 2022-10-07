@@ -39,7 +39,6 @@ export const AuthContextProvider = ({ children }) => {
   //   console.log(err);
   // };
 
-  //apple login
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -74,8 +73,6 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = async () => {
     setLoginByGoogle(true);
     setLoading(true);
-    // const googleProvider = new auth.GoogleAuthProvider();
-    // googleProvider.setCustomParameters({ prompt: "select_account" });
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider);
   };
