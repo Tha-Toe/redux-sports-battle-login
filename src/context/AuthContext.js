@@ -41,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
   //apple login
   useEffect(() => {
-    const appleUser = onAuthStateChanged(auth, async (currentUser) => {
+    const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
@@ -58,7 +58,7 @@ export const AuthContextProvider = ({ children }) => {
       }
     });
     return () => {
-      appleUser();
+      firebaseUser();
     };
   }, []);
 
