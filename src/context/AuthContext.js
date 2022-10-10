@@ -63,54 +63,59 @@ export const AuthContextProvider = ({ children }) => {
     var aa = await signInWithPopup(auth, appleProvider);
     // console.log(aa.user);
     var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
-    if (!aa.user.accessToken) {
-      // console.log("Apple Sign-In failed - no identify token returned");
-      setErrorPopUp("Apple Sign-In failed - no identify token returned");
-      setLoading(false);
-    } else if (!aa.user.email) {
-      // console.log(
-      //   "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
-      // );
-      setErrorPopUp(
-        "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
-      );
-      setLoading(false);
-    } else if (methods.length >= 1 && methods[0] !== "apple.com") {
-      setErrorPopUp(
-        `You have previously logged in with ${methods[0]}. please use the same method to login.`
-      );
-      console.log(
-        `you have previously logged in with ${methods[0]}. please use the same method to login.`
-      );
-      setLoading(false);
-    } else {
-      const credential = OAuthProvider.credentialFromResult(aa);
-      if (credential) {
-        var firebaseUser = await signInWithCredential(auth, credential);
-        if (firebaseUser) {
-          var current_user = auth.currentUser;
-          console.log(auth.currentUser);
-          if (firebaseUser.user.uid === current_user.uid) {
-            console.log(current_user);
-            //get user name
-            let userName =
-              current_user.displayName &&
-              current_user.displayName.replace("+", " ").toString();
+    console.log(methods);
+    // if (methods.length >= 1 && methods[0] !== "apple.com") {
+    //   console.log(true);
+    // } else {
+    //   console.log(false);
+    // }
+    // if (!aa.user.accessToken) {
+    //   // console.log("Apple Sign-In failed - no identify token returned");
+    //   setErrorPopUp("Apple Sign-In failed - no identify token returned");
+    //   setLoading(false);
+    // } else if (!aa.user.email) {
+    //   // console.log(
+    //   //   "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
+    //   // );
+    //   setErrorPopUp(
+    //     "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
+    //   );
+    //   setLoading(false);
+    // } else if (methods.length >= 1 && methods[0] !== "apple.com") {
+    //   setErrorPopUp(
+    //     `You have previously logged in with ${methods[0]}. please use the same method to login.`
+    //   );
+    //   console.log(
+    //     `you have previously logged in with ${methods[0]}. please use the same method to login.`
+    //   );
+    //   setLoading(false);
+    // }
+    const credential = OAuthProvider.credentialFromResult(aa);
+    if (credential) {
+      var firebaseUser = await signInWithCredential(auth, credential);
+      if (firebaseUser) {
+        var current_user = auth.currentUser;
+        console.log(auth.currentUser);
+        if (firebaseUser.user.uid === current_user.uid) {
+          console.log(current_user);
+          //get user name
+          let userName =
+            current_user.displayName &&
+            current_user.displayName.replace("+", " ").toString();
 
-            current_user.userName = userName;
-            //get first name letter
+          current_user.userName = userName;
+          //get first name letter
 
-            let firstNameLetter =
-              current_user.displayName &&
-              current_user.displayName.slice(0, 2).toUpperCase();
-            current_user.firstNameLetter = firstNameLetter;
-            setUser(current_user);
-            setLoading(false);
-            // console.log(current_user);
-            const token = await getIdToken(current_user);
-            setIdToken(token);
-            setAccessToken(current_user.accessToken);
-          }
+          let firstNameLetter =
+            current_user.displayName &&
+            current_user.displayName.slice(0, 2).toUpperCase();
+          current_user.firstNameLetter = firstNameLetter;
+          setUser(current_user);
+          setLoading(false);
+          // console.log(current_user);
+          const token = await getIdToken(current_user);
+          setIdToken(token);
+          setAccessToken(current_user.accessToken);
         }
       }
     }
@@ -126,40 +131,38 @@ export const AuthContextProvider = ({ children }) => {
     // console.log(aa.user);
 
     var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
+    console.log(methods);
     // console.log(methods);
-    if (methods.length >= 1 && methods[0] !== "google.com") {
-      setErrorPopUp(
-        `You have previously logged in with ${methods[0]}. please use the same method to login.`
-      );
-      // console.log(
-      //   `you have previously logged in with ${methods[0]}. please use the same method to login.`
-      // );
-      setLoading(false);
-    } else {
-      // console.log(methods[0]);
-      const credential = OAuthProvider.credentialFromResult(aa);
-      if (credential) {
-        var firebaseUser = await signInWithCredential(auth, credential);
-        if (firebaseUser) {
-          var current_user = auth.currentUser;
-          if (firebaseUser.user.uid === current_user.uid) {
-            //get user name
-            let userName = current_user.displayName
-              .replace("+", " ")
-              .toString();
-            current_user.userName = userName;
-            //get first name letter
-            let firstNameLetter = current_user.displayName
-              .slice(0, 2)
-              .toUpperCase();
-            current_user.firstNameLetter = firstNameLetter;
-            setUser(current_user);
-            setLoading(false);
-            // console.log(current_user);
-            const token = await getIdToken(current_user);
-            setIdToken(token);
-            setAccessToken(current_user.accessToken);
-          }
+    // if (methods.length >= 1 && methods[0] !== "google.com") {
+    //   setErrorPopUp(
+    //     `You have previously logged in with ${methods[0]}. please use the same method to login.`
+    //   );
+    //   // console.log(
+    //   //   `you have previously logged in with ${methods[0]}. please use the same method to login.`
+    //   // );
+    //   setLoading(false);
+    // };
+    // console.log(methods[0]);
+    const credential = OAuthProvider.credentialFromResult(aa);
+    if (credential) {
+      var firebaseUser = await signInWithCredential(auth, credential);
+      if (firebaseUser) {
+        var current_user = auth.currentUser;
+        if (firebaseUser.user.uid === current_user.uid) {
+          //get user name
+          let userName = current_user.displayName.replace("+", " ").toString();
+          current_user.userName = userName;
+          //get first name letter
+          let firstNameLetter = current_user.displayName
+            .slice(0, 2)
+            .toUpperCase();
+          current_user.firstNameLetter = firstNameLetter;
+          setUser(current_user);
+          setLoading(false);
+          // console.log(current_user);
+          const token = await getIdToken(current_user);
+          setIdToken(token);
+          setAccessToken(current_user.accessToken);
         }
       }
     }
