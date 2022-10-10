@@ -7,15 +7,10 @@ import {
   OAuthProvider,
   getIdToken,
   GoogleAuthProvider,
+  signInWithCredential,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-} from "firebase/firestore";
+
 import { auth } from "../firebase";
 const AuthContext = createContext();
 
@@ -65,7 +60,40 @@ export const AuthContextProvider = ({ children }) => {
     setLoginByGoogle(false);
     setLoading(true);
     const appleProvider = new OAuthProvider("apple.com");
-    await signInWithPopup(auth, appleProvider);
+    var aa = await signInWithPopup(auth, appleProvider);
+    console.log(aa.user);
+    if (!aa.user.accessToken) {
+      console.log("Apple Sign-In failed - no identify token returned");
+    }
+
+    if (!aa.user.email) {
+      console.log(
+        "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
+      );
+    }
+
+    var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
+
+    if (methods.length >= 1 && methods[0] !== "apple.com") {
+      console.log(
+        `you have previously logged in with ${methods[0]}. please use the same method to login.`
+      );
+    }
+
+    const credential = OAuthProvider.credentialFromResult(aa);
+    if (credential) {
+      var firebaseUser = await signInWithCredential(auth, credential);
+      if (firebaseUser) {
+        var current_user = auth.currentUser;
+        if (firebaseUser.user.uid === current_user.uid) {
+          setUser(current_user);
+          var name = current_user.displayName;
+          //console.log(name);
+          //console.log(current_user);
+          //getUserInfoFromFirebaseUser(current_user,name);
+        }
+      }
+    }
   };
 
   //google signIn
@@ -73,8 +101,41 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = async () => {
     setLoginByGoogle(true);
     setLoading(true);
-    const googleProvider = new GoogleAuthProvider();
-    await signInWithPopup(auth, googleProvider);
+    const googleProvider = new OAuthProvider("google.com");
+    var aa = await signInWithPopup(auth, googleProvider);
+    console.log(aa.user);
+    if (!aa.user.accessToken) {
+      console.log("Apple Sign-In failed - no identify token returned");
+    }
+
+    if (!aa.user.email) {
+      console.log(
+        "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
+      );
+    }
+
+    var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
+
+    if (methods.length >= 1 && methods[0] !== "apple.com") {
+      console.log(
+        `you have previously logged in with ${methods[0]}. please use the same method to login.`
+      );
+    }
+
+    const credential = OAuthProvider.credentialFromResult(aa);
+    if (credential) {
+      var firebaseUser = await signInWithCredential(auth, credential);
+      if (firebaseUser) {
+        var current_user = auth.currentUser;
+        if (firebaseUser.user.uid === current_user.uid) {
+          setUser(current_user);
+          var name = current_user.displayName;
+          //console.log(name);
+          //console.log(current_user);
+          //getUserInfoFromFirebaseUser(current_user,name);
+        }
+      }
+    }
   };
 
   //logout
