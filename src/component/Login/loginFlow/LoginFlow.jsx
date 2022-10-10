@@ -57,8 +57,8 @@ const LoginFlow = ({ mode, setMode }) => {
     setLoginByGoogle,
     loading,
     setLoading,
-    notAllowSameEmail,
-    setNotAllowSameEmail,
+    errorPopUp,
+    setErrorPopUp,
     // success,
     // fail,
     googleSignIn,
@@ -381,10 +381,11 @@ const LoginFlow = ({ mode, setMode }) => {
         onClick={switchMode}
       />
       {loading && <LoadingSpinner />}{" "}
-      {notAllowSameEmail && (
+      {errorPopUp && (
         <NotAllowSameEmail
           mode={mode}
-          setNotAllowSameEmail={setNotAllowSameEmail}
+          setErrorPopUp={setErrorPopUp}
+          errorPopUp={errorPopUp}
         />
       )}
     </div>

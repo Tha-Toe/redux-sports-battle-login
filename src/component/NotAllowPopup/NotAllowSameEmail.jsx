@@ -4,8 +4,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import Clear from "@mui/icons-material/Clear";
+import ReportIcon from "@mui/icons-material/Report";
+import PriorityHigh from "@mui/icons-material/PriorityHigh";
 
-const NotAllowSameEmail = ({ mode, setNotAllowSameEmail }) => {
+const NotAllowSameEmail = ({ mode, setErrorPopUp, errorPopUp }) => {
   return (
     <Box
       sx={{
@@ -26,16 +28,17 @@ const NotAllowSameEmail = ({ mode, setNotAllowSameEmail }) => {
     >
       <Box
         sx={{
-          width: { sm: "444px", xxxs: "90%" },
+          width: { sm: "500px", xxxs: "90%" },
           bgcolor: "primary.dark",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "10px",
         }}
       >
-        <Clear
+        <PriorityHigh
           sx={{
-            bgcolor: "#E4313C",
+            bgcolor: "#E4313c",
             color: "black",
             borderRadius: "50%",
             fontSize: { xs: "40px", xxxs: "30px" },
@@ -48,10 +51,12 @@ const NotAllowSameEmail = ({ mode, setNotAllowSameEmail }) => {
             fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
             fontWeight: 700,
             fontFamily: "poppins",
-            mt: "16px",
+            mt: "36px",
+            textAlign: "center",
+            width: "80%",
           }}
         >
-          We are not allow.
+          {errorPopUp}
         </Typography>
         <Button
           sx={{
@@ -64,15 +69,15 @@ const NotAllowSameEmail = ({ mode, setNotAllowSameEmail }) => {
             "&.MuiButtonBase-root:hover": {
               background: "#4831D4",
             },
-            mt: "24px",
+            mt: "34px",
             mb: "32px",
             textTransform: "none",
           }}
           onClick={() => {
-            setNotAllowSameEmail(false);
+            setErrorPopUp(null);
           }}
         >
-          Go Back
+          Ok
         </Button>
       </Box>
     </Box>
