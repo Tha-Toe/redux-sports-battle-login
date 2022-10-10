@@ -25,10 +25,14 @@ export const AuthContextProvider = ({ children }) => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         //get user name
-        let userName = currentUser.displayName.replace("+", " ").toString();
+        let userName =
+          currentUser.displayName &&
+          currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
         //get first name letter
-        let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
+        let firstNameLetter =
+          currentUser.displayName &&
+          currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         setUser(currentUser);
         setLoading(false);
