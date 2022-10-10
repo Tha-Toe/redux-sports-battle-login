@@ -79,9 +79,9 @@ export const AuthContextProvider = ({ children }) => {
       setErrorPopUp(
         `You have previously logged in with ${methods[0]}. please use the same method to login.`
       );
-      // console.log(
-      //   `you have previously logged in with ${methods[0]}. please use the same method to login.`
-      // );
+      console.log(
+        `you have previously logged in with ${methods[0]}. please use the same method to login.`
+      );
       setLoading(false);
     } else {
       const credential = OAuthProvider.credentialFromResult(aa);
@@ -89,16 +89,20 @@ export const AuthContextProvider = ({ children }) => {
         var firebaseUser = await signInWithCredential(auth, credential);
         if (firebaseUser) {
           var current_user = auth.currentUser;
+          console.log(auth.currentUser);
           if (firebaseUser.user.uid === current_user.uid) {
+            console.log(current_user);
             //get user name
-            let userName = current_user.displayName
-              .replace("+", " ")
-              .toString();
+            let userName =
+              current_user.displayName &&
+              current_user.displayName.replace("+", " ").toString();
+
             current_user.userName = userName;
             //get first name letter
-            let firstNameLetter = current_user.displayName
-              .slice(0, 2)
-              .toUpperCase();
+
+            let firstNameLetter =
+              current_user.displayName &&
+              current_user.displayName.slice(0, 2).toUpperCase();
             current_user.firstNameLetter = firstNameLetter;
             setUser(current_user);
             setLoading(false);
