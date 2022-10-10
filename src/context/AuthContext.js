@@ -51,10 +51,11 @@ export const AuthContextProvider = ({ children }) => {
     setLoginByGoogle(false);
     setLoading(true);
     const appleProvider = new OAuthProvider("apple.com");
-    var aa = await signInWithPopup(auth, appleProvider);
-    // console.log(aa.user);
-    var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
-    console.log(methods);
+    await signInWithPopup(auth, appleProvider);
+    // var aa = await signInWithPopup(auth, appleProvider);
+    // // console.log(aa.user);
+    // var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
+    // console.log(methods);
     // if (methods.length >= 1 && methods[0] !== "apple.com") {
     //   console.log(true);
     // } else {
@@ -81,35 +82,35 @@ export const AuthContextProvider = ({ children }) => {
     //   );
     //   setLoading(false);
     // }
-    const credential = OAuthProvider.credentialFromResult(aa);
-    if (credential) {
-      var firebaseUser = await signInWithCredential(auth, credential);
-      if (firebaseUser) {
-        var current_user = auth.currentUser;
-        console.log(auth.currentUser);
-        if (firebaseUser.user.uid === current_user.uid) {
-          console.log(current_user);
-          //get user name
-          let userName =
-            current_user.displayName &&
-            current_user.displayName.replace("+", " ").toString();
+    // const credential = OAuthProvider.credentialFromResult(aa);
+    // if (credential) {
+    //   var firebaseUser = await signInWithCredential(auth, credential);
+    //   if (firebaseUser) {
+    //     var current_user = auth.currentUser;
+    //     console.log(auth.currentUser);
+    //     if (firebaseUser.user.uid === current_user.uid) {
+    //       console.log(current_user);
+    //       //get user name
+    //       let userName =
+    //         current_user.displayName &&
+    //         current_user.displayName.replace("+", " ").toString();
 
-          current_user.userName = userName;
-          //get first name letter
+    //       current_user.userName = userName;
+    //       //get first name letter
 
-          let firstNameLetter =
-            current_user.displayName &&
-            current_user.displayName.slice(0, 2).toUpperCase();
-          current_user.firstNameLetter = firstNameLetter;
-          setUser(current_user);
-          setLoading(false);
-          // console.log(current_user);
-          const token = await getIdToken(current_user);
-          setIdToken(token);
-          setAccessToken(current_user.accessToken);
-        }
-      }
-    }
+    //       let firstNameLetter =
+    //         current_user.displayName &&
+    //         current_user.displayName.slice(0, 2).toUpperCase();
+    //       current_user.firstNameLetter = firstNameLetter;
+    //       setUser(current_user);
+    //       setLoading(false);
+    //       // console.log(current_user);
+    //       const token = await getIdToken(current_user);
+    //       setIdToken(token);
+    //       setAccessToken(current_user.accessToken);
+    //     }
+    //   }
+    // }
   };
 
   //google signIn
@@ -118,11 +119,13 @@ export const AuthContextProvider = ({ children }) => {
     setLoginByGoogle(true);
     setLoading(true);
     const googleProvider = new GoogleAuthProvider();
-    var aa = await signInWithPopup(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider);
+
+    // var aa = await signInWithPopup(auth, googleProvider);
     // console.log(aa.user);
 
-    var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
-    console.log(methods);
+    // var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
+    // console.log(methods);
     // console.log(methods);
     // if (methods.length >= 1 && methods[0] !== "google.com") {
     //   setErrorPopUp(
@@ -134,29 +137,29 @@ export const AuthContextProvider = ({ children }) => {
     //   setLoading(false);
     // };
     // console.log(methods[0]);
-    const credential = OAuthProvider.credentialFromResult(aa);
-    if (credential) {
-      var firebaseUser = await signInWithCredential(auth, credential);
-      if (firebaseUser) {
-        var current_user = auth.currentUser;
-        if (firebaseUser.user.uid === current_user.uid) {
-          //get user name
-          let userName = current_user.displayName.replace("+", " ").toString();
-          current_user.userName = userName;
-          //get first name letter
-          let firstNameLetter = current_user.displayName
-            .slice(0, 2)
-            .toUpperCase();
-          current_user.firstNameLetter = firstNameLetter;
-          setUser(current_user);
-          setLoading(false);
-          // console.log(current_user);
-          const token = await getIdToken(current_user);
-          setIdToken(token);
-          setAccessToken(current_user.accessToken);
-        }
-      }
-    }
+    // const credential = OAuthProvider.credentialFromResult(aa);
+    // if (credential) {
+    //   var firebaseUser = await signInWithCredential(auth, credential);
+    //   if (firebaseUser) {
+    //     var current_user = auth.currentUser;
+    //     if (firebaseUser.user.uid === current_user.uid) {
+    //       //get user name
+    //       let userName = current_user.displayName.replace("+", " ").toString();
+    //       current_user.userName = userName;
+    //       //get first name letter
+    //       let firstNameLetter = current_user.displayName
+    //         .slice(0, 2)
+    //         .toUpperCase();
+    //       current_user.firstNameLetter = firstNameLetter;
+    //       setUser(current_user);
+    //       setLoading(false);
+    //       // console.log(current_user);
+    //       const token = await getIdToken(current_user);
+    //       setIdToken(token);
+    //       setAccessToken(current_user.accessToken);
+    //     }
+    //   }
+    // }
   };
 
   //logout
