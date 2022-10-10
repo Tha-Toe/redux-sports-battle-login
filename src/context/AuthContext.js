@@ -34,27 +34,27 @@ export const AuthContextProvider = ({ children }) => {
   //   console.log(err);
   // };
 
-  // useEffect(() => {
-  //   const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
-  //     if (currentUser) {
-  //       //get user name
-  //       let userName = currentUser.displayName.replace("+", " ").toString();
-  //       currentUser.userName = userName;
-  //       //get first name letter
-  //       let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
-  //       currentUser.firstNameLetter = firstNameLetter;
-  //       setUser(currentUser);
-  //       setLoading(false);
-  //       // console.log(currentUser);
-  //       const token = await getIdToken(currentUser);
-  //       setIdToken(token);
-  //       setAccessToken(currentUser.accessToken);
-  //     }
-  //   });
-  //   return () => {
-  //     firebaseUser();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        //get user name
+        let userName = currentUser.displayName.replace("+", " ").toString();
+        currentUser.userName = userName;
+        //get first name letter
+        let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
+        currentUser.firstNameLetter = firstNameLetter;
+        setUser(currentUser);
+        setLoading(false);
+        // console.log(currentUser);
+        const token = await getIdToken(currentUser);
+        setIdToken(token);
+        setAccessToken(currentUser.accessToken);
+      }
+    });
+    return () => {
+      firebaseUser();
+    };
+  }, []);
 
   const appleSignIn = async () => {
     setLoginByGoogle(false);
