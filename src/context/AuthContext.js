@@ -21,19 +21,6 @@ export const AuthContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  //google login
-  // const success = (res) => {
-  //   console.log("success:", res);
-  //   setUser(res.profileObj);
-  //   setAccessToken(res.accessToken);
-  //   setIdToken(res.tokenId);
-  //   setLoading(false);
-  // };
-  // const fail = (err) => {
-  //   setLoading(false);
-  //   console.log(err);
-  // };
-
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
