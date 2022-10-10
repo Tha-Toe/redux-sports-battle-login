@@ -101,22 +101,13 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = async () => {
     setLoginByGoogle(true);
     setLoading(true);
-    const googleProvider = new OAuthProvider("google.com");
+    const googleProvider = new GoogleAuthProvider();
     var aa = await signInWithPopup(auth, googleProvider);
     console.log(aa.user);
-    if (!aa.user.accessToken) {
-      console.log("Apple Sign-In failed - no identify token returned");
-    }
-
-    if (!aa.user.email) {
-      console.log(
-        "Please go to settings -> iCloud -> Password & Security -> Apps using your Apple ID and remove the app"
-      );
-    }
 
     var methods = await fetchSignInMethodsForEmail(auth, aa.user.email);
 
-    if (methods.length >= 1 && methods[0] !== "apple.com") {
+    if (methods.length >= 1 && methods[0] !== "google.com") {
       console.log(
         `you have previously logged in with ${methods[0]}. please use the same method to login.`
       );
