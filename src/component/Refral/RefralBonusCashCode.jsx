@@ -3,15 +3,13 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Typography, Button, Input } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./refralBonus.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-export default function RefralBonusCashCode({ number, setNumber }) {
+export default function RefralBonusCashCode() {
   let navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
   const [disableVerify, setDisableVerify] = useState(true);

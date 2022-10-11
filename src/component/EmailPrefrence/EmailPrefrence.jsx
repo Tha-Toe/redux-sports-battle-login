@@ -1,19 +1,11 @@
 import React, { useContext } from "react";
-import AppBar from "@mui/material/AppBar";
+import "./emailPrefrence.css";
 import Box from "@mui/material/Box";
-
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import "./emailPrefrence.css";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import MenuIcon from "@mui/icons-material/Menu";
-import ClearIcon from "@mui/icons-material/Clear";
-
-import SettingsIcon from "@mui/icons-material/Settings";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EmailPrefrence({ setOpenTag }) {
   const [emailSettingStore, setEmailSettingStore] = useState([
@@ -25,8 +17,6 @@ export default function EmailPrefrence({ setOpenTag }) {
     { name: "When I withdraw cash ", open: true },
     { name: "When I win game plays", open: true },
   ]);
-
-  const [selectSports, setSelectSports] = useState("MLB");
 
   const onOffFunction = (index) => {
     let emailSettingStoreToChange = emailSettingStore;

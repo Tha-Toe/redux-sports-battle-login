@@ -1,27 +1,7 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Input,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
 import "./addCash.css";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import SelectDepositOption from "./SelectDepositOption";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useNavigate } from "react-router-dom";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import AddIcon from "@mui/icons-material/Add";
 import Clear from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 export default function SelectState({ setOpenStatePicker, mode }) {

@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import "./props.css";
 import RemoveIcon from "@mui/icons-material/Remove";
 export function AndresCard({
@@ -79,7 +79,6 @@ export function AndresCard({
           sx={{
             display: "flex",
             justifyContent: "center",
-            // background: `${e.selectColor}`,
             background: "#4831D4",
             borderRadius: "4px",
             padding: "5px",

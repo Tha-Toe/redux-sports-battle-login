@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 
@@ -12,23 +12,19 @@ import Props from "../../Props/Props";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MenuIcon from "@mui/icons-material/Menu";
-import ClearIcon from "@mui/icons-material/Clear";
 import AddCash from "../../AddCash/AddCash";
 import NewAddCashVerify from "../../AddCash/NewAddCashVerify";
 import NewAddCashForm from "../../AddCash/NewAddCashForm";
 import Address from "../../AddCash/Address";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RefralBonusCashRandoom from "../../Refral/RefralBonusCashRandoom";
 import VerifyPhoneNumberCode from "../../Refral/VerifyPhoneNumberCode";
 import RefralBonusCashCode from "../../Refral/RefralBonusCashCode";
 import KnowMore from "../../KnowMore/KnowMore";
 import BonusOffer from "../../BonusOffer/BonusOffer";
 import MyProfile from "../../MyProfile/MyProfile";
-import SettingsIcon from "@mui/icons-material/Settings";
 import EmailPrefrence from "../../EmailPrefrence/EmailPrefrence";
 import MyProps from "../../MyProps/MyProps";
 import TransactionHistory from "../../TransactionHistory/TransactionHistory";
-import Clear from "@mui/icons-material/Clear";
 import AddAddress from "../../AddCash/AddAddress";
 import { UserAuth } from "../../../context/AuthContext";
 
@@ -167,11 +163,6 @@ export function Home({ mode, setMode }) {
 
   const [openInviteFriend, setOpenInviteFriend] = useState(false);
 
-  // onClick={() => {
-  //   goRefralBonusCashRadeem();
-  //   setOpenInviteFriend(false);
-  // }}
-
   const switchMode = () => {
     if (mode === "dark") {
       setMode("light");
@@ -266,7 +257,6 @@ export function Home({ mode, setMode }) {
                 SportsBattle
               </Typography>
             </Box>
-            {/* <img src="/sportsbattle.png" className="logoLogged" /> */}
             <Box
               sx={{
                 width: {
@@ -429,7 +419,6 @@ export function Home({ mode, setMode }) {
                 >
                   {user && user.firstNameLetter}
                 </Box>
-                {/* <img src="/profile.png" className="accountImage" /> */}
                 {openDropDown ? (
                   <KeyboardArrowUpIcon
                     sx={{

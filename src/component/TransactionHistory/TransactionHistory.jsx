@@ -1,19 +1,6 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Input,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Detail from "../MyProps/Detail";
 
 export default function TransactionHistory({ mode }) {

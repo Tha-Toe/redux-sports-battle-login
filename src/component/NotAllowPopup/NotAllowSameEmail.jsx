@@ -3,8 +3,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import Clear from "@mui/icons-material/Clear";
-import ReportIcon from "@mui/icons-material/Report";
 import PriorityHigh from "@mui/icons-material/PriorityHigh";
 
 const NotAllowSameEmail = ({ mode, setErrorPopUp, errorPopUp }) => {

@@ -3,9 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./bonusOffer.css";
-
 import ClearIcon from "@mui/icons-material/Clear";
-
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function BonusOffer({ setOpenInviteFriend, mode }) {

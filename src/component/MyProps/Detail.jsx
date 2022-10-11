@@ -1,22 +1,13 @@
 import React, { useContext } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import MenuIcon from "@mui/icons-material/Menu";
-import ClearIcon from "@mui/icons-material/Clear";
-import { Grid, Card } from "@mui/material";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import "./detail.css";
+import Box from "@mui/material/Box";
+
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PayoutScenarious from "./PayoutScenarious";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import "./detail.css";
 export default function Detail({
   mode,
   setOpenDetail,

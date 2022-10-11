@@ -190,40 +190,6 @@ const LoginFlow = ({ mode, setMode }) => {
                 >
                   Login with Google
                 </Button>
-                {/* <div
-                  style={{
-                    opacity: "0",
-                    cursor: "pointer",
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    zIndex: "50",
-                    background: "blue",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  onClick={() => {
-                    setLoading(true);
-                  }}
-                >
-                  <GoogleLogin
-                    clientId={clientId}
-                    render={(renderProps) => (
-                      <button
-                        onClick={renderProps.onClick}
-                        disabled={renderProps.disabled}
-                        style={{ width: "100%", height: "100%" }}
-                      >
-                        This is my custom Google button
-                      </button>
-                    )}
-                    buttonText="Sign in with Google"
-                    onSuccess={success}
-                    onFailure={fail}
-                    cookiePolicy={"single_host_origin"}
-                    isSignedIn={false}
-                  />
-                </div> */}
               </Box>
               <Box
                 sx={{
@@ -244,7 +210,6 @@ const LoginFlow = ({ mode, setMode }) => {
                   },
                   height: { xs: "64px", xxxs: "50px" },
                 }}
-                // onClick={()=>{setLoading(true)}}
               >
                 <Button
                   onClick={handleAppleLogin}

@@ -1,27 +1,7 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Input,
-  Typography,
-} from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import { Box, Card, Typography } from "@mui/material";
+import React, { useState } from "react";
 import "./props.css";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { AndresCard } from "./AndresCard";
-import Times from "./TImes";
-import Amount from "./Amount";
-import ChooseType from "./ChooseType";
-import Balance from "./Balance";
-import SubmitProjection from "./SubmitProjection";
-import GridItemComponent from "./GridItemComponent";
+
 import ClearIcon from "@mui/icons-material/Clear";
 
 export default function BaseBallPoint({ setOpenBaseBallPoint, mode }) {

@@ -1,26 +1,9 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Input,
-  modalClasses,
-  Typography,
-} from "@mui/material";
+import { Box, Grid, Typography, Input } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { AndresCard } from "./AndresCard";
-import Times from "./TImes";
-import Amount from "./Amount";
-import ChooseType from "./ChooseType";
-import Balance from "./Balance";
 import SubmitProjection from "./SubmitProjection";
 import GridItemComponent from "./GridItemComponent";
 import HowTo from "./HowTo";
@@ -319,28 +302,9 @@ export default function Props({
     { name: "PHI vs WSH", time: "13h 48m" },
     { name: "PHI vs WSH", time: "13h 48m" },
   ]);
-  const [width, setWidth] = useState();
-  const [matchesWidth, setMatchesWidth] = useState();
-  const [propsWidth, setPropsWidth] = useState();
-  const parentRef = useRef();
-  // const statsRef = useRef();
-  const matchesRef = useRef();
-  // const propsContainerRef = useRef();
+
   const propsChildRef = useRef();
-  const [statsLeftValue, setStatsLeftValue] = useState(0);
-  useEffect(() => {
-    // const total =
-    //   parentRef.current.scrollWidth - parentRef.current.offsetWidth + 50;
-    // const matchesTotal =
-    //   matchesRef.current.scrollWidth - matchesRef.current.offsetWidth + 50;
-    //  const propsTotal =
-    //    propsContainerRef.current.scrollWidth -
-    //   propsContainerRef.current.offsetWidth +
-    //    50;
-    // setWidth(total);
-    // setMatchesWidth(matchesTotal);
-    //  setPropsWidth(propsTotal);
-  }, []);
+
   const goForwardStats = () => {
     statsRef.current.scrollLeft = statsRef.current.scrollLeft + 100;
   };

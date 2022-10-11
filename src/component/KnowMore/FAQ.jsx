@@ -1,21 +1,6 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Input,
-  Typography,
-} from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+import React, { useState } from "react";
 import "./knowMore.css";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import OverUnderPointSystem from "./OverUnderPointSystem";
 
 export default function FAQ() {
   const [FAQnote, setFAQnote] = useState([

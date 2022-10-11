@@ -5,7 +5,6 @@ import { FormControl, Input, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-  InputComponent,
   BackButtonComponent,
   ContinueButtonComponent,
 } from "../../defaultComponent/DefaultComponent";

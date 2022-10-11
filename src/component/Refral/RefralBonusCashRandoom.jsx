@@ -3,8 +3,6 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Typography, Button, Input } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./refralBonus.css";
