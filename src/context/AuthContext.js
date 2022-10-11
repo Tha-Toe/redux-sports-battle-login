@@ -77,7 +77,7 @@ export const AuthContextProvider = ({ children }) => {
           var firUser = getUserInfoFromFirebaseUser(current_user, userName);
           console.log(firUser);
 
-          setUser(current_user);
+          setUser(firUser);
           setLoading(false);
           // console.log(current_user);
           // const token = await getIdToken(current_user);
@@ -129,7 +129,7 @@ export const AuthContextProvider = ({ children }) => {
           var firUser = getUserInfoFromFirebaseUser(current_user, userName);
           console.log(firUser);
 
-          setUser(current_user);
+          setUser(firUser);
           setLoading(false);
 
           // console.log(current_user);
