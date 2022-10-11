@@ -1,8 +1,11 @@
+import { auth } from "../firebase";
+
+
 //GET METHOD
 export const makeGETAPICall = async (url, additionalHeaders) => {
 
     try {
-        const idToken = await firebase.auth().currentUser.getIdToken(true);
+        const idToken = await auth.currentUser.getIdToken(true);
         if (idToken) {
         const apiResponse = await axios.get(url, setAxiosConfig(idToken,
         additionalHeaders ? additionalHeaders : undefined));
@@ -21,7 +24,7 @@ export const makeGETAPICall = async (url, additionalHeaders) => {
 export const makePUTAPICall = async (url, body) => {
 
     try {
-        const idToken = await firebase.auth().currentUser.getIdToken(true);
+        const idToken = await auth.currentUser.getIdToken(true);
         if (idToken) {
             const apiResponse = await axios.put(url, body, setAxiosConfig(idToken));
             return apiResponse;
@@ -38,7 +41,7 @@ export const makePUTAPICall = async (url, body) => {
 
 export const makePOSTAPICall = async (url, body) => {
     try {
-        const idToken = await firebase.auth().currentUser.getIdToken(true);
+        const idToken = await auth.currentUser.getIdToken(true);
         var apiResponse = {};
         if (idToken) {
             apiResponse = await axios.post(url, body, setAxiosConfig(idToken));
