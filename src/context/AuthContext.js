@@ -18,28 +18,6 @@ export const AuthContextProvider = ({ children }) => {
   // const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
-  //     if (currentUser) {
-  //       //get user name
-  //       let userName = currentUser.displayName.replace("+", " ").toString();
-  //       currentUser.userName = userName;
-  //       //get first name letter
-  //       let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
-  //       currentUser.firstNameLetter = firstNameLetter;
-  //       setUser(currentUser);
-  //       setLoading(false);
-  //       // console.log(currentUser);
-  //       const token = await getIdToken(currentUser);
-  //       setIdToken(token);
-  //       setAccessToken(currentUser.accessToken);
-  //     }
-  //   });
-  //   return () => {
-  //     firebaseUser();
-  //   };
-  // }, []);
-
   //apple signIn
   const appleSignIn = async () => {
     setLoading(true);
