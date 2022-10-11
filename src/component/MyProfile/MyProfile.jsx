@@ -250,7 +250,7 @@ export default function MyProfile({
                   color: "secondary.main",
                 }}
               >
-                {user && user.userName}
+                {user && user.username}
               </Typography>
               <Typography
                 sx={{
@@ -261,7 +261,7 @@ export default function MyProfile({
                   mt: "2px",
                 }}
               >
-                {user && user.userName.split(" ").join("").toLowerCase()}
+                {user && user.username.split(" ").join("").toLowerCase()}
               </Typography>
             </Box>
           </Box>
