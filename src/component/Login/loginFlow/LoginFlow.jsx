@@ -13,11 +13,8 @@ import {
   PasswordInputComponentLogin,
 } from "../../defaultComponent/DefaultComponent";
 import { UserAuth } from "../../../context/AuthContext";
-import { GoogleLogin } from "@leecheuk/react-google-login";
 import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
 import NotAllowSameEmail from "../../NotAllowPopup/NotAllowSameEmail";
-const clientId =
-  "555618407648-lkittruvsnt5jr327s088990pgv3bi9t.apps.googleusercontent.com";
 
 const LoginFlow = ({ mode, setMode }) => {
   const [showPass, setShowPass] = useState(false);
@@ -45,22 +42,11 @@ const LoginFlow = ({ mode, setMode }) => {
   };
 
   const {
-    logOut,
-    user,
-    setUser,
     appleSignIn,
-    idToken,
-    setIdToken,
-    loginByGoogle,
-    accessToken,
-    setAccessToken,
-    setLoginByGoogle,
     loading,
     setLoading,
     errorPopUp,
     setErrorPopUp,
-    // success,
-    // fail,
     googleSignIn,
   } = UserAuth();
 

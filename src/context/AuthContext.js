@@ -1,14 +1,11 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import {
   signInWithPopup,
-  signInWithRedirect,
   signOut,
   onAuthStateChanged,
   OAuthProvider,
   getIdToken,
   GoogleAuthProvider,
-  signInWithCredential,
-  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 
 import { auth } from "../firebase";
@@ -17,22 +14,8 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [idToken, setIdToken] = useState(null);
-  const [loginByGoogle, setLoginByGoogle] = useState(false);
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  //google login
-  // const success = (res) => {
-  //   console.log("success:", res);
-  //   setUser(res.profileObj);
-  //   setAccessToken(res.accessToken);
-  //   setIdToken(res.tokenId);
-  //   setLoading(false);
-  // };
-  // const fail = (err) => {
-  //   setLoading(false);
-  //   console.log(err);
-  // };
 
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
@@ -45,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
         currentUser.firstNameLetter = firstNameLetter;
         setUser(currentUser);
         setLoading(false);
-        console.log(currentUser);
+        // console.log(currentUser);
         const token = await getIdToken(currentUser);
         setIdToken(token);
         setAccessToken(currentUser.accessToken);
@@ -56,8 +39,8 @@ export const AuthContextProvider = ({ children }) => {
     };
   }, []);
 
+  //apple signIn
   const appleSignIn = async () => {
-    setLoginByGoogle(false);
     setLoading(true);
     const appleProvider = new OAuthProvider("apple.com");
     await signInWithPopup(auth, appleProvider);
@@ -66,7 +49,6 @@ export const AuthContextProvider = ({ children }) => {
   //google signIn
 
   const googleSignIn = async () => {
-    setLoginByGoogle(true);
     setLoading(true);
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider);
@@ -79,7 +61,6 @@ export const AuthContextProvider = ({ children }) => {
     }
     setIdToken(null);
     setAccessToken(null);
-    setLoginByGoogle(false);
     setUser(null);
   };
 
@@ -94,10 +75,8 @@ export const AuthContextProvider = ({ children }) => {
         appleSignIn,
         idToken,
         setIdToken,
-        loginByGoogle,
         accessToken,
         setAccessToken,
-        setLoginByGoogle,
         loading,
         setLoading,
         notAllowSameEmail,
