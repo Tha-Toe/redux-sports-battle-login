@@ -23,8 +23,7 @@ export const AuthContextProvider = ({ children }) => {
       );
       if (user_from_localstorage) {
         setUser(user_from_localstorage);
-        console.log(user_from_localstorage);
-        setChecking(false);
+        // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
@@ -33,13 +32,12 @@ export const AuthContextProvider = ({ children }) => {
         let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
-        console.log(firUser);
+        // console.log(firUser);
         setUser(firUser);
         localStorage.setItem("user", JSON.stringify(firUser));
-        const token = await getIdToken(currentUser);
-        console.log(token);
+        // const token = await getIdToken(currentUser);
+        // console.log(token);
         setLoading(false);
-        setChecking(false);
       } else {
         setChecking(false);
       }
@@ -88,6 +86,7 @@ export const AuthContextProvider = ({ children }) => {
         setErrorPopUp,
         googleSignIn,
         checking,
+        setChecking,
       }}
     >
       {children}
