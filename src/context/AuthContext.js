@@ -14,24 +14,34 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
+      const user_from_localstorage = await JSON.parse(
+        localStorage.getItem("user")
+      );
+      if (user_from_localstorage) {
+        setUser(user_from_localstorage);
+        console.log(user_from_localstorage);
+        setChecking(false);
+      } else if (currentUser && !user) {
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
         //get first name letter
         let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
-
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         console.log(firUser);
-
         setUser(firUser);
+        localStorage.setItem("user", JSON.stringify(firUser));
         const token = await getIdToken(currentUser);
         console.log(token);
         setLoading(false);
+        setChecking(false);
+      } else {
+        setChecking(false);
       }
     });
     return () => {
@@ -60,6 +70,7 @@ export const AuthContextProvider = ({ children }) => {
       signOut(auth);
     }
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   const [errorPopUp, setErrorPopUp] = useState(false);
@@ -76,6 +87,7 @@ export const AuthContextProvider = ({ children }) => {
         errorPopUp,
         setErrorPopUp,
         googleSignIn,
+        checking,
       }}
     >
       {children}
