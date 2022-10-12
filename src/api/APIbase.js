@@ -5,3 +5,10 @@ var ocApiGatewayusers = endPoint + "/user/";
 var ocApiGatewayPayment = endPoint + "/payment/";
 var ocApiGatewayContests = endPoint + "/contest/";
 var ocApiGatewayCommon = env === endPoint + "/common/";
+
+
+
+
+
+//all urls
+export const getUserInfo = ocApiGatewayusers + 'id/{userId}';
