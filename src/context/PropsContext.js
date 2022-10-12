@@ -11,10 +11,13 @@ export const PropsContextProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       console.log("calling api");
-      var result = getUserById(user.uid);
-      console.log(result);
-      setChecking(false);
-      setPropsData("props data comming from api");
+      getUserById(user.uid).then((result)=>{
+        console.log(result);
+        setChecking(false);
+        setPropsData("props data comming from api");
+      }).catch((err)=>{
+        console.log(err);
+      });
     }
   }, [user]);
 

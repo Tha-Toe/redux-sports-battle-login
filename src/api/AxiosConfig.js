@@ -3,9 +3,6 @@ export const setAxiosConfig = (idToken, additionalHeaders) => {
     headers: {
       "Content-Type": "application/json",
       Authorization: idToken,
-      // "Access-Control-Allow-Origin": "*",
-      // "Connection": "keep-alive",
-      // 'Access-Control-Allow-Methods': "GET, PUT, POST, DELETE, OPTIONS",
       // 'app-version': DeviceInfo.getVersion(),
       // 'app-build': DeviceInfo.getBuildNumber(),
     },
