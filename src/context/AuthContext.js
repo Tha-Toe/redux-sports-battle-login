@@ -33,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
             if (result) {
               //user is not null will get details
               setUserDetail(result);
+              console.log(result);
             } else {
               //user is null create user
             }
