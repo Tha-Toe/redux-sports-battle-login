@@ -14,8 +14,8 @@ export const PropsContextProvider = ({ children }) => {
       getUserById(user.uid)
         .then((result) => {
           console.log(result);
+          setUserDetail(result);
           setChecking(false);
-          setUserDetail("props data comming from api");
         })
         .catch((err) => {
           console.log(err);
