@@ -16,6 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
+  const [userDetail, setUserDetail] = useState(null);
 
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
@@ -23,14 +24,25 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.getItem("user")
       );
       if (user_from_localstorage) {
-
         //if user exists in local storage
 
         setUser(user_from_localstorage);
-
+        getUserById(user_from_localstorage.uid)
+          .then((result) => {
+            if (result) {
+              //user is not null will get details
+              setUserDetail(result);
+            } else {
+              //user is null create user
+            }
+            //loading false
+            setChecking(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
-
         //if user not exists in local storage but exists in firebase
 
         //get user name
@@ -43,6 +55,20 @@ export const AuthContextProvider = ({ children }) => {
         // console.log(firUser);
         setUser(firUser);
         localStorage.setItem("user", JSON.stringify(firUser));
+        getUserById(firUser.uid)
+          .then((result) => {
+            if (result) {
+              //user is not null will get details
+              setUserDetail(result);
+            } else {
+              //user is null create user
+            }
+            //loading false
+            setChecking(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         setLoading(false);
       } else {
         setChecking(false);

@@ -1,42 +1,19 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import { UserAuth } from "./AuthContext";
 
-
 const PropsContext = createContext();
 
 export const PropsContextProvider = ({ children }) => {
   const { user, setChecking } = UserAuth();
-  const [userDetail, setUserDetail] = useState(null);
   useEffect(() => {
     if (user) {
       console.log("calling props apis");
-      // getUserById(user.uid)
-      //   .then((result) => {
-      //     if (result) {
-      //       //user is not null will get details
-      //       setUserDetail(result);
-
-      //     } else {
-      //       //user is null create user
-      //     }
-      //     //loading false
-      //     setChecking(false);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     }
   }, [user]);
 
-  return (
-    <PropsContext.Provider value={{ userDetail }}>
-      {children}
-    </PropsContext.Provider>
-  );
+  return <PropsContext.Provider value={{}}>{children}</PropsContext.Provider>;
 };
 
 export const PropsData = () => {
   return useContext(PropsContext);
 };
-
-
