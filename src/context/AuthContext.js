@@ -27,6 +27,7 @@ export const AuthContextProvider = ({ children }) => {
         //if user exists in local storage
 
         setUser(user_from_localstorage);
+        //api call
         getUserById(user_from_localstorage.uid)
           .then((result) => {
             if (result) {

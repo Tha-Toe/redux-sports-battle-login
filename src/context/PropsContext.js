@@ -4,12 +4,12 @@ import { UserAuth } from "./AuthContext";
 const PropsContext = createContext();
 
 export const PropsContextProvider = ({ children }) => {
-  const { user, setChecking } = UserAuth();
+  const { userDetail, setChecking } = UserAuth();
   useEffect(() => {
-    if (user) {
+    if (userDetail) {
       console.log("calling props apis");
     }
-  }, [user]);
+  }, [userDetail]);
 
   return <PropsContext.Provider value={{}}>{children}</PropsContext.Provider>;
 };
