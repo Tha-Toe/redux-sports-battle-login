@@ -12,6 +12,7 @@ import BaseBallPoint from "./BaseBallPoint";
 import SuccessSubmit from "./SuccessSubmit";
 import ErrorSubmit from "./ErrorSubmit";
 import NotEnoughBalance from "./NotEnoughBalance";
+import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
 const useHorizontalScroll = () => {
   const elRef = useRef();
@@ -447,458 +448,467 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  return (
-    <main className="props-container">
-      <Box
-        sx={{
-          width: { xl: "1300px", lg: "85%", sm: "80%", xxxs: "90%" },
-          height: "100vh",
-          margin: "auto",
-        }}
-        component="div"
-      >
-        <div
-          className={`${"propsContainer"} ${
-            mode === "dark" ? "" : "props-light"
-          }`}
-          ref={sportsRef}
+  const [propsDataCommingFromApi, setPropsDataCommingFromApi] = useState(
+    "props data from api or null"
+  );
+  if (propsDataCommingFromApi) {
+    return (
+      <main className="props-container">
+        <Box
+          sx={{
+            width: { xl: "1300px", lg: "85%", sm: "80%", xxxs: "90%" },
+            height: "100vh",
+            margin: "auto",
+          }}
+          component="div"
         >
-          <div className="statsChild" ref={propsChildRef}>
-            {propsNav.map((e, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mr: { xxxs: "5px" },
-                }}
-              >
+          <div
+            className={`${"propsContainer"} ${
+              mode === "dark" ? "" : "props-light"
+            }`}
+            ref={sportsRef}
+          >
+            <div className="statsChild" ref={propsChildRef}>
+              {propsNav.map((e, index) => (
                 <Box
+                  key={index}
                   sx={{
-                    height: { xs: "34px", xxxs: "30px" },
-                    width: { xs: "34px", xxxs: "30px" },
-                    border: `${
-                      mode === "dark" ? "2px solid white" : "1px solid #494949"
-                    }`,
-                    borderRadius: "50%",
-                    mt: "13px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    bgcolor: `${
-                      e.name === selectSports ? e.color : "transparent"
-                    }`,
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setSelectSports(e.name);
-                    setSelectColor(e.color);
-                    setSelectSrc(e.src);
+                    mr: { xxxs: "5px" },
                   }}
                 >
-                  {mode === "dark" ? (
-                    <img className="propsNavImg" src={e.src} />
-                  ) : (
-                    <>
-                      {e.name === selectSports ? (
-                        <img className="propsNavImg" src={e.src} />
-                      ) : (
-                        <img className="propsNavImg" src={e.light_src} />
-                      )}
-                    </>
-                  )}
+                  <Box
+                    sx={{
+                      height: { xs: "34px", xxxs: "30px" },
+                      width: { xs: "34px", xxxs: "30px" },
+                      border: `${
+                        mode === "dark"
+                          ? "2px solid white"
+                          : "1px solid #494949"
+                      }`,
+                      borderRadius: "50%",
+                      mt: "13px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      bgcolor: `${
+                        e.name === selectSports ? e.color : "transparent"
+                      }`,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setSelectSports(e.name);
+                      setSelectColor(e.color);
+                      setSelectSrc(e.src);
+                    }}
+                  >
+                    {mode === "dark" ? (
+                      <img className="propsNavImg" src={e.src} />
+                    ) : (
+                      <>
+                        {e.name === selectSports ? (
+                          <img className="propsNavImg" src={e.src} />
+                        ) : (
+                          <img className="propsNavImg" src={e.light_src} />
+                        )}
+                      </>
+                    )}
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 400,
+                      fontFamily: "poppins",
+                      mt: "5px",
+                      color: `${
+                        e.name === selectSports ? e.color : "secondary.main"
+                      }`,
+                      width: "50px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {" "}
+                    {e.name}
+                  </Typography>
                 </Box>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    fontWeight: 400,
-                    fontFamily: "poppins",
-                    mt: "5px",
-                    color: `${
-                      e.name === selectSports ? e.color : "secondary.main"
-                    }`,
-                    width: "50px",
-                    textAlign: "center",
-                  }}
-                >
-                  {" "}
-                  {e.name}
-                </Typography>
-              </Box>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "rows",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            mt: "16px",
-            borderBottom: "2px solid #494949",
-            pb: "10px",
-            mb: "12px",
-          }}
-        >
           <Box
             sx={{
               display: "flex",
               flexDirection: "rows",
               alignItems: "center",
-              justifyContent: { xl: "flex-start", xxxs: "flex-start" },
-              width: { xs: "50%", xxxs: "55%" },
-            }}
-          >
-            {propsGuide.map((e, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: { sm: "row", xxxs: "column" },
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  flexWrap: "wrap",
-                  mr: { md: "20px", xxxs: "10px" },
-                }}
-                onClick={e.func}
-              >
-                {mode === "dark" ? (
-                  <img
-                    src={e.src}
-                    style={{
-                      marginRight: "3px",
-                      height: "20px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={e.darkSrc}
-                    style={{
-                      marginRight: "3px",
-                      height: "20px",
-                    }}
-                  />
-                )}
-
-                <Typography
-                  sx={{
-                    fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
-                    fontFamily: "poppins",
-                    fontWeight: 500,
-                    color: "secondary.main",
-                    ml: { sm: "5px", xxxs: "0px" },
-                  }}
-                >
-                  {e.name}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-          <Input
-            startAdornment={
-              <InputAdornment position="end">
-                <SearchIcon
-                  sx={{
-                    color: "secondary.gray",
-                    fontSize: "25px",
-                    mr: "7px",
-                  }}
-                />
-              </InputAdornment>
-            }
-            placeholder="Search"
-            disableUnderline
-            sx={{
-              bgcolor: `${mode === "dark" ? "#242423" : "white"}`,
-              border: `${mode === "dark" ? "1px solid #2c2c2c" : "none"}`,
-              width: {
-                md: "324px",
-                sm: "250px",
-                xs: "200px",
-                xxs: "180px",
-                xxxs: "120px",
-              },
-              color: "secondary.main",
-              fontSize: "12px",
-              fontWeight: 400,
-              fontFamily: "poppins",
-              height: "32px",
-              borderRadius: "4px",
-              pt: "3px",
-            }}
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            height: "30px",
-            position: "relative",
-            mb: "16px",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { sm: "16px", xxxs: "12px" },
-              fontWeight: "400",
-              fontFamily: "poppins",
-              width: { md: "10%", xs: "14%", xxxs: "22%" },
-              color: "secondary.main",
-            }}
-          >
-            9 Stats
-          </Typography>
-          <div className="statsContainer" ref={statsRef}>
-            <div className="statsChild">
-              {stats.map((e, index) => (
-                <button
-                  key={index}
-                  style={{
-                    color: `${mode === "dark" ? e.color : e.light_color}`,
-                    background: `${mode === "dark" ? e.bg : e.light_bg}`,
-                  }}
-                  className="statsButton"
-                >
-                  {e.name}
-                </button>
-              ))}
-            </div>
-          </div>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "30px",
-              position: "absolute",
-              right: 0,
+              justifyContent: "space-between",
+              width: "100%",
+              mt: "16px",
+              borderBottom: "2px solid #494949",
+              pb: "10px",
+              mb: "12px",
             }}
           >
             <Box
-              component="div"
               sx={{
-                height: "100%",
-                width: "80px",
-                background:
-                  "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                position: "absolute",
-                right: 0,
-              }}
-            ></Box>
-            <Box
-              sx={{
-                bgcolor: "secondary.dark_gray",
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "rows",
                 alignItems: "center",
-                height: "30px",
-                width: "30px",
-                borderRadius: "50%",
-                position: "absolute",
-                right: 0,
+                justifyContent: { xl: "flex-start", xxxs: "flex-start" },
+                width: { xs: "50%", xxxs: "55%" },
               }}
-              onClick={goForwardStats}
             >
-              <ArrowForwardIosIcon
-                sx={{
-                  fontSize: "18px",
-                  color: "primary.main",
-                }}
-              />
-            </Box>
-          </Box>
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            height: "48px",
-            position: "relative",
-            mb: "20px",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { sm: "16px", xxxs: "12px" },
-              fontWeight: "400",
-              fontFamily: "poppins",
-              width: { md: "13%", xs: "17%", xxxs: "25%" },
-              color: "secondary.main",
-            }}
-          >
-            5 Matches
-          </Typography>
-          <div className="matchesContainer" ref={matchsRef}>
-            <div className="matchesChild">
-              {matches.map((e, index) => (
-                <div
+              {propsGuide.map((e, index) => (
+                <Box
                   key={index}
-                  className="matchesButton"
-                  style={{
-                    background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
+                  sx={{
+                    display: "flex",
+                    flexDirection: { sm: "row", xxxs: "column" },
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    flexWrap: "wrap",
+                    mr: { md: "20px", xxxs: "10px" },
                   }}
+                  onClick={e.func}
                 >
-                  <div
-                    className="matchesName"
-                    style={{
-                      color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                  {mode === "dark" ? (
+                    <img
+                      src={e.src}
+                      style={{
+                        marginRight: "3px",
+                        height: "20px",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={e.darkSrc}
+                      style={{
+                        marginRight: "3px",
+                        height: "20px",
+                      }}
+                    />
+                  )}
+
+                  <Typography
+                    sx={{
+                      fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                      fontFamily: "poppins",
+                      fontWeight: 500,
+                      color: "secondary.main",
+                      ml: { sm: "5px", xxxs: "0px" },
                     }}
                   >
                     {e.name}
-                  </div>
-                  <div
-                    className="matchesTime"
-                    style={{
-                      color: `${mode === "dark" ? "white" : "#4831D4"}`,
-                    }}
-                  >
-                    {e.time}
-                  </div>
-                </div>
+                  </Typography>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+            <Input
+              startAdornment={
+                <InputAdornment position="end">
+                  <SearchIcon
+                    sx={{
+                      color: "secondary.gray",
+                      fontSize: "25px",
+                      mr: "7px",
+                    }}
+                  />
+                </InputAdornment>
+              }
+              placeholder="Search"
+              disableUnderline
+              sx={{
+                bgcolor: `${mode === "dark" ? "#242423" : "white"}`,
+                border: `${mode === "dark" ? "1px solid #2c2c2c" : "none"}`,
+                width: {
+                  md: "324px",
+                  sm: "250px",
+                  xs: "200px",
+                  xxs: "180px",
+                  xxxs: "120px",
+                },
+                color: "secondary.main",
+                fontSize: "12px",
+                fontWeight: 400,
+                fontFamily: "poppins",
+                height: "32px",
+                borderRadius: "4px",
+                pt: "3px",
+              }}
+            />
+          </Box>
           <Box
+            component="div"
             sx={{
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "row",
               alignItems: "center",
-              height: "48px",
-              position: "absolute",
-              right: 0,
+              justifyContent: "space-between",
+              width: "100%",
+              height: "30px",
+              position: "relative",
+              mb: "16px",
             }}
           >
-            <Box
-              component="div"
+            <Typography
               sx={{
-                height: "100%",
-                width: "100px",
-                background:
-                  "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                position: "absolute",
-                right: 0,
+                fontSize: { sm: "16px", xxxs: "12px" },
+                fontWeight: "400",
+                fontFamily: "poppins",
+                width: { md: "10%", xs: "14%", xxxs: "22%" },
+                color: "secondary.main",
               }}
-            ></Box>
+            >
+              9 Stats
+            </Typography>
+            <div className="statsContainer" ref={statsRef}>
+              <div className="statsChild">
+                {stats.map((e, index) => (
+                  <button
+                    key={index}
+                    style={{
+                      color: `${mode === "dark" ? e.color : e.light_color}`,
+                      background: `${mode === "dark" ? e.bg : e.light_bg}`,
+                    }}
+                    className="statsButton"
+                  >
+                    {e.name}
+                  </button>
+                ))}
+              </div>
+            </div>
             <Box
               sx={{
-                bgcolor: "secondary.dark_gray",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "30px",
-                width: "30px",
-                borderRadius: "50%",
                 position: "absolute",
                 right: 0,
               }}
-              onClick={goForwardMatches}
             >
-              <ArrowForwardIosIcon
+              <Box
+                component="div"
                 sx={{
-                  fontSize: "18px",
-                  color: "primary.main",
+                  height: "100%",
+                  width: "80px",
+                  background:
+                    "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                  position: "absolute",
+                  right: 0,
                 }}
-              />
+              ></Box>
+              <Box
+                sx={{
+                  bgcolor: "secondary.dark_gray",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "30px",
+                  width: "30px",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  right: 0,
+                }}
+                onClick={goForwardStats}
+              >
+                <ArrowForwardIosIcon
+                  sx={{
+                    fontSize: "18px",
+                    color: "primary.main",
+                  }}
+                />
+              </Box>
             </Box>
           </Box>
-        </Box>
-        <Box
-          id="grid-container"
-          component="div"
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: { sm: "row", xxxs: "column" },
-            justifyContent: "center",
-            alignItems: { xs: "flex-start", xxxs: "center" },
-          }}
-        >
           <Box
+            component="div"
             sx={{
-              width: { lg: "75%", md: "60%", sm: "50%", xxxs: "100%" },
-              height: "auto",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+              height: "48px",
+              position: "relative",
+              mb: "20px",
             }}
           >
-            <Grid
-              container
+            <Typography
               sx={{
-                width: "100%",
+                fontSize: { sm: "16px", xxxs: "12px" },
+                fontWeight: "400",
+                fontFamily: "poppins",
+                width: { md: "13%", xs: "17%", xxxs: "25%" },
+                color: "secondary.main",
               }}
-              spacing={"6px"}
             >
-              {cardInfo.map((e, index) => (
-                <GridItemComponent
-                  e={e}
-                  key={index}
-                  index={index}
-                  selectCardId={selectCardId}
-                  setSelectCardId={setSelectCardId}
-                  addCardIndex={addCardIndex}
-                  mode={mode}
-                  selectSports={selectSports}
-                  setSelectSports={setSelectSports}
-                  selectColor={selectColor}
-                  selectSrc={selectSrc}
-                  scrollDownFunc={scrollDownFunc}
+              5 Matches
+            </Typography>
+            <div className="matchesContainer" ref={matchsRef}>
+              <div className="matchesChild">
+                {matches.map((e, index) => (
+                  <div
+                    key={index}
+                    className="matchesButton"
+                    style={{
+                      background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
+                    }}
+                  >
+                    <div
+                      className="matchesName"
+                      style={{
+                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                      }}
+                    >
+                      {e.name}
+                    </div>
+                    <div
+                      className="matchesTime"
+                      style={{
+                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                      }}
+                    >
+                      {e.time}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "48px",
+                position: "absolute",
+                right: 0,
+              }}
+            >
+              <Box
+                component="div"
+                sx={{
+                  height: "100%",
+                  width: "100px",
+                  background:
+                    "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                  position: "absolute",
+                  right: 0,
+                }}
+              ></Box>
+              <Box
+                sx={{
+                  bgcolor: "secondary.dark_gray",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "30px",
+                  width: "30px",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  right: 0,
+                }}
+                onClick={goForwardMatches}
+              >
+                <ArrowForwardIosIcon
+                  sx={{
+                    fontSize: "18px",
+                    color: "primary.main",
+                  }}
                 />
-              ))}
-            </Grid>
+              </Box>
+            </Box>
           </Box>
-          <SubmitProjection
-            selectCardId={selectCardId}
+          <Box
+            id="grid-container"
+            component="div"
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: { sm: "row", xxxs: "column" },
+              justifyContent: "center",
+              alignItems: { xs: "flex-start", xxxs: "center" },
+            }}
+          >
+            <Box
+              sx={{
+                width: { lg: "75%", md: "60%", sm: "50%", xxxs: "100%" },
+                height: "auto",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Grid
+                container
+                sx={{
+                  width: "100%",
+                }}
+                spacing={"6px"}
+              >
+                {cardInfo.map((e, index) => (
+                  <GridItemComponent
+                    e={e}
+                    key={index}
+                    index={index}
+                    selectCardId={selectCardId}
+                    setSelectCardId={setSelectCardId}
+                    addCardIndex={addCardIndex}
+                    mode={mode}
+                    selectSports={selectSports}
+                    setSelectSports={setSelectSports}
+                    selectColor={selectColor}
+                    selectSrc={selectSrc}
+                    scrollDownFunc={scrollDownFunc}
+                  />
+                ))}
+              </Grid>
+            </Box>
+            <SubmitProjection
+              selectCardId={selectCardId}
+              mode={mode}
+              setSelectCardId={setSelectCardId}
+              removeCardIndex={removeCardIndex}
+              setSuccessSubmit={setSuccessSubmit}
+              setErrorSubmit={setErrorSubmit}
+            />
+            <div ref={messagesEndRef} />
+          </Box>
+        </Box>
+        {openHowTo && <HowTo setOpenHowTo={setOpenHowTo} mode={mode} />}
+        {openRule && <Rule setOpenRule={setOpenRule} mode={mode} />}
+        {openBaseBallPoint && (
+          <BaseBallPoint
+            setOpenBaseBallPoint={setOpenBaseBallPoint}
             mode={mode}
-            setSelectCardId={setSelectCardId}
-            removeCardIndex={removeCardIndex}
+          />
+        )}
+        {successSubmit && (
+          <SuccessSubmit
             setSuccessSubmit={setSuccessSubmit}
             setErrorSubmit={setErrorSubmit}
+            mode={mode}
           />
-          <div ref={messagesEndRef} />
-        </Box>
-      </Box>
-      {openHowTo && <HowTo setOpenHowTo={setOpenHowTo} mode={mode} />}
-      {openRule && <Rule setOpenRule={setOpenRule} mode={mode} />}
-      {openBaseBallPoint && (
-        <BaseBallPoint
-          setOpenBaseBallPoint={setOpenBaseBallPoint}
-          mode={mode}
-        />
-      )}
-      {successSubmit && (
-        <SuccessSubmit
-          setSuccessSubmit={setSuccessSubmit}
-          setErrorSubmit={setErrorSubmit}
-          mode={mode}
-        />
-      )}
-      {errorSubmit && (
-        <ErrorSubmit
-          setErrorSubmit={setErrorSubmit}
-          setNotEnoughBalance={setNotEnoughBalance}
-          mode={mode}
-        />
-      )}
-      {notEnoughBalance && (
-        <NotEnoughBalance
-          setNotEnoughBalance={setNotEnoughBalance}
-          mode={mode}
-        />
-      )}
-    </main>
-  );
+        )}
+        {errorSubmit && (
+          <ErrorSubmit
+            setErrorSubmit={setErrorSubmit}
+            setNotEnoughBalance={setNotEnoughBalance}
+            mode={mode}
+          />
+        )}
+        {notEnoughBalance && (
+          <NotEnoughBalance
+            setNotEnoughBalance={setNotEnoughBalance}
+            mode={mode}
+          />
+        )}
+      </main>
+    );
+  } else {
+    return <LoadingSpinnerEachSection />;
+  }
 }

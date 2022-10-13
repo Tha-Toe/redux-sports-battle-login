@@ -18,6 +18,8 @@ export const AuthContextProvider = ({ children }) => {
   const [checking, setChecking] = useState(true);
   const [userDetail, setUserDetail] = useState(null);
 
+  const [preventFromMultipleTimesRun, setPreventFromMulitpleTimesRun] =
+    useState(false);
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       const user_from_localstorage = await JSON.parse(
@@ -29,22 +31,24 @@ export const AuthContextProvider = ({ children }) => {
         console.log("user exists running");
 
         setUser(user_from_localstorage);
+        setPreventFromMulitpleTimesRun(true);
         //api call
-        getUserById(user_from_localstorage.uid)
-          .then((result) => {
-            if (result) {
-              //user is not null will get details
-              setUserDetail(result);
-              console.log(result);
-            } else {
-              //user is null create user
-            }
-            //loading false
-            setChecking(false);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // getUserById(user_from_localstorage.uid)
+        //   .then((result) => {
+        //     if (result) {
+        //       //user is not null will get details
+        //       setUserDetail(result);
+        //       console.log(result);
+        //     } else {
+        //       //user is null create user
+        //       setUserDetail(null);
+        //     }
+        //     //loading false
+        //     setChecking(false);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
         // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
@@ -84,6 +88,25 @@ export const AuthContextProvider = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (preventFromMultipleTimesRun) {
+      getUserById(user.uid)
+        .then((result) => {
+          if (result) {
+            //user is not null will get details
+            setUserDetail(result);
+            console.log(result);
+          } else {
+            //user is null create user
+          }
+          //loading false
+          setChecking(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [preventFromMultipleTimesRun]);
   //apple signIn
   const appleSignIn = async () => {
     setLoading(true);
@@ -124,6 +147,7 @@ export const AuthContextProvider = ({ children }) => {
         googleSignIn,
         checking,
         setChecking,
+        userDetail,
       }}
     >
       {children}
