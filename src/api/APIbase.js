@@ -11,4 +11,9 @@ var ocApiGatewayCommon = env === endPoint + "/common/";
 
 
 //all urls
+
+//get user details by id
 export const getUserInfo = ocApiGatewayusers + 'id/{userId}';
+
+//get all sports
+export const getAllSports = ocApiGatewayCommon + 'sports';
