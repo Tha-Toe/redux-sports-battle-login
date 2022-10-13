@@ -13,8 +13,17 @@ export const PropsContextProvider = ({ children }) => {
       console.log("calling api");
       getUserById(user.uid)
         .then((result) => {
-          console.log(result);
-          setUserDetail(result);
+          if (result) {
+            //user is not null will get details
+            setUserDetail(result);
+
+          } else {
+            //user is null create user
+          }
+
+
+
+          //loading false
           setChecking(false);
         })
         .catch((err) => {
