@@ -5,8 +5,9 @@ import {
   OAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
-  getIdToken,
 } from "firebase/auth";
+import { APIURLs } from "../api/ApiUrls";
+import { makeGETAPICall } from "../api/methods";
 
 import { auth } from "../firebase";
 const AuthContext = createContext();
@@ -114,3 +115,15 @@ export const getUserInfoFromFirebaseUser = (firUser, fullName) => ({
   username: firUser.userName,
   firstNameLetter: firUser.firstNameLetter,
 });
+
+export const getUserById = async (userId) => {
+  var apiUrl = APIURLs.getUserInfo;
+  console.log(apiUrl);
+  apiUrl = apiUrl.replace("{userId}", userId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
