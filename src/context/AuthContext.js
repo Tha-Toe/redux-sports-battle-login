@@ -32,24 +32,6 @@ export const AuthContextProvider = ({ children }) => {
 
         setUser(user_from_localstorage);
         setPreventFromMulitpleTimesRun(true);
-        //api call
-        // getUserById(user_from_localstorage.uid)
-        //   .then((result) => {
-        //     if (result) {
-        //       //user is not null will get details
-        //       setUserDetail(result);
-        //       console.log(result);
-        //     } else {
-        //       //user is null create user
-        //       setUserDetail(null);
-        //     }
-        //     //loading false
-        //     setChecking(false);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
-        // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
         console.log("user not exists running");
@@ -71,6 +53,7 @@ export const AuthContextProvider = ({ children }) => {
               setUserDetail(result);
             } else {
               //user is null create user
+              setUserDetail("null");
             }
             //loading false
             setChecking(false);
@@ -98,6 +81,7 @@ export const AuthContextProvider = ({ children }) => {
             console.log(result);
           } else {
             //user is null create user
+            setUserDetail("null");
           }
           //loading false
           setChecking(false);

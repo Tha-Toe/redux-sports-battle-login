@@ -13,6 +13,7 @@ import SuccessSubmit from "./SuccessSubmit";
 import ErrorSubmit from "./ErrorSubmit";
 import NotEnoughBalance from "./NotEnoughBalance";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { PropsData } from "../../context/PropsContext";
 
 const useHorizontalScroll = () => {
   const elRef = useRef();
@@ -448,9 +449,7 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  const [propsDataCommingFromApi, setPropsDataCommingFromApi] = useState(
-    "props data from api or null"
-  );
+  const { propsDataCommingFromApi } = PropsData();
   if (propsDataCommingFromApi) {
     return (
       <main className="props-container">

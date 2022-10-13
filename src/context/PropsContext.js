@@ -4,14 +4,19 @@ import { UserAuth } from "./AuthContext";
 const PropsContext = createContext();
 
 export const PropsContextProvider = ({ children }) => {
+  const [propsDataCommingFromApi, setPropsDataCommingFromApi] = useState(null);
   const { userDetail, setChecking } = UserAuth();
   useEffect(() => {
     if (userDetail) {
-      console.log("calling props apis");
+      setPropsDataCommingFromApi("Props Data Comming From api");
     }
   }, [userDetail]);
 
-  return <PropsContext.Provider value={{}}>{children}</PropsContext.Provider>;
+  return (
+    <PropsContext.Provider value={{ propsDataCommingFromApi }}>
+      {children}
+    </PropsContext.Provider>
+  );
 };
 
 export const PropsData = () => {
