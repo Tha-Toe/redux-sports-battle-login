@@ -26,6 +26,8 @@ export const AuthContextProvider = ({ children }) => {
       if (user_from_localstorage) {
         //if user exists in local storage
 
+        console.log("user exists running");
+
         setUser(user_from_localstorage);
         //api call
         getUserById(user_from_localstorage.uid)
@@ -46,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
         // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
-
+        console.log("user not exists running");
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
@@ -61,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
           .then((result) => {
             if (result) {
               //user is not null will get details
+              console.log(result);
               setUserDetail(result);
             } else {
               //user is null create user
@@ -146,7 +149,6 @@ export const getUserInfoFromFirebaseUser = (firUser, fullName) => ({
 
 export const getUserById = async (userId) => {
   var apiUrl = APIURLs.getUserInfo;
-  console.log(apiUrl);
   apiUrl = apiUrl.replace("{userId}", userId);
   const apiResponse = await makeGETAPICall(apiUrl);
   if (apiResponse.status === 200) {
