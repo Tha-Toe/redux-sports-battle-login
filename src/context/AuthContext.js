@@ -22,9 +22,16 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.getItem("user")
       );
       if (user_from_localstorage) {
+
+        //if user exists in local storage
+
         setUser(user_from_localstorage);
+
         // console.log(user_from_localstorage);
       } else if (currentUser && !user) {
+
+        //if user not exists in local storage but exists in firebase
+
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
@@ -35,8 +42,6 @@ export const AuthContextProvider = ({ children }) => {
         // console.log(firUser);
         setUser(firUser);
         localStorage.setItem("user", JSON.stringify(firUser));
-        // const token = await getIdToken(currentUser);
-        // console.log(token);
         setLoading(false);
       } else {
         setChecking(false);
