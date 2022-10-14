@@ -455,9 +455,10 @@ export default function Props({
       <main className="props-container">
         <Box
           sx={{
-            width: { xl: "1300px", lg: "85%", sm: "80%", xxxs: "90%" },
+            width: { xl: "1300px", lg: "90%", sm: "87%", xxxs: "90%" },
             height: "100vh",
             margin: "auto",
+            mr: { xl: "auto", lg: "30px", sm: "30px", xxxs: "auto" },
           }}
           component="div"
         >

@@ -253,7 +253,7 @@ export function Home({ mode, setMode }) {
                 mt: "5px",
                 background: "black",
                 position: { sm: "absolute", xxxs: "static" },
-                left: { lg: "20px", sm: "30px", xxxs: "35px" },
+                left: { lg: "18px", sm: "30px", xxxs: "35px" },
                 mx: { sm: "auto", xxxs: "auto" },
               }}
             >
@@ -282,7 +282,7 @@ export function Home({ mode, setMode }) {
                   xxs: "100%",
                   xxxs: "100%",
                 },
-                width: { xl: "1450px", lg: "91%", sm: "90%", xxxs: "100%" },
+                width: { xl: "1450px", lg: "100%", sm: "100%", xxxs: "100%" },
 
                 margin: "0 auto",
                 display: "flex",
@@ -511,7 +511,13 @@ export function Home({ mode, setMode }) {
             boxShadow: "none",
             outline: "none",
             position: { sm: "relative", xxxs: "fixed" },
-            width: { lg: "135px", md: "80px", sm: "80px", xxxs: "185px" },
+            width: {
+              xl: "180px",
+              lg: "160px",
+              md: "80px",
+              sm: "80px",
+              xxxs: "185px",
+            },
             left: { sm: 0, xxxs: `${openSideNav ? 0 : "-195px"}` },
             transition: "all .3s ease-in",
             padding: 0,
@@ -526,12 +532,13 @@ export function Home({ mode, setMode }) {
               justifyContent: "flex-start",
               alignItems: "center",
               width: {
-                xl: "165px",
+                xl: "190px",
                 lg: "135px",
                 md: "80px",
                 sm: "80px",
                 xxxs: "185px",
               },
+              width: "100%",
               borderRight: `${mode === "dark" ? "1px solid gray" : "none"}`,
               height: "100%",
               position: "relative",
@@ -606,7 +613,7 @@ export function Home({ mode, setMode }) {
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
                       mt: { lg: "0px", sm: "5px", xxxs: "0px" },
-                      ml: { lg: "8px", sm: "0px", xxxs: "8px" },
+                      ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                       color: `${
                         openTag === e.activeName
                           ? "#4831D4"
@@ -678,7 +685,7 @@ export function Home({ mode, setMode }) {
                       fontSize: { xl: "15px", sm: "12px", xxxs: "10px" },
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
-                      ml: { lg: "8px", sm: "0px", xxxs: "8px" },
+                      ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                       color: `${
                         openTag === e.activeName
                           ? "#4831D4"
@@ -800,7 +807,7 @@ export function Home({ mode, setMode }) {
                   sx={{
                     fontFamily: "poppins",
                     fontSize: { xl: "15px", xxxs: "12px" },
-                    ml: { lg: "8px", sm: "0px", xxxs: "8px" },
+                    ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",
                   }}
@@ -832,7 +839,7 @@ export function Home({ mode, setMode }) {
                   sx={{
                     fontFamily: "poppins",
                     fontSize: { xl: "15px", xxxs: "12px" },
-                    ml: { lg: "8px", sm: "0px", xxxs: "8px" },
+                    ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",
                   }}
