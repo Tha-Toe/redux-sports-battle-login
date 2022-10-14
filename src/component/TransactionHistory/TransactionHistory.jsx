@@ -2,6 +2,7 @@ import { Box, Card, Grid, Typography } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Detail from "../MyProps/Detail";
+import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
 export default function TransactionHistory({ mode }) {
   const [history, setHistory] = useState([
@@ -125,180 +126,188 @@ export default function TransactionHistory({ mode }) {
   const [referCode] = useState(true);
   const [clicked, setClicked] = useState(null);
 
-  return (
-    <Box
-      sx={{
-        width: {
-          xl: "1000px",
-          lg: "836px",
-          md: "700px",
-          sm: "500px",
-          xs: "450px",
-          xxxs: "90%",
-        },
-        height: "100vh",
-        margin: "auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-      component="div"
-    >
-      <Typography
-        sx={{
-          fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
-          fontWeight: 700,
-          fontFamily: "poppins",
-          color: "secondary.dark_gray",
-          mt: "23px",
-          width: "100%",
-        }}
-      >
-        Transaction History{" "}
-      </Typography>
-      <Box sx={{ width: "100%", mt: "9px", mb: "20px" }}>
-        <Box
-          sx={{
-            width: { xs: "232px", xxs: "170px", xxxs: "130px" },
-            height: "2px",
-            bgcolor: "secondary.dark",
-          }}
-        ></Box>
-      </Box>
+  const [
+    transactionHistoryDataCommingFromApi,
+    setTransactionHistoryDataCommingFromApi,
+  ] = useState("Data comming from transaction history");
+  if (transactionHistoryDataCommingFromApi) {
+    return (
       <Box
         sx={{
+          width: {
+            xl: "1000px",
+            lg: "836px",
+            md: "700px",
+            sm: "500px",
+            xs: "450px",
+            xxxs: "90%",
+          },
+          height: "100vh",
+          margin: "auto",
           display: "flex",
-          flexDirection: { md: "row", xxxs: "column" },
-          wdith: "100%",
+          flexDirection: "column",
+          alignItems: "center",
         }}
+        component="div"
       >
-        <Grid container sx={{ width: { md: "50%", xxxs: "100%" } }}>
-          {history.map((e, index) => (
-            <Grid item md={12} key={index} xxxs={12} sx={{ mb: "12px" }}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: { md: "95%", xxxs: "100%" },
-                  borderRadius: "4px",
-                  border: `${
-                    clicked === index
-                      ? "1px solid #4831D4"
-                      : mode === "dark"
-                      ? "1px solid #494949"
-                      : "1px solid #494949"
-                  }`,
-                  bgcolor: "primary.main",
-                  bgcolor: "transparent",
-                  boxShadow: "none",
-                }}
-                onClick={() => {
-                  setClicked(index);
-                  setOpenHistoryDetail(true);
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    ml: "10px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
-                      fontWeight: 400,
-                      fontFamily: "poppins",
-                      color: "secondary.main",
-                      mt: "9px",
-                    }}
-                  >
-                    {e.name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
-                      fontWeight: 500,
-                      fontFamily: "poppins",
-                      color: "secondary.main",
-                      mt: "5px",
-                    }}
-                  >
-                    {e.code}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
-                      fontWeight: 500,
-                      fontFamily: "poppins",
-                      color: "secondary.main",
-                      mb: "14px",
-                    }}
-                  >
-                    {e.time}
-                  </Typography>
-                </Box>
-                <Box
+        <Typography
+          sx={{
+            fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
+            fontWeight: 700,
+            fontFamily: "poppins",
+            color: "secondary.dark_gray",
+            mt: "23px",
+            width: "100%",
+          }}
+        >
+          Transaction History{" "}
+        </Typography>
+        <Box sx={{ width: "100%", mt: "9px", mb: "20px" }}>
+          <Box
+            sx={{
+              width: { xs: "232px", xxs: "170px", xxxs: "130px" },
+              height: "2px",
+              bgcolor: "secondary.dark",
+            }}
+          ></Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { md: "row", xxxs: "column" },
+            wdith: "100%",
+          }}
+        >
+          <Grid container sx={{ width: { md: "50%", xxxs: "100%" } }}>
+            {history.map((e, index) => (
+              <Grid item md={12} key={index} xxxs={12} sx={{ mb: "12px" }}>
+                <Card
                   sx={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    ml: "10px",
-                    cursor: "pointer",
+                    justifyContent: "space-between",
+                    width: { md: "95%", xxxs: "100%" },
+                    borderRadius: "4px",
+                    border: `${
+                      clicked === index
+                        ? "1px solid #4831D4"
+                        : mode === "dark"
+                        ? "1px solid #494949"
+                        : "1px solid #494949"
+                    }`,
+                    bgcolor: "primary.main",
+                    bgcolor: "transparent",
+                    boxShadow: "none",
+                  }}
+                  onClick={() => {
+                    setClicked(index);
+                    setOpenHistoryDetail(true);
                   }}
                 >
-                  <Typography
+                  <Box
                     sx={{
-                      fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
-                      fontWeight: 600,
-                      fontFamily: "poppins",
-                      color: `${
-                        e.won
-                          ? mode === "dark"
-                            ? "#C2DEC7"
-                            : "#52C03C"
-                          : mode === "dark"
-                          ? "#FFCED6"
-                          : "#E4313C"
-                      }`,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      ml: "10px",
                     }}
                   >
-                    {e.amount}
-                  </Typography>
-                  <ArrowForwardIosIcon
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.main",
+                        mt: "9px",
+                      }}
+                    >
+                      {e.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                        fontWeight: 500,
+                        fontFamily: "poppins",
+                        color: "secondary.main",
+                        mt: "5px",
+                      }}
+                    >
+                      {e.code}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                        fontWeight: 500,
+                        fontFamily: "poppins",
+                        color: "secondary.main",
+                        mb: "14px",
+                      }}
+                    >
+                      {e.time}
+                    </Typography>
+                  </Box>
+                  <Box
                     sx={{
-                      color: "#494949",
-                      mr: { sm: "13px", xxs: "7px", xxxs: "4px" },
-
-                      ml: "16px",
-                      ml: { sm: "16px", xxs: "7px", xxxs: "4px" },
-                      fontSize: { xs: "20px", xxs: "18px", xxxs: "16px" },
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      ml: "10px",
+                      cursor: "pointer",
                     }}
-                  />
-                </Box>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-        {openHistoryDetail ? (
-          <Detail
-            setOpenDetail={setOpenHistoryDetail}
-            detailData={historyDetailData}
-            referCode={referCode}
-            clicked={clicked}
-            mainDetail={history}
-            mode={mode}
-          />
-        ) : (
-          <Detail
-            emptyText={"Select a transaction to know more information"}
-            mode={mode}
-          />
-        )}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
+                        fontWeight: 600,
+                        fontFamily: "poppins",
+                        color: `${
+                          e.won
+                            ? mode === "dark"
+                              ? "#C2DEC7"
+                              : "#52C03C"
+                            : mode === "dark"
+                            ? "#FFCED6"
+                            : "#E4313C"
+                        }`,
+                      }}
+                    >
+                      {e.amount}
+                    </Typography>
+                    <ArrowForwardIosIcon
+                      sx={{
+                        color: "#494949",
+                        mr: { sm: "13px", xxs: "7px", xxxs: "4px" },
+
+                        ml: "16px",
+                        ml: { sm: "16px", xxs: "7px", xxxs: "4px" },
+                        fontSize: { xs: "20px", xxs: "18px", xxxs: "16px" },
+                      }}
+                    />
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          {openHistoryDetail ? (
+            <Detail
+              setOpenDetail={setOpenHistoryDetail}
+              detailData={historyDetailData}
+              referCode={referCode}
+              clicked={clicked}
+              mainDetail={history}
+              mode={mode}
+            />
+          ) : (
+            <Detail
+              emptyText={"Select a transaction to know more information"}
+              mode={mode}
+            />
+          )}
+        </Box>
       </Box>
-    </Box>
-  );
+    );
+  } else {
+    return <LoadingSpinnerEachSection />;
+  }
 }

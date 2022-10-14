@@ -27,19 +27,17 @@ import MyProps from "../../MyProps/MyProps";
 import TransactionHistory from "../../TransactionHistory/TransactionHistory";
 import AddAddress from "../../AddCash/AddAddress";
 import { UserAuth } from "../../../context/AuthContext";
+import { PropsData } from "../../../context/PropsContext";
 
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
 
-  const handleLogout = () => {
-    navigate("/", { replace: true });
-  };
-
   const propsOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("props");
+    callPropsApi();
   };
   const knowMoreOpen = () => {
     navigate("/home", { replace: true });
@@ -185,18 +183,8 @@ export function Home({ mode, setMode }) {
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
 
-  const {
-    logOut,
-    user,
-    setUser,
-    appleSignIns,
-    idToken,
-    setIdToken,
-    loginByGoogle,
-    accessToken,
-    setAccessToken,
-    setLoginByGoogle,
-  } = UserAuth();
+  const { logOut, user } = UserAuth();
+  const { callPropsApi } = PropsData();
   return (
     <div className="logged-container" ref={homeContainerRef}>
       <Box

@@ -4,7 +4,7 @@ import "./knowMore.css";
 import OverUnderPointSystem from "./OverUnderPointSystem";
 import FAQ from "./FAQ";
 import OperatingState from "./OperatingState";
-
+import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 const useHorizontalScroll = () => {
   const elRef = useRef();
   useEffect(() => {
@@ -196,11 +196,108 @@ export default function KnowMore({ mode }) {
   const propsChildRef = useRef();
 
   const sportsRef = useHorizontalScroll();
-  return (
-    <Box sx={{ minHeight: "100vh", width: "100%" }}>
-      {openTag === "Over-Under Points System" && (
+
+  const [knowMoreDataCommingFromApi, setKnowMoreDataCommingFromApi] = useState(
+    "know more data Comming from api"
+  );
+
+  if (knowMoreDataCommingFromApi) {
+    return (
+      <Box sx={{ minHeight: "100vh", width: "100%" }}>
+        {openTag === "Over-Under Points System" && (
+          <Box
+            component="div"
+            sx={{
+              width: {
+                xl: "1000px",
+                lg: "836px",
+                md: "700px",
+                sm: "550px",
+                xs: "90%",
+                xxxs: "95%",
+              },
+              margin: "0 auto",
+              overflow: "hidden",
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
+          >
+            {" "}
+            <div
+              className="propsContainer"
+              style={{ background: "transparent" }}
+              ref={sportsRef}
+            >
+              <div className="statsChild">
+                {overUnderNav.map((e, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      mr: { xxxs: "5px" },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        height: { xs: "34px", xxxs: "30px" },
+                        width: { xs: "34px", xxxs: "30px" },
+                        border: `${
+                          mode === "dark"
+                            ? "2px solid white"
+                            : "1px solid #494949"
+                        }`,
+                        borderRadius: "50%",
+                        mt: "13px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        bgcolor: `${
+                          e.name === selectSports ? e.color : "transparent"
+                        }`,
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setSelectSports(e.name)}
+                    >
+                      {mode === "dark" ? (
+                        <img className="propsNavImg" src={e.src} />
+                      ) : (
+                        <>
+                          {e.name === selectSports ? (
+                            <img className="propsNavImg" src={e.src} />
+                          ) : (
+                            <img className="propsNavImg" src={e.light_src} />
+                          )}
+                        </>
+                      )}
+                    </Box>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        mt: "5px",
+                        color: `${
+                          e.name === selectSports ? e.color : "secondary.main"
+                        }`,
+                        width: "50px",
+                        textAlign: "center",
+                      }}
+                    >
+                      {" "}
+                      {e.name}
+                    </Typography>
+                  </Box>
+                ))}
+              </div>
+            </div>
+          </Box>
+        )}
         <Box
-          component="div"
           sx={{
             width: {
               xl: "1000px",
@@ -210,259 +307,171 @@ export default function KnowMore({ mode }) {
               xs: "90%",
               xxxs: "95%",
             },
-            margin: "0 auto",
-            overflow: "hidden",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
+            height: "100vh",
+            margin: "auto",
+            mt: "30px",
+            display: "flex",
+            flexDirection: "row",
           }}
+          component="div"
         >
-          {" "}
-          <div
-            className="propsContainer"
-            style={{ background: "transparent" }}
-            ref={sportsRef}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: { xs: "35%", xxxs: "25%" },
+            }}
           >
-            <div className="statsChild">
-              {overUnderNav.map((e, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    mr: { xxxs: "5px" },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: { xs: "34px", xxxs: "30px" },
-                      width: { xs: "34px", xxxs: "30px" },
-                      border: `${
-                        mode === "dark"
-                          ? "2px solid white"
-                          : "1px solid #494949"
-                      }`,
-                      borderRadius: "50%",
-                      mt: "13px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      bgcolor: `${
-                        e.name === selectSports ? e.color : "transparent"
-                      }`,
-                      cursor: "pointer",
-                    }}
-                    onClick={() => setSelectSports(e.name)}
-                  >
-                    {mode === "dark" ? (
-                      <img className="propsNavImg" src={e.src} />
-                    ) : (
-                      <>
-                        {e.name === selectSports ? (
-                          <img className="propsNavImg" src={e.src} />
-                        ) : (
-                          <img className="propsNavImg" src={e.light_src} />
-                        )}
-                      </>
-                    )}
-                  </Box>
+            <Typography
+              sx={{
+                fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+                fontWeight: 700,
+                fontFamily: "poppins",
+                width: "100%",
+                color: "secondary.dark_gray",
+                mb: "12px",
+                ml: { xs: 0, xxxs: "5px" },
+              }}
+            >
+              GENERAL
+            </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                height: "2px",
+                background: "#D9D9D9",
+                mb: "12px",
+              }}
+            ></Box>
+            {general.map((e, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  width: "100%",
+                  mb: "20px",
+                  cursor: "pointer",
+                  borderBottom: { xs: "none", xxxs: "1px solid #494949" },
+                }}
+                onClick={() => {
+                  setOpenTag(e.name);
+                  e.func();
+                }}
+              >
+                {mode === "dark" ? (
+                  <img src={e.src} className="know-icon" />
+                ) : (
+                  <img src={e.darkSrc} className="know-icon" />
+                )}
+                <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
                   <Typography
                     sx={{
-                      fontSize: "12px",
-                      fontWeight: 400,
-                      fontFamily: "poppins",
-                      mt: "5px",
+                      fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                      fontWeight: 700,
                       color: `${
-                        e.name === selectSports ? e.color : "secondary.main"
+                        openTag === e.name ? "#4831D4" : "secondary.dark_gray"
                       }`,
-                      width: "50px",
-                      textAlign: "center",
+                      fontFamily: "poppins",
                     }}
                   >
-                    {" "}
                     {e.name}
                   </Typography>
+                  {e.extra && (
+                    <Typography
+                      sx={{
+                        fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 400,
+                        color: "secondary.dark_gray",
+                        fontFamily: "poppins",
+                      }}
+                    >
+                      {e.extra}
+                    </Typography>
+                  )}
                 </Box>
-              ))}
-            </div>
-          </div>
-        </Box>
-      )}
-      <Box
-        sx={{
-          width: {
-            xl: "1000px",
-            lg: "836px",
-            md: "700px",
-            sm: "550px",
-            xs: "90%",
-            xxxs: "95%",
-          },
-          height: "100vh",
-          margin: "auto",
-          mt: "30px",
-          display: "flex",
-          flexDirection: "row",
-        }}
-        component="div"
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: { xs: "35%", xxxs: "25%" },
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
-              fontWeight: 700,
-              fontFamily: "poppins",
-              width: "100%",
-              color: "secondary.dark_gray",
-              mb: "12px",
-              ml: { xs: 0, xxxs: "5px" },
-            }}
-          >
-            GENERAL
-          </Typography>
-          <Box
-            sx={{
-              width: "100%",
-              height: "2px",
-              background: "#D9D9D9",
-              mb: "12px",
-            }}
-          ></Box>
-          {general.map((e, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                width: "100%",
-                mb: "20px",
-                cursor: "pointer",
-                borderBottom: { xs: "none", xxxs: "1px solid #494949" },
-              }}
-              onClick={() => {
-                setOpenTag(e.name);
-                e.func();
-              }}
-            >
-              {mode === "dark" ? (
-                <img src={e.src} className="know-icon" />
-              ) : (
-                <img src={e.darkSrc} className="know-icon" />
-              )}
-              <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
-                <Typography
-                  sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
-                    fontWeight: 700,
-                    color: `${
-                      openTag === e.name ? "#4831D4" : "secondary.dark_gray"
-                    }`,
-                    fontFamily: "poppins",
-                  }}
-                >
-                  {e.name}
-                </Typography>
-                {e.extra && (
-                  <Typography
-                    sx={{
-                      fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
-                      fontWeight: 400,
-                      color: "secondary.dark_gray",
-                      fontFamily: "poppins",
-                    }}
-                  >
-                    {e.extra}
-                  </Typography>
-                )}
               </Box>
-            </Box>
-          ))}
-          <Typography
-            sx={{
-              fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
-              fontWeight: 700,
-              fontFamily: "poppins",
-              width: "100%",
-              color: "secondary.dark_gray",
-              mb: "12px",
-              mt: "24px",
-              ml: { xs: 0, xxxs: "5px" },
-            }}
-          >
-            LEGAL
-          </Typography>
-          <Box
-            sx={{
-              width: "100%",
-              height: "2px",
-              background: "#D9D9D9",
-              mb: "12px",
-            }}
-          ></Box>
-          {legal.map((e, index) => (
-            <Box
-              key={index}
+            ))}
+            <Typography
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start",
+                fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+                fontWeight: 700,
+                fontFamily: "poppins",
                 width: "100%",
-                mb: "20px",
-                borderBottom: { xs: "none", xxxs: "1px solid #494949" },
+                color: "secondary.dark_gray",
+                mb: "12px",
+                mt: "24px",
+                ml: { xs: 0, xxxs: "5px" },
               }}
             >
-              {mode === "dark" ? (
-                <img src={e.src} className="know-icon" />
-              ) : (
-                <img src={e.darkSrc} className="know-icon" />
-              )}
-              <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
-                <Typography
-                  sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
-                    fontWeight: 700,
-                    fontFamily: "poppins",
-                    color: "secondary.dark_gray",
-                  }}
-                >
-                  {e.name}
-                </Typography>
-                {e.extra && (
+              LEGAL
+            </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                height: "2px",
+                background: "#D9D9D9",
+                mb: "12px",
+              }}
+            ></Box>
+            {legal.map((e, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  width: "100%",
+                  mb: "20px",
+                  borderBottom: { xs: "none", xxxs: "1px solid #494949" },
+                }}
+              >
+                {mode === "dark" ? (
+                  <img src={e.src} className="know-icon" />
+                ) : (
+                  <img src={e.darkSrc} className="know-icon" />
+                )}
+                <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
                   <Typography
                     sx={{
-                      fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
-                      fontWeight: 400,
+                      fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                      fontWeight: 700,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
                     }}
                   >
-                    {e.extra}
+                    {e.name}
                   </Typography>
-                )}
+                  {e.extra && (
+                    <Typography
+                      sx={{
+                        fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                      }}
+                    >
+                      {e.extra}
+                    </Typography>
+                  )}
+                </Box>
               </Box>
-            </Box>
-          ))}
-        </Box>
-        <Box sx={{ width: { xs: "65%", xxxs: "75%" } }}>
-          {openTag === "Over-Under Points System" && (
-            <OverUnderPointSystem selectSports={selectSports} mode={mode} />
-          )}
-          {openTag === "Frequently Asked Questions" && <FAQ />}
-          {openTag === "Sports Battle Operating States" && <OperatingState />}
+            ))}
+          </Box>
+          <Box sx={{ width: { xs: "65%", xxxs: "75%" } }}>
+            {openTag === "Over-Under Points System" && (
+              <OverUnderPointSystem selectSports={selectSports} mode={mode} />
+            )}
+            {openTag === "Frequently Asked Questions" && <FAQ />}
+            {openTag === "Sports Battle Operating States" && <OperatingState />}
+          </Box>
         </Box>
       </Box>
-    </Box>
-  );
+    );
+  } else {
+    return <LoadingSpinnerEachSection />;
+  }
 }
