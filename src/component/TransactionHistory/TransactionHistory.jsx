@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Detail from "../MyProps/Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { TxHistoryData } from "../../context/TxHistoryContext";
-
+import NotFound from "./NotFound";
 export default function TransactionHistory({ mode }) {
   const [history, setHistory] = useState([
     {
@@ -128,7 +128,12 @@ export default function TransactionHistory({ mode }) {
   const [clicked, setClicked] = useState(null);
 
   const { txHistoryDataCommingFromApi } = TxHistoryData();
-  if (txHistoryDataCommingFromApi) {
+  if (
+    Array.isArray(txHistoryDataCommingFromApi) &&
+    txHistoryDataCommingFromApi.length === 0
+  ) {
+    return <NotFound />;
+  } else if (txHistoryDataCommingFromApi) {
     return (
       <Box
         sx={{

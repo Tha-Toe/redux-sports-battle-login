@@ -6,8 +6,9 @@ const TxHistoryContext = createContext();
 
 export const TxHistoryContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
-  const [txHistoryDataCommingFromApi, setTxHistoryCommingFromApi] =
-    useState(null);
+  const [txHistoryDataCommingFromApi, setTxHistoryCommingFromApi] = useState(
+    []
+  );
 
   const callTxHistoryApi = () => {
     return;
