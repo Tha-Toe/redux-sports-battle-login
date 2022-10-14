@@ -1,10 +1,11 @@
-import { getUserInfo,getAllSports,getPropsSport } from "./APIbase";
+import { getUserInfo,getAllSports,getPropsSport,getMyProps } from "./APIbase";
 
 
 var APIURLs = {
     getUserInfo,
     getAllSports,
-    getPropsSport
+    getPropsSport,
+    getMyProps
 };
 
 export { APIURLs };
