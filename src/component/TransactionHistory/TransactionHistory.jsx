@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Detail from "../MyProps/Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { TxHistoryData } from "../../context/TxHistoryContext";
 
 export default function TransactionHistory({ mode }) {
   const [history, setHistory] = useState([
@@ -126,11 +127,8 @@ export default function TransactionHistory({ mode }) {
   const [referCode] = useState(true);
   const [clicked, setClicked] = useState(null);
 
-  const [
-    transactionHistoryDataCommingFromApi,
-    setTransactionHistoryDataCommingFromApi,
-  ] = useState("Data comming from transaction history");
-  if (transactionHistoryDataCommingFromApi) {
+  const { txHistoryDataCommingFromApi } = TxHistoryData();
+  if (txHistoryDataCommingFromApi) {
     return (
       <Box
         sx={{

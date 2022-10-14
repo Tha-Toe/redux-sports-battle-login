@@ -28,6 +28,9 @@ import TransactionHistory from "../../TransactionHistory/TransactionHistory";
 import AddAddress from "../../AddCash/AddAddress";
 import { UserAuth } from "../../../context/AuthContext";
 import { PropsData } from "../../../context/PropsContext";
+import LoadingSpinnerEachSection from "../../loadingSpinner/LoadingSpinnerEachSection";
+import { EnterReferalCodeData } from "../../../context/EnterReferalCodeContext";
+import SupportChat from "../../SupportChat/SupportChat";
 
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
@@ -50,7 +53,9 @@ export function Home({ mode, setMode }) {
     setOpenTag("email-prefrence");
   };
   const supportChatOpen = () => {
-    return;
+    navigate("/home", { replace: true });
+    setOpenSideNav(false);
+    setOpenTag("support-chat");
   };
   const myProfileOpen = () => {
     navigate("/home", { replace: true });
@@ -185,6 +190,8 @@ export function Home({ mode, setMode }) {
 
   const { logOut, user } = UserAuth();
   const { callPropsApi } = PropsData();
+
+  const { enterReferalCodeDataCommingFromApi } = EnterReferalCodeData();
   return (
     <div className="logged-container" ref={homeContainerRef}>
       <Box
@@ -884,17 +891,26 @@ export function Home({ mode, setMode }) {
             <AddAddress setAddress={setAddress} mode={mode} />
           )}
           {location.search === "?deposit=go-refral-bonus-cash-randoom" && (
-            <RefralBonusCashRandoom
-              setNumber={setNumber}
-              number={number}
-              setOpenTag={setOpenTag}
-            />
+            <>
+              {enterReferalCodeDataCommingFromApi ? (
+                <RefralBonusCashRandoom
+                  setNumber={setNumber}
+                  number={number}
+                  setOpenTag={setOpenTag}
+                />
+              ) : (
+                <LoadingSpinnerEachSection />
+              )}
+            </>
           )}
           {location.search === "?deposit=verify-phone-number-code" && (
             <VerifyPhoneNumberCode number={number} mode={mode} />
           )}
           {location.search === "?deposit=refral-bonus-cash-code" && (
             <RefralBonusCashCode />
+          )}
+          {!location.search && openTag === "support-chat" && (
+            <SupportChat mode={mode} />
           )}
         </Box>
       </Box>

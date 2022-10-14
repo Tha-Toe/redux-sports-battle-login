@@ -21,6 +21,7 @@ import VerifycationCode from "./VerifycationCode";
 import AccountSetup from "./AccountSetup";
 import { UserAuth } from "../../context/AuthContext";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { MyAccountContextData } from "../../context/MyAccountContext";
 export default function MyProfile({
   mode,
   myProfileOpen,
@@ -124,9 +125,7 @@ export default function MyProfile({
 
   const { user } = UserAuth();
 
-  const [profileDataCommingFromApi, setProfileDataCommingFromApi] = useState(
-    "profile-data-comming-from-api"
-  );
+  const { myAccountDataCommingFromApi } = MyAccountContextData();
 
   if (openTag === "WidthDrawCash") {
     return (
@@ -184,7 +183,7 @@ export default function MyProfile({
   } else {
     return (
       <>
-        {profileDataCommingFromApi ? (
+        {myAccountDataCommingFromApi ? (
           <Box
             sx={{
               width: {

@@ -6,8 +6,12 @@ const MyAccountContext = createContext();
 
 export const MyAccountContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [myAccountDataCommingFromApi, setMyAccountDataCommingFromApi] =
+    useState(null);
   return (
-    <MyAccountContext.Provider value={{}}>{children}</MyAccountContext.Provider>
+    <MyAccountContext.Provider value={{ myAccountDataCommingFromApi }}>
+      {children}
+    </MyAccountContext.Provider>
   );
 };
 

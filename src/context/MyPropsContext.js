@@ -6,8 +6,13 @@ const MyPropsContext = createContext();
 
 export const MyPropsContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [myPropsDataCommingFromApi, setMyPropsDataCommingFromApi] =
+    useState(null);
+
   return (
-    <MyPropsContext.Provider value={{}}>{children}</MyPropsContext.Provider>
+    <MyPropsContext.Provider value={{ myPropsDataCommingFromApi }}>
+      {children}
+    </MyPropsContext.Provider>
   );
 };
 

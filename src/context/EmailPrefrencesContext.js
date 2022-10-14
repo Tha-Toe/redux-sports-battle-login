@@ -6,8 +6,14 @@ const EmailPrefrenceContext = createContext();
 
 export const EmailPrefrenceContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [
+    emailPrefrenceDataCommingFromApi,
+    setEmailPrefrenceDataCommingFromApi,
+  ] = useState(null);
   return (
-    <EmailPrefrenceContext.Provider value={{}}>
+    <EmailPrefrenceContext.Provider
+      value={{ emailPrefrenceDataCommingFromApi }}
+    >
       {children}
     </EmailPrefrenceContext.Provider>
   );

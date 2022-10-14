@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Grid, Card } from "@mui/material";
 import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { PropsData } from "../../context/PropsContext";
 
 export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const handelOpenDetail = (index) => {
@@ -125,9 +126,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const [openDetail, setOpenDetail] = useState(null);
   const [clicked, setClicked] = useState(null);
 
-  const [myPropsDataCommingFromApi, setMyPropsDataCommingFromApi] = useState(
-    "myPropsDataCommingFromApi"
-  );
+  const { myPropsDataCommingFromApi } = PropsData();
   if (myPropsDataCommingFromApi) {
     return (
       <Box

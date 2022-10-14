@@ -6,8 +6,14 @@ const EnterReferalContext = createContext();
 
 export const EnterReferalContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [
+    enterReferalCodeDataCommingFromApi,
+    setEnterReferalCodeDataCommingFromApi,
+  ] = useState(null);
   return (
-    <EnterReferalContext.Provider value={{}}>
+    <EnterReferalContext.Provider
+      value={{ enterReferalCodeDataCommingFromApi }}
+    >
       {children}
     </EnterReferalContext.Provider>
   );

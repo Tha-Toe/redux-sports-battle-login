@@ -5,6 +5,7 @@ import OverUnderPointSystem from "./OverUnderPointSystem";
 import FAQ from "./FAQ";
 import OperatingState from "./OperatingState";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { KnowMoreData } from "../../context/KnowMoreContext";
 const useHorizontalScroll = () => {
   const elRef = useRef();
   useEffect(() => {
@@ -197,9 +198,7 @@ export default function KnowMore({ mode }) {
 
   const sportsRef = useHorizontalScroll();
 
-  const [knowMoreDataCommingFromApi, setKnowMoreDataCommingFromApi] = useState(
-    "know more data Comming from api"
-  );
+  const { knowMoreDataCommingFromApi } = KnowMoreData();
 
   if (knowMoreDataCommingFromApi) {
     return (

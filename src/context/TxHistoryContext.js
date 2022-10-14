@@ -6,8 +6,12 @@ const TxHistoryContext = createContext();
 
 export const TxHistoryContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [txHistoryDataCommingFromApi, setTxHistoryCommingFromApi] =
+    useState(null);
   return (
-    <TxHistoryContext.Provider value={{}}>{children}</TxHistoryContext.Provider>
+    <TxHistoryContext.Provider value={{ txHistoryDataCommingFromApi }}>
+      {children}
+    </TxHistoryContext.Provider>
   );
 };
 

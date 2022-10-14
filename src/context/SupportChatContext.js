@@ -6,8 +6,10 @@ const SupportChatContext = createContext();
 
 export const SupportChatContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
+  const [supportChatDataCommingFromApi, setSupportChatDataCommingFromApi] =
+    useState(null);
   return (
-    <SupportChatContext.Provider value={{}}>
+    <SupportChatContext.Provider value={{ supportChatDataCommingFromApi }}>
       {children}
     </SupportChatContext.Provider>
   );
