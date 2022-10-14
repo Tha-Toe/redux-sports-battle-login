@@ -26,6 +26,7 @@ export const PropsContextProvider = ({ children }) => {
 
   const callPropsApi = () => {
     if (userDetail) {
+      setPropsDataCommingFromApi(null);
       getAllSports()
         .then((result) => {
           if (result) {
