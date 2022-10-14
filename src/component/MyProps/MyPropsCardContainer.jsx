@@ -9,6 +9,7 @@ import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { PropsData } from "../../context/PropsContext";
 import { MyPropsData } from "../../context/MyPropsContext";
+import NoProps from "./NoProps";
 
 export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const handelOpenDetail = (index) => {
@@ -133,6 +134,15 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
     completeDataCommingFromApi,
   } = MyPropsData();
   if (
+    (Array.isArray(upComingDataCommingFromApi) &&
+      upComingDataCommingFromApi.length === 0) ||
+    (Array.isArray(liveDataCommingFromApi) &&
+      liveDataCommingFromApi.length === 0) ||
+    (Array.isArray(completeDataCommingFromApi) &&
+      completeDataCommingFromApi.length === 0)
+  ) {
+    return <NoProps />;
+  } else if (
     upComingDataCommingFromApi !== null ||
     liveDataCommingFromApi !== null ||
     completeDataCommingFromApi !== null
