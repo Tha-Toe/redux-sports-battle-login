@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
@@ -6,9 +6,25 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 
 import MyPropsCardContainer from "./MyPropsCardContainer";
+import { MyPropsData } from "../../context/MyPropsContext";
+import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
 export default function MyProps({ mode }) {
   const [openTag, setOpenTag] = useState("Upcoming");
+  const {
+    callUpCommingMyPropsApi,
+    callCompletedMyPropsApi,
+    callLiveMyPropsApi,
+  } = MyPropsData();
+  useEffect(() => {
+    if (openTag === "Completed") {
+      callCompletedMyPropsApi();
+    } else if (openTag === "Live") {
+      callLiveMyPropsApi();
+    } else {
+      callUpCommingMyPropsApi();
+    }
+  }, [openTag]);
   const openUpComming = () => {
     setOpenTag("Upcoming");
   };

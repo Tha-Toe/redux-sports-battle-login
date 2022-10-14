@@ -36,6 +36,7 @@ import { TxHistoryData } from "../../../context/TxHistoryContext";
 import { KnowMoreData } from "../../../context/KnowMoreContext";
 import { EmailPrefrenceContextData } from "../../../context/EmailPrefrencesContext";
 import { SupportChatContextData } from "../../../context/SupportChatContext";
+import { MyPropsData } from "../../../context/MyPropsContext";
 
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
@@ -47,7 +48,7 @@ export function Home({ mode, setMode }) {
   const { callKnowMoreApi } = KnowMoreData();
   const { callEmailPrefrenceApi } = EmailPrefrenceContextData();
   const { callSupportChatApi } = SupportChatContextData();
-
+  const { callUpCommingMyPropsApi, callLiveMyPropsApi } = MyPropsData();
   const propsOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
@@ -113,6 +114,7 @@ export function Home({ mode, setMode }) {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("my-props");
+    callUpCommingMyPropsApi();
   };
   const [activeTag, setActiveTag] = useState("props");
   const [number, setNumber] = useState(null);

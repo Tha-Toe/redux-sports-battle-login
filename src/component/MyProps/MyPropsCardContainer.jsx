@@ -126,8 +126,16 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const [openDetail, setOpenDetail] = useState(null);
   const [clicked, setClicked] = useState(null);
 
-  const { myPropsDataCommingFromApi } = PropsData();
-  if (myPropsDataCommingFromApi) {
+  const {
+    upComingDataCommingFromApi,
+    liveDataCommingFromApi,
+    completeDataCommingFromApi,
+  } = useState(null);
+  if (
+    upComingDataCommingFromApi !== null ||
+    liveDataCommingFromApi !== null ||
+    completeDataCommingFromApi !== null
+  ) {
     return (
       <Box
         sx={{
