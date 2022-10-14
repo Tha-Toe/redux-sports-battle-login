@@ -17,3 +17,6 @@ export const getUserInfo = ocApiGatewayusers + 'id/{userId}';
 
 //get all sports
 export const getAllSports = ocApiGatewayCommon + 'sports';
+
+//get props of sport
+export const getPropsSport = ocApiGatewayGames + 'props';
