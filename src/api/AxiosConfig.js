@@ -11,7 +11,9 @@ export const setAxiosConfig = (idToken, additionalHeaders) => {
   //additional headers
   if (additionalHeaders) {
     additionalHeaders.forEach((ah) => {
-      config.headers[ah.key] = ah.value;
+      for (const key in ah) {
+        config.headers[key] = ah[key];
+      }
     });
   }
   return config;

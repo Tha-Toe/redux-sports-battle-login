@@ -9,7 +9,18 @@ export const PropsContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
   useEffect(() => {
     if (userDetail) {
-      setPropsDataCommingFromApi("Props Data Comming From api");
+      getAllSports()
+          .then((result) => {
+            if (result) {
+              console.log(result);
+              setPropsDataCommingFromApi(result);
+            } else {
+              console.log("null");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     }
   }, [userDetail]);
 
@@ -26,7 +37,8 @@ export const PropsData = () => {
 
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
-  const apiResponse = await makeGETAPICall(apiUrl);
+  console.log(apiUrl);
+  const apiResponse = await makeGETAPICall(apiUrl); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
