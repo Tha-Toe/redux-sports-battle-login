@@ -8,8 +8,14 @@ export const SupportChatContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
   const [supportChatDataCommingFromApi, setSupportChatDataCommingFromApi] =
     useState(null);
+
+  const callSupportChatApi = () => {
+    return;
+  };
   return (
-    <SupportChatContext.Provider value={{ supportChatDataCommingFromApi }}>
+    <SupportChatContext.Provider
+      value={{ supportChatDataCommingFromApi, callSupportChatApi }}
+    >
       {children}
     </SupportChatContext.Provider>
   );

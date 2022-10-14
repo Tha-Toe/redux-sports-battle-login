@@ -8,8 +8,14 @@ export const KnowMoreContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
   const [knowMoreDataCommingFromApi, setKnowMoreDataCommingFromApi] =
     useState(null);
+
+  const callKnowMoreApi = () => {
+    return;
+  };
   return (
-    <KnowMoreContext.Provider value={{ knowMoreDataCommingFromApi }}>
+    <KnowMoreContext.Provider
+      value={{ knowMoreDataCommingFromApi, callKnowMoreApi }}
+    >
       {children}
     </KnowMoreContext.Provider>
   );

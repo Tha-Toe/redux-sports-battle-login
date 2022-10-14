@@ -8,8 +8,14 @@ export const MyAccountContextProvider = ({ children }) => {
   const { userDetail, setChecking } = UserAuth();
   const [myAccountDataCommingFromApi, setMyAccountDataCommingFromApi] =
     useState(null);
+
+  const callProfileApi = () => {
+    return;
+  };
   return (
-    <MyAccountContext.Provider value={{ myAccountDataCommingFromApi }}>
+    <MyAccountContext.Provider
+      value={{ myAccountDataCommingFromApi, callProfileApi }}
+    >
       {children}
     </MyAccountContext.Provider>
   );

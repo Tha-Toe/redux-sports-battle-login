@@ -31,10 +31,22 @@ import { PropsData } from "../../../context/PropsContext";
 import LoadingSpinnerEachSection from "../../loadingSpinner/LoadingSpinnerEachSection";
 import { EnterReferalCodeData } from "../../../context/EnterReferalCodeContext";
 import SupportChat from "../../SupportChat/SupportChat";
+import { MyAccountContextData } from "../../../context/MyAccountContext";
+import { TxHistoryData } from "../../../context/TxHistoryContext";
+import { KnowMoreData } from "../../../context/KnowMoreContext";
+import { EmailPrefrenceContextData } from "../../../context/EmailPrefrencesContext";
+import { SupportChatContextData } from "../../../context/SupportChatContext";
 
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
+  const { callProfileApi } = MyAccountContextData();
+  const { callTxHistoryApi } = TxHistoryData();
+  const { enterReferalCodeDataCommingFromApi, callEnterRefralCodeApi } =
+    EnterReferalCodeData();
+  const { callKnowMoreApi } = KnowMoreData();
+  const { callEmailPrefrenceApi } = EmailPrefrenceContextData();
+  const { callSupportChatApi } = SupportChatContextData();
 
   const propsOpen = () => {
     navigate("/home", { replace: true });
@@ -46,26 +58,31 @@ export function Home({ mode, setMode }) {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("know-more");
+    callKnowMoreApi();
   };
   const emailPrefrenceOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("email-prefrence");
+    callEmailPrefrenceApi();
   };
   const supportChatOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("support-chat");
+    callSupportChatApi();
   };
   const myProfileOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("my-profile");
+    callProfileApi();
   };
   const transactionHistoryOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("transaction-history");
+    callTxHistoryApi();
   };
   const goDepositNewUser = () => {
     if (newUser) {
@@ -81,6 +98,7 @@ export function Home({ mode, setMode }) {
     setOpenTag("enter-referral-code");
     navigate("/home?deposit=go-refral-bonus-cash-randoom", { replace: true });
     setOpenSideNav(false);
+    callEnterRefralCodeApi();
   };
   const goVerifyPhoneNumberCode = () => {
     navigate("/home?deposit=verify-phone-number-code", { replace: true });
@@ -191,7 +209,6 @@ export function Home({ mode, setMode }) {
   const { logOut, user } = UserAuth();
   const { callPropsApi } = PropsData();
 
-  const { enterReferalCodeDataCommingFromApi } = EnterReferalCodeData();
   return (
     <div className="logged-container" ref={homeContainerRef}>
       <Box

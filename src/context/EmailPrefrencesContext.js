@@ -10,9 +10,12 @@ export const EmailPrefrenceContextProvider = ({ children }) => {
     emailPrefrenceDataCommingFromApi,
     setEmailPrefrenceDataCommingFromApi,
   ] = useState(null);
+  const callEmailPrefrenceApi = () => {
+    return;
+  };
   return (
     <EmailPrefrenceContext.Provider
-      value={{ emailPrefrenceDataCommingFromApi }}
+      value={{ emailPrefrenceDataCommingFromApi, callEmailPrefrenceApi }}
     >
       {children}
     </EmailPrefrenceContext.Provider>

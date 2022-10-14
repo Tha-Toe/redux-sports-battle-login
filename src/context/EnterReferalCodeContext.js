@@ -10,9 +10,13 @@ export const EnterReferalContextProvider = ({ children }) => {
     enterReferalCodeDataCommingFromApi,
     setEnterReferalCodeDataCommingFromApi,
   ] = useState(null);
+
+  const callEnterRefralCodeApi = () => {
+    return;
+  };
   return (
     <EnterReferalContext.Provider
-      value={{ enterReferalCodeDataCommingFromApi }}
+      value={{ enterReferalCodeDataCommingFromApi, callEnterRefralCodeApi }}
     >
       {children}
     </EnterReferalContext.Provider>
