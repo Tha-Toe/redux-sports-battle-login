@@ -8,6 +8,7 @@ import { Grid, Card } from "@mui/material";
 import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { PropsData } from "../../context/PropsContext";
+import { MyPropsData } from "../../context/MyPropsContext";
 
 export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const handelOpenDetail = (index) => {
@@ -130,7 +131,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
     upComingDataCommingFromApi,
     liveDataCommingFromApi,
     completeDataCommingFromApi,
-  } = useState(null);
+  } = MyPropsData();
   if (
     upComingDataCommingFromApi !== null ||
     liveDataCommingFromApi !== null ||

@@ -16,23 +16,26 @@ export default function MyProps({ mode }) {
     callCompletedMyPropsApi,
     callLiveMyPropsApi,
   } = MyPropsData();
-  useEffect(() => {
-    if (openTag === "Completed") {
-      callCompletedMyPropsApi();
-    } else if (openTag === "Live") {
-      callLiveMyPropsApi();
-    } else {
-      callUpCommingMyPropsApi();
-    }
-  }, [openTag]);
+  // useEffect(() => {
+  //   if (openTag === "Completed") {
+  //     callCompletedMyPropsApi();
+  //   } else if (openTag === "Live") {
+  //     callLiveMyPropsApi();
+  //   } else {
+  //     callUpCommingMyPropsApi();
+  //   }
+  // }, [openTag]);
   const openUpComming = () => {
     setOpenTag("Upcoming");
+    callUpCommingMyPropsApi();
   };
   const openLive = () => {
     setOpenTag("Live");
+    callLiveMyPropsApi();
   };
   const openCompleted = () => {
     setOpenTag("Completed");
+    callCompletedMyPropsApi();
   };
   const [myPropsAppBar, setMyPropsAppBar] = useState([
     { name: "Upcoming", func: openUpComming },
