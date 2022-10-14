@@ -10,22 +10,38 @@ export const PropsContextProvider = ({ children }) => {
   useEffect(() => {
     if (userDetail) {
       getAllSports()
-          .then((result) => {
-            if (result) {
-              console.log(result);
-              setPropsDataCommingFromApi(result);
-            } else {
-              console.log("null");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            setPropsDataCommingFromApi(result);
+          } else {
+            console.log("null");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [userDetail]);
 
+  const callPropsApi = () => {
+    if (userDetail) {
+      getAllSports()
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            setPropsDataCommingFromApi(result);
+          } else {
+            console.log("null");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   return (
-    <PropsContext.Provider value={{ propsDataCommingFromApi }}>
+    <PropsContext.Provider value={{ propsDataCommingFromApi, callPropsApi }}>
       {children}
     </PropsContext.Provider>
   );
