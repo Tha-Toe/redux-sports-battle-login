@@ -4,7 +4,6 @@ import "./addCash.css";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { motion } from "framer-motion";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SelectDepositOption from "./SelectDepositOption";
 
