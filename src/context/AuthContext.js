@@ -9,7 +9,7 @@ import {
 import { APIURLs } from "../api/ApiUrls";
 import { makeGETAPICall } from "../api/methods";
 
-import { auth } from "../firebase";
+import { auth } from "../config/firebase";
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
