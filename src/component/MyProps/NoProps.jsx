@@ -23,7 +23,7 @@ export default function NoProps() {
           textAlign: "center",
         }}
       >
-        No props found
+        You do not have any props
       </Typography>{" "}
     </Box>
   );

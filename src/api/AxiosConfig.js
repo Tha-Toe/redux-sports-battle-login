@@ -3,7 +3,7 @@ export const setAxiosConfig = (idToken, additionalHeaders) => {
     headers: {
       "Content-Type": "application/json",
       Authorization: idToken,
-      // 'app-version': DeviceInfo.getVersion(),
+      // 'app-version': 1.6,
       // 'app-build': DeviceInfo.getBuildNumber(),
     },
   };
@@ -16,5 +16,7 @@ export const setAxiosConfig = (idToken, additionalHeaders) => {
       }
     });
   }
+
+  //console.log(config);
   return config;
 };

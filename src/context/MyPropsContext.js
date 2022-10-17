@@ -19,7 +19,7 @@ export const MyPropsContextProvider = ({ children }) => {
       setLiveDataCommingFromApi(null);
 
       if (user_from_localstorage) {
-        getMyProps(user_from_localstorage.uid, "upcomming")
+        getMyProps(user_from_localstorage.uid, "upcoming")
           .then((result) => {
             if (result) {
               console.log(result);
@@ -110,7 +110,7 @@ export const getMyProps = async (userId, status) => {
   var apiUrl = APIURLs.getMyProps;
   apiUrl = apiUrl.replace("{userId}", userId);
   apiUrl = apiUrl.replace("{status}", status);
-  const apiResponse = await makeGETAPICall(apiUrl);
+  const apiResponse = await makeGETAPICall(apiUrl,[{'app-version': 2},{"page-num":1}]);
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
