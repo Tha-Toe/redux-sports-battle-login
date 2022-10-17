@@ -4,8 +4,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import PriorityHigh from "@mui/icons-material/PriorityHigh";
-
-const NotAllowSameEmail = ({ mode, setErrorPopUp, errorPopUp }) => {
+import { setErrorPopUp } from "../../feature/userSlice";
+import { useDispatch } from "react-redux";
+const NotAllowSameEmail = ({ mode, errorPopUp }) => {
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -72,7 +74,7 @@ const NotAllowSameEmail = ({ mode, setErrorPopUp, errorPopUp }) => {
             textTransform: "none",
           }}
           onClick={() => {
-            setErrorPopUp(null);
+            dispatch(setErrorPopUp("false"));
           }}
         >
           Ok

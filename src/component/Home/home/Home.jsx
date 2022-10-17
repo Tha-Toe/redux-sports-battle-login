@@ -26,29 +26,205 @@ import EmailPrefrence from "../../EmailPrefrence/EmailPrefrence";
 import MyProps from "../../MyProps/MyProps";
 import TransactionHistory from "../../TransactionHistory/TransactionHistory";
 import AddAddress from "../../AddCash/AddAddress";
-import { UserAuth } from "../../../context/AuthContext";
-import { PropsData } from "../../../context/PropsContext";
 import LoadingSpinnerEachSection from "../../loadingSpinner/LoadingSpinnerEachSection";
-import { EnterReferalCodeData } from "../../../context/EnterReferalCodeContext";
 import SupportChat from "../../SupportChat/SupportChat";
-import { MyAccountContextData } from "../../../context/MyAccountContext";
-import { TxHistoryData } from "../../../context/TxHistoryContext";
-import { KnowMoreData } from "../../../context/KnowMoreContext";
-import { EmailPrefrenceContextData } from "../../../context/EmailPrefrencesContext";
-import { SupportChatContextData } from "../../../context/SupportChatContext";
-import { MyPropsData } from "../../../context/MyPropsContext";
 
+import { auth } from "../../../config/firebase";
+import { signOut } from "firebase/auth";
+import {
+  addCompleteDataCommingFromApi,
+  addUpComingDataCommingFromApi,
+  addLiveDataCommingFromApi,
+  removeUserInfo,
+} from "../../../feature/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { APIURLs } from "../../../api/ApiUrls";
+import { makeGETAPICall } from "../../../api/methods";
+import { addPropsDataCommingFromApi } from "../../../feature/userSlice";
+
+export const getAllSports = async () => {
+  var apiUrl = APIURLs.getAllSports;
+  console.log(apiUrl);
+  const apiResponse = await makeGETAPICall(apiUrl); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
+export const getMyProps = async (userId, status) => {
+  var apiUrl = APIURLs.getMyProps;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  apiUrl = apiUrl.replace("{status}", status);
+  const apiResponse = await makeGETAPICall(apiUrl, [
+    { "app-version": 2 },
+    { "page-num": 1 },
+  ]);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
-  const { callProfileApi } = MyAccountContextData();
-  const { callTxHistoryApi } = TxHistoryData();
-  const { enterReferalCodeDataCommingFromApi, callEnterRefralCodeApi } =
-    EnterReferalCodeData();
-  const { callKnowMoreApi } = KnowMoreData();
-  const { callEmailPrefrenceApi } = EmailPrefrenceContextData();
-  const { callSupportChatApi } = SupportChatContextData();
-  const { callUpCommingMyPropsApi, callLiveMyPropsApi } = MyPropsData();
+
+  //getPropsdata
+  const userDetail = useSelector((state) => state.user.userDetail);
+  let preventDoubleCall = true;
+  useEffect(() => {
+    if (userDetail && preventDoubleCall) {
+      preventDoubleCall = false;
+      getAllSports()
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            dispatch(addPropsDataCommingFromApi(result));
+            preventDoubleCall = true;
+          } else {
+            console.log("null");
+            preventDoubleCall = true;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userDetail]);
+
+  const callPropsApi = () => {
+    if (userDetail) {
+      dispatch(addPropsDataCommingFromApi(null));
+      getAllSports()
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            dispatch(addPropsDataCommingFromApi(result));
+          } else {
+            console.log("null");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  //getMyPropsDataFromApi
+  const user_from_localstorage = JSON.parse(localStorage.getItem("user"));
+  //upcomming
+
+  let calling = false;
+  const callUpCommingMyPropsApi = () => {
+    if (!calling) {
+      calling = true;
+      dispatch(addCompleteDataCommingFromApi(null));
+      dispatch(addUpComingDataCommingFromApi(null));
+      dispatch(addLiveDataCommingFromApi(null));
+
+      if (user_from_localstorage) {
+        getMyProps(user_from_localstorage.uid, "upcoming")
+          .then((result) => {
+            if (result) {
+              console.log(result);
+              dispatch(addUpComingDataCommingFromApi(result));
+              calling = false;
+            } else {
+              console.log("null");
+              calling = false;
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            calling = false;
+          });
+      }
+    } else {
+      return;
+    }
+  };
+
+  //live
+  const callLiveMyPropsApi = () => {
+    dispatch(addCompleteDataCommingFromApi(null));
+    dispatch(addUpComingDataCommingFromApi(null));
+    dispatch(addLiveDataCommingFromApi(null));
+
+    if (user_from_localstorage) {
+      getMyProps(user_from_localstorage.uid, "live")
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            dispatch(addLiveDataCommingFromApi(result));
+          } else {
+            console.log("null");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  //completed
+  const completeDataCommingFromApi = useSelector(
+    (state) => state.user.completeDataCommingFromApi
+  );
+  const callCompletedMyPropsApi = () => {
+    dispatch(addCompleteDataCommingFromApi(null));
+    dispatch(addUpComingDataCommingFromApi(null));
+    dispatch(addLiveDataCommingFromApi(null));
+
+    if (user_from_localstorage) {
+      getMyProps(user_from_localstorage.uid, "completed")
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            dispatch(addCompleteDataCommingFromApi(result));
+          } else {
+            console.log("null");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  //getProfileDataFromApi
+  const callProfileApi = () => {
+    return;
+  };
+
+  //getTxHistoryFromApi
+  const callTxHistoryApi = () => {
+    return;
+  };
+
+  //getEnterReferalCodeDataFromApi
+  const enterReferalCodeDataCommingFromApi = useSelector(
+    (state) => state.user.enterReferalCodeDataCommingFromApi
+  );
+  const callEnterRefralCodeApi = () => {
+    return;
+  };
+
+  //getKnowMoreDataFromApi
+  const callKnowMoreApi = () => {
+    return;
+  };
+
+  //getEmailPrefrenceDataFromApi
+  const callEmailPrefrenceApi = () => {
+    return;
+  };
+
+  //supportChatDataFromApi
+  const callSupportChatApi = () => {
+    return;
+  };
+
   const propsOpen = () => {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
@@ -207,9 +383,15 @@ export function Home({ mode, setMode }) {
     homeRef.current.scrollTop = 0;
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
-
-  const { logOut, user } = UserAuth();
-  const { callPropsApi } = PropsData();
+  const dispatch = useDispatch();
+  const logOut = () => {
+    if (auth) {
+      signOut(auth);
+    }
+    dispatch(removeUserInfo());
+    localStorage.removeItem("user");
+  };
+  const user = useSelector((state) => state.user.user);
 
   return (
     <div className="logged-container" ref={homeContainerRef}>
@@ -875,7 +1057,12 @@ export function Home({ mode, setMode }) {
             ></Props>
           )}
           {!location.search && openTag === "my-props" && (
-            <MyProps mode={mode} />
+            <MyProps
+              mode={mode}
+              callCompletedMyPropsApi={callCompletedMyPropsApi}
+              callUpCommingMyPropsApi={callUpCommingMyPropsApi}
+              callLiveMyPropsApi={callLiveMyPropsApi}
+            />
           )}
           {!location.search && openTag === "my-profile" && (
             <MyProfile

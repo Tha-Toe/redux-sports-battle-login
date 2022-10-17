@@ -1,11 +1,9 @@
-import { useContext, createContext, useState, useEffect } from "react";
-import { onAuthStateChanged, getIdToken } from "firebase/auth";
 import { Navigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
 import LoadingSpinner from "../component/loadingSpinner/LoadingSpinner";
-import { auth } from "../config/firebase";
+import { useSelector } from "react-redux";
 export default function Protected({ children }) {
-  const { user, checking } = UserAuth();
+  const user = useSelector((state) => state.user.user);
+  const checking = useSelector((state) => state.user.checking);
   if (checking) {
     return <LoadingSpinner />;
   } else if (!user) {

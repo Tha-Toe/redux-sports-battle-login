@@ -1,9 +1,11 @@
 import React from "react";
-import { SupportChatContextData } from "../../context/SupportChatContext";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { useSelector } from "react-redux";
 
 export default function SupportChat() {
-  const { supportChatDataCommingFromApi } = SupportChatContextData();
+  const supportChatDataCommingFromApi = useSelector(
+    (state) => state.user.supportChatDataCommingFromApi
+  );
   if (supportChatDataCommingFromApi) {
     return;
   } else {

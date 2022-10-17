@@ -13,10 +13,10 @@ import SuccessSubmit from "./SuccessSubmit";
 import ErrorSubmit from "./ErrorSubmit";
 import NotEnoughBalance from "./NotEnoughBalance";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { PropsData } from "../../context/PropsContext";
-
+import { useSelector } from "react-redux";
 const useHorizontalScroll = () => {
   const elRef = useRef();
+
   useEffect(() => {
     const el = elRef.current;
     if (el) {
@@ -43,6 +43,9 @@ export default function Props({
   selectSrc,
   setSelectSrc,
 }) {
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
   const [openBaseBallPoint, setOpenBaseBallPoint] = useState(false);
@@ -449,7 +452,6 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  const { propsDataCommingFromApi } = PropsData();
   if (propsDataCommingFromApi) {
     return (
       <main className="props-container">

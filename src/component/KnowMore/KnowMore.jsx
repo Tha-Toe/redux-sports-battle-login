@@ -5,7 +5,7 @@ import OverUnderPointSystem from "./OverUnderPointSystem";
 import FAQ from "./FAQ";
 import OperatingState from "./OperatingState";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { KnowMoreData } from "../../context/KnowMoreContext";
+import { useSelector } from "react-redux";
 const useHorizontalScroll = () => {
   const elRef = useRef();
   useEffect(() => {
@@ -198,7 +198,9 @@ export default function KnowMore({ mode }) {
 
   const sportsRef = useHorizontalScroll();
 
-  const { knowMoreDataCommingFromApi } = KnowMoreData();
+  const knowMoreDataCommingFromApi = useSelector(
+    (state) => state.user.knowMoreDataCommingFromApi
+  );
 
   if (knowMoreDataCommingFromApi) {
     return (

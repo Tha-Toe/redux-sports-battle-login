@@ -12,11 +12,41 @@ import {
   InputComponentLogin,
   PasswordInputComponentLogin,
 } from "../../defaultComponent/DefaultComponent";
-import { UserAuth } from "../../../context/AuthContext";
 import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
 import NotAllowSameEmail from "../../NotAllowPopup/NotAllowSameEmail";
+import {
+  signInWithPopup,
+  signOut,
+  OAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
+
+import { auth } from "../../../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginFlow = ({ mode, setMode }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
+  // const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  //apple signIn
+  const appleSignIn = async () => {
+    setLoading(true);
+    const appleProvider = new OAuthProvider("apple.com");
+    await signInWithPopup(auth, appleProvider);
+  };
+
+  //google signIn
+
+  const googleSignIn = async () => {
+    setLoading(true);
+    const googleProvider = new GoogleAuthProvider();
+    await signInWithPopup(auth, googleProvider);
+  };
+
   const [showPass, setShowPass] = useState(false);
   const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);
@@ -41,15 +71,7 @@ const LoginFlow = ({ mode, setMode }) => {
     }
   };
 
-  const {
-    appleSignIn,
-    loading,
-    setLoading,
-    errorPopUp,
-    setErrorPopUp,
-    googleSignIn,
-  } = UserAuth();
-
+  const errorPopUp = useSelector((state) => state.user.errorPopUp);
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
@@ -332,13 +354,7 @@ const LoginFlow = ({ mode, setMode }) => {
         onClick={switchMode}
       />
       {loading && <LoadingSpinner />}{" "}
-      {errorPopUp && (
-        <NotAllowSameEmail
-          mode={mode}
-          setErrorPopUp={setErrorPopUp}
-          errorPopUp={errorPopUp}
-        />
-      )}
+      {errorPopUp && <NotAllowSameEmail mode={mode} errorPopUp={errorPopUp} />}
     </div>
   );
 };

@@ -19,9 +19,8 @@ import SelectAddressPaperCheck from "./SelectAddressPaperCheck";
 import AddPhoneNumber from "./AddPhoneNumber";
 import VerifycationCode from "./VerifycationCode";
 import AccountSetup from "./AccountSetup";
-import { UserAuth } from "../../context/AuthContext";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { MyAccountContextData } from "../../context/MyAccountContext";
+import { useSelector } from "react-redux";
 export default function MyProfile({
   mode,
   myProfileOpen,
@@ -123,9 +122,10 @@ export default function MyProfile({
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [verify, setVerify] = useState(false);
 
-  const { user } = UserAuth();
-
-  const { myAccountDataCommingFromApi } = MyAccountContextData();
+  const user = useSelector((state) => state.user.user);
+  const myAccountDataCommingFromApi = useSelector(
+    (state) => state.user.myAccountDataCommingFromApi
+  );
 
   if (openTag === "WidthDrawCash") {
     return (

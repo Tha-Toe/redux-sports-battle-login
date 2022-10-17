@@ -7,9 +7,8 @@ import { useState } from "react";
 import { Grid, Card } from "@mui/material";
 import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { PropsData } from "../../context/PropsContext";
-import { MyPropsData } from "../../context/MyPropsContext";
 import NoProps from "./NoProps";
+import { useSelector } from "react-redux";
 
 export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const handelOpenDetail = (index) => {
@@ -127,12 +126,15 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   ]);
   const [openDetail, setOpenDetail] = useState(null);
   const [clicked, setClicked] = useState(null);
-
-  const {
-    upComingDataCommingFromApi,
-    liveDataCommingFromApi,
-    completeDataCommingFromApi,
-  } = MyPropsData();
+  const completeDataCommingFromApi = useSelector(
+    (state) => state.user.completeDataCommingFromApi
+  );
+  const liveDataCommingFromApi = useSelector(
+    (state) => state.user.liveDataCommingFromApi
+  );
+  const upComingDataCommingFromApi = useSelector(
+    (state) => state.user.upComingDataCommingFromApi
+  );
   if (
     (Array.isArray(upComingDataCommingFromApi) &&
       upComingDataCommingFromApi.length === 0) ||

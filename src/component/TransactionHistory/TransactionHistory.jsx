@@ -3,8 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Detail from "../MyProps/Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { TxHistoryData } from "../../context/TxHistoryContext";
 import NotFound from "./NotFound";
+import { useSelector } from "react-redux";
 export default function TransactionHistory({ mode }) {
   const [history, setHistory] = useState([
     {
@@ -127,7 +127,9 @@ export default function TransactionHistory({ mode }) {
   const [referCode] = useState(true);
   const [clicked, setClicked] = useState(null);
 
-  const { txHistoryDataCommingFromApi } = TxHistoryData();
+  const txHistoryDataCommingFromApi = useSelector(
+    (state) => state.user.txHistoryDataCommingFromApi
+  );
   if (
     Array.isArray(txHistoryDataCommingFromApi) &&
     txHistoryDataCommingFromApi.length === 0

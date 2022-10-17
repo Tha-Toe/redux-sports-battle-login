@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
 import "./emailPrefrence.css";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { EmailPrefrenceContextData } from "../../context/EmailPrefrencesContext";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-
+import { useSelector } from "react-redux";
 export default function EmailPrefrence({ setOpenTag }) {
   const [emailSettingStore, setEmailSettingStore] = useState([
     { name: " When I join game plays ", open: true },
@@ -32,7 +30,9 @@ export default function EmailPrefrence({ setOpenTag }) {
     navigate("/home", { replace: true });
   };
 
-  const { emailPrefrenceDataCommingFromApi } = EmailPrefrenceContextData();
+  const emailPrefrenceDataCommingFromApi = useSelector(
+    (state) => state.user.emailPrefrenceDataCommingFromApi
+  );
   if (emailPrefrenceDataCommingFromApi) {
     return (
       <Box

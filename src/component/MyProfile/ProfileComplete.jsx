@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { UserAuth } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 export default function ProfileComplete({ mode, setOpenTag }) {
-  const { user } = UserAuth();
+  const user = useSelector((state) => state.user.user);
   return (
     <Box
       sx={{
