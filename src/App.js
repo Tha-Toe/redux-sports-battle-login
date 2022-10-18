@@ -35,6 +35,7 @@ import {
   startChecking,
   addUserDetail,
   setUserAccountNotExist,
+  setUserAccountExist,
 } from "./feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 export const getUserInfoFromFirebaseUser = (firUser, fullName) => ({
@@ -68,12 +69,13 @@ function App() {
 
   const [preventFromMultipleTimesRun, setPreventFromMulitpleTimesRun] =
     useState(false);
+
+  const [clickedSignUp, setClickedSignUp] = useState(false);
   useEffect(() => {
     const firebaseUser = onAuthStateChanged(auth, async (currentUser) => {
       const user_from_localstorage = await JSON.parse(
         localStorage.getItem("user")
       );
-      console.log("change something");
       if (user_from_localstorage) {
         //if user exists in local storage
 
@@ -92,42 +94,76 @@ function App() {
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         // console.log(firUser);
         // setUser(firUser);
-        getUserById(firUser.uid)
-          .then((result) => {
-            if (result) {
-              localStorage.setItem("user", JSON.stringify(firUser));
-              dispatch(addUserInfo(currentUser));
-              //user is not null will get details
-              dispatch(addUserDetail(result));
+        console.log(clickedSignUp);
+        if (clickedSignUp) {
+          getUserById(firUser.uid)
+            .then((result) => {
               console.log(result);
-            } else {
-              //user is null create user
-              localStorage.removeItem("user");
-              dispatch(addUserDetail(null));
-              dispatch(
-                setUserAccountNotExist(
-                  "Your account doesn't exists with us. Please sign up from the sign up section."
-                )
-              );
-              if (auth) {
-                signOut(auth);
+              if (result) {
+                //user is exist return to login page
+                localStorage.removeItem("user");
+                dispatch(
+                  setUserAccountExist(
+                    "Your account exists with us. Please login to continue in login section."
+                  )
+                );
+                dispatch(addUserDetail(null));
+                if (auth) {
+                  signOut(auth);
+                }
+                dispatch(removeUserInfo());
+                setClickedSignUp(false);
+                dispatch(endChecking());
+              } else {
+                //user is null go to signup func
+                setClickedSignUp(false);
+                dispatch(endChecking());
               }
-              dispatch(removeUserInfo());
-            }
-            //loading false
-            dispatch(endChecking());
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+              //loading false
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          getUserById(firUser.uid)
+            .then((result) => {
+              if (result) {
+                localStorage.setItem("user", JSON.stringify(firUser));
+                dispatch(addUserInfo(currentUser));
+                //user is not null will get details
+                dispatch(addUserDetail(result));
+                console.log(result);
+              } else {
+                //user is null create user
+                localStorage.removeItem("user");
+                dispatch(addUserDetail(null));
+                dispatch(
+                  setUserAccountNotExist(
+                    "Your account doesn't exists with us. Please sign up from the sign up section."
+                  )
+                );
+                if (auth) {
+                  signOut(auth);
+                }
+                dispatch(removeUserInfo());
+              }
+              //loading false
+              dispatch(endChecking());
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       } else {
-        dispatch(endChecking());
+        if (!clickedSignUp) {
+          dispatch(endChecking());
+        }
       }
     });
     return () => {
       firebaseUser();
     };
-  }, []);
+  }, [clickedSignUp]);
 
   useEffect(() => {
     if (preventFromMultipleTimesRun) {
@@ -244,7 +280,11 @@ function App() {
               path="/choose"
               element={
                 <Redirect>
-                  <Choose mode={mode} setMode={setMode} />
+                  <Choose
+                    mode={mode}
+                    setMode={setMode}
+                    setClickedSignUp={setClickedSignUp}
+                  />
                 </Redirect>
               }
             />

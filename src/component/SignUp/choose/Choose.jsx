@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./choose.css";
 import Box from "@mui/material/Box";
 import { Button, FormControl, Typography } from "@mui/material";
@@ -8,19 +8,16 @@ import AppleIcon from "@mui/icons-material/Apple";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   signInWithPopup,
-  signOut,
   OAuthProvider,
   GoogleAuthProvider,
-  onAuthStateChanged,
 } from "firebase/auth";
 
 import { auth } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import UserAccountNotExist from "../../NotAllowPopup/UserAccountNotExist";
-import { startChecking, endChecking } from "../../../feature/userSlice";
+import { startChecking } from "../../../feature/userSlice";
 import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
-
-const Choose = ({ mode, setMode }) => {
+import UserAccountExist from "../../NotAllowPopup/UserAccountExist";
+const Choose = ({ mode, setMode, setClickedSignUp }) => {
   let navigate = useNavigate();
 
   const handleGoSignUp = () => {
@@ -38,17 +35,19 @@ const Choose = ({ mode, setMode }) => {
   const handleGoogleLogin = async () => {
     try {
       dispatch(startChecking());
+      setClickedSignUp(true);
       await googleSignIn();
     } catch (error) {
-      dispatch(endChecking());
+      setClickedSignUp(false);
     }
   };
   const handleAppleLogin = async () => {
     try {
       dispatch(startChecking());
+      setClickedSignUp(true);
       await appleSignIn();
     } catch (error) {
-      dispatch(endChecking());
+      setClickedSignUp(false);
     }
   };
   //apple signIn
@@ -59,14 +58,12 @@ const Choose = ({ mode, setMode }) => {
   };
 
   //google signIn
-
   const googleSignIn = async () => {
     dispatch(startChecking());
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider);
-    console.log(googleProvider);
   };
-
+  const userAccountExist = useSelector((state) => state.user.userAccountExist);
   return (
     <div className="login-flow-container">
       <Box
@@ -299,6 +296,7 @@ const Choose = ({ mode, setMode }) => {
         className="switchMode"
         onClick={switchMode}
       />
+      {userAccountExist && <UserAccountExist />}
       {checking && <LoadingSpinner />}
     </div>
   );

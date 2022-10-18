@@ -14,6 +14,7 @@ const initialState = {
   knowMoreDataCommingFromApi: null,
   errorPopUp: false,
   userAccountNotExist: null,
+  userAccountExist: null,
 };
 
 export const userSlice = createSlice({
@@ -72,6 +73,10 @@ export const userSlice = createSlice({
     setUserAccountNotExist: (state, action) => {
       state.userAccountNotExist = action.payload;
     },
+
+    setUserAccountExist: (state, action) => {
+      state.userAccountExist = action.payload;
+    },
   },
 });
 
@@ -93,6 +98,8 @@ export const {
   addEmailPrefrenceDataCommingFromApi,
   setErrorPopUp,
   setUserAccountNotExist,
+  // setClickedSignUp,
+  setUserAccountExist,
 } = userSlice.actions;
 
 export default userSlice.reducer;
