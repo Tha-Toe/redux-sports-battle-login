@@ -389,9 +389,24 @@ export function Home({ mode, setMode }) {
     }
   };
 
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
+
+  useEffect(() => {
+    if (propsDataCommingFromApi) {
+      let firstSportName = propsDataCommingFromApi[0].sportName;
+      let firstSportSrc = propsDataCommingFromApi[0].activeSrc;
+      let firstSportColor = propsDataCommingFromApi[0].color;
+      setSelectSports(firstSportName);
+      setSelectSrc(firstSportSrc);
+      setSelectColor(firstSportColor);
+    }
+  }, [propsDataCommingFromApi]);
+
   const [openDropDown, setOpenDropDown] = useState(false);
 
-  const [selectSports, setSelectSports] = useState("MLB");
+  const [selectSports, setSelectSports] = useState(null);
   const [selectSrc, setSelectSrc] = useState("/mlb.png");
   const [selectColor, setSelectColor] = useState("blue");
 

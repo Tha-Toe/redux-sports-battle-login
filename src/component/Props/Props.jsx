@@ -483,6 +483,11 @@ export default function Props({
                     justifyContent: "center",
                     mr: { xxxs: "5px" },
                   }}
+                  onClick={() => {
+                    setSelectSports(e.sportName);
+                    setSelectColor(e.color);
+                    setSelectSrc(e.activeImage);
+                  }}
                 >
                   <Box
                     sx={{
@@ -504,18 +509,27 @@ export default function Props({
                       }`,
                       cursor: "pointer",
                     }}
-                    onClick={() => {
-                      setSelectSports(e.sportName);
-                      setSelectColor(e.color);
-                      setSelectSrc(e.activeImage);
-                    }}
                   >
                     {mode === "dark" ? (
                       <>
                         {e.sportName === selectSports ? (
-                          <img className="propsNavImg" src={e.activeImage} />
+                          <img
+                            className="propsNavImg"
+                            src={`${
+                              e.sportName === selectSports
+                                ? e.activeImage
+                                : e.inactiveImage
+                            }`}
+                          />
                         ) : (
-                          <img className="propsNavImg" src={e.inactiveImage} />
+                          <img
+                            className="propsNavImg"
+                            src={
+                              e.sportName === selectSports
+                                ? e.activeImage
+                                : e.inactiveImage
+                            }
+                          />
                         )}
                       </>
                     ) : (
