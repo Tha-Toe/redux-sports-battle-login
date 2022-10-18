@@ -60,9 +60,18 @@ export const onSportsCounterUpdate = async ({
     dispatch(addPropsDataCommingFromApi(null));
     getAllSports()
       .then((result) => {
+        var allsports = [];
+
         if (result) {
           console.log(result);
-          dispatch(addPropsDataCommingFromApi(result));
+          if (result && result.length > 0) {
+            result.forEach((x) => {
+              if (x.code != "home" && x.activeSw) {
+                allsports.push(x);
+              }
+            });
+          }
+          dispatch(addPropsDataCommingFromApi(allsports));
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
         } else {
