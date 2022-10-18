@@ -500,21 +500,27 @@ export default function Props({
                       alignItems: "center",
                       justifyContent: "center",
                       bgcolor: `${
-                        e.name === selectSports ? e.color : "transparent"
+                        e.sportName === selectSports ? e.color : "transparent"
                       }`,
                       cursor: "pointer",
                     }}
                     onClick={() => {
-                      setSelectSports(e.name);
+                      setSelectSports(e.sportName);
                       setSelectColor(e.color);
-                      setSelectSrc(e.src);
+                      setSelectSrc(e.activeImage);
                     }}
                   >
                     {mode === "dark" ? (
-                      <img className="propsNavImg" src={e.activeImage} />
+                      <>
+                        {e.sportName === selectSports ? (
+                          <img className="propsNavImg" src={e.activeImage} />
+                        ) : (
+                          <img className="propsNavImg" src={e.inactiveImage} />
+                        )}
+                      </>
                     ) : (
                       <>
-                        {e.name === selectSports ? (
+                        {e.sportName === selectSports ? (
                           <img className="propsNavImg" src={e.src} />
                         ) : (
                           <img className="propsNavImg" src={e.light_src} />
@@ -529,7 +535,9 @@ export default function Props({
                       fontFamily: "poppins",
                       mt: "5px",
                       color: `${
-                        e.name === selectSports ? e.color : "secondary.main"
+                        e.sportName === selectSports
+                          ? e.color
+                          : "secondary.main"
                       }`,
                       width: "50px",
                       textAlign: "center",
