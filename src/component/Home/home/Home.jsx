@@ -41,6 +41,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
 import { makeGETAPICall } from "../../../api/methods";
 import { addPropsDataCommingFromApi } from "../../../feature/userSlice";
+import {
+  doc,
+  getDocs,
+  collection,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../../config/firebase";
+
+export const onSportsCounterUpdate = async ({
+  dispatch,
+  preventDoubleCall,
+}) => {
+  console.log("here");
+  const q = query(collection(db, "sports_counter"));
+  onSnapshot(q, (querySnapshot) => {
+    dispatch(addPropsDataCommingFromApi(null));
+    getAllSports()
+      .then((result) => {
+        if (result) {
+          console.log(result);
+          dispatch(addPropsDataCommingFromApi(result));
+          localStorage.setItem("all_sports", JSON.stringify(result));
+          preventDoubleCall = true;
+        } else {
+          console.log("null");
+          preventDoubleCall = true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+};
 
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
@@ -74,41 +108,17 @@ export function Home({ mode, setMode }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   let preventDoubleCall = true;
   useEffect(() => {
-    if (userDetail && preventDoubleCall) {
-      preventDoubleCall = false;
-      getAllSports()
-        .then((result) => {
-          if (result) {
-            console.log(result);
-            dispatch(addPropsDataCommingFromApi(result));
-            preventDoubleCall = true;
-          } else {
-            console.log("null");
-            preventDoubleCall = true;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const getPropsData = () => {
+      if (userDetail && preventDoubleCall) {
+        preventDoubleCall = false;
+        onSportsCounterUpdate({ dispatch, preventDoubleCall });
+      }
+    };
+    getPropsData();
   }, [userDetail]);
 
   const callPropsApi = () => {
-    if (userDetail) {
-      dispatch(addPropsDataCommingFromApi(null));
-      getAllSports()
-        .then((result) => {
-          if (result) {
-            console.log(result);
-            dispatch(addPropsDataCommingFromApi(result));
-          } else {
-            console.log("null");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    onSportsCounterUpdate({ dispatch, preventDoubleCall });
   };
 
   //getMyPropsDataFromApi
