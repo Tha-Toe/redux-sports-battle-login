@@ -22,13 +22,7 @@ import { Home } from "./component/Home/home/Home";
 import { useContext, useState, useEffect, useRef } from "react";
 import Protected from "./protected/Protected";
 import Redirect from "./protected/Redirect";
-import {
-  signInWithPopup,
-  signOut,
-  OAuthProvider,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 // import { APIURLs } from "../../api/ApiUrls";
 import { makeGETAPICall } from "./api/methods";
 import { APIURLs } from "./api/ApiUrls";
@@ -36,9 +30,11 @@ import { APIURLs } from "./api/ApiUrls";
 import { auth } from "./config/firebase";
 import {
   addUserInfo,
+  removeUserInfo,
   endChecking,
   startChecking,
   addUserDetail,
+  setUserAccountNotExist,
 } from "./feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 export const getUserInfoFromFirebaseUser = (firUser, fullName) => ({
@@ -67,11 +63,8 @@ export const getUserById = async (userId) => {
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const checking = useSelector((state) => state.user.checking);
 
   // const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [userDetail, setUserDetail] = useState(null);
 
   const [preventFromMultipleTimesRun, setPreventFromMulitpleTimesRun] =
     useState(false);
@@ -80,6 +73,7 @@ function App() {
       const user_from_localstorage = await JSON.parse(
         localStorage.getItem("user")
       );
+      console.log("change something");
       if (user_from_localstorage) {
         //if user exists in local storage
 
@@ -98,17 +92,27 @@ function App() {
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         // console.log(firUser);
         // setUser(firUser);
-        localStorage.setItem("user", JSON.stringify(firUser));
-        dispatch(addUserInfo(currentUser));
         getUserById(firUser.uid)
           .then((result) => {
             if (result) {
+              localStorage.setItem("user", JSON.stringify(firUser));
+              dispatch(addUserInfo(currentUser));
               //user is not null will get details
               dispatch(addUserDetail(result));
               console.log(result);
             } else {
               //user is null create user
-              dispatch(addUserDetail("null"));
+              localStorage.removeItem("user");
+              dispatch(addUserDetail(null));
+              dispatch(
+                setUserAccountNotExist(
+                  "Your account doesn't exists with us. Please sign up from the sign up section."
+                )
+              );
+              if (auth) {
+                signOut(auth);
+              }
+              dispatch(removeUserInfo());
             }
             //loading false
             dispatch(endChecking());
@@ -116,7 +120,6 @@ function App() {
           .catch((err) => {
             console.log(err);
           });
-        setLoading(false);
       } else {
         dispatch(endChecking());
       }
@@ -239,7 +242,11 @@ function App() {
             />
             <Route
               path="/choose"
-              element={<Choose mode={mode} setMode={setMode} />}
+              element={
+                <Redirect>
+                  <Choose mode={mode} setMode={setMode} />
+                </Redirect>
+              }
             />
             <Route
               path="/enteryourdetail"

@@ -24,17 +24,18 @@ import {
 
 import { auth } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
-
+import UserAccountNotExist from "../../NotAllowPopup/UserAccountNotExist";
+import { startChecking, endChecking } from "../../../feature/userSlice";
 const LoginFlow = ({ mode, setMode }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const checking = useSelector((state) => state.user.checking);
 
   // const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   //apple signIn
   const appleSignIn = async () => {
-    setLoading(true);
+    dispatch(startChecking());
     const appleProvider = new OAuthProvider("apple.com");
     await signInWithPopup(auth, appleProvider);
   };
@@ -42,7 +43,7 @@ const LoginFlow = ({ mode, setMode }) => {
   //google signIn
 
   const googleSignIn = async () => {
-    setLoading(true);
+    dispatch(startChecking());
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider);
   };
@@ -74,20 +75,24 @@ const LoginFlow = ({ mode, setMode }) => {
   const errorPopUp = useSelector((state) => state.user.errorPopUp);
   const handleGoogleLogin = async () => {
     try {
-      setLoading(true);
+      dispatch(startChecking());
       await googleSignIn();
     } catch (error) {
-      setLoading(false);
+      dispatch(endChecking());
     }
   };
   const handleAppleLogin = async () => {
     try {
-      setLoading(true);
+      dispatch(startChecking());
       await appleSignIn();
     } catch (error) {
-      setLoading(false);
+      dispatch(endChecking());
     }
   };
+
+  const userAccountNotExist = useSelector(
+    (state) => state.user.userAccountNotExist
+  );
 
   return (
     <div className="login-flow-container">
@@ -191,7 +196,6 @@ const LoginFlow = ({ mode, setMode }) => {
                   },
                   height: { xs: "64px", xxxs: "50px" },
                 }}
-                // onClick={()=>{setLoading(true)}}
               >
                 <Button
                   startIcon={<GoogleIcon />}
@@ -353,8 +357,9 @@ const LoginFlow = ({ mode, setMode }) => {
         className="switchMode"
         onClick={switchMode}
       />
-      {loading && <LoadingSpinner />}{" "}
+      {checking && <LoadingSpinner />}{" "}
       {errorPopUp && <NotAllowSameEmail mode={mode} errorPopUp={errorPopUp} />}
+      {userAccountNotExist && <UserAccountNotExist mode={mode} />}
     </div>
   );
 };

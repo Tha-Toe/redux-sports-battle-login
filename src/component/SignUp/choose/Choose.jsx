@@ -6,6 +6,20 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import {
+  signInWithPopup,
+  signOut,
+  OAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
+
+import { auth } from "../../../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import UserAccountNotExist from "../../NotAllowPopup/UserAccountNotExist";
+import { startChecking, endChecking } from "../../../feature/userSlice";
+import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
+
 const Choose = ({ mode, setMode }) => {
   let navigate = useNavigate();
 
@@ -19,6 +33,40 @@ const Choose = ({ mode, setMode }) => {
       setMode("dark");
     }
   };
+  const dispatch = useDispatch();
+  const checking = useSelector((state) => state.user.checking);
+  const handleGoogleLogin = async () => {
+    try {
+      dispatch(startChecking());
+      await googleSignIn();
+    } catch (error) {
+      dispatch(endChecking());
+    }
+  };
+  const handleAppleLogin = async () => {
+    try {
+      dispatch(startChecking());
+      await appleSignIn();
+    } catch (error) {
+      dispatch(endChecking());
+    }
+  };
+  //apple signIn
+  const appleSignIn = async () => {
+    dispatch(startChecking());
+    const appleProvider = new OAuthProvider("apple.com");
+    await signInWithPopup(auth, appleProvider);
+  };
+
+  //google signIn
+
+  const googleSignIn = async () => {
+    dispatch(startChecking());
+    const googleProvider = new GoogleAuthProvider();
+    await signInWithPopup(auth, googleProvider);
+    console.log(googleProvider);
+  };
+
   return (
     <div className="login-flow-container">
       <Box
@@ -127,6 +175,7 @@ const Choose = ({ mode, setMode }) => {
                   fontFamily: "Poppins",
                   bgcolor: "primary.main",
                 }}
+                onClick={handleGoogleLogin}
               >
                 Signup with Google
               </Button>
@@ -154,6 +203,7 @@ const Choose = ({ mode, setMode }) => {
                   fontFamily: "Poppins",
                   bgcolor: "primary.main",
                 }}
+                onClick={handleAppleLogin}
               >
                 Signup with Apple
               </Button>
@@ -249,6 +299,7 @@ const Choose = ({ mode, setMode }) => {
         className="switchMode"
         onClick={switchMode}
       />
+      {checking && <LoadingSpinner />}
     </div>
   );
 };

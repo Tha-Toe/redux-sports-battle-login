@@ -13,6 +13,7 @@ const initialState = {
   supportChatDataCommingFromApi: null,
   knowMoreDataCommingFromApi: null,
   errorPopUp: false,
+  userAccountNotExist: null,
 };
 
 export const userSlice = createSlice({
@@ -68,6 +69,9 @@ export const userSlice = createSlice({
         state.errorPopUp = true;
       }
     },
+    setUserAccountNotExist: (state, action) => {
+      state.userAccountNotExist = action.payload;
+    },
   },
 });
 
@@ -88,6 +92,7 @@ export const {
   addKnowMoreDataCommingFromApi,
   addEmailPrefrenceDataCommingFromApi,
   setErrorPopUp,
+  setUserAccountNotExist,
 } = userSlice.actions;
 
 export default userSlice.reducer;
