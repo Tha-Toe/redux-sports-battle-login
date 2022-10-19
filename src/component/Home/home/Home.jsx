@@ -88,7 +88,7 @@ export const onSportsCounterUpdate = async ({
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
   console.log(apiUrl);
-  const apiResponse = await makeGETAPICall(apiUrl); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  const apiResponse = await makeGETAPICall(apiUrl,[{"app-version":2}]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
@@ -113,7 +113,7 @@ export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
 
-  //getPropsdata
+  //getSportsdata
   const userDetail = useSelector((state) => state.user.userDetail);
   let preventDoubleCall = true;
   useEffect(() => {
