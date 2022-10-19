@@ -98,13 +98,13 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
               .then((prop) => {
                 console.log(prop);
                 allprops = prop;
+                dispatch(addPropsDataCommingFromApi(allprops));
               })
               .catch((err) => {
                 console.log(err);
               });
           }
         });
-        dispatch(addPropsDataCommingFromApi(allprops));
       }
     }
   });

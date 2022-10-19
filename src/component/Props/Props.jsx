@@ -460,7 +460,7 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  if (sportDataCommingFromApi) {
+  if (sportDataCommingFromApi && propsDataCommingFromApi) {
     return (
       <main className="props-container">
         <Box
