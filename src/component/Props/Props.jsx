@@ -50,6 +50,9 @@ export default function Props({
   const propsDataCommingFromApi = useSelector(
     (state) => state.user.propsDataCommingFromApi
   );
+  const propsApiCallComplete = useSelector(
+    (state) => state.user.propsApiCallComplete
+  );
   useEffect(() => {
     //console.log(propsDataCommingFromApi);
   }, [propsDataCommingFromApi]);
@@ -460,7 +463,7 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  if (sportDataCommingFromApi && propsDataCommingFromApi) {
+  if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
         <Box

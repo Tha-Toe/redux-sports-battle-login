@@ -15,7 +15,8 @@ const initialState = {
   errorPopUp: false,
   userAccountNotExist: null,
   userAccountExist: null,
-  propsDataCommingFromApi: null,
+  propsDataCommingFromApi: [],
+  propsApiCallComplete: false,
 };
 
 export const userSlice = createSlice({
@@ -79,7 +80,22 @@ export const userSlice = createSlice({
       state.userAccountExist = action.payload;
     },
     addPropsDataCommingFromApi: (state, action) => {
+      let data = state.propsDataCommingFromApi;
+      let checkArray = data.filter((each) => {
+        return each.sportCode !== action.payload.sportCode;
+      });
+      if (data.length === 0) {
+        state.propsDataCommingFromApi = [...action.payload];
+      } else if (checkArray.length === data.length) {
+        state.propsDataCommingFromApi.push(action.payload);
+      } else {
+        checkArray.push(action.payload);
+        state.propsDataCommingFromApi = [...checkArray];
+      }
       state.propsDataCommingFromApi = action.payload;
+    },
+    setPropsApiCallComplete: (state, action) => {
+      state.propsApiCallComplete = action;
     },
   },
 });
@@ -104,6 +120,7 @@ export const {
   setUserAccountNotExist,
   setUserAccountExist,
   addPropsDataCommingFromApi,
+  setPropsApiCallComplete,
 } = userSlice.actions;
 
 export default userSlice.reducer;

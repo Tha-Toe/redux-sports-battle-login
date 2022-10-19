@@ -37,6 +37,7 @@ import {
   addLiveDataCommingFromApi,
   removeUserInfo,
   addPropsDataCommingFromApi,
+  setPropsApiCallComplete,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -87,25 +88,32 @@ export const onSportsCounterUpdate = async ({
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
   const q = query(collection(db, "props_ou_counter"));
   onSnapshot(q, (querySnapshot) => {
-    var allprops;
-    let allSports = localStorage.getItem("all_sports");
-    if (allSports) {
-      const allsports = JSON.parse(allSports);
-      if (allsports && allsports.length > 0) {
-        allsports.forEach((x) => {
-          if (x.code != "home" && x.activeSw) {
-            getPropsSport(x.code)
-              .then((prop) => {
-                console.log(prop);
-                allprops = prop;
-                dispatch(addPropsDataCommingFromApi(allprops));
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        });
-      }
+    var allprops = [];
+    let allSports = JSON.parse(localStorage.getItem("all_sports"));
+    let countArray = allSports.filter((each) => {
+      return each.code !== "home" && each.activeSw;
+    });
+    let apiCallTimes = countArray.length;
+    console.log("api call time" + apiCallTimes);
+    let count = 0;
+    if (allSports && allSports.length > 0) {
+      allSports.forEach((x) => {
+        if (x.code != "home" && x.activeSw) {
+          getPropsSport(x.code)
+            .then((prop) => {
+              count++;
+              if (apiCallTimes === count) {
+                dispatch(setPropsApiCallComplete(true));
+              }
+              console.log(prop);
+              // allprops.push(prop);
+              dispatch(addPropsDataCommingFromApi(allprops));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
     }
   });
 };
