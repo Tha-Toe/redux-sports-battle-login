@@ -4,17 +4,18 @@ const initialState = {
   user: null,
   checking: true,
   userDetail: [],
-  propsDataCommingFromApi: null,
+  sportDataCommingFromApi: null,
   upComingDataCommingFromApi: null,
   liveDataCommingFromApi: null,
   completeDataCommingFromApi: null,
   myAccountDataCommingFromApi: null,
-  txHistoryDataCommingFromApi: "data",
+  txHistoryDataCommingFromApi: null,
   supportChatDataCommingFromApi: null,
   knowMoreDataCommingFromApi: null,
   errorPopUp: false,
   userAccountNotExist: null,
   userAccountExist: null,
+  propsDataCommingFromApi: null,
 };
 
 export const userSlice = createSlice({
@@ -36,8 +37,8 @@ export const userSlice = createSlice({
     addUserDetail: (state, action) => {
       state.userDetail = action.payload;
     },
-    addPropsDataCommingFromApi: (state, action) => {
-      state.propsDataCommingFromApi = action.payload;
+    addSportDataCommingFromApi: (state, action) => {
+      state.sportDataCommingFromApi = action.payload;
     },
     addUpComingDataCommingFromApi: (state, action) => {
       state.upComingDataCommingFromApi = action.payload;
@@ -77,6 +78,9 @@ export const userSlice = createSlice({
     setUserAccountExist: (state, action) => {
       state.userAccountExist = action.payload;
     },
+    addPropsDataCommingFromApi: (state, action) => {
+      state.propsDataCommingFromApi = action.payload;
+    },
   },
 });
 
@@ -87,7 +91,7 @@ export const {
   startChecking,
   endChecking,
   addUserDetail,
-  addPropsDataCommingFromApi,
+  addSportDataCommingFromApi,
   addUpComingDataCommingFromApi,
   addLiveDataCommingFromApi,
   addCompleteDataCommingFromApi,
@@ -100,6 +104,7 @@ export const {
   setUserAccountNotExist,
   // setClickedSignUp,
   setUserAccountExist,
+  addPropsDataCommingFromApi,
 } = userSlice.actions;
 
 export default userSlice.reducer;

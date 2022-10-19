@@ -36,11 +36,12 @@ import {
   addUpComingDataCommingFromApi,
   addLiveDataCommingFromApi,
   removeUserInfo,
+  addPropsDataCommingFromApi,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
 import { makeGETAPICall } from "../../../api/methods";
-import { addPropsDataCommingFromApi } from "../../../feature/userSlice";
+import { addSportDataCommingFromApi } from "../../../feature/userSlice";
 import {
   doc,
   getDocs,
@@ -57,7 +58,7 @@ export const onSportsCounterUpdate = async ({
   console.log("here");
   const q = query(collection(db, "sports_counter"));
   onSnapshot(q, (querySnapshot) => {
-    dispatch(addPropsDataCommingFromApi(null));
+    dispatch(addSportDataCommingFromApi(null));
     getAllSports()
       .then((result) => {
         var allsports = [];
@@ -67,11 +68,18 @@ export const onSportsCounterUpdate = async ({
           if (result && result.length > 0) {
             result.forEach((x) => {
               if (x.code != "home" && x.activeSw) {
+                getPropsSport(x.code)
+                  .then((prop) => {
+                    console.log(prop);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
                 allsports.push(x);
               }
             });
           }
-          dispatch(addPropsDataCommingFromApi(allsports));
+          dispatch(addSportDataCommingFromApi(allsports));
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
         } else {
@@ -89,7 +97,7 @@ export const onSportsCounterUpdate = async ({
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
   console.log(apiUrl);
-  const apiResponse = await makeGETAPICall(apiUrl,[{"app-version":2}]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  const apiResponse = await makeGETAPICall(apiUrl, [{ "app-version": 2 }]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
@@ -101,14 +109,17 @@ export const getAllSports = async () => {
 export const getPropsSport = async (code) => {
   var apiUrl = APIURLs.getPropsSport;
   console.log(apiUrl);
-  const apiResponse = await makeGETAPICall(apiUrl,[{"app-version":2},{"play-type":"over-under"},{"sport-code":code}]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  const apiResponse = await makeGETAPICall(apiUrl, [
+    { "app-version": 2 },
+    { "play-type": "over-under" },
+    { "sport-code": code },
+  ]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
     return null;
   }
 };
-
 
 export const getMyProps = async (userId, status) => {
   var apiUrl = APIURLs.getMyProps;
