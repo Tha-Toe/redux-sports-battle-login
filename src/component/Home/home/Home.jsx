@@ -85,6 +85,7 @@ export const onSportsCounterUpdate = async ({
   });
 };
 
+//get sports
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
   console.log(apiUrl);
@@ -95,6 +96,20 @@ export const getAllSports = async () => {
     return null;
   }
 };
+
+//get props by sport
+export const getPropsSport = async (code) => {
+  var apiUrl = APIURLs.getPropsSport;
+  console.log(apiUrl);
+  const apiResponse = await makeGETAPICall(apiUrl,[{"app-version":2},{"play-type":"over-under"},{"sport-code":code}]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
+
+
 export const getMyProps = async (userId, status) => {
   var apiUrl = APIURLs.getMyProps;
   apiUrl = apiUrl.replace("{userId}", userId);
