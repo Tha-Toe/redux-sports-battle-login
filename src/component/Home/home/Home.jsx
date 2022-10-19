@@ -62,7 +62,7 @@ export const onSportsCounterUpdate = async ({
     getAllSports()
       .then((result) => {
         var allsports = [];
-
+        var allsportsprops = [];
         if (result) {
           console.log(result);
           if (result && result.length > 0) {
@@ -70,7 +70,13 @@ export const onSportsCounterUpdate = async ({
               if (x.code != "home" && x.activeSw) {
                 // getPropsSport(x.code)
                 //   .then((prop) => {
-                //     console.log(prop);
+                //     if (prop.projections.length == 0) {
+                //       x.activeSw = false;
+                //       console.log();
+                //     }
+
+                //     allsportsprops.push(prop);
+
                 //   })
                 //   .catch((error) => {
                 //     console.log(error);
@@ -79,6 +85,7 @@ export const onSportsCounterUpdate = async ({
               }
             });
           }
+          console.log(allsports);
           dispatch(addSportDataCommingFromApi(allsports));
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
