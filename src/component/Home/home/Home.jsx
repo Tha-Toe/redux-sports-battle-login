@@ -68,13 +68,13 @@ export const onSportsCounterUpdate = async ({
           if (result && result.length > 0) {
             result.forEach((x) => {
               if (x.code != "home" && x.activeSw) {
-                getPropsSport(x.code)
-                  .then((prop) => {
-                    console.log(prop);
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
+                // getPropsSport(x.code)
+                //   .then((prop) => {
+                //     console.log(prop);
+                //   })
+                //   .catch((error) => {
+                //     console.log(error);
+                //   });
                 allsports.push(x);
               }
             });
@@ -415,20 +415,20 @@ export function Home({ mode, setMode }) {
     }
   };
 
-  const propsDataCommingFromApi = useSelector(
-    (state) => state.user.propsDataCommingFromApi
+  const sporDataCommingFromApi = useSelector(
+    (state) => state.user.sporDataCommingFromApi
   );
 
   useEffect(() => {
-    if (propsDataCommingFromApi) {
-      let firstSportName = propsDataCommingFromApi[0].sportName;
-      let firstSportSrc = propsDataCommingFromApi[0].activeSrc;
-      let firstSportColor = propsDataCommingFromApi[0].color;
+    if (sporDataCommingFromApi) {
+      let firstSportName = sporDataCommingFromApi[0].sportName;
+      let firstSportSrc = sporDataCommingFromApi[0].activeSrc;
+      let firstSportColor = sporDataCommingFromApi[0].color;
       setSelectSports(firstSportName);
       setSelectSrc(firstSportSrc);
       setSelectColor(firstSportColor);
     }
-  }, [propsDataCommingFromApi]);
+  }, [sporDataCommingFromApi]);
 
   const [openDropDown, setOpenDropDown] = useState(false);
 

@@ -44,8 +44,8 @@ export default function Props({
   selectSrc,
   setSelectSrc,
 }) {
-  const propsDataCommingFromApi = useSelector(
-    (state) => state.user.propsDataCommingFromApi
+  const sportDataCommingFromApi = useSelector(
+    (state) => state.user.sportDataCommingFromApi
   );
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
@@ -61,7 +61,7 @@ export default function Props({
   const baseBallPointOpen = () => {
     setOpenBaseBallPoint(true);
   };
-  const propsNav = useSelector((state) => state.user.propsDataCommingFromApi);
+  const propsNav = useSelector((state) => state.user.sportDataCommingFromApi);
   // const [propsNav, setPropsNav] = useState([
   //   {
   //     name: "MLB",
@@ -454,7 +454,7 @@ export default function Props({
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
 
-  if (propsDataCommingFromApi) {
+  if (sportDataCommingFromApi) {
     return (
       <main className="props-container">
         <Box
