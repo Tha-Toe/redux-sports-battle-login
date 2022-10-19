@@ -62,7 +62,7 @@ export const onSportsCounterUpdate = async ({
     getAllSports()
       .then((result) => {
         if (result) {
-          console.log(result);
+          //console.log(result);
           if (result.length > 0) {
             result.forEach((x) => {
               if (x.code !== "home" && x.activeSw) {
@@ -87,7 +87,7 @@ export const onSportsCounterUpdate = async ({
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
   const q = query(collection(db, "props_ou_counter"));
   onSnapshot(q, (querySnapshot) => {
-    var allprops = [];
+    var allprops;
     let allSports = localStorage.getItem("all_sports");
     if (allSports) {
       const allsports = JSON.parse(allSports);
@@ -97,7 +97,7 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
             getPropsSport(x.code)
               .then((prop) => {
                 console.log(prop);
-                allprops.push(prop);
+                allprops = prop;
               })
               .catch((err) => {
                 console.log(err);
@@ -112,7 +112,7 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
 //get sports
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
-  console.log(apiUrl);
+  //console.log(apiUrl);
   const apiResponse = await makeGETAPICall(apiUrl, [{ "app-version": 2 }]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
@@ -124,7 +124,7 @@ export const getAllSports = async () => {
 //get props by sport
 export const getPropsSport = async (code) => {
   var apiUrl = APIURLs.getPropsSport;
-  console.log(apiUrl);
+  //console.log(apiUrl);
   const apiResponse = await makeGETAPICall(apiUrl, [
     { "app-version": 2 },
     { "play-type": "over-under" },

@@ -51,7 +51,7 @@ export default function Props({
     (state) => state.user.propsDataCommingFromApi
   );
   useEffect(() => {
-    console.log(propsDataCommingFromApi);
+    //console.log(propsDataCommingFromApi);
   }, [propsDataCommingFromApi]);
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
