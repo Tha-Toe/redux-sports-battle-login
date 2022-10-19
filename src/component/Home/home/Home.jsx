@@ -97,12 +97,14 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
             getPropsSport(x.code)
               .then((prop) => {
                 console.log(prop);
+                allprops.push(prop);
               })
               .catch((err) => {
                 console.log(err);
               });
           }
         });
+        dispatch(addPropsDataCommingFromApi(allprops));
       }
     }
   });

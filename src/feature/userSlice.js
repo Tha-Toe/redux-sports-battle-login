@@ -15,7 +15,7 @@ const initialState = {
   errorPopUp: false,
   userAccountNotExist: null,
   userAccountExist: null,
-  propsDataCommingFromApi: [],
+  propsDataCommingFromApi: null,
 };
 
 export const userSlice = createSlice({
