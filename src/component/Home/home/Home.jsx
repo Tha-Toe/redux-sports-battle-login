@@ -55,32 +55,17 @@ export const onSportsCounterUpdate = async ({
   dispatch,
   preventDoubleCall,
 }) => {
-  console.log("here");
   const q = query(collection(db, "sports_counter"));
   onSnapshot(q, (querySnapshot) => {
     dispatch(addSportDataCommingFromApi(null));
+    var allsports = [];
     getAllSports()
       .then((result) => {
-        var allsports = [];
-        var allsportsprops = [];
         if (result) {
           console.log(result);
-          if (result && result.length > 0) {
+          if (result.length > 0) {
             result.forEach((x) => {
-              if (x.code != "home" && x.activeSw) {
-                // getPropsSport(x.code)
-                //   .then((prop) => {
-                //     if (prop.projections.length == 0) {
-                //       x.activeSw = false;
-                //       console.log();
-                //     }
-
-                //     allsportsprops.push(prop);
-
-                //   })
-                //   .catch((error) => {
-                //     console.log(error);
-                //   });
+              if (x.code !== "home" && x.activeSw) {
                 allsports.push(x);
               }
             });
@@ -99,7 +84,29 @@ export const onSportsCounterUpdate = async ({
       });
   });
 };
-
+export const onPropsOUCounterUpdate = async ({ dispatch }) => {
+  const q = query(collection(db, "props_ou_counter"));
+  onSnapshot(q, (querySnapshot) => {
+    var allprops = [];
+    let allSports = localStorage.getItem("all_sports");
+    if (allSports) {
+      const allsports = JSON.parse(allSports);
+      if (allsports && allsports.length > 0) {
+        allsports.forEach((x) => {
+          if (x.code != "home" && x.activeSw) {
+            getPropsSport(x.code)
+              .then((prop) => {
+                console.log(prop);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        });
+      }
+    }
+  });
+};
 //get sports
 export const getAllSports = async () => {
   var apiUrl = APIURLs.getAllSports;
@@ -120,7 +127,8 @@ export const getPropsSport = async (code) => {
     { "app-version": 2 },
     { "play-type": "over-under" },
     { "sport-code": code },
-  ]); //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
+  ]);
+  //[{"Access-Control-Allow-Origin":"*"},{"Access-Control-Allow-Headers":"*"}]
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
@@ -154,6 +162,7 @@ export function Home({ mode, setMode }) {
       if (userDetail && preventDoubleCall) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
+        onPropsOUCounterUpdate({ dispatch });
       }
     };
     getPropsData();
@@ -161,6 +170,7 @@ export function Home({ mode, setMode }) {
 
   const callPropsApi = () => {
     onSportsCounterUpdate({ dispatch, preventDoubleCall });
+    onPropsOUCounterUpdate({ dispatch });
   };
 
   //getMyPropsDataFromApi

@@ -47,6 +47,12 @@ export default function Props({
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
+  useEffect(() => {
+    console.log(propsDataCommingFromApi);
+  }, [propsDataCommingFromApi]);
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
   const [openBaseBallPoint, setOpenBaseBallPoint] = useState(false);

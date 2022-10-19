@@ -15,7 +15,7 @@ const initialState = {
   errorPopUp: false,
   userAccountNotExist: null,
   userAccountExist: null,
-  propsDataCommingFromApi: null,
+  propsDataCommingFromApi: [],
 };
 
 export const userSlice = createSlice({
@@ -102,7 +102,6 @@ export const {
   addEmailPrefrenceDataCommingFromApi,
   setErrorPopUp,
   setUserAccountNotExist,
-  // setClickedSignUp,
   setUserAccountExist,
   addPropsDataCommingFromApi,
 } = userSlice.actions;
