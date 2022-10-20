@@ -213,7 +213,7 @@ export default function Props({
 
   useEffect(() => {
     if (selectSports) {
-      console.log("changes");
+      // console.log("changes");
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
         return each.sportCode === selectSports;
       });
@@ -226,15 +226,15 @@ export default function Props({
         });
         // statsArray.push(selectedSportPropsData[0].statOUKeys);
         setStats([...statsArray]);
-        console.log(statsArray);
+        //console.log(statsArray);
         // console.log(stats);
       }
     }
   }, [selectSports, propsDataCommingFromApi]);
 
-  useEffect(() => {
-    console.log(stats);
-  }, [stats]);
+  // useEffect(() => {
+  //   console.log(stats);
+  // }, [stats]);
 
   const [propsGuide, setPropsGuide] = useState([
     {
