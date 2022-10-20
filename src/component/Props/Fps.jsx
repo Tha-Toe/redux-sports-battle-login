@@ -4,7 +4,7 @@ import "./props.css";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-export default function BaseBallPoint({ setOpenBaseBallPoint, mode }) {
+export default function Fps({ setOpenFps, mode }) {
   const [point, setPoint] = useState([
     { name: "Single Batter", point: "+3" },
     { name: "Single Batter", point: "+3" },
@@ -103,7 +103,7 @@ export default function BaseBallPoint({ setOpenBaseBallPoint, mode }) {
               cursor: "pointer",
             }}
             onClick={() => {
-              setOpenBaseBallPoint(false);
+              setOpenFps(false);
             }}
           />
         </Box>
@@ -154,8 +154,9 @@ export default function BaseBallPoint({ setOpenBaseBallPoint, mode }) {
             height: "90%",
           }}
         >
-          {point.map((e) => (
+          {point.map((e, index) => (
             <Box
+              key={index}
               sx={{
                 display: "flex",
                 width: "100%",

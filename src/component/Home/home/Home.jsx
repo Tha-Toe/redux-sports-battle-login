@@ -99,13 +99,13 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
               count++;
               console.log(prop);
               dispatch(addPropsDataCommingFromApi(prop));
-              // if (count + 1 === allSports.length) {
-              //   console.log(count);
-              //   dispatch(setPropsApiCallComplete(true));
-              // }
-              if (count > 0) {
+              if (count + 1 === allSports.length) {
+                console.log(count);
                 dispatch(setPropsApiCallComplete(true));
               }
+              // if (count > 0) {
+              //   dispatch(setPropsApiCallComplete(true));
+              // }
             })
             .catch((err) => {
               console.log(err);

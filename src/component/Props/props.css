@@ -25,21 +25,31 @@ a {
   display: none;
 }
 .statsContainer {
-  max-width: 90%;
+  width: 90%;
   height: 30px;
 }
 .matchesContainer {
   max-width: 85%;
   height: 48px;
 }
-
-.statsChild,
+.propsChild {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: auto;
+}
 .matchesChild {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: auto;
 }
+.statsChild {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 .propsContainer {
   width: 100%;
   background-color: #000000;
@@ -84,6 +94,13 @@ a {
   height: 48px;
 }
 
+.rulesDataContainer {
+  overflow-y: scroll;
+  width: 90%;
+}
+.rulesDataContainer::-webkit-scrollbar {
+  display: none;
+}
 @media (max-width: 1100px) {
   .statsButton {
     height: 30px;

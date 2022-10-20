@@ -8,12 +8,13 @@ import SubmitProjection from "./SubmitProjection";
 import GridItemComponent from "./GridItemComponent";
 import HowTo from "./HowTo";
 import Rule from "./Rule";
-import BaseBallPoint from "./BaseBallPoint";
+import Fps from "./Fps";
 import SuccessSubmit from "./SuccessSubmit";
 import ErrorSubmit from "./ErrorSubmit";
 import NotEnoughBalance from "./NotEnoughBalance";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
+import Games from "./Games";
 
 const useHorizontalScroll = () => {
   const elRef = useRef();
@@ -56,7 +57,7 @@ export default function Props({
 
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
-  const [openBaseBallPoint, setOpenBaseBallPoint] = useState(false);
+  const [openFps, setOpenFps] = useState(false);
 
   const howToOpen = () => {
     setOpenHowTo(true);
@@ -66,7 +67,7 @@ export default function Props({
   };
 
   const baseBallPointOpen = () => {
-    setOpenBaseBallPoint(true);
+    setOpenFps(true);
   };
   const propsNav = useSelector((state) => state.user.sportDataCommingFromApi);
   // const [propsNav, setPropsNav] = useState([
@@ -211,22 +212,55 @@ export default function Props({
   //   },
   // ]);
 
+  //get props data from redux
+
+  const [howToPlayData, setHowToPlayData] = useState([]);
+  const [howToPlayTitles, setHowToPlayTitle] = useState([]);
+  const [rulesData, setRulesData] = useState([]);
+
   useEffect(() => {
     if (selectSports) {
-      // console.log("changes");
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
         return each.sportCode === selectSports;
       });
       let statsArray = [];
+      let howToPlayArray = [];
+      let rulesArray = [];
+      let gamesArray = [];
       if (selectedSportPropsData.length > 0) {
-        console.log(selectedSportPropsData[0].statOUKeys);
+        //get statOUKeys
         let statOUKeys = selectedSportPropsData[0].statOUKeys;
         statOUKeys.map((each) => {
           statsArray.push(each);
         });
         setStats([...statsArray]);
-        //console.log(statsArray);
-        // console.log(stats);
+
+        //get howToPlayData
+        let howToPlayTitleFromRedux =
+          selectedSportPropsData[0].metadata.howToPlay.title;
+        setHowToPlayTitle(howToPlayTitleFromRedux);
+        let howToPlayDataFromRedux =
+          selectedSportPropsData[0].metadata.howToPlay.data;
+        howToPlayDataFromRedux.map((each) => {
+          howToPlayArray.push(each);
+        });
+        setHowToPlayData([...howToPlayArray]);
+
+        //get rulesData
+
+        let rulesDataFromRedux =
+          selectedSportPropsData[0].metadata.considerations[`${selectSports}`];
+        rulesDataFromRedux.map((each) => {
+          rulesArray.push(each);
+        });
+        setRulesData([...rulesArray]);
+
+        //get gamesData
+        let games = selectedSportPropsData[0].games;
+        games.map((each) => {
+          gamesArray.push(each);
+        });
+        setMatches([...gamesArray]);
       }
     }
   }, [selectSports, propsDataCommingFromApi]);
@@ -257,6 +291,22 @@ export default function Props({
     { name: "Refresh", src: "/refresh.png", darkSrc: "/refresh-dark.png" },
   ]);
   const [stats, setStats] = useState([]);
+  const [matches, setMatches] = useState([]);
+  const [statsOverFlow, setStatsOverFlow] = useState(false);
+  const statsChildRef = useRef();
+  const matchesChildRef = useRef();
+
+  useEffect(() => {
+    if (statsRef.current) {
+      let hasOverflow =
+        statsRef.current.scrollWidth > statsRef.current.clientWidth;
+      if (hasOverflow) {
+        setStatsOverFlow(true);
+      } else {
+        setStatsOverFlow(false);
+      }
+    }
+  });
   // const [stats, setStats] = useState([
   //   {
   //     name: "Bat.Runs + RBIs",
@@ -279,67 +329,67 @@ export default function Props({
   //     light_color: "#4831D4",
   //     light_bg: "#DAD5F6",
   //   },
-  //   {
-  //     name: "Num. of Pitches",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Pitch Outs",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Strike Outs",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Bat.Runs + RBIs",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Hits Allowed",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Num. of Pitches",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
+  //   // {
+  //   //   name: "Num. of Pitches",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
+  //   // {
+  //   //   name: "Pitch Outs",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
+  //   // {
+  //   //   name: "Strike Outs",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
+  //   // {
+  //   //   name: "Bat.Runs + RBIs",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
+  //   // {
+  //   //   name: "Hits Allowed",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
+  //   // {
+  //   //   name: "Num. of Pitches",
+  //   //   bg: "#4831D4",
+  //   //   color: "white",
+  //   //   light_color: "#4831D4",
+  //   //   light_bg: "#DAD5F6",
+  //   // },
   // ]);
-  const [matches, setMatches] = useState([
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-    { name: "PHI vs WSH", time: "13h 48m" },
-  ]);
+  // const [matches, setMatches] = useState([
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  //   { name: "PHI vs WSH", time: "13h 48m" },
+  // ]);
 
   const propsChildRef = useRef();
 
@@ -482,8 +532,10 @@ export default function Props({
   };
 
   const sportsRef = useHorizontalScroll();
-  const statsRef = useHorizontalScroll();
-  const matchsRef = useHorizontalScroll();
+  // const statsRef = useHorizontalScroll();
+  const statsRef = useRef();
+  // const matchsRef = useHorizontalScroll();
+  const matchsRef = useRef();
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -502,7 +554,7 @@ export default function Props({
             }`}
             ref={sportsRef}
           >
-            <div className="statsChild" ref={propsChildRef}>
+            <div className="propsChild" ref={propsChildRef}>
               {propsNav.map((e, index) => (
                 <Box
                   key={index}
@@ -719,7 +771,7 @@ export default function Props({
               {stats.length} Stats
             </Typography>
             <div className="statsContainer" ref={statsRef}>
-              <div className="statsChild">
+              <div className="statsChild" ref={statsChildRef}>
                 {stats.map((e, index) => (
                   <button
                     key={index}
@@ -734,49 +786,51 @@ export default function Props({
                 ))}
               </div>
             </div>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "30px",
-                position: "absolute",
-                right: 0,
-              }}
-            >
-              <Box
-                component="div"
-                sx={{
-                  height: "100%",
-                  width: "80px",
-                  background:
-                    "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                  position: "absolute",
-                  right: 0,
-                }}
-              ></Box>
+            {statsOverFlow && (
               <Box
                 sx={{
-                  bgcolor: "secondary.dark_gray",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   height: "30px",
-                  width: "30px",
-                  borderRadius: "50%",
                   position: "absolute",
                   right: 0,
                 }}
-                onClick={goForwardStats}
               >
-                <ArrowForwardIosIcon
+                <Box
+                  component="div"
                   sx={{
-                    fontSize: "18px",
-                    color: "primary.main",
+                    height: "100%",
+                    width: "80px",
+                    background:
+                      "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                    position: "absolute",
+                    right: 0,
                   }}
-                />
+                ></Box>
+                <Box
+                  sx={{
+                    bgcolor: "secondary.dark_gray",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "30px",
+                    width: "30px",
+                    borderRadius: "50%",
+                    position: "absolute",
+                    right: 0,
+                  }}
+                  onClick={goForwardStats}
+                >
+                  <ArrowForwardIosIcon
+                    sx={{
+                      fontSize: "18px",
+                      color: "primary.main",
+                    }}
+                  />
+                </Box>
               </Box>
-            </Box>
+            )}
           </Box>
           <Box
             component="div"
@@ -800,35 +854,12 @@ export default function Props({
                 color: "secondary.main",
               }}
             >
-              5 Matches
+              {matches.length} Matches
             </Typography>
             <div className="matchesContainer" ref={matchsRef}>
-              <div className="matchesChild">
+              <div className="matchesChild" ref={matchesChildRef}>
                 {matches.map((e, index) => (
-                  <div
-                    key={index}
-                    className="matchesButton"
-                    style={{
-                      background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
-                    }}
-                  >
-                    <div
-                      className="matchesName"
-                      style={{
-                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
-                      }}
-                    >
-                      {e.name}
-                    </div>
-                    <div
-                      className="matchesTime"
-                      style={{
-                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
-                      }}
-                    >
-                      {e.time}
-                    </div>
-                  </div>
+                  <Games gameData={e} mode={mode} key={index} />
                 ))}
               </div>
             </div>
@@ -932,14 +963,18 @@ export default function Props({
             <div ref={messagesEndRef} />
           </Box>
         </Box>
-        {openHowTo && <HowTo setOpenHowTo={setOpenHowTo} mode={mode} />}
-        {openRule && <Rule setOpenRule={setOpenRule} mode={mode} />}
-        {openBaseBallPoint && (
-          <BaseBallPoint
-            setOpenBaseBallPoint={setOpenBaseBallPoint}
+        {openHowTo && (
+          <HowTo
+            setOpenHowTo={setOpenHowTo}
             mode={mode}
+            howToPlayTitles={howToPlayTitles}
+            howToPlayData={howToPlayData}
           />
         )}
+        {openRule && (
+          <Rule setOpenRule={setOpenRule} mode={mode} rulesData={rulesData} />
+        )}
+        {openFps && <Fps setOpenFps={setOpenFps} mode={mode} />}
         {successSubmit && (
           <SuccessSubmit
             setSuccessSubmit={setSuccessSubmit}
