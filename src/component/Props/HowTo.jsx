@@ -64,8 +64,7 @@ export default function HowTo({
                 display: "flex",
                 flexDirection: "rows",
                 alignItems: "center",
-                justifyContent: "flex-start",
-                width: "90%",
+                width: "100%",
                 mb: "15px",
               }}
             >
@@ -82,6 +81,7 @@ export default function HowTo({
                   fontSize: { xs: "16px", xxxs: "12px" },
                   fontWeight: 400,
                   fontFamily: "poppins",
+                  textAlign: "justify",
                 }}
               >
                 {each}{" "}

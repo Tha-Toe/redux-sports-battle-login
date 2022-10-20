@@ -77,6 +77,7 @@ export default function Rule({ setOpenRule, mode, rulesData }) {
                   fontSize: { xs: "16px", xxxs: "12px" },
                   fontWeight: 400,
                   fontFamily: "poppins",
+                  textAlign: "justify",
                 }}
               >
                 {each}

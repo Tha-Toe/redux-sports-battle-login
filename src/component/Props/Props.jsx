@@ -555,8 +555,8 @@ export default function Props({
   };
 
   const sportsRef = useHorizontalScroll();
-  const statsRef = useRef();
-  const matchsRef = useRef();
+  const statsRef = useHorizontalScroll();
+  const matchsRef = useHorizontalScroll();
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -596,15 +596,8 @@ export default function Props({
                     sx={{
                       height: { xs: "34px", xxxs: "30px" },
                       width: { xs: "34px", xxxs: "30px" },
-                      border: `${
-                        mode === "dark"
-                          ? e.code === selectSports
-                            ? "2px solid white"
-                            : "2px solid gray"
-                          : e.code === selectSports
-                          ? "2px solid #494949"
-                          : "2px solid gray"
-                      }`,
+                      border: "2px solid gray",
+
                       borderRadius: "50%",
                       mt: "13px",
                       display: "flex",
@@ -871,7 +864,7 @@ export default function Props({
                 fontSize: { sm: "16px", xxxs: "12px" },
                 fontWeight: "400",
                 fontFamily: "poppins",
-                width: { md: "13%", xs: "17%", xxxs: "25%" },
+                width: { md: "10%", xs: "14%", xxxs: "22%" },
                 color: "secondary.main",
               }}
             >
@@ -884,11 +877,11 @@ export default function Props({
                 alignItems: "center",
                 justifyContent: "space-between",
                 height: "100%",
-                width: { md: "87%", xs: "83%", xxxs: "75%" },
+                width: { md: "90%", xs: "86%", xxxs: "78%" },
                 position: "relative",
               }}
             >
-              {gameArriveEnd && (
+              {/* {gameArriveEnd && (
                 <Box
                   sx={{
                     display: "flex",
@@ -907,7 +900,7 @@ export default function Props({
                       background:
                         "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
                       position: "absolute",
-                      right: 0,
+                      left: 0,
                     }}
                   ></Box>
                   <Box
@@ -932,7 +925,7 @@ export default function Props({
                     />
                   </Box>
                 </Box>
-              )}
+              )} */}
               <div className="matchesContainer" ref={matchsRef}>
                 <div className="matchesChild" ref={matchesChildRef}>
                   {matches.map((e, index) => (

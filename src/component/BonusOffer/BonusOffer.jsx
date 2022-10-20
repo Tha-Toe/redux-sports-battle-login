@@ -38,7 +38,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
         sx={{
           width: { sm: "566px", xs: "400px", xxs: "100%", xxxs: "100%" },
           height: "608px",
-          bgcolor: "primary.main",
+          bgcolor: "primary.dark",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -144,6 +144,9 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
                 background: "#F5A922",
               },
               cursor: "pointer",
+            }}
+            onClick={() => {
+              navigator.clipboard.writeText(code);
             }}
           >
             COPY CODE{" "}

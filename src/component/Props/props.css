@@ -14,6 +14,7 @@ a {
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overflow-y: hidden;
 }
 .statsContainer::-webkit-scrollbar {
   display: none;
@@ -47,6 +48,7 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  overflow-y: none;
 }
 
 .propsContainer {
@@ -85,8 +87,8 @@ a {
 .matchesTime {
 }
 .propsNavImg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 .wallet {
   width: 48px;
@@ -96,6 +98,9 @@ a {
 .rulesDataContainer {
   overflow-y: scroll;
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .rulesDataContainer::-webkit-scrollbar {
   display: none;
