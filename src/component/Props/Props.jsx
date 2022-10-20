@@ -224,7 +224,6 @@ export default function Props({
         statOUKeys.map((each) => {
           statsArray.push(each);
         });
-        // statsArray.push(selectedSportPropsData[0].statOUKeys);
         setStats([...statsArray]);
         //console.log(statsArray);
         // console.log(stats);
