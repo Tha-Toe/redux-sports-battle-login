@@ -88,32 +88,29 @@ export const onSportsCounterUpdate = async ({
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
   const q = query(collection(db, "props_ou_counter"));
   onSnapshot(q, (querySnapshot) => {
-    var allprops = [];
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
-    let countArray = allSports.filter((each) => {
-      return each.code !== "home" && each.activeSw;
-    });
-    let apiCallTimes = countArray.length;
-    console.log("api call time" + apiCallTimes);
-    let count = 0;
     if (allSports && allSports.length > 0) {
-      allSports.forEach((x) => {
+      let count = 0;
+      for (let i = 0; i < allSports.length; i++) {
+        let x = allSports[i];
         if (x.code != "home" && x.activeSw) {
           getPropsSport(x.code)
             .then((prop) => {
               count++;
-              if (apiCallTimes === count) {
+              console.log(prop);
+              dispatch(addPropsDataCommingFromApi(prop));
+              if (count + 1 === allSports.length) {
+                console.log(count);
                 dispatch(setPropsApiCallComplete(true));
               }
-              console.log(prop);
-              // allprops.push(prop);
-              dispatch(addPropsDataCommingFromApi(prop));
             })
             .catch((err) => {
               console.log(err);
             });
+        } else {
+          count++;
         }
-      });
+      }
     }
   });
 };
