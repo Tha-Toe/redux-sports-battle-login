@@ -172,7 +172,7 @@ function App() {
           if (result) {
             //user is not null will get details
             dispatch(addUserDetail(result));
-            //console.log(result);
+            // console.log(result);
           } else {
             //user is null create user
             dispatch(addUserDetail("null"));

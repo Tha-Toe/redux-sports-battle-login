@@ -4,6 +4,7 @@ import "./props.css";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 import SubmitProjection from "./SubmitProjection";
 import GridItemComponent from "./GridItemComponent";
 import HowTo from "./HowTo";
@@ -295,7 +296,8 @@ export default function Props({
   const [statsOverFlow, setStatsOverFlow] = useState(false);
   const statsChildRef = useRef();
   const matchesChildRef = useRef();
-
+  const [gameOverFlow, setGameOverFlow] = useState(false);
+  const [gameArriveEnd, setGameArriveEnd] = useState(false);
   useEffect(() => {
     if (statsRef.current) {
       let hasOverflow =
@@ -304,6 +306,15 @@ export default function Props({
         setStatsOverFlow(true);
       } else {
         setStatsOverFlow(false);
+      }
+    }
+    if (matchsRef.current) {
+      let matchesHasOverFlow =
+        matchsRef.current.scrollWidth > matchsRef.current.clientWidth;
+      if (matchesHasOverFlow) {
+        setGameOverFlow(true);
+      } else {
+        setGameOverFlow(false);
       }
     }
   });
@@ -398,6 +409,18 @@ export default function Props({
   };
   const goForwardMatches = () => {
     matchsRef.current.scrollLeft = matchsRef.current.scrollLeft + 100;
+    const checkGameWidth = matchsRef.current.scrollWidth;
+    const checkScrollWidth =
+      matchsRef.current.scrollLeft + matchsRef.current.offsetWidth;
+    if (gameOverFlow && checkGameWidth <= checkScrollWidth) {
+      setGameArriveEnd(true);
+    }
+  };
+  const goBackWardMatches = () => {
+    matchsRef.current.scrollLeft = matchsRef.current.scrollLeft - 100;
+    if (matchsRef.current.scrollLeft === 0) {
+      setGameArriveEnd(false);
+    }
   };
 
   //card
@@ -532,9 +555,7 @@ export default function Props({
   };
 
   const sportsRef = useHorizontalScroll();
-  // const statsRef = useHorizontalScroll();
   const statsRef = useRef();
-  // const matchsRef = useHorizontalScroll();
   const matchsRef = useRef();
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
@@ -856,55 +877,114 @@ export default function Props({
             >
               {matches.length} Matches
             </Typography>
-            <div className="matchesContainer" ref={matchsRef}>
-              <div className="matchesChild" ref={matchesChildRef}>
-                {matches.map((e, index) => (
-                  <Games gameData={e} mode={mode} key={index} />
-                ))}
-              </div>
-            </div>
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "row",
                 alignItems: "center",
-                height: "48px",
-                position: "absolute",
-                right: 0,
+                justifyContent: "space-between",
+                height: "100%",
+                width: { md: "87%", xs: "83%", xxxs: "75%" },
+                position: "relative",
               }}
             >
-              <Box
-                component="div"
-                sx={{
-                  height: "100%",
-                  width: "100px",
-                  background:
-                    "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                  position: "absolute",
-                  right: 0,
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  bgcolor: "secondary.dark_gray",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "30px",
-                  width: "30px",
-                  borderRadius: "50%",
-                  position: "absolute",
-                  right: 0,
-                }}
-                onClick={goForwardMatches}
-              >
-                <ArrowForwardIosIcon
+              {gameArriveEnd && (
+                <Box
                   sx={{
-                    fontSize: "18px",
-                    color: "primary.main",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "48px",
+                    position: "absolute",
+                    left: 0,
                   }}
-                />
-              </Box>
+                >
+                  <Box
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      width: "100px",
+                      background:
+                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                      position: "absolute",
+                      right: 0,
+                    }}
+                  ></Box>
+                  <Box
+                    sx={{
+                      bgcolor: "secondary.dark_gray",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "30px",
+                      width: "30px",
+                      borderRadius: "50%",
+                      position: "absolute",
+                      right: 0,
+                    }}
+                    onClick={goBackWardMatches}
+                  >
+                    <ArrowBackIos
+                      sx={{
+                        fontSize: "18px",
+                        color: "primary.main",
+                      }}
+                    />
+                  </Box>
+                </Box>
+              )}
+              <div className="matchesContainer" ref={matchsRef}>
+                <div className="matchesChild" ref={matchesChildRef}>
+                  {matches.map((e, index) => (
+                    <Games gameData={e} mode={mode} key={index} />
+                  ))}
+                </div>
+              </div>
+              {gameOverFlow && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "48px",
+                    position: "absolute",
+                    right: 0,
+                  }}
+                >
+                  <Box
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      width: "100px",
+                      background:
+                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                      position: "absolute",
+                      right: 0,
+                    }}
+                  ></Box>
+                  <Box
+                    sx={{
+                      bgcolor: "secondary.dark_gray",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "30px",
+                      width: "30px",
+                      borderRadius: "50%",
+                      position: "absolute",
+                      right: 0,
+                    }}
+                    onClick={goForwardMatches}
+                  >
+                    <ArrowForwardIosIcon
+                      sx={{
+                        fontSize: "18px",
+                        color: "primary.main",
+                      }}
+                    />
+                  </Box>
+                </Box>
+              )}
             </Box>
           </Box>
           <Box

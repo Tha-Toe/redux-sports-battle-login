@@ -247,7 +247,7 @@ export function AndresCard({
             }}
             onClick={() => handleChangeOverUnder("over")}
           >
-            OVER
+            ABOVE
           </Button>
           <Button
             sx={{
@@ -268,7 +268,7 @@ export function AndresCard({
             }}
             onClick={() => handleChangeOverUnder("under")}
           >
-            UNDER
+            BELOW
           </Button>
         </Box>
       </Box>

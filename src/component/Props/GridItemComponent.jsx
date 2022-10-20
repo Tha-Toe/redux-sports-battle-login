@@ -269,7 +269,7 @@ const GridItemComponent = ({
               }
             }}
           >
-            Over
+            ABOVE
           </Button>
           <Button
             sx={{
@@ -295,7 +295,7 @@ const GridItemComponent = ({
               }
             }}
           >
-            Under
+            BELOW
           </Button>
         </Box>
       </Card>

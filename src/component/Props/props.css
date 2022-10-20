@@ -29,7 +29,7 @@ a {
   height: 30px;
 }
 .matchesContainer {
-  max-width: 85%;
+  width: 100%;
   height: 48px;
 }
 .propsChild {
@@ -41,8 +41,7 @@ a {
 .matchesChild {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: auto;
+  justify-content: flex-start;
 }
 .statsChild {
   display: flex;
@@ -118,7 +117,7 @@ a {
 }
 @media (max-width: 900px) {
   .matchesContainer {
-    max-width: 83%;
+    max-width: 100%;
   }
   .statsContainer {
     max-width: 86%;
@@ -127,7 +126,7 @@ a {
 
 @media (max-width: 500px) {
   .matchesContainer {
-    max-width: 75%;
+    max-width: 100%;
   }
   .statsContainer {
     max-width: 78%;

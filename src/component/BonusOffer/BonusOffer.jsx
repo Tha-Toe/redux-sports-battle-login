@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./bonusOffer.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
+import { useSelector } from "react-redux";
 export default function BonusOffer({ setOpenInviteFriend, mode }) {
+  const userDetail = useSelector((state) => state.user.userDetail);
+  const [code, setCode] = useState(null);
+
+  useEffect(() => {
+    if (userDetail) {
+      setCode(userDetail.referralCode);
+    }
+    console.log(userDetail);
+  }, [userDetail]);
   const [referNote, setReferNote] = useState([
     { note: "Refer a friend and give them your referral code" },
     {
@@ -116,7 +125,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
               color: "secondary.dark_gray",
             }}
           >
-            IUUASV18
+            {code}
           </Typography>
           <Button
             sx={{

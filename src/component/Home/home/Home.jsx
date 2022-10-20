@@ -99,13 +99,13 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
               count++;
               console.log(prop);
               dispatch(addPropsDataCommingFromApi(prop));
-              if (count + 1 === allSports.length) {
-                console.log(count);
-                dispatch(setPropsApiCallComplete(true));
-              }
-              // if (count > 0) {
+              // if (count + 1 === allSports.length) {
+              //   console.log(count);
               //   dispatch(setPropsApiCallComplete(true));
               // }
+              if (count > 0) {
+                dispatch(setPropsApiCallComplete(true));
+              }
             })
             .catch((err) => {
               console.log(err);
@@ -164,9 +164,22 @@ export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
 
-  //getSportsdata
+  //getUserDetail
   const userDetail = useSelector((state) => state.user.userDetail);
+  const [bonus, setBonus] = useState(null);
+  const [cash, setCash] = useState(null);
+
+  useEffect(() => {
+    if (userDetail) {
+      setBonus(userDetail.totalBonus);
+      setCash(userDetail.numCash + userDetail.unutilizedCash);
+    }
+    console.log(userDetail);
+  }, [userDetail]);
+
+  //getSportsdata
   let preventDoubleCall = true;
+
   useEffect(() => {
     const getPropsData = () => {
       if (userDetail && preventDoubleCall) {
@@ -176,6 +189,7 @@ export function Home({ mode, setMode }) {
       }
     };
     getPropsData();
+    console.log(userDetail);
   }, [userDetail]);
 
   const callPropsApi = () => {
@@ -613,7 +627,7 @@ export function Home({ mode, setMode }) {
                   },
                 }}
               >
-                Bonus: $0.00
+                Bonus: ${bonus}
               </Button>
               <Button
                 sx={{
@@ -640,7 +654,7 @@ export function Home({ mode, setMode }) {
                 }}
                 onClick={goAddCashBonus}
               >
-                Cash: $0.00
+                Cash: ${cash}
               </Button>
               <Button
                 sx={{
