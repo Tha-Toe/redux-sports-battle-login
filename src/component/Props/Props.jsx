@@ -462,7 +462,6 @@ export default function Props({
   const sportsRef = useHorizontalScroll();
   const statsRef = useHorizontalScroll();
   const matchsRef = useHorizontalScroll();
-
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -504,8 +503,12 @@ export default function Props({
                       width: { xs: "34px", xxxs: "30px" },
                       border: `${
                         mode === "dark"
-                          ? "2px solid white"
-                          : "1px solid #494949"
+                          ? e.sportName === selectSports
+                            ? "2px solid white"
+                            : "2px solid gray"
+                          : e.sportName === selectSports
+                          ? "2px solid #494949"
+                          : "2px solid gray"
                       }`,
                       borderRadius: "50%",
                       mt: "13px",
@@ -519,37 +522,33 @@ export default function Props({
                       cursor: "pointer",
                     }}
                   >
-                    {mode === "dark" ? (
-                      <>
-                        {e.sportName === selectSports ? (
-                          <img
-                            className="propsNavImg"
-                            src={`${
-                              e.sportName === selectSports
-                                ? e.activeImage
-                                : e.inactiveImage
-                            }`}
-                          />
-                        ) : (
-                          <img
-                            className="propsNavImg"
-                            src={
-                              e.sportName === selectSports
-                                ? e.activeImage
-                                : e.inactiveImage
-                            }
-                          />
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {e.sportName === selectSports ? (
-                          <img className="propsNavImg" src={e.src} />
-                        ) : (
-                          <img className="propsNavImg" src={e.light_src} />
-                        )}
-                      </>
-                    )}
+                    <>
+                      {e.sportName === selectSports ? (
+                        <img
+                          className="propsNavImg"
+                          style={{
+                            color: e.color,
+                          }}
+                          src={`${
+                            e.sportName === selectSports
+                              ? e.activeImage
+                              : e.inactiveImage
+                          }`}
+                        />
+                      ) : (
+                        <img
+                          className="propsNavImg"
+                          style={{
+                            color: e.color,
+                          }}
+                          src={
+                            e.sportName === selectSports
+                              ? e.activeImage
+                              : e.inactiveImage
+                          }
+                        />
+                      )}
+                    </>
                   </Box>
                   <Typography
                     sx={{
