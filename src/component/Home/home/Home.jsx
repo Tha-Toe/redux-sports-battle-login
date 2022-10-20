@@ -107,7 +107,7 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
               }
               console.log(prop);
               // allprops.push(prop);
-              dispatch(addPropsDataCommingFromApi(allprops));
+              dispatch(addPropsDataCommingFromApi(prop));
             })
             .catch((err) => {
               console.log(err);

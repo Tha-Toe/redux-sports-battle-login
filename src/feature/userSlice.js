@@ -80,19 +80,20 @@ export const userSlice = createSlice({
       state.userAccountExist = action.payload;
     },
     addPropsDataCommingFromApi: (state, action) => {
-      let data = state.propsDataCommingFromApi;
+      const data = [...state.propsDataCommingFromApi];
       let checkArray = data.filter((each) => {
         return each.sportCode !== action.payload.sportCode;
       });
       if (data.length === 0) {
-        state.propsDataCommingFromApi = [...action.payload];
+        data.push(action.payload);
+        state.propsDataCommingFromApi = [...data];
       } else if (checkArray.length === data.length) {
-        state.propsDataCommingFromApi.push(action.payload);
+        data.push(action.payload);
+        state.propsDataCommingFromApi = [...data];
       } else {
         checkArray.push(action.payload);
         state.propsDataCommingFromApi = [...checkArray];
       }
-      state.propsDataCommingFromApi = action.payload;
     },
     setPropsApiCallComplete: (state, action) => {
       state.propsApiCallComplete = action;
