@@ -53,9 +53,7 @@ export default function Props({
   const propsApiCallComplete = useSelector(
     (state) => state.user.propsApiCallComplete
   );
-  useEffect(() => {
-    //console.log(propsDataCommingFromApi);
-  }, [propsDataCommingFromApi]);
+
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
   const [openBaseBallPoint, setOpenBaseBallPoint] = useState(false);
@@ -213,6 +211,31 @@ export default function Props({
   //   },
   // ]);
 
+  useEffect(() => {
+    if (selectSports) {
+      console.log("changes");
+      let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
+        return each.sportCode === selectSports;
+      });
+      let statsArray = [];
+      if (selectedSportPropsData.length > 0) {
+        console.log(selectedSportPropsData[0].statOUKeys);
+        let statOUKeys = selectedSportPropsData[0].statOUKeys;
+        statOUKeys.map((each) => {
+          statsArray.push(each);
+        });
+        // statsArray.push(selectedSportPropsData[0].statOUKeys);
+        setStats([...statsArray]);
+        console.log(statsArray);
+        // console.log(stats);
+      }
+    }
+  }, [selectSports, propsDataCommingFromApi]);
+
+  useEffect(() => {
+    console.log(stats);
+  }, [stats]);
+
   const [propsGuide, setPropsGuide] = useState([
     {
       name: "How to",
@@ -234,72 +257,72 @@ export default function Props({
     },
     { name: "Refresh", src: "/refresh.png", darkSrc: "/refresh-dark.png" },
   ]);
-
-  const [stats, setStats] = useState([
-    {
-      name: "Bat.Runs + RBIs",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Fantasy Score (77)",
-      bg: " #459F48",
-      color: "black",
-      light_color: "white",
-      light_bg: " #459F48",
-    },
-    {
-      name: "Hits Allowed",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Num. of Pitches",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Pitch Outs",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Strike Outs",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Bat.Runs + RBIs",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Hits Allowed",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-    {
-      name: "Num. of Pitches",
-      bg: "#4831D4",
-      color: "white",
-      light_color: "#4831D4",
-      light_bg: "#DAD5F6",
-    },
-  ]);
+  const [stats, setStats] = useState([]);
+  // const [stats, setStats] = useState([
+  //   {
+  //     name: "Bat.Runs + RBIs",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Fantasy Score (77)",
+  //     bg: " #459F48",
+  //     color: "black",
+  //     light_color: "white",
+  //     light_bg: " #459F48",
+  //   },
+  //   {
+  //     name: "Hits Allowed",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Num. of Pitches",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Pitch Outs",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Strike Outs",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Bat.Runs + RBIs",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Hits Allowed",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  //   {
+  //     name: "Num. of Pitches",
+  //     bg: "#4831D4",
+  //     color: "white",
+  //     light_color: "#4831D4",
+  //     light_bg: "#DAD5F6",
+  //   },
+  // ]);
   const [matches, setMatches] = useState([
     { name: "PHI vs WSH", time: "13h 48m" },
     { name: "PHI vs WSH", time: "13h 48m" },
@@ -492,7 +515,7 @@ export default function Props({
                     mr: { xxxs: "5px" },
                   }}
                   onClick={() => {
-                    setSelectSports(e.sportName);
+                    setSelectSports(e.code);
                     setSelectColor(e.color);
                     setSelectSrc(e.activeImage);
                   }}
@@ -503,10 +526,10 @@ export default function Props({
                       width: { xs: "34px", xxxs: "30px" },
                       border: `${
                         mode === "dark"
-                          ? e.sportName === selectSports
+                          ? e.code === selectSports
                             ? "2px solid white"
                             : "2px solid gray"
-                          : e.sportName === selectSports
+                          : e.code === selectSports
                           ? "2px solid #494949"
                           : "2px solid gray"
                       }`,
@@ -517,20 +540,20 @@ export default function Props({
                       alignItems: "center",
                       justifyContent: "center",
                       bgcolor: `${
-                        e.sportName === selectSports ? e.color : "transparent"
+                        e.code === selectSports ? e.color : "transparent"
                       }`,
                       cursor: "pointer",
                     }}
                   >
                     <>
-                      {e.sportName === selectSports ? (
+                      {e.code === selectSports ? (
                         <img
                           className="propsNavImg"
                           style={{
                             color: e.color,
                           }}
                           src={`${
-                            e.sportName === selectSports
+                            e.code === selectSports
                               ? e.activeImage
                               : e.inactiveImage
                           }`}
@@ -542,7 +565,7 @@ export default function Props({
                             color: e.color,
                           }}
                           src={
-                            e.sportName === selectSports
+                            e.code === selectSports
                               ? e.activeImage
                               : e.inactiveImage
                           }
@@ -557,9 +580,7 @@ export default function Props({
                       fontFamily: "poppins",
                       mt: "5px",
                       color: `${
-                        e.sportName === selectSports
-                          ? e.color
-                          : "secondary.main"
+                        e.code === selectSports ? e.color : "secondary.main"
                       }`,
                       width: "50px",
                       textAlign: "center",
@@ -696,7 +717,7 @@ export default function Props({
                 color: "secondary.main",
               }}
             >
-              9 Stats
+              {stats.length} Stats
             </Typography>
             <div className="statsContainer" ref={statsRef}>
               <div className="statsChild">
@@ -704,12 +725,12 @@ export default function Props({
                   <button
                     key={index}
                     style={{
-                      color: `${mode === "dark" ? e.color : e.light_color}`,
-                      background: `${mode === "dark" ? e.bg : e.light_bg}`,
+                      color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                      background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
                     }}
                     className="statsButton"
                   >
-                    {e.name}
+                    {e}
                   </button>
                 ))}
               </div>

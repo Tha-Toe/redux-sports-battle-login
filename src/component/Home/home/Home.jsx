@@ -442,20 +442,20 @@ export function Home({ mode, setMode }) {
     }
   };
 
-  const sporDataCommingFromApi = useSelector(
-    (state) => state.user.sporDataCommingFromApi
+  const sportDataCommingFromApi = useSelector(
+    (state) => state.user.sportDataCommingFromApi
   );
 
   useEffect(() => {
-    if (sporDataCommingFromApi) {
-      let firstSportName = sporDataCommingFromApi[0].sportName;
-      let firstSportSrc = sporDataCommingFromApi[0].activeSrc;
-      let firstSportColor = sporDataCommingFromApi[0].color;
+    if (sportDataCommingFromApi) {
+      let firstSportName = sportDataCommingFromApi[0].code;
+      let firstSportSrc = sportDataCommingFromApi[0].activeSrc;
+      let firstSportColor = sportDataCommingFromApi[0].color;
       setSelectSports(firstSportName);
       setSelectSrc(firstSportSrc);
       setSelectColor(firstSportColor);
     }
-  }, [sporDataCommingFromApi]);
+  }, [sportDataCommingFromApi]);
 
   const [openDropDown, setOpenDropDown] = useState(false);
 
