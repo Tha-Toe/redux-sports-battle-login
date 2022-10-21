@@ -296,7 +296,8 @@ export default function Props({
   const [statsAndData, setStatsAndData] = useState(null);
   const [selectStatTitle, setSelectStatTitle] = useState(null);
   const [currentSportsData, setCurrentSportsData] = useState(null);
-  const [disableSports, setDisableSports] = useState([]);
+  const [activeSports, setActiveSports] = useState([]);
+  const [noDataSports, setNoDataSports] = useState([]);
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -363,18 +364,32 @@ export default function Props({
           console.log(statsData);
         }
 
-        //get disable sports
+        //get active sports
         let obj = [];
-        let disableData = propsDataCommingFromApi.filter((each) => {
-          return each.projections.length === 0;
+        let activeData = propsDataCommingFromApi.filter((each) => {
+          return each.projections.length > 0;
         });
-        if (disableData.length > 0) {
-          disableData.map((each) => {
+        if (activeData.length > 0) {
+          activeData.map((each) => {
             obj.push(each.sportCode);
           });
-          setDisableSports(obj);
-          console.log(obj);
+          setActiveSports(obj);
         }
+        console.log("active", obj);
+
+        //get nodata sports
+        let noDataObj = [];
+        let noData = propsDataCommingFromApi.filter((each) => {
+          console.log(each.projections.length, each.sportCode);
+          return each.projections.length < 1;
+        });
+        if (noData.length > 0) {
+          noData.map((each) => {
+            noDataObj.push(each.sportCode);
+          });
+          setNoDataSports(noDataObj);
+        }
+        console.log("noData", noDataObj);
       }
     }
   }, [selectSports, propsDataCommingFromApi]);
@@ -686,24 +701,33 @@ export default function Props({
     callClickSportApiFinish,
   });
   const handleCallPropSports = async (e) => {
-    let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
-      return each.sportCode === e.code;
-    });
-    if (
-      selectedSportPropsData.length > 0 &&
-      selectedSportPropsData[0].projections.length > 0
-    ) {
-      setSelectSports(e.code);
-      setSelectColor(e.color);
-      setSelectSrc(e.activeImage);
-      setCallClickSportApiFinish(false);
-      let result = await getPropsSport(e.code);
-      console.log(result);
-      dispatch(addPropsDataCommingFromApi(result));
-      setCallClickSportApiFinish(true);
-    } else {
-      return;
-    }
+    // let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
+    //   return each.sportCode === e.code;
+    // });
+    // if (
+    //   selectedSportPropsData.length > 0 &&
+    //   selectedSportPropsData[0].projections.length > 0
+    // ) {
+    //   setSelectSports(e.code);
+    //   setSelectColor(e.color);
+    //   setSelectSrc(e.activeImage);
+    //   setCallClickSportApiFinish(false);
+    //   let result = await getPropsSport(e.code);
+    //   console.log(result);
+    //   dispatch(addPropsDataCommingFromApi(result));
+    //   setCallClickSportApiFinish(true);
+    // } else {
+    //   return;
+    // }
+
+    setSelectSports(e.code);
+    setSelectColor(e.color);
+    setSelectSrc(e.activeImage);
+    setCallClickSportApiFinish(false);
+    let result = await getPropsSport(e.code);
+    console.log(result);
+    dispatch(addPropsDataCommingFromApi(result));
+    setCallClickSportApiFinish(true);
   };
 
   //select game func
@@ -758,13 +782,15 @@ export default function Props({
                     sx={{
                       height: { xs: "34px", xxxs: "30px" },
                       width: { xs: "34px", xxxs: "30px" },
-                      border: "2px solid gray",
                       border: `${
-                        e.code === selectSports
+                        e.code === selectSports &&
+                        activeSports.indexOf(e.code) > -1
                           ? `2px solid ${e.color}`
-                          : disableSports.indexOf(e.code) > -1
+                          : noDataSports.indexOf(e.code) > -1
                           ? "2px solid gray"
-                          : "2px solid white"
+                          : activeSports.indexOf(e.code) > -1
+                          ? "2px solid white"
+                          : "2px solid gray"
                       }`,
                       borderRadius: "50%",
                       mt: "13px",
@@ -779,7 +805,7 @@ export default function Props({
                     }}
                   >
                     <>
-                      {disableSports.indexOf(e.code) > -1 ? (
+                      {noDataSports.indexOf(e.code) > -1 ? (
                         <img
                           className="propsNavImg"
                           style={{
@@ -789,7 +815,7 @@ export default function Props({
                         />
                       ) : (
                         <>
-                          {e.code === selectSports ? (
+                          {activeSports.indexOf(e.code) > -1 ? (
                             <img
                               className="propsNavImg"
                               style={{
@@ -807,11 +833,7 @@ export default function Props({
                               style={{
                                 color: e.color,
                               }}
-                              src={
-                                e.code === selectSports
-                                  ? e.activeImage
-                                  : e.inactiveImage
-                              }
+                              src={e.inactiveImage}
                             />
                           )}
                         </>
