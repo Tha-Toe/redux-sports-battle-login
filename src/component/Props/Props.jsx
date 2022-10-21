@@ -362,7 +362,7 @@ export default function Props({
         if (statsData) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
-          console.log(statsData);
+          // console.log(statsData);
         }
 
         //get active sports
@@ -716,24 +716,18 @@ export default function Props({
   const [noProjection, setNoProjection] = useState(null);
 
   const handleCallPropSports = async (e) => {
-    if (noDataSports.indexOf(e.code) > -1) {
-      setSelectSports(e.code);
-      setSelectColor(e.color);
-      setNoProjection(e.code);
-      setSelectSrc(e.activeImage);
-    } else {
-      setNoProjection(null);
-      setSelectSports(e.code);
-      setSelectColor(e.color);
-      setSelectSrc(e.activeImage);
-      setCallClickSportApiFinish(false);
-      let result = await getPropsSport(e.code);
-      if (result.projections.length < 1) {
-        setNoProjection(result.sportCode);
-      }
-      dispatch(addPropsDataCommingFromApi(result));
-      setCallClickSportApiFinish(true);
+    // console.log(noDataSports);
+    setNoProjection(null);
+    setSelectSports(e.code);
+    setSelectColor(e.color);
+    setSelectSrc(e.activeImage);
+    setCallClickSportApiFinish(false);
+    let result = await getPropsSport(e.code);
+    if (result.projections.length < 1) {
+      setNoProjection(result.sportCode);
     }
+    dispatch(addPropsDataCommingFromApi(result));
+    setCallClickSportApiFinish(true);
   };
 
   //select game func
@@ -747,7 +741,7 @@ export default function Props({
       if (statFilterData.length > 0) {
         setStatsAndData(statFilterData[0]);
       }
-      console.log(statFilterData[0]);
+      // console.log(statFilterData[0]);
     }
   };
 
@@ -817,7 +811,7 @@ export default function Props({
                           style={{
                             color: e.color,
                           }}
-                          src={e.noDataImage}
+                          src={e.inactiveImage}
                         />
                       ) : (
                         <>
@@ -854,6 +848,15 @@ export default function Props({
                       mt: "5px",
                       color: `${
                         e.code === selectSports ? e.color : "secondary.main"
+                      }`,
+                      color: `${
+                        e.code === selectSports
+                          ? `${e.color}`
+                          : noDataSports.indexOf(e.code) > -1
+                          ? "gray"
+                          : activeSports.indexOf(e.code) > -1
+                          ? "white"
+                          : "gray"
                       }`,
                       width: "50px",
                       textAlign: "center",

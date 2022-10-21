@@ -1,11 +1,11 @@
 import { auth } from "../config/firebase";
 import { setAxiosConfig } from "./AxiosConfig";
-const axios = require('axios').default;
+const axios = require("axios").default;
 //GET METHOD
 export const makeGETAPICall = async (url, additionalHeaders) => {
   try {
     const idToken = await auth.currentUser.getIdToken(true);
-    console.log(idToken);
+    // console.log(idToken);
     if (idToken) {
       const apiResponse = await axios.get(
         url,

@@ -71,12 +71,12 @@ export const onSportsCounterUpdate = async ({
               }
             });
           }
-          console.log(allsports);
+          // console.log(allsports);
           dispatch(addSportDataCommingFromApi(allsports));
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
         } else {
-          console.log("null");
+          // console.log("null");
           preventDoubleCall = true;
         }
       })
@@ -97,7 +97,7 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
           try {
             let result = await getPropsSport(x.code);
             count++;
-            console.log(result);
+            // console.log(result);
             dispatch(addPropsDataCommingFromApi(result));
             if (count > 0) {
               dispatch(setPropsApiCallComplete(true));
@@ -208,11 +208,11 @@ export function Home({ mode, setMode }) {
         getMyProps(user_from_localstorage.uid, "upcoming")
           .then((result) => {
             if (result) {
-              console.log(result);
+              // console.log(result);
               dispatch(addUpComingDataCommingFromApi(result));
               calling = false;
             } else {
-              console.log("null");
+              // console.log("null");
               calling = false;
             }
           })
@@ -236,10 +236,10 @@ export function Home({ mode, setMode }) {
       getMyProps(user_from_localstorage.uid, "live")
         .then((result) => {
           if (result) {
-            console.log(result);
+            // console.log(result);
             dispatch(addLiveDataCommingFromApi(result));
           } else {
-            console.log("null");
+            // console.log("null");
           }
         })
         .catch((err) => {
@@ -261,10 +261,10 @@ export function Home({ mode, setMode }) {
       getMyProps(user_from_localstorage.uid, "completed")
         .then((result) => {
           if (result) {
-            console.log(result);
+            // console.log(result);
             dispatch(addCompleteDataCommingFromApi(result));
           } else {
-            console.log("null");
+            // console.log("null");
           }
         })
         .catch((err) => {
