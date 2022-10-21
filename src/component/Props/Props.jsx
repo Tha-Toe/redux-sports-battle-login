@@ -44,7 +44,8 @@ const useHorizontalScrollPropsNav = () => {
 };
 const useHorizontalScrollStats = (
   propsDataCommingFromApi,
-  setStatsArriveEnd
+  setStatsArriveEnd,
+  callClickSportApiFinish
 ) => {
   const statsScrollRef = useRef();
 
@@ -71,12 +72,13 @@ const useHorizontalScrollStats = (
       statsRefl.addEventListener("wheel", onWheel);
       return () => statsRefl.removeEventListener("wheel", onWheel);
     }
-  }, [propsDataCommingFromApi]);
+  }, [propsDataCommingFromApi, callClickSportApiFinish]);
   return statsScrollRef;
 };
 const useHorizontalScrollMatches = ({
   propsDataCommingFromApi,
   setGameArriveEnd,
+  callClickSportApiFinish,
 }) => {
   const matchesScrollRef = useRef();
 
@@ -102,7 +104,7 @@ const useHorizontalScrollMatches = ({
       matchesRefl.addEventListener("wheel", onWheel);
       return () => matchesRefl.removeEventListener("wheel", onWheel);
     }
-  }, [propsDataCommingFromApi]);
+  }, [propsDataCommingFromApi, callClickSportApiFinish]);
   return matchesScrollRef;
 };
 export default function Props({
@@ -115,6 +117,8 @@ export default function Props({
   setSelectSrc,
   getPropsSport,
 }) {
+  const [callClickSportApiFinish, setCallClickSportApiFinish] = useState(true);
+
   const dispatch = useDispatch();
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
@@ -289,6 +293,9 @@ export default function Props({
   const [howToPlayTitles, setHowToPlayTitle] = useState([]);
   const [rulesData, setRulesData] = useState([]);
   const [historyTrue, setHistoryTrue] = useState(false);
+  const [statsAndData, setStatsAndData] = useState(null);
+  const [selectStatTitle, setSelectStatTitle] = useState(null);
+  const [currentSportsData, setCurrentSportsData] = useState(null);
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -299,6 +306,9 @@ export default function Props({
       let rulesArray = [];
       let gamesArray = [];
       if (selectedSportPropsData.length > 0) {
+        //set current sports data in
+        setCurrentSportsData(selectedSportPropsData[0]);
+
         //get statOUKeys
         let statOUKeys = selectedSportPropsData[0].statOUKeys;
         statOUKeys.map((each) => {
@@ -342,6 +352,14 @@ export default function Props({
           setHistoryTrue(history);
         } else {
           setHistoryTrue(false);
+        }
+
+        //get projection stats data
+        let statsData = selectedSportPropsData[0].projections[0];
+        if (statsData) {
+          setStatsAndData(statsData);
+          setSelectStatTitle(statsData.title);
+          console.log(statsData);
         }
       }
     }
@@ -645,13 +663,14 @@ export default function Props({
   const sportsRef = useHorizontalScrollPropsNav();
   const statsRef = useHorizontalScrollStats(
     propsDataCommingFromApi,
-    setStatsArriveEnd
+    setStatsArriveEnd,
+    callClickSportApiFinish
   );
   const matchsRef = useHorizontalScrollMatches({
     propsDataCommingFromApi,
     setGameArriveEnd,
+    callClickSportApiFinish,
   });
-  const [callClickSportApiFinish, setCallClickSportApiFinish] = useState(true);
   const handleCallPropSports = async (code) => {
     setCallClickSportApiFinish(false);
     let result = await getPropsSport(code);
@@ -659,6 +678,22 @@ export default function Props({
     dispatch(addPropsDataCommingFromApi(result));
     setCallClickSportApiFinish(true);
   };
+
+  //select game func
+  const handleSelectGame = (e) => {
+    setSelectStatTitle(e);
+    let statsDataFromRedux = currentSportsData.projections;
+    if (statsDataFromRedux.length > 0) {
+      let statFilterData = statsDataFromRedux.filter((each) => {
+        return each.title === e;
+      });
+      if (statFilterData.length > 0) {
+        setStatsAndData(statFilterData[0]);
+      }
+      console.log(statFilterData[0]);
+    }
+  };
+
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -958,12 +993,21 @@ export default function Props({
                           style={{
                             color: `${mode === "dark" ? "white" : "#4831D4"}`,
                             background: `${
-                              mode === "dark" ? "#4831D4" : "#DAD5F6"
+                              mode === "dark"
+                                ? selectStatTitle === e
+                                  ? "#459F48"
+                                  : "#4831D4"
+                                : "#DAD5F6"
                             }`,
+                            cursor: "pointer",
                           }}
                           className="statsButton"
+                          onClick={() => handleSelectGame(e)}
                         >
-                          {e}
+                          {e}{" "}
+                          {statsAndData && selectStatTitle === e
+                            ? `(${statsAndData.data.length})`
+                            : ""}
                         </button>
                       ))}
                     </div>
