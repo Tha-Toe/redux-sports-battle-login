@@ -17,11 +17,11 @@ import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSecti
 import { useSelector } from "react-redux";
 import Games from "./Games";
 
-const useHorizontalScroll = () => {
-  const elRef = useRef();
+const useHorizontalScrollPropsNav = () => {
+  const propsScrollRef = useRef();
 
   useEffect(() => {
-    const el = elRef.current;
+    const el = propsScrollRef.current;
     if (el) {
       const onWheel = (e) => {
         if (e.deltaY == 0) return;
@@ -35,7 +35,70 @@ const useHorizontalScroll = () => {
       return () => el.removeEventListener("wheel", onWheel);
     }
   }, []);
-  return elRef;
+  return propsScrollRef;
+};
+const useHorizontalScrollStats = (
+  propsDataCommingFromApi,
+  setStatsArriveEnd
+) => {
+  const statsScrollRef = useRef();
+
+  useEffect(() => {
+    const statsRefl = statsScrollRef.current;
+    if (statsRefl) {
+      const onWheel = (e) => {
+        let checkStats = false;
+        if (statsRefl.scrollLeft !== 0) {
+          checkStats = true;
+        } else {
+          checkStats = false;
+        }
+        setStatsArriveEnd(checkStats);
+        if (e.deltaY == 0) return;
+        e.preventDefault();
+        statsRefl.scrollLeft = statsRefl.scrollLeft + e.deltaY;
+
+        // statsRefl.scrollTo({
+        //   left: statsRefl.scrollLeft + e.deltaY,
+        //   behavior: "smooth",
+        // });
+      };
+      statsRefl.addEventListener("wheel", onWheel);
+      return () => statsRefl.removeEventListener("wheel", onWheel);
+    }
+  }, [propsDataCommingFromApi]);
+  return statsScrollRef;
+};
+const useHorizontalScrollMatches = ({
+  propsDataCommingFromApi,
+  setGameArriveEnd,
+}) => {
+  const matchesScrollRef = useRef();
+
+  useEffect(() => {
+    const matchesRefl = matchesScrollRef.current;
+    if (matchesRefl) {
+      const onWheel = (e) => {
+        let check = false;
+        if (matchesRefl.scrollLeft !== 0) {
+          check = true;
+        } else {
+          check = false;
+        }
+        setGameArriveEnd(check);
+        if (e.deltaY == 0) return;
+        e.preventDefault();
+        matchesRefl.scrollLeft = matchesRefl.scrollLeft + e.deltaY;
+        // matchesRefl.scrollTo({
+        //   left: matchesRefl.scrollLeft + e.deltaY,
+        //   behavior: "smooth",
+        // });
+      };
+      matchesRefl.addEventListener("wheel", onWheel);
+      return () => matchesRefl.removeEventListener("wheel", onWheel);
+    }
+  }, [propsDataCommingFromApi]);
+  return matchesScrollRef;
 };
 export default function Props({
   mode,
@@ -251,10 +314,12 @@ export default function Props({
 
         let rulesDataFromRedux =
           selectedSportPropsData[0].metadata.considerations[`${selectSports}`];
-        rulesDataFromRedux.map((each) => {
-          rulesArray.push(each);
-        });
-        setRulesData([...rulesArray]);
+        if (rulesDataFromRedux) {
+          rulesDataFromRedux.map((each) => {
+            rulesArray.push(each);
+          });
+          setRulesData([...rulesArray]);
+        }
 
         //get gamesData
         let games = selectedSportPropsData[0].games;
@@ -294,6 +359,7 @@ export default function Props({
   const [stats, setStats] = useState([]);
   const [matches, setMatches] = useState([]);
   const [statsOverFlow, setStatsOverFlow] = useState(false);
+  const [statsArriveEnd, setStatsArriveEnd] = useState(false);
   const statsChildRef = useRef();
   const matchesChildRef = useRef();
   const [gameOverFlow, setGameOverFlow] = useState(false);
@@ -420,6 +486,12 @@ export default function Props({
     matchsRef.current.scrollLeft = matchsRef.current.scrollLeft - 100;
     if (matchsRef.current.scrollLeft === 0) {
       setGameArriveEnd(false);
+    }
+  };
+  const goBackWardStats = () => {
+    statsRef.current.scrollLeft = statsRef.current.scrollLeft - 100;
+    if (statsRef.current.scrollLeft === 0) {
+      setStatsArriveEnd(false);
     }
   };
 
@@ -554,9 +626,16 @@ export default function Props({
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  const sportsRef = useHorizontalScroll();
-  const statsRef = useHorizontalScroll();
-  const matchsRef = useHorizontalScroll();
+  const sportsRef = useHorizontalScrollPropsNav();
+  const statsRef = useHorizontalScrollStats(
+    propsDataCommingFromApi,
+    setStatsArriveEnd
+  );
+  const matchsRef = useHorizontalScrollMatches({
+    propsDataCommingFromApi,
+    setGameArriveEnd,
+  });
+
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -784,67 +863,127 @@ export default function Props({
             >
               {stats.length} Stats
             </Typography>
-            <div className="statsContainer" ref={statsRef}>
-              <div className="statsChild" ref={statsChildRef}>
-                {stats.map((e, index) => (
-                  <button
-                    key={index}
-                    style={{
-                      color: `${mode === "dark" ? "white" : "#4831D4"}`,
-                      background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
-                    }}
-                    className="statsButton"
-                  >
-                    {e}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {statsOverFlow && (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "30px",
-                  position: "absolute",
-                  right: 0,
-                }}
-              >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                height: "100%",
+                width: { md: "90%", xs: "86%", xxxs: "78%" },
+                position: "relative",
+              }}
+            >
+              {statsArriveEnd && (
                 <Box
-                  component="div"
                   sx={{
-                    height: "100%",
-                    width: "80px",
-                    background:
-                      "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "48px",
                     position: "absolute",
-                    right: 0,
+                    left: 0,
+                    zIndex: 20,
                   }}
-                ></Box>
+                >
+                  <Box
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      width: "100px",
+                      background:
+                        "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
+                      position: "absolute",
+                      left: 0,
+                    }}
+                  ></Box>
+                  <Box
+                    sx={{
+                      bgcolor: "secondary.dark_gray",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "30px",
+                      width: "30px",
+                      borderRadius: "50%",
+                      position: "absolute",
+                      left: 0,
+                    }}
+                    onClick={goBackWardStats}
+                  >
+                    <ArrowBackIos
+                      sx={{
+                        fontSize: "18px",
+                        color: "primary.main",
+                      }}
+                    />
+                  </Box>
+                </Box>
+              )}
+              <div className="statsContainer" ref={statsRef}>
+                <div className="statsChild" ref={statsChildRef}>
+                  {stats.map((e, index) => (
+                    <button
+                      key={index}
+                      style={{
+                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                        background: `${
+                          mode === "dark" ? "#4831D4" : "#DAD5F6"
+                        }`,
+                      }}
+                      className="statsButton"
+                    >
+                      {e}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {statsOverFlow && (
                 <Box
                   sx={{
-                    bgcolor: "secondary.dark_gray",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     height: "30px",
-                    width: "30px",
-                    borderRadius: "50%",
                     position: "absolute",
                     right: 0,
                   }}
-                  onClick={goForwardStats}
                 >
-                  <ArrowForwardIosIcon
+                  <Box
+                    component="div"
                     sx={{
-                      fontSize: "18px",
-                      color: "primary.main",
+                      height: "100%",
+                      width: "80px",
+                      background:
+                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                      position: "absolute",
+                      right: 0,
                     }}
-                  />
+                  ></Box>
+                  <Box
+                    sx={{
+                      bgcolor: "secondary.dark_gray",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "30px",
+                      width: "30px",
+                      borderRadius: "50%",
+                      position: "absolute",
+                      right: 0,
+                    }}
+                    onClick={goForwardStats}
+                  >
+                    <ArrowForwardIosIcon
+                      sx={{
+                        fontSize: "18px",
+                        color: "primary.main",
+                      }}
+                    />
+                  </Box>
                 </Box>
-              </Box>
-            )}
+              )}
+            </Box>
           </Box>
           <Box
             component="div"
@@ -881,7 +1020,7 @@ export default function Props({
                 position: "relative",
               }}
             >
-              {/* {gameArriveEnd && (
+              {gameArriveEnd && (
                 <Box
                   sx={{
                     display: "flex",
@@ -890,6 +1029,7 @@ export default function Props({
                     height: "48px",
                     position: "absolute",
                     left: 0,
+                    zIndex: 20,
                   }}
                 >
                   <Box
@@ -898,7 +1038,7 @@ export default function Props({
                       height: "100%",
                       width: "100px",
                       background:
-                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                        "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
                       position: "absolute",
                       left: 0,
                     }}
@@ -913,7 +1053,7 @@ export default function Props({
                       width: "30px",
                       borderRadius: "50%",
                       position: "absolute",
-                      right: 0,
+                      left: 0,
                     }}
                     onClick={goBackWardMatches}
                   >
@@ -925,7 +1065,7 @@ export default function Props({
                     />
                   </Box>
                 </Box>
-              )} */}
+              )}
               <div className="matchesContainer" ref={matchsRef}>
                 <div className="matchesChild" ref={matchesChildRef}>
                   {matches.map((e, index) => (

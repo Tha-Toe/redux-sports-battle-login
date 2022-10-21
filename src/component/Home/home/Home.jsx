@@ -174,7 +174,7 @@ export function Home({ mode, setMode }) {
       setBonus(userDetail.totalBonus);
       setCash(userDetail.numCash + userDetail.unutilizedCash);
     }
-    console.log(userDetail);
+    // console.log(userDetail);
   }, [userDetail]);
 
   //getSportsdata
@@ -189,7 +189,7 @@ export function Home({ mode, setMode }) {
       }
     };
     getPropsData();
-    console.log(userDetail);
+    // console.log(userDetail);
   }, [userDetail]);
 
   const callPropsApi = () => {
