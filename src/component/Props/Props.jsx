@@ -296,6 +296,7 @@ export default function Props({
   const [statsAndData, setStatsAndData] = useState(null);
   const [selectStatTitle, setSelectStatTitle] = useState(null);
   const [currentSportsData, setCurrentSportsData] = useState(null);
+  const [disableSports, setDisableSports] = useState([]);
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -360,6 +361,19 @@ export default function Props({
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
           console.log(statsData);
+        }
+
+        //get disable sports
+        let obj = [];
+        let disableData = propsDataCommingFromApi.filter((each) => {
+          return each.projections.length === 0;
+        });
+        if (disableData.length > 0) {
+          disableData.map((each) => {
+            obj.push(each.sportCode);
+          });
+          setDisableSports(obj);
+          console.log(obj);
         }
       }
     }
@@ -671,12 +685,25 @@ export default function Props({
     setGameArriveEnd,
     callClickSportApiFinish,
   });
-  const handleCallPropSports = async (code) => {
-    setCallClickSportApiFinish(false);
-    let result = await getPropsSport(code);
-    console.log(result);
-    dispatch(addPropsDataCommingFromApi(result));
-    setCallClickSportApiFinish(true);
+  const handleCallPropSports = async (e) => {
+    let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
+      return each.sportCode === e.code;
+    });
+    if (
+      selectedSportPropsData.length > 0 &&
+      selectedSportPropsData[0].projections.length > 0
+    ) {
+      setSelectSports(e.code);
+      setSelectColor(e.color);
+      setSelectSrc(e.activeImage);
+      setCallClickSportApiFinish(false);
+      let result = await getPropsSport(e.code);
+      console.log(result);
+      dispatch(addPropsDataCommingFromApi(result));
+      setCallClickSportApiFinish(true);
+    } else {
+      return;
+    }
   };
 
   //select game func
@@ -724,10 +751,7 @@ export default function Props({
                     mr: { xxxs: "5px" },
                   }}
                   onClick={() => {
-                    setSelectSports(e.code);
-                    setSelectColor(e.color);
-                    setSelectSrc(e.activeImage);
-                    handleCallPropSports(e.code);
+                    handleCallPropSports(e);
                   }}
                 >
                   <Box
@@ -738,7 +762,9 @@ export default function Props({
                       border: `${
                         e.code === selectSports
                           ? `2px solid ${e.color}`
-                          : "2px solid gray"
+                          : disableSports.indexOf(e.code) > -1
+                          ? "2px solid gray"
+                          : "2px solid white"
                       }`,
                       borderRadius: "50%",
                       mt: "13px",
@@ -753,30 +779,42 @@ export default function Props({
                     }}
                   >
                     <>
-                      {e.code === selectSports ? (
+                      {disableSports.indexOf(e.code) > -1 ? (
                         <img
                           className="propsNavImg"
                           style={{
                             color: e.color,
                           }}
-                          src={`${
-                            e.code === selectSports
-                              ? e.activeImage
-                              : e.inactiveImage
-                          }`}
+                          src={e.noDataImage}
                         />
                       ) : (
-                        <img
-                          className="propsNavImg"
-                          style={{
-                            color: e.color,
-                          }}
-                          src={
-                            e.code === selectSports
-                              ? e.activeImage
-                              : e.inactiveImage
-                          }
-                        />
+                        <>
+                          {e.code === selectSports ? (
+                            <img
+                              className="propsNavImg"
+                              style={{
+                                color: e.color,
+                              }}
+                              src={`${
+                                e.code === selectSports
+                                  ? e.activeImage
+                                  : e.inactiveImage
+                              }`}
+                            />
+                          ) : (
+                            <img
+                              className="propsNavImg"
+                              style={{
+                                color: e.color,
+                              }}
+                              src={
+                                e.code === selectSports
+                                  ? e.activeImage
+                                  : e.inactiveImage
+                              }
+                            />
+                          )}
+                        </>
                       )}
                     </>
                   </Box>
