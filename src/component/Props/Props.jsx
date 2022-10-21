@@ -21,6 +21,7 @@ import {
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
 } from "../../feature/userSlice";
+import NoProjection from "../loadingSpinner/NoProjection";
 
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
@@ -375,12 +376,10 @@ export default function Props({
           });
           setActiveSports(obj);
         }
-        console.log("active", obj);
 
         //get nodata sports
         let noDataObj = [];
         let noData = propsDataCommingFromApi.filter((each) => {
-          console.log(each.projections.length, each.sportCode);
           return each.projections.length < 1;
         });
         if (noData.length > 0) {
@@ -389,7 +388,6 @@ export default function Props({
           });
           setNoDataSports(noDataObj);
         }
-        console.log("noData", noDataObj);
       }
     }
   }, [selectSports, propsDataCommingFromApi]);
@@ -397,7 +395,16 @@ export default function Props({
   // useEffect(() => {
   //   console.log(stats);
   // }, [stats]);
-
+  const refresh = async () => {
+    setNoProjection(null);
+    setCallClickSportApiFinish(false);
+    let result = await getPropsSport(selectSports);
+    if (result.projections.length < 1) {
+      setNoProjection(result.sportCode);
+    }
+    dispatch(addPropsDataCommingFromApi(result));
+    setCallClickSportApiFinish(true);
+  };
   const [propsGuide, setPropsGuide] = useState([
     {
       name: "How to",
@@ -417,7 +424,12 @@ export default function Props({
       darkSrc: "/fps-dark.png",
       func: baseBallPointOpen,
     },
-    { name: "Refresh", src: "/refresh.png", darkSrc: "/refresh-dark.png" },
+    {
+      name: "Refresh",
+      src: "/refresh.png",
+      darkSrc: "/refresh-dark.png",
+      func: refresh,
+    },
   ]);
   const [stats, setStats] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -700,34 +712,28 @@ export default function Props({
     setGameArriveEnd,
     callClickSportApiFinish,
   });
-  const handleCallPropSports = async (e) => {
-    // let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
-    //   return each.sportCode === e.code;
-    // });
-    // if (
-    //   selectedSportPropsData.length > 0 &&
-    //   selectedSportPropsData[0].projections.length > 0
-    // ) {
-    //   setSelectSports(e.code);
-    //   setSelectColor(e.color);
-    //   setSelectSrc(e.activeImage);
-    //   setCallClickSportApiFinish(false);
-    //   let result = await getPropsSport(e.code);
-    //   console.log(result);
-    //   dispatch(addPropsDataCommingFromApi(result));
-    //   setCallClickSportApiFinish(true);
-    // } else {
-    //   return;
-    // }
 
-    setSelectSports(e.code);
-    setSelectColor(e.color);
-    setSelectSrc(e.activeImage);
-    setCallClickSportApiFinish(false);
-    let result = await getPropsSport(e.code);
-    console.log(result);
-    dispatch(addPropsDataCommingFromApi(result));
-    setCallClickSportApiFinish(true);
+  const [noProjection, setNoProjection] = useState(null);
+
+  const handleCallPropSports = async (e) => {
+    if (noDataSports.indexOf(e.code) > -1) {
+      setSelectSports(e.code);
+      setSelectColor(e.color);
+      setNoProjection(e.code);
+      setSelectSrc(e.activeImage);
+    } else {
+      setNoProjection(null);
+      setSelectSports(e.code);
+      setSelectColor(e.color);
+      setSelectSrc(e.activeImage);
+      setCallClickSportApiFinish(false);
+      let result = await getPropsSport(e.code);
+      if (result.projections.length < 1) {
+        setNoProjection(result.sportCode);
+      }
+      dispatch(addPropsDataCommingFromApi(result));
+      setCallClickSportApiFinish(true);
+    }
   };
 
   //select game func
@@ -1254,62 +1260,75 @@ export default function Props({
                   )}
                 </Box>
               </Box>
-              <Box
-                id="grid-container"
-                component="div"
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: { sm: "row", xxxs: "column" },
-                  justifyContent: "center",
-                  alignItems: { xs: "flex-start", xxxs: "center" },
-                }}
-              >
-                <Box
-                  sx={{
-                    width: { lg: "75%", md: "60%", sm: "50%", xxxs: "100%" },
-                    height: "auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Grid
-                    container
+              {noProjection === selectSports ? (
+                <>
+                  <NoProjection refresh={refresh} />
+                </>
+              ) : (
+                <>
+                  <Box
+                    id="grid-container"
+                    component="div"
                     sx={{
                       width: "100%",
+                      display: "flex",
+                      flexDirection: { sm: "row", xxxs: "column" },
+                      justifyContent: "center",
+                      alignItems: { xs: "flex-start", xxxs: "center" },
                     }}
-                    spacing={"6px"}
                   >
-                    {cardInfo.map((e, index) => (
-                      <GridItemComponent
-                        e={e}
-                        key={index}
-                        index={index}
-                        selectCardId={selectCardId}
-                        setSelectCardId={setSelectCardId}
-                        addCardIndex={addCardIndex}
-                        mode={mode}
-                        selectSports={selectSports}
-                        setSelectSports={setSelectSports}
-                        selectColor={selectColor}
-                        selectSrc={selectSrc}
-                        scrollDownFunc={scrollDownFunc}
-                        historyTrue={historyTrue}
-                      />
-                    ))}
-                  </Grid>
-                </Box>
-                <SubmitProjection
-                  selectCardId={selectCardId}
-                  mode={mode}
-                  setSelectCardId={setSelectCardId}
-                  removeCardIndex={removeCardIndex}
-                  setSuccessSubmit={setSuccessSubmit}
-                  setErrorSubmit={setErrorSubmit}
-                />
-                <div ref={messagesEndRef} />
-              </Box>
+                    <Box
+                      sx={{
+                        width: {
+                          lg: "75%",
+                          md: "60%",
+                          sm: "50%",
+                          xxxs: "100%",
+                        },
+                        height: "auto",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Grid
+                        container
+                        sx={{
+                          width: "100%",
+                        }}
+                        spacing={"6px"}
+                      >
+                        {cardInfo.map((e, index) => (
+                          <GridItemComponent
+                            e={e}
+                            key={index}
+                            index={index}
+                            selectCardId={selectCardId}
+                            setSelectCardId={setSelectCardId}
+                            addCardIndex={addCardIndex}
+                            mode={mode}
+                            selectSports={selectSports}
+                            setSelectSports={setSelectSports}
+                            selectColor={selectColor}
+                            selectSrc={selectSrc}
+                            scrollDownFunc={scrollDownFunc}
+                            historyTrue={historyTrue}
+                          />
+                        ))}
+                      </Grid>
+                    </Box>
+                    <SubmitProjection
+                      selectCardId={selectCardId}
+                      mode={mode}
+                      setSelectCardId={setSelectCardId}
+                      removeCardIndex={removeCardIndex}
+                      setSuccessSubmit={setSuccessSubmit}
+                      setErrorSubmit={setErrorSubmit}
+                    />
+                    <div ref={messagesEndRef} />
+                  </Box>
+                </>
+              )}
             </>
           ) : (
             <LoadingSpinnerEachSection />
