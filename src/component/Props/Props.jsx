@@ -288,7 +288,7 @@ export default function Props({
   const [howToPlayData, setHowToPlayData] = useState([]);
   const [howToPlayTitles, setHowToPlayTitle] = useState([]);
   const [rulesData, setRulesData] = useState([]);
-
+  const [historyTrue, setHistoryTrue] = useState(false);
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -334,6 +334,15 @@ export default function Props({
           gamesArray.push(each);
         });
         setMatches([...gamesArray]);
+
+        //get history
+        let history =
+          selectedSportPropsData[0].metadata.history[`${selectSports}`];
+        if (history) {
+          setHistoryTrue(history);
+        } else {
+          setHistoryTrue(false);
+        }
       }
     }
   }, [selectSports, propsDataCommingFromApi]);
@@ -1182,6 +1191,7 @@ export default function Props({
                         selectColor={selectColor}
                         selectSrc={selectSrc}
                         scrollDownFunc={scrollDownFunc}
+                        historyTrue={historyTrue}
                       />
                     ))}
                   </Grid>

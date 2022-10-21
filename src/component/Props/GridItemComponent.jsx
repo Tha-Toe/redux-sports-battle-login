@@ -13,6 +13,7 @@ const GridItemComponent = ({
   selectSrc,
   mode,
   scrollDownFunc,
+  historyTrue,
 }) => {
   useEffect(() => {
     let conditionArray = selectCardId.filter((each) => {
@@ -93,7 +94,7 @@ const GridItemComponent = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
             alignItems: "flex-start",
             ml: "8px",
             height: "80%",
@@ -155,51 +156,55 @@ const GridItemComponent = ({
               {e.time}
             </Typography>
           </Box>
-          <Box sx={{ display: "flex" }}>
-            <Typography
-              sx={{
-                color: "secondary.dark_gray",
-                fontSize: {
-                  md: "10px",
-                  sm: "8px",
-                  xxxs: "10px",
-                },
-                fontWeight: 400,
-                fontFamily: "poppins",
-                mr: "5px",
-              }}
-            >
-              Last 5
-            </Typography>
-            <Typography
-              sx={{
-                color: "#3A6DBE",
-                fontSize: {
-                  md: "10px",
-                  sm: "8px",
-                  xxxs: "10px",
-                },
-                fontWeight: 400,
-                fontFamily: "poppins",
-              }}
-            >
-              {e.last}
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              color: "secondary.dark_gray",
-              fontSize: {
-                md: "10px",
-                sm: "8px",
-                xxxs: "10px",
-              },
-              fontWeight: 400,
-              fontFamily: "poppins",
-            }}
-          >
-            Avg :: {e.avg}
-          </Typography>
+          {historyTrue && (
+            <>
+              <Box sx={{ display: "flex" }}>
+                <Typography
+                  sx={{
+                    color: "secondary.dark_gray",
+                    fontSize: {
+                      md: "10px",
+                      sm: "8px",
+                      xxxs: "10px",
+                    },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                    mr: "5px",
+                  }}
+                >
+                  Last 5
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#3A6DBE",
+                    fontSize: {
+                      md: "10px",
+                      sm: "8px",
+                      xxxs: "10px",
+                    },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  {e.last}
+                </Typography>
+              </Box>
+              <Typography
+                sx={{
+                  color: "secondary.dark_gray",
+                  fontSize: {
+                    md: "10px",
+                    sm: "8px",
+                    xxxs: "10px",
+                  },
+                  fontWeight: 400,
+                  fontFamily: "poppins",
+                }}
+              >
+                Avg :: {e.avg}
+              </Typography>
+            </>
+          )}
         </Box>
         <Box
           sx={{
