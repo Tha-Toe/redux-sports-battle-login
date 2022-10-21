@@ -94,7 +94,6 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
       for (let i = 0; i < allSports.length; i++) {
         let x = allSports[i];
         if (x.code != "home" && x.activeSw) {
-
           try {
             let result = await getPropsSport(x.code);
             count++;
@@ -103,9 +102,8 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
             if (count > 0) {
               dispatch(setPropsApiCallComplete(true));
             }
-
           } catch (err) {
-              console.log(err);
+            console.log(err);
           }
         } else {
           count++;
@@ -1152,6 +1150,7 @@ export function Home({ mode, setMode }) {
               setSelectSrc={setSelectSrc}
               selectColor={selectColor}
               selectSrc={selectSrc}
+              getPropsSport={getPropsSport}
             ></Props>
           )}
           {!location.search && openTag === "my-props" && (

@@ -15,8 +15,9 @@ import SuccessSubmit from "./SuccessSubmit";
 import ErrorSubmit from "./ErrorSubmit";
 import NotEnoughBalance from "./NotEnoughBalance";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Games from "./Games";
+import { addPropsDataCommingFromApi } from "../../feature/userSlice";
 
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
@@ -109,7 +110,9 @@ export default function Props({
   setSelectColor,
   selectSrc,
   setSelectSrc,
+  getPropsSport,
 }) {
+  const dispatch = useDispatch();
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
@@ -637,6 +640,11 @@ export default function Props({
     setGameArriveEnd,
   });
 
+  const handleCallPropSports = async (code) => {
+    let result = await getPropsSport(code);
+    console.log(result);
+    dispatch(addPropsDataCommingFromApi(result));
+  };
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -670,6 +678,7 @@ export default function Props({
                     setSelectSports(e.code);
                     setSelectColor(e.color);
                     setSelectSrc(e.activeImage);
+                    handleCallPropSports(e.code);
                   }}
                 >
                   <Box
@@ -884,7 +893,7 @@ export default function Props({
                     height: "48px",
                     position: "absolute",
                     left: 0,
-                    zIndex: 20,
+                    zIndex: 10,
                   }}
                 >
                   <Box
@@ -1030,7 +1039,7 @@ export default function Props({
                     height: "48px",
                     position: "absolute",
                     left: 0,
-                    zIndex: 20,
+                    zIndex: 10,
                   }}
                 >
                   <Box
