@@ -166,7 +166,8 @@ export function Home({ mode, setMode }) {
 
   useEffect(() => {
     if (userDetail) {
-      setBonus(userDetail.totalBonus);
+      // console.log(userDetail);
+      setBonus(userDetail.numOUBonusCash);
       setCash(userDetail.numCash + userDetail.unutilizedCash);
     }
     // console.log(userDetail);

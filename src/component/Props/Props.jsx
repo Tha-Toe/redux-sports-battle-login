@@ -22,7 +22,7 @@ import {
   setPropsApiCallComplete,
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
-
+import ErrorIcon from "@mui/icons-material/Error";
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
 
@@ -299,6 +299,8 @@ export default function Props({
   const [currentSportsData, setCurrentSportsData] = useState(null);
   const [activeSports, setActiveSports] = useState([]);
   const [noDataSports, setNoDataSports] = useState([]);
+  const [notes, setNotes] = useState(null);
+
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -398,9 +400,16 @@ export default function Props({
   const refresh = async () => {
     setNoProjection(null);
     setCallClickSportApiFinish(false);
+    setNotes(null);
     let result = await getPropsSport(selectSports);
     if (result.projections.length < 1) {
       setNoProjection(result.sportCode);
+    }
+    if (result.metadata.notes) {
+      let noteFromApi = result.metadata.notes;
+      if (noteFromApi[`${selectSports}`]) {
+        setNotes(noteFromApi[`${selectSports}`]);
+      }
     }
     dispatch(addPropsDataCommingFromApi(result));
     setCallClickSportApiFinish(true);
@@ -714,8 +723,8 @@ export default function Props({
   });
 
   const [noProjection, setNoProjection] = useState(null);
-
   const handleCallPropSports = async (e) => {
+    setNotes(null);
     // console.log(noDataSports);
     setNoProjection(null);
     setSelectSports(e.code);
@@ -725,6 +734,16 @@ export default function Props({
     let result = await getPropsSport(e.code);
     if (result.projections.length < 1) {
       setNoProjection(result.sportCode);
+    }
+    console.log(result);
+    if (result.metadata.notes) {
+      let noteFromApi = result.metadata.notes;
+      console.log(noteFromApi);
+      console.log(e.code);
+      if (noteFromApi[`${e.code}`]) {
+        console.log(noteFromApi[`${e.code}`]);
+        setNotes(noteFromApi[`${e.code}`]);
+      }
     }
     dispatch(addPropsDataCommingFromApi(result));
     setCallClickSportApiFinish(true);
@@ -783,8 +802,7 @@ export default function Props({
                       height: { xs: "34px", xxxs: "30px" },
                       width: { xs: "34px", xxxs: "30px" },
                       border: `${
-                        e.code === selectSports &&
-                        activeSports.indexOf(e.code) > -1
+                        e.code === selectSports
                           ? `2px solid ${e.color}`
                           : noDataSports.indexOf(e.code) > -1
                           ? "2px solid gray"
@@ -1263,6 +1281,26 @@ export default function Props({
                   )}
                 </Box>
               </Box>
+              {notes && (
+                <Typography
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    position: "relative",
+                    mb: "20px",
+                    fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                    fontFamily: "poppins",
+                    fontWeight: 500,
+                    color: "#89CBF5",
+                  }}
+                >
+                  <ErrorIcon />
+                  {notes}
+                </Typography>
+              )}
               {noProjection === selectSports ? (
                 <>
                   <NoProjection refresh={refresh} />
