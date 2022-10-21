@@ -96,6 +96,7 @@ export const userSlice = createSlice({
       }
     },
     setPropsApiCallComplete: (state, action) => {
+      console.log(action);
       state.propsApiCallComplete = action;
     },
   },

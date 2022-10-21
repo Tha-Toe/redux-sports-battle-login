@@ -17,7 +17,10 @@ import NotEnoughBalance from "./NotEnoughBalance";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector, useDispatch } from "react-redux";
 import Games from "./Games";
-import { addPropsDataCommingFromApi } from "../../feature/userSlice";
+import {
+  addPropsDataCommingFromApi,
+  setPropsApiCallComplete,
+} from "../../feature/userSlice";
 
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
@@ -639,11 +642,13 @@ export default function Props({
     propsDataCommingFromApi,
     setGameArriveEnd,
   });
-
+  const [callClickSportApiFinish, setCallClickSportApiFinish] = useState(true);
   const handleCallPropSports = async (code) => {
+    setCallClickSportApiFinish(false);
     let result = await getPropsSport(code);
     console.log(result);
     dispatch(addPropsDataCommingFromApi(result));
+    setCallClickSportApiFinish(true);
   };
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
@@ -686,7 +691,11 @@ export default function Props({
                       height: { xs: "34px", xxxs: "30px" },
                       width: { xs: "34px", xxxs: "30px" },
                       border: "2px solid gray",
-
+                      border: `${
+                        e.code === selectSports
+                          ? `2px solid ${e.color}`
+                          : "2px solid gray"
+                      }`,
                       borderRadius: "50%",
                       mt: "13px",
                       display: "flex",
@@ -747,444 +756,450 @@ export default function Props({
               ))}
             </div>
           </div>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "rows",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              mt: "16px",
-              borderBottom: "2px solid #494949",
-              pb: "10px",
-              mb: "12px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "rows",
-                alignItems: "center",
-                justifyContent: { xl: "flex-start", xxxs: "flex-start" },
-                width: { xs: "50%", xxxs: "55%" },
-              }}
-            >
-              {propsGuide.map((e, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: { sm: "row", xxxs: "column" },
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    flexWrap: "wrap",
-                    mr: { md: "20px", xxxs: "10px" },
-                  }}
-                  onClick={e.func}
-                >
-                  {mode === "dark" ? (
-                    <img
-                      src={e.src}
-                      style={{
-                        marginRight: "3px",
-                        height: "20px",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={e.darkSrc}
-                      style={{
-                        marginRight: "3px",
-                        height: "20px",
-                      }}
-                    />
-                  )}
-
-                  <Typography
-                    sx={{
-                      fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
-                      fontFamily: "poppins",
-                      fontWeight: 500,
-                      color: "secondary.main",
-                      ml: { sm: "5px", xxxs: "0px" },
-                    }}
-                  >
-                    {e.name}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-            <Input
-              startAdornment={
-                <InputAdornment position="end">
-                  <SearchIcon
-                    sx={{
-                      color: "secondary.gray",
-                      fontSize: "25px",
-                      mr: "7px",
-                    }}
-                  />
-                </InputAdornment>
-              }
-              placeholder="Search"
-              disableUnderline
-              sx={{
-                bgcolor: `${mode === "dark" ? "#242423" : "white"}`,
-                border: `${mode === "dark" ? "1px solid #2c2c2c" : "none"}`,
-                width: {
-                  md: "324px",
-                  sm: "250px",
-                  xs: "200px",
-                  xxs: "180px",
-                  xxxs: "120px",
-                },
-                color: "secondary.main",
-                fontSize: "12px",
-                fontWeight: 400,
-                fontFamily: "poppins",
-                height: "32px",
-                borderRadius: "4px",
-                pt: "3px",
-              }}
-            />
-          </Box>
-          <Box
-            component="div"
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "30px",
-              position: "relative",
-              mb: "16px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { sm: "16px", xxxs: "12px" },
-                fontWeight: "400",
-                fontFamily: "poppins",
-                width: { md: "10%", xs: "14%", xxxs: "22%" },
-                color: "secondary.main",
-              }}
-            >
-              {stats.length} Stats
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                height: "100%",
-                width: { md: "90%", xs: "86%", xxxs: "78%" },
-                position: "relative",
-              }}
-            >
-              {statsArriveEnd && (
+          {callClickSportApiFinish ? (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "rows",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  mt: "16px",
+                  borderBottom: "2px solid #494949",
+                  pb: "10px",
+                  mb: "12px",
+                }}
+              >
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "rows",
                     alignItems: "center",
-                    height: "48px",
-                    position: "absolute",
-                    left: 0,
-                    zIndex: 10,
+                    justifyContent: { xl: "flex-start", xxxs: "flex-start" },
+                    width: { xs: "50%", xxxs: "55%" },
                   }}
                 >
-                  <Box
-                    component="div"
-                    sx={{
-                      height: "100%",
-                      width: "100px",
-                      background:
-                        "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
-                      position: "absolute",
-                      left: 0,
-                    }}
-                  ></Box>
-                  <Box
-                    sx={{
-                      bgcolor: "secondary.dark_gray",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "30px",
-                      width: "30px",
-                      borderRadius: "50%",
-                      position: "absolute",
-                      left: 0,
-                    }}
-                    onClick={goBackWardStats}
-                  >
-                    <ArrowBackIosNew
-                      sx={{
-                        fontSize: "18px",
-                        color: "primary.main",
-                      }}
-                    />
-                  </Box>
-                </Box>
-              )}
-              <div className="statsContainer" ref={statsRef}>
-                <div className="statsChild" ref={statsChildRef}>
-                  {stats.map((e, index) => (
-                    <button
+                  {propsGuide.map((e, index) => (
+                    <Box
                       key={index}
-                      style={{
-                        color: `${mode === "dark" ? "white" : "#4831D4"}`,
-                        background: `${
-                          mode === "dark" ? "#4831D4" : "#DAD5F6"
-                        }`,
+                      sx={{
+                        display: "flex",
+                        flexDirection: { sm: "row", xxxs: "column" },
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        flexWrap: "wrap",
+                        mr: { md: "20px", xxxs: "10px" },
                       }}
-                      className="statsButton"
+                      onClick={e.func}
                     >
-                      {e}
-                    </button>
+                      {mode === "dark" ? (
+                        <img
+                          src={e.src}
+                          style={{
+                            marginRight: "3px",
+                            height: "20px",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={e.darkSrc}
+                          style={{
+                            marginRight: "3px",
+                            height: "20px",
+                          }}
+                        />
+                      )}
+
+                      <Typography
+                        sx={{
+                          fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                          fontFamily: "poppins",
+                          fontWeight: 500,
+                          color: "secondary.main",
+                          ml: { sm: "5px", xxxs: "0px" },
+                        }}
+                      >
+                        {e.name}
+                      </Typography>
+                    </Box>
                   ))}
-                </div>
-              </div>
-              {statsOverFlow && (
+                </Box>
+                <Input
+                  startAdornment={
+                    <InputAdornment position="end">
+                      <SearchIcon
+                        sx={{
+                          color: "secondary.gray",
+                          fontSize: "25px",
+                          mr: "7px",
+                        }}
+                      />
+                    </InputAdornment>
+                  }
+                  placeholder="Search"
+                  disableUnderline
+                  sx={{
+                    bgcolor: `${mode === "dark" ? "#242423" : "white"}`,
+                    border: `${mode === "dark" ? "1px solid #2c2c2c" : "none"}`,
+                    width: {
+                      md: "324px",
+                      sm: "250px",
+                      xs: "200px",
+                      xxs: "180px",
+                      xxxs: "120px",
+                    },
+                    color: "secondary.main",
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                    height: "32px",
+                    borderRadius: "4px",
+                    pt: "3px",
+                  }}
+                />
+              </Box>
+              <Box
+                component="div"
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  height: "30px",
+                  position: "relative",
+                  mb: "16px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px", xxxs: "12px" },
+                    fontWeight: "400",
+                    fontFamily: "poppins",
+                    width: { md: "10%", xs: "14%", xxxs: "22%" },
+                    color: "secondary.main",
+                  }}
+                >
+                  {stats.length} Stats
+                </Typography>
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "row",
                     alignItems: "center",
-                    height: "30px",
-                    position: "absolute",
-                    right: 0,
+                    justifyContent: "space-between",
+                    height: "100%",
+                    width: { md: "90%", xs: "86%", xxxs: "78%" },
+                    position: "relative",
                   }}
                 >
-                  <Box
-                    component="div"
-                    sx={{
-                      height: "100%",
-                      width: "80px",
-                      background:
-                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                      position: "absolute",
-                      right: 0,
-                    }}
-                  ></Box>
-                  <Box
-                    sx={{
-                      bgcolor: "secondary.dark_gray",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "30px",
-                      width: "30px",
-                      borderRadius: "50%",
-                      position: "absolute",
-                      right: 0,
-                    }}
-                    onClick={goForwardStats}
-                  >
-                    <ArrowForwardIosIcon
+                  {statsArriveEnd && (
+                    <Box
                       sx={{
-                        fontSize: "18px",
-                        color: "primary.main",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "48px",
+                        position: "absolute",
+                        left: 0,
+                        zIndex: 10,
                       }}
-                    />
-                  </Box>
+                    >
+                      <Box
+                        component="div"
+                        sx={{
+                          height: "100%",
+                          width: "100px",
+                          background:
+                            "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
+                          position: "absolute",
+                          left: 0,
+                        }}
+                      ></Box>
+                      <Box
+                        sx={{
+                          bgcolor: "secondary.dark_gray",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          left: 0,
+                        }}
+                        onClick={goBackWardStats}
+                      >
+                        <ArrowBackIosNew
+                          sx={{
+                            fontSize: "18px",
+                            color: "primary.main",
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  )}
+                  <div className="statsContainer" ref={statsRef}>
+                    <div className="statsChild" ref={statsChildRef}>
+                      {stats.map((e, index) => (
+                        <button
+                          key={index}
+                          style={{
+                            color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                            background: `${
+                              mode === "dark" ? "#4831D4" : "#DAD5F6"
+                            }`,
+                          }}
+                          className="statsButton"
+                        >
+                          {e}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {statsOverFlow && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "30px",
+                        position: "absolute",
+                        right: 0,
+                      }}
+                    >
+                      <Box
+                        component="div"
+                        sx={{
+                          height: "100%",
+                          width: "80px",
+                          background:
+                            "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                          position: "absolute",
+                          right: 0,
+                        }}
+                      ></Box>
+                      <Box
+                        sx={{
+                          bgcolor: "secondary.dark_gray",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: 0,
+                        }}
+                        onClick={goForwardStats}
+                      >
+                        <ArrowForwardIosIcon
+                          sx={{
+                            fontSize: "18px",
+                            color: "primary.main",
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
-          </Box>
-          <Box
-            component="div"
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "48px",
-              position: "relative",
-              mb: "20px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { sm: "16px", xxxs: "12px" },
-                fontWeight: "400",
-                fontFamily: "poppins",
-                width: { md: "10%", xs: "14%", xxxs: "22%" },
-                color: "secondary.main",
-              }}
-            >
-              {matches.length} Matches
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                height: "100%",
-                width: { md: "90%", xs: "86%", xxxs: "78%" },
-                position: "relative",
-              }}
-            >
-              {gameArriveEnd && (
+              </Box>
+              <Box
+                component="div"
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  height: "48px",
+                  position: "relative",
+                  mb: "20px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px", xxxs: "12px" },
+                    fontWeight: "400",
+                    fontFamily: "poppins",
+                    width: { md: "10%", xs: "14%", xxxs: "22%" },
+                    color: "secondary.main",
+                  }}
+                >
+                  {matches.length} Matches
+                </Typography>
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "row",
                     alignItems: "center",
-                    height: "48px",
-                    position: "absolute",
-                    left: 0,
-                    zIndex: 10,
+                    justifyContent: "space-between",
+                    height: "100%",
+                    width: { md: "90%", xs: "86%", xxxs: "78%" },
+                    position: "relative",
                   }}
                 >
-                  <Box
-                    component="div"
-                    sx={{
-                      height: "100%",
-                      width: "100px",
-                      background:
-                        "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
-                      position: "absolute",
-                      left: 0,
-                    }}
-                  ></Box>
-                  <Box
-                    sx={{
-                      bgcolor: "secondary.dark_gray",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "30px",
-                      width: "30px",
-                      borderRadius: "50%",
-                      position: "absolute",
-                      left: 0,
-                    }}
-                    onClick={goBackWardMatches}
-                  >
-                    <ArrowBackIosNew
+                  {gameArriveEnd && (
+                    <Box
                       sx={{
-                        fontSize: "18px",
-                        color: "primary.main",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "48px",
+                        position: "absolute",
+                        left: 0,
+                        zIndex: 10,
                       }}
-                    />
-                  </Box>
-                </Box>
-              )}
-              <div className="matchesContainer" ref={matchsRef}>
-                <div className="matchesChild" ref={matchesChildRef}>
-                  {matches.map((e, index) => (
-                    <Games gameData={e} mode={mode} key={index} />
-                  ))}
-                </div>
-              </div>
-              {gameOverFlow && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "48px",
-                    position: "absolute",
-                    right: 0,
-                  }}
-                >
-                  <Box
-                    component="div"
-                    sx={{
-                      height: "100%",
-                      width: "100px",
-                      background:
-                        "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
-                      position: "absolute",
-                      right: 0,
-                    }}
-                  ></Box>
-                  <Box
-                    sx={{
-                      bgcolor: "secondary.dark_gray",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "30px",
-                      width: "30px",
-                      borderRadius: "50%",
-                      position: "absolute",
-                      right: 0,
-                    }}
-                    onClick={goForwardMatches}
-                  >
-                    <ArrowForwardIosIcon
+                    >
+                      <Box
+                        component="div"
+                        sx={{
+                          height: "100%",
+                          width: "100px",
+                          background:
+                            "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
+                          position: "absolute",
+                          left: 0,
+                        }}
+                      ></Box>
+                      <Box
+                        sx={{
+                          bgcolor: "secondary.dark_gray",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          left: 0,
+                        }}
+                        onClick={goBackWardMatches}
+                      >
+                        <ArrowBackIosNew
+                          sx={{
+                            fontSize: "18px",
+                            color: "primary.main",
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  )}
+                  <div className="matchesContainer" ref={matchsRef}>
+                    <div className="matchesChild" ref={matchesChildRef}>
+                      {matches.map((e, index) => (
+                        <Games gameData={e} mode={mode} key={index} />
+                      ))}
+                    </div>
+                  </div>
+                  {gameOverFlow && (
+                    <Box
                       sx={{
-                        fontSize: "18px",
-                        color: "primary.main",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "48px",
+                        position: "absolute",
+                        right: 0,
                       }}
-                    />
-                  </Box>
+                    >
+                      <Box
+                        component="div"
+                        sx={{
+                          height: "100%",
+                          width: "100px",
+                          background:
+                            "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
+                          position: "absolute",
+                          right: 0,
+                        }}
+                      ></Box>
+                      <Box
+                        sx={{
+                          bgcolor: "secondary.dark_gray",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: 0,
+                        }}
+                        onClick={goForwardMatches}
+                      >
+                        <ArrowForwardIosIcon
+                          sx={{
+                            fontSize: "18px",
+                            color: "primary.main",
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
-          </Box>
-          <Box
-            id="grid-container"
-            component="div"
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: { sm: "row", xxxs: "column" },
-              justifyContent: "center",
-              alignItems: { xs: "flex-start", xxxs: "center" },
-            }}
-          >
-            <Box
-              sx={{
-                width: { lg: "75%", md: "60%", sm: "50%", xxxs: "100%" },
-                height: "auto",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Grid
-                container
+              </Box>
+              <Box
+                id="grid-container"
+                component="div"
                 sx={{
                   width: "100%",
+                  display: "flex",
+                  flexDirection: { sm: "row", xxxs: "column" },
+                  justifyContent: "center",
+                  alignItems: { xs: "flex-start", xxxs: "center" },
                 }}
-                spacing={"6px"}
               >
-                {cardInfo.map((e, index) => (
-                  <GridItemComponent
-                    e={e}
-                    key={index}
-                    index={index}
-                    selectCardId={selectCardId}
-                    setSelectCardId={setSelectCardId}
-                    addCardIndex={addCardIndex}
-                    mode={mode}
-                    selectSports={selectSports}
-                    setSelectSports={setSelectSports}
-                    selectColor={selectColor}
-                    selectSrc={selectSrc}
-                    scrollDownFunc={scrollDownFunc}
-                  />
-                ))}
-              </Grid>
-            </Box>
-            <SubmitProjection
-              selectCardId={selectCardId}
-              mode={mode}
-              setSelectCardId={setSelectCardId}
-              removeCardIndex={removeCardIndex}
-              setSuccessSubmit={setSuccessSubmit}
-              setErrorSubmit={setErrorSubmit}
-            />
-            <div ref={messagesEndRef} />
-          </Box>
+                <Box
+                  sx={{
+                    width: { lg: "75%", md: "60%", sm: "50%", xxxs: "100%" },
+                    height: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Grid
+                    container
+                    sx={{
+                      width: "100%",
+                    }}
+                    spacing={"6px"}
+                  >
+                    {cardInfo.map((e, index) => (
+                      <GridItemComponent
+                        e={e}
+                        key={index}
+                        index={index}
+                        selectCardId={selectCardId}
+                        setSelectCardId={setSelectCardId}
+                        addCardIndex={addCardIndex}
+                        mode={mode}
+                        selectSports={selectSports}
+                        setSelectSports={setSelectSports}
+                        selectColor={selectColor}
+                        selectSrc={selectSrc}
+                        scrollDownFunc={scrollDownFunc}
+                      />
+                    ))}
+                  </Grid>
+                </Box>
+                <SubmitProjection
+                  selectCardId={selectCardId}
+                  mode={mode}
+                  setSelectCardId={setSelectCardId}
+                  removeCardIndex={removeCardIndex}
+                  setSuccessSubmit={setSuccessSubmit}
+                  setErrorSubmit={setErrorSubmit}
+                />
+                <div ref={messagesEndRef} />
+              </Box>
+            </>
+          ) : (
+            <LoadingSpinnerEachSection />
+          )}
         </Box>
         {openHowTo && (
           <HowTo
