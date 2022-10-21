@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
+import ArrowBackIosNew from "@mui/icons-material/ArrowBackIosNew";
 import SubmitProjection from "./SubmitProjection";
 import GridItemComponent from "./GridItemComponent";
 import HowTo from "./HowTo";
@@ -911,7 +912,7 @@ export default function Props({
                     }}
                     onClick={goBackWardStats}
                   >
-                    <ArrowBackIos
+                    <ArrowBackIosNew
                       sx={{
                         fontSize: "18px",
                         color: "primary.main",
@@ -1057,7 +1058,7 @@ export default function Props({
                     }}
                     onClick={goBackWardMatches}
                   >
-                    <ArrowBackIos
+                    <ArrowBackIosNew
                       sx={{
                         fontSize: "18px",
                         color: "primary.main",
