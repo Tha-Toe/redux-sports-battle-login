@@ -87,29 +87,26 @@ export const onSportsCounterUpdate = async ({
 };
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
   const q = query(collection(db, "props_ou_counter"));
-  onSnapshot(q, (querySnapshot) => {
+  onSnapshot(q, async (querySnapshot) => {
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
     if (allSports && allSports.length > 0) {
       let count = 0;
       for (let i = 0; i < allSports.length; i++) {
         let x = allSports[i];
         if (x.code != "home" && x.activeSw) {
-          getPropsSport(x.code)
-            .then((prop) => {
-              count++;
-              console.log(prop);
-              dispatch(addPropsDataCommingFromApi(prop));
-              // if (count + 1 === allSports.length) {
-              //   console.log(count);
-              //   dispatch(setPropsApiCallComplete(true));
-              // }
-              if (count > 0) {
-                dispatch(setPropsApiCallComplete(true));
-              }
-            })
-            .catch((err) => {
+
+          try {
+            let result = await getPropsSport(x.code);
+            count++;
+            console.log(result);
+            dispatch(addPropsDataCommingFromApi(result));
+            if (count > 0) {
+              dispatch(setPropsApiCallComplete(true));
+            }
+
+          } catch (err) {
               console.log(err);
-            });
+          }
         } else {
           count++;
         }
