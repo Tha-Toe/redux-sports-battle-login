@@ -1286,8 +1286,8 @@ export default function Props({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    alignItems: "left",
+                    justifyContent: "left",
                     width: "100%",
                     position: "relative",
                     mb: "20px",

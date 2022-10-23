@@ -94,6 +94,11 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
       for (let i = 0; i < allSports.length; i++) {
         let x = allSports[i];
         if (x.code != "home" && x.activeSw) {
+
+          
+
+          if (i == 1) {
+
           try {
             let result = await getPropsSport(x.code);
             count++;
@@ -105,6 +110,23 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
           } catch (err) {
             console.log(err);
           }
+            
+          } else {
+            
+            getPropsSport(x.code).then((result) =>{
+            
+              count++;
+              //console.log(result);
+              dispatch(addPropsDataCommingFromApi(result));
+              if (count > 0) {
+                dispatch(setPropsApiCallComplete(true));
+              }
+
+          }).catch((err) =>{
+            console.log(err);
+          });
+          }
+
         } else {
           count++;
         }
