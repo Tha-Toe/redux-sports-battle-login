@@ -143,7 +143,7 @@ const GridItemComponent = ({
               fontFamily: "poppins",
             }}
           >
-            {e.myTeamLongName}
+            {e.myTeamLongName} - {e.profile}
           </Typography>
           <Box sx={{ display: "flex" }}>
             <Typography
@@ -158,7 +158,7 @@ const GridItemComponent = ({
                 fontFamily: "poppins",
               }}
             >
-              "vs {e.otherTeamLongName}"
+              vs {e.otherTeamLongName}
             </Typography>
             <Typography
               sx={{
