@@ -694,15 +694,67 @@ export default function Props({
     },
   ]);
 
-  const [selectCardId, setSelectCardId] = useState([]);
-  const addCardIndex = (index) => {
-    setSelectCardId((prev) => [...prev, index]);
-  };
-  const removeCardIndex = (index) => {
-    let filterArray = selectCardId.filter((e) => {
-      return e !== index;
+  const [selectedCardList, setSelectedCardList] = useState([]);
+  const addCard = async (prop) => {
+    // console.log(prop);
+    let check = selectedCardList.filter((each) => {
+      return (
+        each.data.gameId === prop.data.gameId &&
+        each.data.sport === prop.data.sport &&
+        each.data.playerName === prop.data.playerName &&
+        each.data.gameName === prop.data.gameName &&
+        each.data.statKey === prop.data.statKey
+      );
     });
-    setSelectCardId(filterArray);
+    // console.log(check);
+    if (check.length > 0) {
+      if (check[0].action !== prop.action) {
+        let selectCardIdClone = selectedCardList.map((each) => {
+          if (
+            each.data.gameId === prop.data.gameId &&
+            each.data.sport === prop.data.sport &&
+            each.data.playerName === prop.data.playerName &&
+            each.data.gameName === prop.data.gameName &&
+            each.data.statKey === prop.data.statKey
+          ) {
+            return {
+              data: each.data,
+              action: prop.action,
+              sportCode: each.sportCode,
+            };
+          } else {
+            return each;
+          }
+        });
+        setSelectedCardList(selectCardIdClone);
+      } else {
+        let selectCardIdClone = selectedCardList.filter((each) => {
+          return (
+            each.data.gameId !== prop.data.gameId ||
+            each.data.sport !== prop.data.sport ||
+            each.data.playerName !== prop.data.playerName ||
+            each.data.gameName !== prop.data.gameName ||
+            each.data.statKey !== prop.data.statKey
+          );
+        });
+        setSelectedCardList(selectCardIdClone);
+      }
+    } else {
+      setSelectedCardList((prev) => [...prev, prop]);
+    }
+    // console.log(selectedCardList);
+  };
+  const removeCard = (prop) => {
+    let selectCardIdClone = selectedCardList.filter((each) => {
+      return (
+        each.data.gameId !== prop.data.gameId ||
+        each.data.sport !== prop.data.sport ||
+        each.data.playerName !== prop.data.playerName ||
+        each.data.gameName !== prop.data.gameName ||
+        each.data.statKey !== prop.data.statKey
+      );
+    });
+    setSelectedCardList(selectCardIdClone);
   };
 
   const [successSubmit, setSuccessSubmit] = useState(false);
@@ -1392,9 +1444,9 @@ export default function Props({
                               e={e}
                               key={index}
                               index={index}
-                              selectCardId={selectCardId}
-                              setSelectCardId={setSelectCardId}
-                              addCardIndex={addCardIndex}
+                              selectedCardList={selectedCardList}
+                              setSelectedCardList={setSelectedCardList}
+                              addCard={addCard}
                               mode={mode}
                               selectSports={selectSports}
                               setSelectSports={setSelectSports}
@@ -1402,15 +1454,17 @@ export default function Props({
                               selectSrc={selectSrc}
                               scrollDownFunc={scrollDownFunc}
                               historyTrue={historyTrue}
+                              selectMatches={selectMatches}
+                              selectStatTitle={selectStatTitle}
                             />
                           ))}
                       </Grid>
                     </Box>
                     <SubmitProjection
-                      selectCardId={selectCardId}
+                      selectedCardList={selectedCardList}
                       mode={mode}
-                      setSelectCardId={setSelectCardId}
-                      removeCardIndex={removeCardIndex}
+                      setSelectedCardList={setSelectedCardList}
+                      removeCard={removeCard}
                       setSuccessSubmit={setSuccessSubmit}
                       setErrorSubmit={setErrorSubmit}
                     />

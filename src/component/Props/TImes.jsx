@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./props.css";
 
-export default function Times({ selectCardId, mode }) {
+export default function Times({ selectedCardList, mode }) {
   return (
     <Box
       sx={{
@@ -10,7 +10,6 @@ export default function Times({ selectCardId, mode }) {
           mode === "dark" ? "1px solid #2c2c2c" : "1px solid #DBDBDB"
         }`,
         mb: "16px",
-        pb: "10px",
       }}
     >
       <Typography
@@ -24,7 +23,7 @@ export default function Times({ selectCardId, mode }) {
           mb: "7px",
         }}
       >
-        Props Cart : : {selectCardId.length} Player
+        Props Cart : : {selectedCardList.length} Player
       </Typography>
       <Box
         sx={{
@@ -39,15 +38,15 @@ export default function Times({ selectCardId, mode }) {
       >
         <Box
           sx={{
-            padding: "5px 8px",
+            padding: "5px 12px",
+            fontSize: "12px",
             bgcolor: "primary.gray",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             mr: "4px",
             color: `${
-              selectCardId.length === 1 ? "white" : "secondary.dark_gray"
+              selectedCardList.length === 1 ? "white" : "secondary.dark_gray"
             }`,
           }}
         >
@@ -55,73 +54,75 @@ export default function Times({ selectCardId, mode }) {
         </Box>
         <Box
           sx={{
-            padding: "5px 8px",
+            padding: "5px 12px",
             bgcolor: `${
-              selectCardId.length === 2 ? "#439F48" : "primary.gray"
+              selectedCardList.length === 2 ? "#439F48" : "primary.gray"
             }`,
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
+            fontSize: "12px",
             mr: "4px",
             color: `${
-              selectCardId.length === 2 ? "white" : "secondary.dark_gray"
+              selectedCardList.length === 2 ? "white" : "secondary.dark_gray"
             }`,
           }}
         >
-          {selectCardId.length === 2 ? "2.6x" : "2"}
+          {selectedCardList.length === 2 ? "2.6x" : "2"}
         </Box>
         <Box
           sx={{
-            padding: "5px 8px",
+            padding: "5px 12px",
             bgcolor: `${
-              selectCardId.length === 3 ? "#439F48" : "primary.gray"
+              selectedCardList.length === 3 ? "#439F48" : "primary.gray"
             }`,
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
+            fontSize: "12px",
             mr: "4px",
             color: `${
-              selectCardId.length === 3 ? "white" : "secondary.dark_gray"
+              selectedCardList.length === 3 ? "white" : "secondary.dark_gray"
             }`,
           }}
         >
-          {selectCardId.length === 3 ? "3.6x" : "3"}
+          {selectedCardList.length === 3 ? "3.6x" : "3"}
         </Box>
         <Box
           sx={{
-            padding: "5px 8px",
+            padding: "5px 12px",
             bgcolor: `${
-              selectCardId.length === 4 ? "#439F48" : "primary.gray"
+              selectedCardList.length === 4 ? "#439F48" : "primary.gray"
             }`,
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
+            fontSize: "12px",
             mr: "4px",
             color: `${
-              selectCardId.length === 4 ? "white" : "secondary.dark_gray"
+              selectedCardList.length === 4 ? "white" : "secondary.dark_gray"
             }`,
           }}
         >
-          {selectCardId.length === 4 ? "4.6x" : "4"}
+          {selectedCardList.length === 4 ? "4.6x" : "4"}
         </Box>
         <Box
           sx={{
-            padding: "5px 8px",
-            bgcolor: `${selectCardId.length > 4 ? "#439F48" : "primary.gray"}`,
+            padding: "5px 12px",
+            bgcolor: `${
+              selectedCardList.length > 4 ? "#439F48" : "primary.gray"
+            }`,
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
+            fontSize: "12px",
             mr: "4px",
             color: `${
-              selectCardId.length > 4 ? "white" : "secondary.dark_gray"
+              selectedCardList.length > 4 ? "white" : "secondary.dark_gray"
             }`,
           }}
         >
-          {selectCardId.length > 4 ? "5.6x" : "5"}
+          {selectedCardList.length > 4 ? "5.6x" : "5"}
         </Box>
       </Box>
     </Box>

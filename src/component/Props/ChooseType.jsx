@@ -12,7 +12,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           fontFamily: "poppins",
           fontWeight: 600,
           color: "secondary.dark_gray",
-          mb: "2px",
+          mb: "5px",
         }}
       >
         Next, Choose a play type
@@ -23,6 +23,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           fontFamily: "poppins",
           fontWeight: 400,
           color: `${mode === "dark" ? "#FFCED6" : "#EA1E63"}`,
+          mb: "10px",
         }}
       >
         This entry can only be attack
@@ -38,7 +39,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
         }}
       >
         <Box sx={{ width: "47%" }}>
-          <img src="/DEFENCE PLAY.png" />
+          <img src="/DEFENCE PLAY.png" className="atkAndDef" />
           <Box
             sx={{
               display: "flex",
@@ -59,7 +60,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           >
             {pickPlayType === "defence" && (
               <CheckCircleIcon
-                sx={{ color: "#52C03C", fontSize: "12px", mr: "6px" }}
+                sx={{ color: "#52C03C", fontSize: "14px", mr: "6px" }}
               />
             )}
             <Box>
@@ -87,7 +88,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           </Box>
         </Box>
         <Box sx={{ width: "47%" }}>
-          <img src="/ATTACK PLAY.png" />
+          <img src="/ATTACK PLAY.png" className="atkAndDef" />
           <Box
             sx={{
               display: "flex",
@@ -108,7 +109,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           >
             {pickPlayType === "attack" && (
               <CheckCircleIcon
-                sx={{ color: "#52C03C", fontSize: "12px", mr: "6px" }}
+                sx={{ color: "#52C03C", fontSize: "14px", mr: "6px" }}
               />
             )}
             <Box>

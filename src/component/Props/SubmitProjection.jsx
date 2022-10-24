@@ -9,10 +9,10 @@ import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
 
 const SubmitProjection = ({
-  selectCardId,
-  setSelectCardId,
+  selectedCardList,
+  setSelectedCardList,
   mode,
-  removeCardIndex,
+  removeCard,
   setSuccessSubmit,
   setErrorSubmit,
 }) => {
@@ -21,17 +21,17 @@ const SubmitProjection = ({
   const [selectAmount, setSelectAmount] = useState(null);
   const [pickPlayType, setPickPlayType] = useState(false);
   useEffect(() => {
-    if (selectCardId.length === 0) {
+    if (selectedCardList.length === 0) {
       setStartSelect(false);
     } else {
       setStartSelect(true);
-      if (selectCardId.length > 1) {
+      if (selectedCardList.length > 1) {
         setMoreThanOneCard(true);
       } else {
         setMoreThanOneCard(false);
       }
     }
-  }, [selectCardId]);
+  }, [selectedCardList]);
   const [inputAmount, setInputAmount] = useState(null);
   return (
     <Box
@@ -82,7 +82,7 @@ const SubmitProjection = ({
             }}
           >
             {moreThanOneCard && (
-              <Times selectCardId={selectCardId} mode={mode} />
+              <Times selectedCardList={selectedCardList} mode={mode} />
             )}
             <Box
               sx={{
@@ -186,13 +186,13 @@ const SubmitProjection = ({
               </Typography>
             </Box>
 
-            {selectCardId.map((e, index) => (
+            {selectedCardList.map((e, index) => (
               <AndresCard
-                removeCardIndex={removeCardIndex}
+                removeCard={removeCard}
                 key={index}
                 e={e}
-                selectCardId={selectCardId}
-                setSelectCardId={setSelectCardId}
+                selectedCardList={selectedCardList}
+                setSelectedCardList={setSelectedCardList}
                 mode={mode}
               />
             ))}

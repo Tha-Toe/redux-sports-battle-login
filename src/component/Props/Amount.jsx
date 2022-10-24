@@ -30,13 +30,13 @@ export default function ({ setSelectAmount, selectAmount }) {
       >
         <Box
           sx={{
-            padding: "8.5px 8px",
+            padding: "10px 12px",
+            fontSize: "12px",
             bgcolor: `${selectAmount === 5 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             mr: { xl: "7px", xxxs: "7px" },
             color: `${selectAmount === 5 ? "white" : "secondary.dark_gray"}`,
           }}
@@ -46,13 +46,13 @@ export default function ({ setSelectAmount, selectAmount }) {
         </Box>
         <Box
           sx={{
-            padding: "8.5px 8px",
+            padding: "10px 12px",
+            fontSize: "12px",
             bgcolor: `${selectAmount === 10 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             mr: { xl: "7px", xxxs: "7px" },
             color: `${selectAmount === 10 ? "white" : "secondary.dark_gray"}`,
           }}
@@ -62,13 +62,13 @@ export default function ({ setSelectAmount, selectAmount }) {
         </Box>
         <Box
           sx={{
-            padding: "8.5px 8px",
+            padding: "10px 12px",
+            fontSize: "12px",
             bgcolor: `${selectAmount === 25 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             mr: { xl: "7px", xxxs: "7px" },
             color: `${selectAmount === 25 ? "white" : "secondary.dark_gray"}`,
           }}
@@ -78,13 +78,13 @@ export default function ({ setSelectAmount, selectAmount }) {
         </Box>
         <Box
           sx={{
-            padding: "8.5px 8px",
+            padding: "10px 12px",
+            fontSize: "12px",
             bgcolor: `${selectAmount === 50 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             mr: { xl: "7px", xxxs: "7px" },
             color: `${selectAmount === 50 ? "white" : "secondary.dark_gray"}`,
           }}
@@ -94,13 +94,13 @@ export default function ({ setSelectAmount, selectAmount }) {
         </Box>
         <Box
           sx={{
-            padding: "8.5px 8px",
+            padding: "10px 12px",
+            fontSize: "12px",
             bgcolor: `${selectAmount === "other" ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "10px",
             color: `${
               selectAmount === "other" ? "white" : "secondary.dark_gray"
             }`,

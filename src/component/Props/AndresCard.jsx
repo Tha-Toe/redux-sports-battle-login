@@ -1,30 +1,83 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./props.css";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useSelector } from "react-redux";
 export function AndresCard({
-  removeCardIndex,
+  removeCard,
   e,
-  selectCardId,
-  setSelectCardId,
+  selectedCardList,
+  setSelectedCardList,
   mode,
 }) {
-  const handleChangeOverUnder = (type) => {
-    let selectCardIdClone = selectCardId.map((each) => {
-      if (each.index === e.index) {
+  const handleChangeOverUnder = (action) => {
+    let selectCardIdClone = selectedCardList.map((each) => {
+      if (
+        each.data.gameId === e.data.gameId &&
+        each.data.sport === e.data.sport &&
+        each.data.playerName === e.data.playerName &&
+        each.data.gameName === e.data.gameName &&
+        each.data.statKey === e.data.statKey
+      ) {
         return {
-          index: each.index,
-          type: type,
-          selectSports: each.selectSports,
-          selectColor: each.selectColor,
-          selectSrc: each.selectSrc,
+          data: each.data,
+          action: action,
+          sportCode: each.sportCode,
         };
       } else {
         return each;
       }
     });
-    setSelectCardId(selectCardIdClone);
+    setSelectedCardList(selectCardIdClone);
   };
+  const [avg, setAvg] = useState(null);
+  useEffect(() => {
+    if (e.data.history) {
+      let total = 0;
+      for (let index = 0; index < e.data.history.length; index++) {
+        total += Number(e.data.history[index].battingPoints);
+      }
+      let totalAvg = Math.floor(total / e.data.history.length);
+      setAvg(totalAvg);
+    }
+  }, [e]);
+
+  const sportDataFromRedux = useSelector(
+    (state) => state.user.sportDataCommingFromApi
+  );
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
+  const [sportImg, setSportImg] = useState(null);
+  useEffect(() => {
+    setSportImg(null);
+    if (sportDataFromRedux.length > 0) {
+      let currSport = sportDataFromRedux.filter((each) => {
+        return each.code === e.data.sport;
+      });
+      // console.log(currSport);
+      if (currSport.length > 0) {
+        setSportImg(currSport[0].inactiveImage);
+      }
+    }
+  }, [sportDataFromRedux, e]);
+  const [historyTrue, setHistoryTrue] = useState(false);
+  useEffect(() => {
+    if (propsDataCommingFromApi) {
+      let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
+        return each.sportCode === e.data.sport;
+      });
+      let history =
+        selectedSportPropsData[0].metadata.history[`${e.data.sport}`];
+      // console.log(history);
+      if (history) {
+        setHistoryTrue(history);
+      } else {
+        setHistoryTrue(false);
+      }
+    }
+  }, [propsDataCommingFromApi, e]);
+
   return (
     <Box
       id="Andress-container"
@@ -61,7 +114,7 @@ export function AndresCard({
               color: "secondary.dark_gray",
             }}
           >
-            Andres Gimenez
+            {e.data.playerName}
           </Typography>
           <RemoveIcon
             sx={{
@@ -72,7 +125,7 @@ export function AndresCard({
               mr: "10px",
               cursor: "pointer",
             }}
-            onClick={() => removeCardIndex(e)}
+            onClick={() => removeCard(e)}
           />
         </Box>
         <Box
@@ -91,8 +144,8 @@ export function AndresCard({
           }}
         >
           <img
-            src={e.selectSrc}
-            style={{ width: "12px", height: "12px", marginRight: "2px" }}
+            src={sportImg}
+            style={{ width: "16px", height: "16px", marginRight: "5px" }}
           />
           <Typography
             sx={{
@@ -102,7 +155,7 @@ export function AndresCard({
               color: "white",
             }}
           >
-            {e.selectSports}: CLE - Batter vs HOU
+            {e.data.sport.toUpperCase()} : {e.data.gameName.toUpperCase()}
           </Typography>
         </Box>
         <Box
@@ -111,6 +164,7 @@ export function AndresCard({
             justifyContent: "space-between",
             alignItems: "center",
             mb: "7px",
+            width: "100%",
           }}
         >
           <Box
@@ -119,60 +173,38 @@ export function AndresCard({
               flexDirection: "column",
               ml: { lg: "15px", xxxs: "10px" },
               justifyContent: "flex-start",
+              width: "40%",
             }}
           >
-            <Typography
-              sx={{ display: "flex", alignItems: "center", mt: "5px" }}
-            >
+            {historyTrue && (
               <Typography
-                sx={{
-                  fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
-                  fontWeight: 400,
-                  fontFamily: "poppins",
-                  color: "secondary.dark_gray",
-                }}
+                sx={{ display: "flex", alignItems: "center", mb: "5px" }}
               >
-                Last 5
+                <Typography
+                  sx={{
+                    fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                    color: "secondary.dark_gray",
+                  }}
+                >
+                  Avg
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                    color: " #459F48",
+                    ml: "6px",
+                  }}
+                >
+                  {avg}
+                </Typography>
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
-                  fontWeight: 400,
-                  fontFamily: "poppins",
-                  color: " #459F48",
-                  ml: "6px",
-                }}
-              >
-                0,0,1,0,0
-              </Typography>
-            </Typography>
-            <Typography
-              sx={{ display: "flex", alignItems: "center", mb: "5px" }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
-                  fontWeight: 400,
-                  fontFamily: "poppins",
-                  color: "secondary.dark_gray",
-                }}
-              >
-                Avg
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
-                  fontWeight: 400,
-                  fontFamily: "poppins",
-                  color: " #459F48",
-                  ml: "6px",
-                }}
-              >
-                1.0
-              </Typography>
-            </Typography>
+            )}
             <Typography sx={{ display: "flex", alignItems: "center" }}>
-              <img src="/clock.png" style={{ width: "10px", height: "10px" }} />
+              <img src="/clock.png" style={{ width: "14px", height: "14px" }} />
               <Typography
                 sx={{
                   fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
@@ -195,6 +227,7 @@ export function AndresCard({
               width: "40%",
               p: "10px",
               borderRadius: "5px 0px 0px 5px",
+              justifyContent: "space-between",
             }}
           >
             <Typography
@@ -205,7 +238,7 @@ export function AndresCard({
                 color: "secondary.dark_gray",
               }}
             >
-              Bat.Runs + RBIs
+              {e.data.statDisplay}
             </Typography>
             <Typography
               sx={{
@@ -216,13 +249,13 @@ export function AndresCard({
                 ml: "6px",
               }}
             >
-              0.5
+              {e.data.projection}
             </Typography>
           </Box>
         </Box>
         <Box
           sx={{
-            width: "90%",
+            width: "80%",
             display: "flex",
             margin: "0 auto",
             mb: "10px",
@@ -230,19 +263,21 @@ export function AndresCard({
         >
           <Button
             sx={{
-              background: `${e.type === "over" ? "#4831D4" : "transparent"}`,
+              background: `${e.action === "over" ? "#4831D4" : "transparent"}`,
               width: "50%",
               py: "6px",
-              color: `${e.type === "over" ? "white" : "secondary.dark_gray"}`,
+              color: `${e.action === "over" ? "white" : "secondary.dark_gray"}`,
               fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
               fontFamily: "poppins",
-              fontWeigh: 600,
+              fontWeight: 600,
               border: `${
                 mode === "dark" ? "1px solid #525252" : "1px solid #EBEBEB"
               }`,
               borderRadius: "5px 0px 0px 5px",
               "&.MuiButtonBase-root:hover": {
-                background: `${e.type === "over" ? "#4831D4" : "transparent"}`,
+                background: `${
+                  e.action === "over" ? "#4831D4" : "transparent"
+                }`,
               },
             }}
             onClick={() => handleChangeOverUnder("over")}
@@ -251,19 +286,23 @@ export function AndresCard({
           </Button>
           <Button
             sx={{
-              background: `${e.type === "under" ? "#4831D4" : "transparent"}`,
+              background: `${e.action === "under" ? "#4831D4" : "transparent"}`,
               width: "50%",
               py: "6px",
-              color: `${e.type === "under" ? "white" : "secondary.dark_gray"}`,
+              color: `${
+                e.action === "under" ? "white" : "secondary.dark_gray"
+              }`,
               fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
               fontFamily: "poppins",
-              fontWeigh: 600,
+              fontWeight: 600,
               border: `${
                 mode === "dark" ? "1px solid #525252" : "1px solid #EBEBEB"
               }`,
               borderRadius: "0px 5px 5px 0px",
               "&.MuiButtonBase-root:hover": {
-                background: `${e.type === "under" ? "#4831D4" : "transparent"}`,
+                background: `${
+                  e.action === "under" ? "#4831D4" : "transparent"
+                }`,
               },
             }}
             onClick={() => handleChangeOverUnder("under")}

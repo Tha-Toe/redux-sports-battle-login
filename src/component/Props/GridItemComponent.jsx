@@ -4,69 +4,44 @@ import "./props.css";
 
 const GridItemComponent = ({
   e,
-  setSelectCardId,
-  selectCardId,
+  setSelectedCardList,
+  selectedCardList,
   index,
-  addCardIndex,
+  addCard,
   selectSports,
   selectColor,
   selectSrc,
   mode,
   scrollDownFunc,
   historyTrue,
+  selectMatches,
+  selectStatTitle,
 }) => {
   useEffect(() => {
-    let conditionArray = selectCardId.filter((each) => {
-      return each.index === index;
+    let conditionArray = selectedCardList.filter((each) => {
+      return (
+        each.data.gameId === e.gameId &&
+        each.data.sport === e.sport &&
+        each.data.playerName === e.playerName &&
+        each.data.gameName === e.gameName &&
+        each.data.statKey === e.statKey
+      );
     });
     if (conditionArray.length > 0) {
-      setType(conditionArray[0].type);
+      console.log(conditionArray);
+      setType(conditionArray[0].action);
     }
     if (conditionArray.length === 0) {
       setType(null);
-      setAlreadyPicked(false);
     }
-  }, [selectCardId]);
-  const [alreadyPicked, setAlreadyPicked] = useState(false);
+  }, [selectedCardList, selectStatTitle, selectMatches, selectSports]);
+
   const [type, setType] = useState(null);
-  const addCard = (type) => {
-    if (!alreadyPicked) {
-      let data = {
-        index: index,
-        type: type,
-        selectSports: selectSports,
-        selectColor: selectColor,
-        selectSrc: selectSrc,
-      };
-      addCardIndex(data);
-    } else {
-      let filterToCheckType = selectCardId.filter((each) => {
-        return each.index === index;
-      });
-      if (filterToCheckType && filterToCheckType[0].type !== type) {
-        let selectCardIdClone = selectCardId.map((each) => {
-          if (each.index === index) {
-            return {
-              index: each.index,
-              type: type,
-              selectSports: each.selectSports,
-              selectColor: each.selectColor,
-              selectSrc: each.selectSrc,
-            };
-          } else {
-            return each;
-          }
-        });
-        setSelectCardId(selectCardIdClone);
-      } else {
-        let selectCardIdClone = selectCardId.filter((each) => {
-          return each.index !== index;
-        });
-        setSelectCardId(selectCardIdClone);
-      }
-    }
-    setAlreadyPicked(true);
+  const addCardFunc = (overUnder) => {
+    setType(overUnder);
+    addCard({ data: e, action: overUnder });
   };
+
   const { innerWidth } = window;
 
   // name: "Frank Schwindel",
@@ -79,7 +54,7 @@ const GridItemComponent = ({
 
   const [avg, setAvg] = useState(null);
   useEffect(() => {
-    if (e) {
+    if (e.history) {
       let total = 0;
       for (let index = 0; index < e.history.length; index++) {
         total += Number(e.history[index].battingPoints);
@@ -310,7 +285,7 @@ const GridItemComponent = ({
             }}
             onClick={() => {
               setType("over");
-              addCard("over");
+              addCardFunc("over");
               if (innerWidth < 700) {
                 scrollDownFunc();
               }
@@ -336,7 +311,7 @@ const GridItemComponent = ({
             }}
             onClick={() => {
               setType("under");
-              addCard("under");
+              addCardFunc("under");
               if (innerWidth < 700) {
                 scrollDownFunc();
               }
