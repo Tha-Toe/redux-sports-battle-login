@@ -363,7 +363,7 @@ export default function Props({
 
         //get projection stats data
         let statsData = selectedSportPropsData[0].projections[0];
-        if (statsData) {
+        if (!selectMatches && statsData) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
           // console.log(statsData);
@@ -394,7 +394,7 @@ export default function Props({
         }
       }
     }
-  }, [selectSports, propsDataCommingFromApi]);
+  }, [selectSports, propsDataCommingFromApi, selectMatches]);
 
   // useEffect(() => {
   //   console.log(stats);
@@ -402,6 +402,7 @@ export default function Props({
   const refresh = async () => {
     setNoProjection(null);
     setCallClickSportApiFinish(false);
+    setSelectMatches(null);
     setNotes(null);
     let result = await getPropsSport(selectSports);
     if (result.projections.length < 1) {
@@ -558,13 +559,13 @@ export default function Props({
 
   const goForwardStats = () => {
     statsRef.current.scrollLeft = statsRef.current.scrollLeft + 100;
+    if (statsRef.current.scrollLeft > 0) {
+      setStatsArriveEnd(true);
+    }
   };
   const goForwardMatches = () => {
     matchsRef.current.scrollLeft = matchsRef.current.scrollLeft + 100;
-    const checkGameWidth = matchsRef.current.scrollWidth;
-    const checkScrollWidth =
-      matchsRef.current.scrollLeft + matchsRef.current.offsetWidth;
-    if (gameOverFlow && checkGameWidth <= checkScrollWidth) {
+    if (matchsRef.current.scrollLeft > 0) {
       setGameArriveEnd(true);
     }
   };
@@ -799,17 +800,8 @@ export default function Props({
           });
           let filterMatches = { title: statsTitle, data: filterMatchesData };
           setStatsAndData(filterMatches);
-          // console.log(filterMatches);
         }
       }
-      // if (statsAndData) {
-      //   let statsTitle = statsAndData.title;
-      //   let filterMatchesData = statsAndData.data.filter((each) => {
-      //     return each.gameName === e.gameName;
-      //   });
-      //   let filterMatches = { title: statsTitle, data: filterMatchesData };
-      //   setStatsAndData(filterMatches);
-      // }
     }
   };
   if (sportDataCommingFromApi && propsApiCallComplete) {
@@ -1340,7 +1332,7 @@ export default function Props({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "left",
+                    alignItems: "center",
                     justifyContent: "left",
                     width: "100%",
                     position: "relative",
@@ -1351,7 +1343,7 @@ export default function Props({
                     color: "#89CBF5",
                   }}
                 >
-                  <ErrorIcon />
+                  <ErrorIcon sx={{ fontSize: "16px", mr: "5px", mb: "2px" }} />
                   {notes}
                 </Typography>
               )}

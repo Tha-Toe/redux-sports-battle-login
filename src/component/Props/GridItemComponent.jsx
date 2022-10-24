@@ -211,8 +211,9 @@ const GridItemComponent = ({
                   }}
                 >
                   {e.history &&
-                    e.history.map((each) => (
+                    e.history.map((each, i) => (
                       <Typography
+                        key={i}
                         sx={{
                           color: "#3A6DBE",
                           fontSize: {
