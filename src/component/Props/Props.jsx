@@ -727,13 +727,14 @@ export default function Props({
 
   const [noProjection, setNoProjection] = useState(null);
   const handleCallPropSports = async (e) => {
+    setCallClickSportApiFinish(false);
     setNotes(null);
     // console.log(noDataSports);
     setNoProjection(null);
+    setSelectMatches(null);
     setSelectSports(e.code);
     setSelectColor(e.color);
     setSelectSrc(e.activeImage);
-    setCallClickSportApiFinish(false);
     let result = await getPropsSport(e.code);
     if (result.projections.length < 1) {
       setNoProjection(result.sportCode);
