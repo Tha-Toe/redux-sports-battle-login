@@ -1,53 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-export default function Games({ gameData, mode }) {
+export default function Games({
+  gameData,
+  mode,
+  handleSelectGame,
+  selectMatches,
+}) {
   const [time, setTime] = useState(null);
 
-  // useEffect(() => {
-  //   let currTime = new Date();
-  //   let currTimeMili = currTime.getTime();
-  //   let startTime = new Date(gameData.dateTime);
-  //   let startTimeMili = startTime.getTime();
-  //   let differentMili = startTimeMili - currTimeMili;
-  //   let differentSec = Math.floor(differentMili / 1000);
-  //   const getMinutes = Math.floor(differentSec / 60);
-  //   if (differentSec) {
-  //     let hours = Math.floor(getMinutes / 60);
-  //     let hoursToMinutes = hours * 60;
-  //     let minutes = getMinutes - hoursToMinutes;
-  //     let seconds = 0;
-  //     if (hours !== 0) {
-  //       let hoursToCalculate = 60 * hours;
-  //       let hourPlusMin = minutes + hoursToCalculate;
-  //       let minToSec = hourPlusMin * 60;
-  //       seconds = differentSec - minToSec;
-  //     } else {
-  //       seconds = differentSec - minutes * 60;
-  //     }
-  //     if (seconds.toString().length === 1) {
-  //       seconds = "0" + seconds;
-  //     }
-  //     if (minutes.toString().length === 1) {
-  //       minutes = "0" + minutes;
-  //     }
-  //     if (hours.toString().length === 1) {
-  //       hours = "0" + hours;
-  //     }
-  //     let timeToAdd =
-  //       hours.toString() +
-  //       " : " +
-  //       minutes.toString() +
-  //       " : " +
-  //       seconds.toString();
-  //     setTime(timeToAdd);
-  //   }
-
-  //   };
-  // }, [gameData]);
-
-  let interval;
   useEffect(() => {
-    clearInterval(interval);
     let currTime = new Date();
     let currTimeMili = currTime.getTime();
     let startTime = new Date(gameData.dateTime);
@@ -114,6 +75,17 @@ export default function Games({ gameData, mode }) {
       className="matchesButton"
       style={{
         background: `${mode === "dark" ? "#4831D4" : "#DAD5F6"}`,
+        background: `${
+          selectMatches && selectMatches.gameId === gameData.gameId
+            ? "#459F48"
+            : mode === "dark"
+            ? "#4831D4"
+            : "#DAD5F6"
+        }`,
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        handleSelectGame(gameData);
       }}
     >
       <div

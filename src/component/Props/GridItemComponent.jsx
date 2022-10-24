@@ -69,6 +69,25 @@ const GridItemComponent = ({
   };
   const { innerWidth } = window;
 
+  // name: "Frank Schwindel",
+  // cubs: "Chicago Cubs - Batter",
+  // vs: "vs Miami Marlins",
+  // time: "09:08",
+  // last: "0,0,1,0,0",
+  // avg: "0.20",
+  // bat: "0.5",
+
+  const [avg, setAvg] = useState(null);
+  useEffect(() => {
+    if (e) {
+      let total = 0;
+      for (let index = 0; index < e.history.length; index++) {
+        total += Number(e.history[index].battingPoints);
+      }
+      let totalAvg = Math.floor(total / e.history.length);
+      setAvg(totalAvg);
+    }
+  }, [e]);
   return (
     <Grid
       item
@@ -98,6 +117,7 @@ const GridItemComponent = ({
             alignItems: "flex-start",
             ml: "8px",
             height: "80%",
+            width: "45%",
           }}
         >
           <Typography
@@ -108,7 +128,7 @@ const GridItemComponent = ({
               fontFamily: "poppins",
             }}
           >
-            {e.name}
+            {e.playerName}
           </Typography>
           <Typography
             sx={{
@@ -123,7 +143,7 @@ const GridItemComponent = ({
               fontFamily: "poppins",
             }}
           >
-            {e.cubs}
+            {e.myTeamLongName}
           </Typography>
           <Box sx={{ display: "flex" }}>
             <Typography
@@ -138,7 +158,7 @@ const GridItemComponent = ({
                 fontFamily: "poppins",
               }}
             >
-              {e.vs}
+              "vs {e.otherTeamLongName}"
             </Typography>
             <Typography
               sx={{
@@ -153,10 +173,10 @@ const GridItemComponent = ({
                 ml: "2px",
               }}
             >
-              {e.time}
+              09:08
             </Typography>
           </Box>
-          {historyTrue && (
+          {historyTrue && e.history && (
             <>
               <Box sx={{ display: "flex" }}>
                 <Typography
@@ -172,7 +192,7 @@ const GridItemComponent = ({
                     mr: "5px",
                   }}
                 >
-                  Last 5
+                  Last {e.history.length}
                 </Typography>
                 <Typography
                   sx={{
@@ -184,9 +204,29 @@ const GridItemComponent = ({
                     },
                     fontWeight: 400,
                     fontFamily: "poppins",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  {e.last}
+                  {e.history &&
+                    e.history.map((each) => (
+                      <Typography
+                        sx={{
+                          color: "#3A6DBE",
+                          fontSize: {
+                            md: "10px",
+                            sm: "8px",
+                            xxxs: "10px",
+                          },
+                          fontWeight: 400,
+                          fontFamily: "poppins",
+                        }}
+                      >
+                        {each.battingPoints},
+                      </Typography>
+                    ))}
                 </Typography>
               </Box>
               <Typography
@@ -201,7 +241,7 @@ const GridItemComponent = ({
                   fontFamily: "poppins",
                 }}
               >
-                Avg :: {e.avg}
+                Avg :: {avg}
               </Typography>
             </>
           )}
@@ -227,7 +267,7 @@ const GridItemComponent = ({
               fontFamily: "poppins",
             }}
           >
-            Bat.Runs + RBIs
+            {e.statDisplay}
           </Typography>
           <Typography
             sx={{
@@ -237,7 +277,7 @@ const GridItemComponent = ({
               fontFamily: "poppins",
             }}
           >
-            {e.bat}
+            {e.projection}
           </Typography>
         </Box>
         <Box
@@ -245,8 +285,9 @@ const GridItemComponent = ({
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "flex-end",
             mr: "8px",
+            width: "25%",
           }}
         >
           <Button
