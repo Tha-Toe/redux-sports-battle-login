@@ -9,6 +9,31 @@ import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import NoProps from "./NoProps";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { connectStorageEmulator } from "firebase/storage";
+
+const ShowDate = ({ date, id }) => {
+  const [showDate, setShowDate] = useState(null);
+  useEffect(() => {
+    let createDate = new Date(date);
+    let toDateString = createDate.toDateString();
+    let toLocaleTimeString = createDate.toLocaleTimeString();
+    setShowDate(toDateString + ", " + toLocaleTimeString);
+  }, [date]);
+  return (
+    <Typography
+      sx={{
+        fontSize: { xs: "12px", xxxs: "10px" },
+        fontWeight: 500,
+        fontFamily: "poppins",
+        color: "secondary.dark_gray",
+        mt: "5px",
+      }}
+    >
+      Conf#::{id.slice(-6)},{showDate}
+    </Typography>
+  );
+};
 
 export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const handelOpenDetail = (index) => {
@@ -135,20 +160,9 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const upComingDataCommingFromApi = useSelector(
     (state) => state.user.upComingDataCommingFromApi
   );
-  if (
-    (Array.isArray(upComingDataCommingFromApi) &&
-      upComingDataCommingFromApi.length === 0) ||
-    (Array.isArray(liveDataCommingFromApi) &&
-      liveDataCommingFromApi.length === 0) ||
-    (Array.isArray(completeDataCommingFromApi) &&
-      completeDataCommingFromApi.length === 0)
-  ) {
+  if (mainDetail && mainDetail.props.length === 0) {
     return <NoProps />;
-  } else if (
-    upComingDataCommingFromApi !== null ||
-    liveDataCommingFromApi !== null ||
-    completeDataCommingFromApi !== null
-  ) {
+  } else if (mainDetail && mainDetail.props.length > 0) {
     return (
       <Box
         sx={{
@@ -165,7 +179,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
             border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
           }}
         >
-          {mainDetail.map((e, index) => (
+          {mainDetail.props.map((e, index) => (
             <Grid
               key={index}
               item
@@ -202,7 +216,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                 }}
                 onClick={() => handelOpenDetail(index)}
               >
-                {e.condition && (
+                {e.entryFee && (
                   <Typography
                     sx={{
                       fontSize: { xs: "10px", xxs: "8px", xxxs: "6px" },
@@ -217,7 +231,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                       top: "8px",
                     }}
                   >
-                    {e.condition}
+                    Entry: ${e.entryFee}{" "}
                   </Typography>
                 )}
                 <Typography
@@ -230,7 +244,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                     width: "95%",
                   }}
                 >
-                  {e.header}
+                  {e.title}
                 </Typography>
                 <Typography
                   sx={{
@@ -242,7 +256,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                     width: "95%",
                   }}
                 >
-                  {e.name}
+                  {e.playerNames}
                 </Typography>
                 <Box
                   sx={{
@@ -261,29 +275,30 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                       alignItems: "flex-start",
                     }}
                   >
-                    <img src={e.src} style={{ width: "116px" }} />
                     <Typography
                       sx={{
-                        fontSize: { xs: "12px", xxxs: "10px" },
-                        fontWeight: 500,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mt: "5px",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        color: "#9dc6d2",
+                        color: `${
+                          e.playType === "DEFENSE PLAY" ? "#9dc6d2" : "#D04643"
+                        }`,
                       }}
                     >
-                      {e.date}
+                      {e.playTypeEmoji} {e.playType}
                     </Typography>
+                    <ShowDate date={e.createDate} id={e.id} />
                   </Box>
                   <Button
                     sx={{
                       fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
                       fontWeight: 600,
                       fontFamily: "poppins",
-                      color: "#4831D4",
+                      color: `${e.modeColor}`,
                       padding: { xs: "8px 9.5px", xxxs: "5px 7px" },
                     }}
                   >
-                    {e.amount}
+                    +$15.0
                   </Button>
                 </Box>
                 <Box
@@ -295,12 +310,31 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                     mt: "8px",
                   }}
                 >
-                  {e.start.map((each, index) => (
-                    <img
-                      src={each}
-                      key={index}
-                      style={{ marginRight: "6px" }}
-                    />
+                  {e.sports.map((each, index) => (
+                    <div
+                      style={{
+                        width: "18px",
+                        height: "18px",
+                        background: `${each.color}`,
+                        borderRadius: "50%",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginRight: "6px",
+                      }}
+                    >
+                      <img
+                        src="/dollar_my_prop.png"
+                        key={index}
+                        style={{
+                          height: "10px",
+                          width: "10px",
+                          objectFit: "contain",
+                          background: `${each.color}`,
+                        }}
+                      />
+                    </div>
                   ))}
                 </Box>
                 <Box
@@ -313,26 +347,20 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                     mb: "14px",
                   }}
                 >
-                  <img
-                    src={e.sportType.src}
-                    style={{
-                      background: "black",
-                      borderRadius: "50%",
-                      height: "20px",
-                      width: "20px",
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
-                      fontWeight: 500,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      ml: "5px",
-                    }}
-                  >
-                    {e.sportType.type}
-                  </Typography>
+                  {e.sports.map((each, index) => (
+                    <Typography
+                      key={index}
+                      sx={{
+                        fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                        fontWeight: 500,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        ml: "2px",
+                      }}
+                    >
+                      {each.sport.toUpperCase()},
+                    </Typography>
+                  ))}
                 </Box>
               </Card>
             </Grid>
@@ -347,7 +375,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
         {openDetail === "Upcoming" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={upCommingDetailData}
+            detailData={upComingDataCommingFromApi}
             openDetail={openDetail}
             mainDetail={mainDetail}
             clicked={clicked}
@@ -357,7 +385,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
         {openDetail === "Live" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={LiveDetailData}
+            detailData={liveDataCommingFromApi}
             openDetail={openDetail}
             mainDetail={mainDetail}
             clicked={clicked}
@@ -367,7 +395,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
         {openDetail === "Completed" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={CompletedDetailData}
+            detailData={completeDataCommingFromApi}
             openDetail={openDetail}
             mainDetail={mainDetail}
             clicked={clicked}

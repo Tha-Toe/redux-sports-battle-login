@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import MyPropsCardContainer from "./MyPropsCardContainer";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { useSelector } from "react-redux";
 
 export default function MyProps({
   mode,
@@ -185,7 +186,15 @@ export default function MyProps({
       won: true,
     },
   ]);
-
+  const completeDataCommingFromApi = useSelector(
+    (state) => state.user.completeDataCommingFromApi
+  );
+  const liveDataCommingFromApi = useSelector(
+    (state) => state.user.liveDataCommingFromApi
+  );
+  const upComingDataCommingFromApi = useSelector(
+    (state) => state.user.upComingDataCommingFromApi
+  );
   return (
     <Box
       sx={{
@@ -263,21 +272,21 @@ export default function MyProps({
       {openTag === "Upcoming" && (
         <MyPropsCardContainer
           mode={mode}
-          mainDetail={upCommingDetail}
+          mainDetail={upComingDataCommingFromApi}
           openTag={openTag}
         />
       )}
       {openTag === "Live" && (
         <MyPropsCardContainer
           mode={mode}
-          mainDetail={liveDetail}
+          mainDetail={liveDataCommingFromApi}
           openTag={openTag}
         />
       )}
       {openTag === "Completed" && (
         <MyPropsCardContainer
           mode={mode}
-          mainDetail={completedDetail}
+          mainDetail={completeDataCommingFromApi}
           openTag={openTag}
         />
       )}

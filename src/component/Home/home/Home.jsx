@@ -94,39 +94,32 @@ export const onPropsOUCounterUpdate = async ({ dispatch }) => {
       for (let i = 0; i < allSports.length; i++) {
         let x = allSports[i];
         if (x.code != "home" && x.activeSw) {
-
-          
-
           if (i == 1) {
-
-          try {
-            let result = await getPropsSport(x.code);
-            count++;
-            // console.log(result);
-            dispatch(addPropsDataCommingFromApi(result));
-            if (count > 0) {
-              dispatch(setPropsApiCallComplete(true));
-            }
-          } catch (err) {
-            console.log(err);
-          }
-            
-          } else {
-            
-            getPropsSport(x.code).then((result) =>{
-            
+            try {
+              let result = await getPropsSport(x.code);
               count++;
-              //console.log(result);
+              // console.log(result);
               dispatch(addPropsDataCommingFromApi(result));
               if (count > 0) {
                 dispatch(setPropsApiCallComplete(true));
               }
-
-          }).catch((err) =>{
-            console.log(err);
-          });
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            getPropsSport(x.code)
+              .then((result) => {
+                count++;
+                //console.log(result);
+                dispatch(addPropsDataCommingFromApi(result));
+                if (count > 0) {
+                  dispatch(setPropsApiCallComplete(true));
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
-
         } else {
           count++;
         }
@@ -233,6 +226,7 @@ export function Home({ mode, setMode }) {
             if (result) {
               // console.log(result);
               dispatch(addUpComingDataCommingFromApi(result));
+              console.log(result);
               calling = false;
             } else {
               // console.log("null");
@@ -261,6 +255,7 @@ export function Home({ mode, setMode }) {
           if (result) {
             // console.log(result);
             dispatch(addLiveDataCommingFromApi(result));
+            console.log(result);
           } else {
             // console.log("null");
           }
@@ -286,6 +281,7 @@ export function Home({ mode, setMode }) {
           if (result) {
             // console.log(result);
             dispatch(addCompleteDataCommingFromApi(result));
+            console.log(result);
           } else {
             // console.log("null");
           }
