@@ -23,3 +23,6 @@ export const getPropsSport = ocApiGatewayGames + 'props';
 
 //get myprops of user
 export const getMyProps = ocApiGatewayCommon + 'user/props/{userId}/{status}';
+
+//get each prop details in myprops
+export const getEachProp = ocApiGatewayCommon + 'user/props/{userId}/{status}';

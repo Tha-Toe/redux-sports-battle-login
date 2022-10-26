@@ -5,7 +5,7 @@ const axios = require("axios").default;
 export const makeGETAPICall = async (url, additionalHeaders) => {
   try {
     const idToken = await auth.currentUser.getIdToken(true);
-    // console.log(idToken);
+    console.log(idToken);
     if (idToken) {
       const apiResponse = await axios.get(
         url,
