@@ -184,6 +184,38 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
             border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
           }}
         >
+          <Box
+            sx={{
+              width: "95%",
+              margin: "0 auto",
+              mt: "10px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              sx={{
+                color: `${mainDetail.lhsColor}`,
+                fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
+                fontWeight: 600,
+                fontFamily: "poppins",
+              }}
+            >
+              {mainDetail.lhsText} - {mainDetail.lhsValue}
+            </Typography>
+            <Typography
+              sx={{
+                color: `${mainDetail.rhsColor}`,
+                fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
+                fontWeight: 600,
+                fontFamily: "poppins",
+              }}
+            >
+              {mainDetail.rhsText} - {mainDetail.rhsValue}
+            </Typography>
+          </Box>
           {mainDetail.props.map((e, index) => (
             <Grid
               key={index}
