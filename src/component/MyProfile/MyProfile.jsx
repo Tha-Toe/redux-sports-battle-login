@@ -133,8 +133,7 @@ export default function MyProfile({
     if (myAccountDataCommingFromApi) {
       setPhoneNumber(null);
       let deposit = myAccountDataCommingFromApi.firstDeposit;
-      // let phone = myAccountDataCommingFromApi.phoneNumberVerified;
-      let phone = false;
+      let phone = myAccountDataCommingFromApi.phoneNumberVerified;
       let account =
         myAccountDataCommingFromApi.dobQuestion &&
         myAccountDataCommingFromApi.idpVerified;
