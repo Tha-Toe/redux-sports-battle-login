@@ -363,7 +363,7 @@ export default function Props({
 
         //get projection stats data
         let statsData = selectedSportPropsData[0].projections[0];
-        if (!selectMatches && statsData) {
+        if (!selectMatches && statsData && !selectStatTitle) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
           // console.log(statsData);
@@ -394,7 +394,7 @@ export default function Props({
         }
       }
     }
-  }, [selectSports, propsDataCommingFromApi, selectMatches]);
+  }, [selectSports, propsDataCommingFromApi, selectMatches, selectStatTitle]);
 
   // useEffect(() => {
   //   console.log(stats);
@@ -403,6 +403,7 @@ export default function Props({
     setNoProjection(null);
     setCallClickSportApiFinish(false);
     setSelectMatches(null);
+    selectStatTitle(null);
     setNotes(null);
     let result = await getPropsSport(selectSports);
     if (result.projections.length < 1) {
@@ -803,6 +804,7 @@ export default function Props({
       }
     }
     dispatch(addPropsDataCommingFromApi(result));
+    setSelectStatTitle(result.projections[0].title);
     setCallClickSportApiFinish(true);
   };
 

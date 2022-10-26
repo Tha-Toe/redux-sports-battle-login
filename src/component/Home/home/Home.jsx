@@ -1225,6 +1225,7 @@ export function Home({ mode, setMode }) {
               callCompletedMyPropsApi={callCompletedMyPropsApi}
               callUpCommingMyPropsApi={callUpCommingMyPropsApi}
               callLiveMyPropsApi={callLiveMyPropsApi}
+              getEachProp={getEachProp}
             />
           )}
           {!location.search && openTag === "my-profile" && (

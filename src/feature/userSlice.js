@@ -17,6 +17,7 @@ const initialState = {
   userAccountExist: null,
   propsDataCommingFromApi: [],
   propsApiCallComplete: false,
+  eachMyPropDataCommingFromApi: null,
 };
 
 export const userSlice = createSlice({
@@ -98,6 +99,9 @@ export const userSlice = createSlice({
     setPropsApiCallComplete: (state, action) => {
       state.propsApiCallComplete = action;
     },
+    addEachMyPropDataCommingFromApi: (state, action) => {
+      state.eachMyPropDataCommingFromApi = action;
+    },
   },
 });
 
@@ -122,6 +126,7 @@ export const {
   setUserAccountExist,
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
+  addEachMyPropDataCommingFromApi,
 } = userSlice.actions;
 
 export default userSlice.reducer;
