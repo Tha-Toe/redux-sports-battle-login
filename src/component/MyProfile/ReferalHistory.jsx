@@ -136,8 +136,9 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
               width: "98%",
             }}
           >
-            {data.map((e) => (
+            {data.map((e, index) => (
               <Box
+                key={index}
                 sx={{
                   width: "100%",
                   display: "flex",

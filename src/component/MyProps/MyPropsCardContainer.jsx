@@ -160,6 +160,11 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
   const upComingDataCommingFromApi = useSelector(
     (state) => state.user.upComingDataCommingFromApi
   );
+
+  useEffect(() => {
+    console.log(mainDetail);
+  }, [mainDetail]);
+
   if (mainDetail && mainDetail.props.length === 0) {
     return <NoProps />;
   } else if (mainDetail && mainDetail.props.length > 0) {
@@ -312,6 +317,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
                 >
                   {e.sports.map((each, index) => (
                     <div
+                      key={index}
                       style={{
                         width: "18px",
                         height: "18px",

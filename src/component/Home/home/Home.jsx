@@ -38,6 +38,7 @@ import {
   removeUserInfo,
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
+  addMyAccountDataCommingFromApi,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -170,6 +171,17 @@ export const getMyProps = async (userId, status) => {
     return null;
   }
 };
+export const getUserById = async (userId) => {
+  var apiUrl = APIURLs.getUserInfo;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
+
 export function Home({ mode, setMode }) {
   let navigate = useNavigate();
   let location = useLocation();
@@ -293,8 +305,27 @@ export function Home({ mode, setMode }) {
   };
 
   //getProfileDataFromApi
-  const callProfileApi = () => {
-    return;
+  const callProfileApi = async () => {
+    dispatch(addMyAccountDataCommingFromApi(null));
+    let userData = JSON.parse(localStorage.getItem("user"));
+    getUserById(userData.uid)
+      .then((result) => {
+        if (result) {
+          //user is not null will get details
+          dispatch(addMyAccountDataCommingFromApi(result));
+          console.log(result);
+        } else {
+          //user is null create user
+          localStorage.removeItem("user");
+          dispatch(addMyAccountDataCommingFromApi(null));
+          if (auth) {
+            signOut(auth);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //getTxHistoryFromApi

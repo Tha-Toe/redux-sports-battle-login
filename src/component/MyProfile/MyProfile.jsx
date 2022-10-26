@@ -21,6 +21,7 @@ import VerifycationCode from "./VerifycationCode";
 import AccountSetup from "./AccountSetup";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
+import { addPropsDataCommingFromApi } from "../../feature/userSlice";
 export default function MyProfile({
   mode,
   myProfileOpen,
@@ -127,6 +128,41 @@ export default function MyProfile({
     (state) => state.user.myAccountDataCommingFromApi
   );
 
+  const [completePercent, setCompletePercent] = useState(0);
+  useEffect(() => {
+    if (myAccountDataCommingFromApi) {
+      setPhoneNumber(null);
+      let deposit = myAccountDataCommingFromApi.firstDeposit;
+      // let phone = myAccountDataCommingFromApi.phoneNumberVerified;
+      let phone = false;
+      let account =
+        myAccountDataCommingFromApi.dobQuestion &&
+        myAccountDataCommingFromApi.idpVerified;
+      setVerify(false);
+      if (phone) {
+        setPhoneNumber(myAccountDataCommingFromApi.phoneNumber);
+      }
+      if (deposit && phone && account) {
+        setCompletePercent(100);
+        setVerify(true);
+      } else if (deposit && phone) {
+        setCompletePercent(80);
+      } else if (deposit && account) {
+        setCompletePercent(80);
+      } else if (phone && account) {
+        setCompletePercent(80);
+      } else if (deposit) {
+        setCompletePercent(40);
+      } else if (phone) {
+        setCompletePercent(40);
+      } else if (account) {
+        setCompletePercent(40);
+      } else {
+        setCompletePercent(0);
+      }
+    }
+  }, [myAccountDataCommingFromApi]);
+
   if (openTag === "WidthDrawCash") {
     return (
       <WidthDrawCash
@@ -179,7 +215,12 @@ export default function MyProfile({
       />
     );
   } else if (openTag === "account-setup") {
-    return <AccountSetup setOpenTag={setOpenTag} />;
+    return (
+      <AccountSetup
+        setOpenTag={setOpenTag}
+        myAccountDataCommingFromApi={myAccountDataCommingFromApi}
+      />
+    );
   } else {
     return (
       <>
@@ -200,7 +241,13 @@ export default function MyProfile({
             }}
             component="div"
           >
-            {!verify && <ProfileComplete setOpenTag={setOpenTag} />}
+            {!verify && (
+              <ProfileComplete
+                setOpenTag={setOpenTag}
+                myAccountDataCommingFromApi={myAccountDataCommingFromApi}
+                completePercent={completePercent}
+              />
+            )}
             <Box
               sx={{
                 width: "100%",
@@ -349,7 +396,7 @@ export default function MyProfile({
                 >
                   Phone Number{" "}
                 </Typography>
-                {verify ? (
+                {phoneNumber ? (
                   <Typography
                     sx={{
                       fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
@@ -420,6 +467,7 @@ export default function MyProfile({
                   py: "19px",
                   borderRadius: "4px",
                   mb: "8px",
+                  position: "relative",
                 }}
               >
                 <img src="/winning.png" className="winningImage" />
@@ -450,11 +498,65 @@ export default function MyProfile({
                       maxWidth: "485px",
                     }}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vulputate amet aliquet vulputate vitae nunc in. Ultrices
-                    facilisis elit, facilisi neque vitae, massa ornare in. Et
-                    sed et at quis sit. Turpis vitae porta at ipsum.{" "}
+                    Withdraw eligible cash. If unused cash is not available,
+                    cash from here is used to join game plays
                   </Typography>
+                </Box>
+                <Box sx={{ position: "absolute", right: "50px" }}>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "18px", xs: "16px", xxxs: "14px" },
+                      fontWeight: 700,
+                      fontFamily: "poppins",
+                      color: "#459F48",
+                    }}
+                  >
+                    ${myAccountDataCommingFromApi.ouWonAmount}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  bgcolor: "transparent",
+                  width: "95%",
+                  py: "10px",
+                  borderRadius: "4px",
+                  mb: "8px",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    borderRadius: "4px",
+                    fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                    fontWeight: 700,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  Total Available Cash
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    borderRadius: "4px",
+                    fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                    fontWeight: 700,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  $
+                  {Number(myAccountDataCommingFromApi.numCash) +
+                    Number(myAccountDataCommingFromApi.unutilizedCash)}
                 </Box>
               </Box>
               <Box
@@ -468,7 +570,7 @@ export default function MyProfile({
                   flexWrap: "wrap",
                 }}
               >
-                {wallet.map((e, index) => (
+                {/* {wallet.map((e, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -519,7 +621,208 @@ export default function MyProfile({
                       {e.paragraph}
                     </Typography>
                   </Box>
-                ))}
+                ))} */}
+                <Box
+                  sx={{
+                    width: { xs: "24%", xxxs: "48%" },
+                    height: "195px",
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontWeight: 600,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mt: "27px",
+                      mb: "16px",
+                    }}
+                  >
+                    Total Won Cash
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                      fontWeight: 700,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "16px",
+                    }}
+                  >
+                    ${myAccountDataCommingFromApi.numCash}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontWeight: 400,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "26px",
+                      maxWidth: "90%",
+
+                      textAlign: "center",
+                    }}
+                  >
+                    Cash won that is withdraw eligible.
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    width: { xs: "24%", xxxs: "48%" },
+                    height: "195px",
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontWeight: 600,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mt: "27px",
+                      mb: "16px",
+                    }}
+                  >
+                    Total Unused Cash
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                      fontWeight: 700,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "16px",
+                    }}
+                  >
+                    ${myAccountDataCommingFromApi.unutilizedCash}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontWeight: 400,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "26px",
+                      maxWidth: "90%",
+
+                      textAlign: "center",
+                    }}
+                  >
+                    Cash deposited that is yet to be used to play.
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    width: { xs: "24%", xxxs: "48%" },
+                    height: "195px",
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontWeight: 600,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mt: "27px",
+                      mb: "16px",
+                    }}
+                  >
+                    Contest Bonus Cash
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                      fontWeight: 700,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "16px",
+                    }}
+                  >
+                    ${myAccountDataCommingFromApi.numCashContests}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontWeight: 400,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "26px",
+                      maxWidth: "90%",
+
+                      textAlign: "center",
+                    }}
+                  >
+                    Pays 5% of entry fee for contests. CANNOT be withdrawn.
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    width: { xs: "24%", xxxs: "48%" },
+                    height: "195px",
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontWeight: 600,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mt: "27px",
+                      mb: "16px",
+                    }}
+                  >
+                    O/U & P/B Bonus
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                      fontWeight: 700,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "16px",
+                    }}
+                  >
+                    ${myAccountDataCommingFromApi.numOUBonusCash}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontWeight: 400,
+                      fontFamily: "poppins",
+                      color: "secondary.dark_gray",
+                      mb: "26px",
+                      maxWidth: "90%",
+
+                      textAlign: "center",
+                    }}
+                  >
+                    Cash that can be used 100% for over-under & player-battle.
+                    Cannot be withdrawn.
+                  </Typography>
+                </Box>
               </Box>
             </Box>
             {info.map((e, index) => (
@@ -630,7 +933,7 @@ export default function MyProfile({
                   flexWrap: "wrap",
                 }}
               >
-                {history.map((e, index) => (
+                {/* {history.map((e, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -662,7 +965,7 @@ export default function MyProfile({
                           mt: "14px",
                         }}
                       >
-                        {e.firstAmount}{" "}
+                        {myAccountDataCommingFromApi.numOUWin}
                       </Typography>
                       <Typography
                         sx={{
@@ -678,7 +981,7 @@ export default function MyProfile({
                           textAlign: "center",
                         }}
                       >
-                        {e.firstCondition}
+                        Over-Under
                       </Typography>
                       <Typography
                         sx={{
@@ -689,7 +992,7 @@ export default function MyProfile({
                           mb: "13px",
                         }}
                       >
-                        {e.firstWin}{" "}
+                        Wins
                       </Typography>
                     </Box>
                     <Box
@@ -715,7 +1018,7 @@ export default function MyProfile({
                           mt: "14px",
                         }}
                       >
-                        {e.secondAmount}{" "}
+                        ${myAccountDataCommingFromApi.ouWonAmount}
                       </Typography>
                       <Typography
                         sx={{
@@ -730,7 +1033,7 @@ export default function MyProfile({
                           textAlign: "center",
                         }}
                       >
-                        {e.secondCondition}
+                        Over-Under
                       </Typography>
                       <Typography
                         sx={{
@@ -741,11 +1044,237 @@ export default function MyProfile({
                           mb: "13px",
                         }}
                       >
-                        {e.secondWin}{" "}
+                        Wins
                       </Typography>
                     </Box>
                   </Box>
-                ))}
+                ))} */}
+                <Box
+                  sx={{
+                    width: { xs: "48%", xxxs: "90%" },
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    py: "5px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "50%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mt: "14px",
+                      }}
+                    >
+                      {myAccountDataCommingFromApi.numOUWin}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "4px",
+                        maxWidth: "90%",
+                        mt: "4px",
+                        color: "secondary.dark_gray",
+
+                        textAlign: "center",
+                      }}
+                    >
+                      Over-Under
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 600,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "13px",
+                      }}
+                    >
+                      Wins
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "50%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderLeft: `${
+                        mode === "dark"
+                          ? "1px solid #494949"
+                          : "1px solid #dbdbdb"
+                      }`,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "#459F48",
+                        mt: "14px",
+                      }}
+                    >
+                      ${myAccountDataCommingFromApi.ouWonAmount}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "4px",
+                        maxWidth: "90%",
+                        mt: "4px",
+
+                        textAlign: "center",
+                      }}
+                    >
+                      Over-Under
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 600,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "13px",
+                      }}
+                    >
+                      Wins
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: { xs: "48%", xxxs: "90%" },
+                    bgcolor: "primary.main",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    py: "5px",
+                    mt: { xs: 0, xxxs: "5px" },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "50%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mt: "14px",
+                      }}
+                    >
+                      {myAccountDataCommingFromApi.numWins}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "4px",
+                        maxWidth: "90%",
+                        mt: "4px",
+                        color: "secondary.dark_gray",
+
+                        textAlign: "center",
+                      }}
+                    >
+                      Player-Battle
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 600,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "13px",
+                      }}
+                    >
+                      Wins
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "50%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderLeft: `${
+                        mode === "dark"
+                          ? "1px solid #494949"
+                          : "1px solid #dbdbdb"
+                      }`,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "#459F48",
+                        mt: "14px",
+                      }}
+                    >
+                      ${myAccountDataCommingFromApi.pbWonAmount}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "4px",
+                        maxWidth: "90%",
+                        mt: "4px",
+
+                        textAlign: "center",
+                      }}
+                    >
+                      Player-Battle
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontWeight: 600,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "13px",
+                      }}
+                    >
+                      Wins
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
               <Typography
                 sx={{
@@ -812,7 +1341,7 @@ export default function MyProfile({
                       color: "secondary.dark_gray",
                     }}
                   >
-                    AOOAEU77{" "}
+                    {myAccountDataCommingFromApi.referralCode}
                   </Typography>
                 </Box>
               </Box>

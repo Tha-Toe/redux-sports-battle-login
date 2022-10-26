@@ -38,8 +38,17 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           mb: "8px",
         }}
       >
-        <Box sx={{ width: "47%" }}>
-          <img src="/DEFENCE PLAY.png" className="atkAndDef" />
+        <Box sx={{ width: "auto", minWidth: "35%" }}>
+          <Typography
+            sx={{
+              fontSize: "13px",
+              fontFamily: "poppins",
+              fontWeight: "600",
+              color: "#459F48",
+            }}
+          >
+            ❄️ DEFENSE PLAY
+          </Typography>
           <Box
             sx={{
               display: "flex",
@@ -47,7 +56,6 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
               alignItems: "center",
               mt: "5px",
               p: "10px 4px",
-              pl: "8px",
               border: `${
                 pickPlayType === "defence"
                   ? "1px solid #4831D4"
@@ -66,20 +74,36 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
             <Box>
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: {
+                    xl: "11px",
+                    lg: "10px",
+                    md: "10px",
+                    sm: "10px",
+                    xxxs: "8px",
+                  },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
+                  mr: "10px",
+                  ml: "4px",
                 }}
               >
                 2 correct pays 2x
               </Typography>
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: {
+                    xl: "11px",
+                    lg: "10px",
+                    md: "10px",
+                    sm: "10px",
+                    xxxs: "8px",
+                  },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
+                  mr: "10px",
+                  ml: "4px",
                 }}
               >
                 1 correct pays 0.5x{" "}
@@ -87,8 +111,17 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
             </Box>
           </Box>
         </Box>
-        <Box sx={{ width: "47%" }}>
-          <img src="/ATTACK PLAY.png" className="atkAndDef" />
+        <Box sx={{ width: "auto", minWidth: "35%" }}>
+          <Typography
+            sx={{
+              fontSize: "13px",
+              fontFamily: "poppins",
+              fontWeight: "600",
+              color: "#459F48",
+            }}
+          >
+            🔥 ATTACK PLAY
+          </Typography>
           <Box
             sx={{
               display: "flex",
@@ -115,20 +148,36 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
             <Box>
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: {
+                    xl: "11px",
+                    lg: "10px",
+                    md: "10px",
+                    sm: "10px",
+                    xxxs: "8px",
+                  },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
+                  mr: "10px",
+                  ml: "4px",
                 }}
               >
                 2 correct pays{" "}
               </Typography>
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: {
+                    xl: "11px",
+                    lg: "10px",
+                    md: "10px",
+                    sm: "10px",
+                    xxxs: "8px",
+                  },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
+                  mr: "10px",
+                  ml: "4px",
                 }}
               >
                 2.6x{" "}

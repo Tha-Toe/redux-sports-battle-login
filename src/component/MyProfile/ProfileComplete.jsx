@@ -7,8 +7,14 @@ import Button from "@mui/material/Button";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useSelector } from "react-redux";
 
-export default function ProfileComplete({ mode, setOpenTag }) {
+export default function ProfileComplete({
+  mode,
+  setOpenTag,
+  myAccountDataCommingFromApi,
+  completePercent,
+}) {
   const user = useSelector((state) => state.user.user);
+
   return (
     <Box
       sx={{
@@ -54,7 +60,11 @@ export default function ProfileComplete({ mode, setOpenTag }) {
           }}
         >
           <Box
-            sx={{ width: "55%", height: "100%", background: "#52C03C" }}
+            sx={{
+              width: `${completePercent}%`,
+              height: "100%",
+              background: "#52C03C",
+            }}
           ></Box>
         </Box>
         <CheckCircleIcon
@@ -88,7 +98,7 @@ export default function ProfileComplete({ mode, setOpenTag }) {
               color: "secondary.main",
             }}
           >
-            55% complete{" "}
+            {completePercent}% complete{" "}
           </Typography>
           <Typography
             sx={{

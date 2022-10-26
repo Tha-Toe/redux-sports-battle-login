@@ -742,6 +742,7 @@ export default function Props({
     } else {
       setSelectedCardList((prev) => [...prev, prop]);
     }
+    console.log(selectedCardList);
     // console.log(selectedCardList);
   };
   const removeCard = (prop) => {
@@ -1415,6 +1416,7 @@ export default function Props({
                       flexDirection: { sm: "row", xxxs: "column" },
                       justifyContent: "center",
                       alignItems: { xs: "flex-start", xxxs: "center" },
+                      pb: "50px",
                     }}
                   >
                     <Box
