@@ -17,7 +17,12 @@ const ShowDate = ({ date, id }) => {
   useEffect(() => {
     let createDate = new Date(date);
     let toDateString = createDate.toDateString();
-    let toLocaleTimeString = createDate.toLocaleTimeString();
+    let toLocaleTimeString = createDate.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true,
+    });
     setShowDate(toDateString + ", " + toLocaleTimeString);
   }, [date]);
   return (
