@@ -18,6 +18,8 @@ const initialState = {
   propsDataCommingFromApi: [],
   propsApiCallComplete: false,
   eachMyPropDataCommingFromApi: null,
+  callClickSportApiFinish: true,
+  noProjection: null,
 };
 
 export const userSlice = createSlice({
@@ -96,11 +98,21 @@ export const userSlice = createSlice({
         state.propsDataCommingFromApi = [...checkArray];
       }
     },
+    removePropsDataCommingFromApi: (state, action) => {
+      state.propsDataCommingFromApi = [];
+    },
     setPropsApiCallComplete: (state, action) => {
-      state.propsApiCallComplete = action;
+      console.log(action.payload);
+      state.propsApiCallComplete = action.payload;
     },
     addEachMyPropDataCommingFromApi: (state, action) => {
-      state.eachMyPropDataCommingFromApi = action;
+      state.eachMyPropDataCommingFromApi = action.payload;
+    },
+    setCallClickSportApiFinish: (state, action) => {
+      state.callClickSportApiFinish = action.payload;
+    },
+    setNoProjection: (state, action) => {
+      state.noProjection = action.payload;
     },
   },
 });
@@ -127,6 +139,9 @@ export const {
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
   addEachMyPropDataCommingFromApi,
+  removePropsDataCommingFromApi,
+  setCallClickSportApiFinish,
+  setNoProjection,
 } = userSlice.actions;
 
 export default userSlice.reducer;

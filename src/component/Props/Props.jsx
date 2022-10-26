@@ -20,6 +20,8 @@ import Games from "./Games";
 import {
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
+  setCallClickSportApiFinish,
+  setNoProjection,
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -118,8 +120,9 @@ export default function Props({
   setSelectSrc,
   getPropsSport,
 }) {
-  const [callClickSportApiFinish, setCallClickSportApiFinish] = useState(true);
-
+  const callClickSportApiFinish = useSelector(
+    (state) => state.user.callClickSportApiFinish
+  );
   const dispatch = useDispatch();
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
@@ -363,6 +366,9 @@ export default function Props({
 
         //get projection stats data
         let statsData = selectedSportPropsData[0].projections[0];
+        console.log(statsData);
+        console.log(selectMatches);
+        console.log(selectStatTitle);
         if (!selectMatches && statsData && !selectStatTitle) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
@@ -399,15 +405,16 @@ export default function Props({
   // useEffect(() => {
   //   console.log(stats);
   // }, [stats]);
+  const noProjection = useSelector((state) => state.user.noProjection);
   const refresh = async () => {
-    setNoProjection(null);
-    setCallClickSportApiFinish(false);
+    dispatch(setNoProjection(null));
+    dispatch(setCallClickSportApiFinish(false));
     setSelectMatches(null);
     selectStatTitle(null);
     setNotes(null);
     let result = await getPropsSport(selectSports);
     if (result.projections.length < 1) {
-      setNoProjection(result.sportCode);
+      dispatch(setNoProjection(result.sportCode));
     }
     if (result.metadata.notes) {
       let noteFromApi = result.metadata.notes;
@@ -416,7 +423,7 @@ export default function Props({
       }
     }
     dispatch(addPropsDataCommingFromApi(result));
-    setCallClickSportApiFinish(true);
+    dispatch(setCallClickSportApiFinish(true));
   };
   const [propsGuide, setPropsGuide] = useState([
     {
@@ -778,20 +785,18 @@ export default function Props({
     setGameArriveEnd,
     callClickSportApiFinish,
   });
-
-  const [noProjection, setNoProjection] = useState(null);
   const handleCallPropSports = async (e) => {
-    setCallClickSportApiFinish(false);
+    dispatch(setCallClickSportApiFinish(false));
     setNotes(null);
     // console.log(noDataSports);
-    setNoProjection(null);
+    setNoProjection(setNoProjection(null));
     setSelectMatches(null);
     setSelectSports(e.code);
     setSelectColor(e.color);
     setSelectSrc(e.activeImage);
     let result = await getPropsSport(e.code);
     if (result.projections.length < 1) {
-      setNoProjection(result.sportCode);
+      setNoProjection(setNoProjection(result.sportCode));
     }
     // console.log(result);
     if (result.metadata.notes) {
@@ -805,7 +810,7 @@ export default function Props({
     }
     dispatch(addPropsDataCommingFromApi(result));
     setSelectStatTitle(result.projections[0].title);
-    setCallClickSportApiFinish(true);
+    dispatch(setCallClickSportApiFinish(true));
   };
 
   //select stats func

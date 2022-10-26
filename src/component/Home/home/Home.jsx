@@ -39,6 +39,9 @@ import {
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
   addMyAccountDataCommingFromApi,
+  removePropsDataCommingFromApi,
+  setCallClickSportApiFinish,
+  setNoProjection,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -231,9 +234,16 @@ export function Home({ mode, setMode }) {
     // console.log(userDetail);
   }, [userDetail]);
 
-  const callPropsApi = () => {
-    onSportsCounterUpdate({ dispatch, preventDoubleCall });
-    onPropsOUCounterUpdate({ dispatch });
+  const callPropsApi = async () => {
+    // dispatch(removePropsDataCommingFromApi());
+    dispatch(setCallClickSportApiFinish(false));
+    dispatch(setPropsApiCallComplete(false));
+    let result = await getPropsSport(selectSports);
+    if (result.projections.length < 1) {
+      dispatch(setNoProjection(result.sportCode));
+    }
+    dispatch(addPropsDataCommingFromApi(result));
+    dispatch(setCallClickSportApiFinish(true));
   };
 
   //getMyPropsDataFromApi
