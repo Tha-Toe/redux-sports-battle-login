@@ -169,7 +169,7 @@ const GridItemComponent = ({
                 >
                   Last {e.history.length}
                 </Typography>
-                <Typography
+                <Box
                   sx={{
                     color: "#3A6DBE",
                     fontSize: {
@@ -203,7 +203,7 @@ const GridItemComponent = ({
                         {each.battingPoints},
                       </Typography>
                     ))}
-                </Typography>
+                </Box>
               </Box>
               <Typography
                 sx={{

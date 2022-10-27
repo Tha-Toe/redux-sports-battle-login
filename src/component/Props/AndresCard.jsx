@@ -177,9 +177,7 @@ export function AndresCard({
             }}
           >
             {historyTrue && (
-              <Typography
-                sx={{ display: "flex", alignItems: "center", mb: "5px" }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", mb: "5px" }}>
                 <Typography
                   sx={{
                     fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
@@ -201,9 +199,9 @@ export function AndresCard({
                 >
                   {avg}
                 </Typography>
-              </Typography>
+              </Box>
             )}
-            <Typography sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <img src="/clock.png" style={{ width: "14px", height: "14px" }} />
               <Typography
                 sx={{
@@ -216,7 +214,7 @@ export function AndresCard({
               >
                 12h:11m
               </Typography>
-            </Typography>
+            </Box>
           </Box>
           <Box
             sx={{

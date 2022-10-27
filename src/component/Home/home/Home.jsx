@@ -236,14 +236,18 @@ export function Home({ mode, setMode }) {
 
   const callPropsApi = async () => {
     // dispatch(removePropsDataCommingFromApi());
+    console.log("call");
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
     let result = await getPropsSport(selectSports);
+    console.log(result);
     if (result.projections.length < 1) {
       dispatch(setNoProjection(result.sportCode));
     }
     dispatch(addPropsDataCommingFromApi(result));
+    dispatch(setPropsApiCallComplete(true));
     dispatch(setCallClickSportApiFinish(true));
+    console.log("end");
   };
 
   //getMyPropsDataFromApi
@@ -1286,12 +1290,14 @@ export function Home({ mode, setMode }) {
             />
           )}
           {location.search === "?deposit=verify-phone-number-code" && (
-            <VerifyPhoneNumberCode number={number} mode={mode}               getUserById={getUserById}
+            <VerifyPhoneNumberCode
+              number={number}
+              mode={mode}
+              getUserById={getUserById}
             />
           )}
           {location.search === "?deposit=refral-bonus-cash-code" && (
-            <RefralBonusCashCode               getUserById={getUserById}
-            />
+            <RefralBonusCashCode getUserById={getUserById} />
           )}
           {!location.search && openTag === "support-chat" && (
             <SupportChat mode={mode} />

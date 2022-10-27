@@ -563,7 +563,7 @@ export default function MyProfile({
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   width: "95%",
                   mb: "19px",
                   flexWrap: "wrap",
@@ -623,7 +623,7 @@ export default function MyProfile({
                 ))} */}
                 <Box
                   sx={{
-                    width: { xs: "24%", xxxs: "48%" },
+                    width: { xs: "28%", xxxs: "65%" },
                     height: "195px",
                     bgcolor: "primary.main",
                     display: "flex",
@@ -631,6 +631,8 @@ export default function MyProfile({
                     alignItems: "center",
                     borderRadius: "4px",
                     mt: { xs: 0, xxxs: "5px" },
+                    ml: "10px",
+                    mr: "10px",
                   }}
                 >
                   <Typography
@@ -673,7 +675,7 @@ export default function MyProfile({
                 </Box>
                 <Box
                   sx={{
-                    width: { xs: "24%", xxxs: "48%" },
+                    width: { xs: "28%", xxxs: "65%" },
                     height: "195px",
                     bgcolor: "primary.main",
                     display: "flex",
@@ -681,6 +683,8 @@ export default function MyProfile({
                     alignItems: "center",
                     borderRadius: "4px",
                     mt: { xs: 0, xxxs: "5px" },
+                    ml: "10px",
+                    mr: "10px",
                   }}
                 >
                   <Typography
@@ -723,7 +727,7 @@ export default function MyProfile({
                 </Box>
                 <Box
                   sx={{
-                    width: { xs: "24%", xxxs: "48%" },
+                    width: { xs: "28%", xxxs: "65%" },
                     height: "195px",
                     bgcolor: "primary.main",
                     display: "flex",
@@ -731,56 +735,8 @@ export default function MyProfile({
                     alignItems: "center",
                     borderRadius: "4px",
                     mt: { xs: 0, xxxs: "5px" },
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
-                      fontWeight: 600,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mt: "27px",
-                      mb: "16px",
-                    }}
-                  >
-                    Contest Bonus Cash
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
-                      fontWeight: 700,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mb: "16px",
-                    }}
-                  >
-                    ${myAccountDataCommingFromApi.numCashContests}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
-                      fontWeight: 400,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mb: "26px",
-                      maxWidth: "90%",
-
-                      textAlign: "center",
-                    }}
-                  >
-                    Pays 5% of entry fee for contests. CANNOT be withdrawn.
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: { xs: "24%", xxxs: "48%" },
-                    height: "195px",
-                    bgcolor: "primary.main",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    borderRadius: "4px",
-                    mt: { xs: 0, xxxs: "5px" },
+                    ml: "10px",
+                    mr: "10px",
                   }}
                 >
                   <Typography

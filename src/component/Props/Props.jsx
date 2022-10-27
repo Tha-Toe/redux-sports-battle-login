@@ -366,9 +366,9 @@ export default function Props({
 
         //get projection stats data
         let statsData = selectedSportPropsData[0].projections[0];
-        console.log(statsData);
-        console.log(selectMatches);
-        console.log(selectStatTitle);
+        // console.log(statsData);
+        // console.log(selectMatches);
+        // console.log(selectStatTitle);
         if (!selectMatches && statsData && !selectStatTitle) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
@@ -810,7 +810,20 @@ export default function Props({
     }
     dispatch(addPropsDataCommingFromApi(result));
     setSelectStatTitle(result.projections[0].title);
+    setStatsAndData(result.projections[0]);
     dispatch(setCallClickSportApiFinish(true));
+
+    // let statsDataFromRedux = currentSportsData.projections;
+    // if (statsDataFromRedux.length > 0) {
+    //   let statFilterData = statsDataFromRedux.filter((each) => {
+    //     return each.title === result.projections[0].title;
+    //   });
+    //   console.log(statsDataFromRedux);
+    //   console.log(result.projections[0].title);
+    //   if (statFilterData.length > 0) {
+    //     setStatsAndData(statFilterData[0]);
+    //   }
+    // }
   };
 
   //select stats func
