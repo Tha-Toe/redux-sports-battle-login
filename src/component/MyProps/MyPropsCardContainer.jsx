@@ -12,6 +12,40 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { connectStorageEmulator } from "firebase/storage";
 
+const Sports = ({ sports }) => {
+  const removeDuplicates = (arr) => {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  };
+  const [sportsToShow, setSportsToShow] = useState([]);
+  useEffect(() => {
+    if (sports) {
+      let mapData = sports.map((each) => {
+        return each.sport;
+      });
+      let rmdsportsToShow = removeDuplicates(mapData);
+      setSportsToShow(rmdsportsToShow);
+    }
+  }, [sports]);
+  return (
+    <>
+      {sportsToShow.map((each, index) => (
+        <Typography
+          key={index}
+          sx={{
+            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+            fontWeight: 500,
+            fontFamily: "poppins",
+            color: "secondary.dark_gray",
+            ml: "2px",
+          }}
+        >
+          {each.toUpperCase()},
+        </Typography>
+      ))}
+    </>
+  );
+};
+
 const ShowDate = ({ date, id }) => {
   const [showDate, setShowDate] = useState(null);
   useEffect(() => {
@@ -46,15 +80,36 @@ export default function MyPropsCardContainer({
   openTag,
   getEachProp,
 }) {
-  const handelOpenDetail = (index) => {
-    setClicked(index);
+  let userData = JSON.parse(localStorage.getItem("user"));
+  const [detailData, setDetailData] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const handelOpenDetail = (e) => {
+    // setClicked(index);
+    console.log(e);
+    setClickedId(e.id);
+    setDetailLoading(true);
+    let openTagCheck;
     if (openTag === "Upcoming") {
-      setOpenDetail("Upcoming");
+      openTagCheck = "upcoming";
     } else if (openTag === "Live") {
-      setOpenDetail("Live");
+      openTagCheck = "live";
     } else {
-      setOpenDetail("Completed");
+      openTagCheck = "complete";
     }
+    try {
+      getEachProp(userData.uid, openTagCheck, e.id).then((result) => {
+        console.log(result);
+        setDetailData(result);
+        setOpenDetail(openTag);
+        setDetailLoading(false);
+      });
+    } catch (error) {
+      if (error) {
+        console.log("error", error);
+      }
+    }
+    // console.log(index);
+    // userId, status, propid
   };
   const [upCommingDetailData, setUpComminngDetailData] = useState([
     {
@@ -160,7 +215,7 @@ export default function MyPropsCardContainer({
     },
   ]);
   const [openDetail, setOpenDetail] = useState(null);
-  const [clicked, setClicked] = useState(null);
+  const [clickedId, setClickedId] = useState(null);
   const completeDataCommingFromApi = useSelector(
     (state) => state.user.completeDataCommingFromApi
   );
@@ -251,7 +306,7 @@ export default function MyPropsCardContainer({
                   bgcolor: "primary.main",
                   borderRadius: "4px",
                   border: `${
-                    clicked === index
+                    clickedId === e.id
                       ? "1px solid #4831D4"
                       : mode === "dark"
                       ? "1px solid #494949"
@@ -261,26 +316,8 @@ export default function MyPropsCardContainer({
                   cursor: "pointer",
                   position: "relative",
                 }}
-                onClick={() => handelOpenDetail(index)}
+                onClick={() => handelOpenDetail(e)}
               >
-                {e.entryFee && (
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "10px", xxs: "8px", xxxs: "6px" },
-                      fontWeight: 500,
-                      fontFamily: "poppins",
-                      color: "white",
-                      background: "#494949",
-                      padding: "4px 8px",
-                      borderRadius: "5px",
-                      position: "absolute",
-                      right: "11px",
-                      top: "8px",
-                    }}
-                  >
-                    Entry: ${e.entryFee}{" "}
-                  </Typography>
-                )}
                 <Typography
                   sx={{
                     fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
@@ -336,17 +373,112 @@ export default function MyPropsCardContainer({
                     </Typography>
                     <ShowDate date={e.createDate} id={e.id} />
                   </Box>
-                  <Button
-                    sx={{
-                      fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
-                      fontWeight: 600,
-                      fontFamily: "poppins",
-                      color: `${e.modeColor}`,
-                      padding: { xs: "8px 9.5px", xxxs: "5px 7px" },
-                    }}
-                  >
-                    +$15.0
-                  </Button>
+                  {e.userWon ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {e.certifyStatus === "x" && (
+                        <Typography
+                          sx={{
+                            color: "#9dc6d2",
+                            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                            fontWeight: 400,
+                            fontFamily: "poppins",
+                          }}
+                        >
+                          Refunded
+                        </Typography>
+                      )}
+                      <Typography
+                        sx={{
+                          fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                          fontWeight: 600,
+                          fontFamily: "poppins",
+                          color: `${e.userWon ? "#459F48" : "#D04643"}`,
+                        }}
+                      >
+                        {e.userWon ? "+" : "-"}${e.toWin}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          color: "#9dc6d2",
+                          fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                          fontWeight: 400,
+                          fontFamily: "poppins",
+                        }}
+                      >
+                        Entry: ${e.entryFee}
+                      </Typography>
+                      {e.joinWith === "bonus" && (
+                        <Typography
+                          sx={{
+                            color: "#9dc6d2",
+                            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                            fontWeight: 400,
+                            fontFamily: "poppins",
+                          }}
+                        >
+                          bonus
+                        </Typography>
+                      )}
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {e.certifyStatus === "x" && (
+                        <Typography
+                          sx={{
+                            color: "#9dc6d2",
+                            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                            fontWeight: 400,
+                            fontFamily: "poppins",
+                          }}
+                        >
+                          Refunded
+                        </Typography>
+                      )}
+                      <Typography
+                        sx={{
+                          fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                          fontWeight: 600,
+                          fontFamily: "poppins",
+                          color: `${
+                            e.userWon
+                              ? "#459F48"
+                              : e.certifyStatus === "x"
+                              ? "#459f48"
+                              : "#D04643"
+                          }`,
+                        }}
+                      >
+                        {e.userWon ? "+" : e.certifyStatus === "x" ? "+" : "-"}$
+                        {e.entryFee}
+                      </Typography>
+                      {e.joinWith === "bonus" && (
+                        <Typography
+                          sx={{
+                            color: "#9dc6d2",
+                            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                            fontWeight: 400,
+                            fontFamily: "poppins",
+                          }}
+                        >
+                          bonus
+                        </Typography>
+                      )}
+                    </Box>
+                  )}
                 </Box>
                 <Box
                   sx={{
@@ -395,20 +527,7 @@ export default function MyPropsCardContainer({
                     mb: "14px",
                   }}
                 >
-                  {e.sports.map((each, index) => (
-                    <Typography
-                      key={index}
-                      sx={{
-                        fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
-                        fontWeight: 500,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        ml: "2px",
-                      }}
-                    >
-                      {each.sport.toUpperCase()},
-                    </Typography>
-                  ))}
+                  <Sports sports={e.sports} />
                 </Box>
               </Card>
             </Grid>
@@ -418,39 +537,43 @@ export default function MyPropsCardContainer({
           <Detail
             emptyText={"Select a prop to know more information "}
             mode={mode}
+            detailLoading={detailLoading}
           />
         )}
         {openDetail === "Upcoming" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={upComingDataCommingFromApi}
+            detailData={detailData}
             openDetail={openDetail}
             mainDetail={mainDetail}
-            clicked={clicked}
+            clickedId={clickedId}
             mode={mode}
             getEachProp={getEachProp}
+            detailLoading={detailLoading}
           />
         )}
         {openDetail === "Live" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={liveDataCommingFromApi}
+            detailData={detailData}
             openDetail={openDetail}
             mainDetail={mainDetail}
-            clicked={clicked}
+            clickedId={clickedId}
             mode={mode}
             getEachProp={getEachProp}
+            detailLoading={detailLoading}
           />
         )}
         {openDetail === "Completed" && (
           <Detail
             setOpenDetail={setOpenDetail}
-            detailData={completeDataCommingFromApi}
+            detailData={detailData}
             openDetail={openDetail}
             mainDetail={mainDetail}
-            clicked={clicked}
+            clickedId={clickedId}
             mode={mode}
             getEachProp={getEachProp}
+            detailLoading={detailLoading}
           />
         )}
       </Box>
