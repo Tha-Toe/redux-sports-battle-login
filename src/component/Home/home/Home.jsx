@@ -236,18 +236,15 @@ export function Home({ mode, setMode }) {
 
   const callPropsApi = async () => {
     // dispatch(removePropsDataCommingFromApi());
-    console.log("call");
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
     let result = await getPropsSport(selectSports);
-    console.log(result);
     if (result.projections.length < 1) {
       dispatch(setNoProjection(result.sportCode));
     }
     dispatch(addPropsDataCommingFromApi(result));
     dispatch(setPropsApiCallComplete(true));
     dispatch(setCallClickSportApiFinish(true));
-    console.log("end");
   };
 
   //getMyPropsDataFromApi
@@ -268,7 +265,7 @@ export function Home({ mode, setMode }) {
             if (result) {
               // console.log(result);
               dispatch(addUpComingDataCommingFromApi(result));
-              console.log(result);
+              // console.log(result);
               calling = false;
             } else {
               // console.log("null");
