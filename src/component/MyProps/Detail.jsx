@@ -10,6 +10,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PayoutScenarious from "./PayoutScenarious";
 import { useSelector } from "react-redux";
 import LoadingSpinnerDetail from "../loadingSpinner/LoadingSpinnerDetail";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 export default function Detail({
   mode,
   setOpenDetail,
@@ -39,10 +41,11 @@ export default function Detail({
   const [projection, setProjection] = useState([]);
   useEffect(() => {
     if (detailData) {
-      console.log(detailData.props[0].prop.projections);
       setProjection(detailData.props[0].prop.projections);
+      console.log(detailData);
     }
   }, [detailData]);
+
   return (
     <Box
       sx={{
@@ -182,6 +185,47 @@ export default function Detail({
                       alignItems: "center",
                     }}
                   >
+                    {each.action === "under" ? (
+                      <Typography
+                        sx={{
+                          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                          fontWeight: 700,
+                          fontFamily: "poppins",
+                          color: `${
+                            each.propStatus === "lost" ? "#D04643" : "#439F48"
+                          }`,
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        BELOW{" "}
+                        <KeyboardArrowDownIcon
+                          sx={{ mb: "4px", fontSize: "18px" }}
+                        />
+                      </Typography>
+                    ) : (
+                      <Typography
+                        sx={{
+                          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                          fontWeight: 700,
+                          fontFamily: "poppins",
+                          color: `${
+                            each.propStatus === "lost" ? "#D04643" : "#439F48"
+                          }`,
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        ABOVE{" "}
+                        <KeyboardArrowUpIcon
+                          sx={{ mb: "3px", fontSize: "18px" }}
+                        />
+                      </Typography>
+                    )}
                     <Typography
                       sx={{
                         fontSize: { sm: "20px", xxs: "18px", xxxs: "16px" },
@@ -284,7 +328,7 @@ export default function Detail({
                         color: "secondary.dark_gray",
                       }}
                     >
-                      {each.picks}/{detailData.props[0].prop.numGames} - win{" "}
+                      {each.picks}/{detailData.props[0].prop.numGames} - wins{" "}
                       {each.payout}x{" "}
                     </Typography>
                   ))}
@@ -390,7 +434,9 @@ export default function Detail({
                   alignItems: "center",
                 }}
               >
-                <img src="/greatPick.png" className="greatPickPhoto" />
+                {detailData.props[0].userWon && (
+                  <img src="/greatPick.png" className="greatPickPhoto" />
+                )}
                 <Typography
                   sx={{
                     fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },

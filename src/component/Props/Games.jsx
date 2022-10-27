@@ -38,7 +38,7 @@ export default function Games({
       let differentMili = startTimeMili - currTimeMili;
       let differentSec = Math.floor(differentMili / 1000);
       const getMinutesInInterval = Math.floor(differentSec / 60);
-      if (differentSec) {
+      if (differentSec >= 1) {
         let hours = Math.floor(getMinutesInInterval / 60);
         let hoursToMinutes = hours * 60;
         let minutes = getMinutesInInterval - hoursToMinutes;
@@ -66,6 +66,9 @@ export default function Games({
           minutes.toString() +
           " : " +
           seconds.toString();
+        setTime(timeToAdd);
+      } else {
+        let timeToAdd = "00" + " : " + "00" + " : " + "00";
         setTime(timeToAdd);
       }
     }

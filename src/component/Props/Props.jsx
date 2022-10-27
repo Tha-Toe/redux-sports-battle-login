@@ -812,6 +812,7 @@ export default function Props({
     setSelectStatTitle(result.projections[0].title);
     setStatsAndData(result.projections[0]);
     dispatch(setCallClickSportApiFinish(true));
+    console.log(result.projections[0]);
 
     // let statsDataFromRedux = currentSportsData.projections;
     // if (statsDataFromRedux.length > 0) {
