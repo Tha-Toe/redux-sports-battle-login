@@ -102,7 +102,7 @@ export const userSlice = createSlice({
       state.propsDataCommingFromApi = [];
     },
     setPropsApiCallComplete: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.propsApiCallComplete = action.payload;
     },
     addEachMyPropDataCommingFromApi: (state, action) => {

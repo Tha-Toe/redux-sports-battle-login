@@ -1278,23 +1278,20 @@ export function Home({ mode, setMode }) {
             <AddAddress setAddress={setAddress} mode={mode} />
           )}
           {location.search === "?deposit=go-refral-bonus-cash-randoom" && (
-            <>
-              {enterReferalCodeDataCommingFromApi ? (
-                <RefralBonusCashRandoom
-                  setNumber={setNumber}
-                  number={number}
-                  setOpenTag={setOpenTag}
-                />
-              ) : (
-                <LoadingSpinnerEachSection />
-              )}
-            </>
+            <RefralBonusCashRandoom
+              setNumber={setNumber}
+              number={number}
+              setOpenTag={setOpenTag}
+              getUserById={getUserById}
+            />
           )}
           {location.search === "?deposit=verify-phone-number-code" && (
-            <VerifyPhoneNumberCode number={number} mode={mode} />
+            <VerifyPhoneNumberCode number={number} mode={mode}               getUserById={getUserById}
+            />
           )}
           {location.search === "?deposit=refral-bonus-cash-code" && (
-            <RefralBonusCashCode />
+            <RefralBonusCashCode               getUserById={getUserById}
+            />
           )}
           {!location.search && openTag === "support-chat" && (
             <SupportChat mode={mode} />
