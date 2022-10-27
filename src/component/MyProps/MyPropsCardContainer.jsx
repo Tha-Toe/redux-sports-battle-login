@@ -231,7 +231,7 @@ export default function MyPropsCardContainer({
   }, [mainDetail]);
 
   if (mainDetail && mainDetail.props.length === 0) {
-    return <NoProps />;
+    return <NoProps openTag={openTag} />;
   } else if (mainDetail && mainDetail.props.length > 0) {
     return (
       <Box

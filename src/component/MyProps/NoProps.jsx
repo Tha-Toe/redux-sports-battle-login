@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-export default function NoProps() {
+export default function NoProps({ openTag }) {
+  const [openTagToShow, setOpenTagToShow] = useState("upcomming");
+  useEffect(() => {
+    if (openTag === "Upcoming") {
+      setOpenTagToShow("upcoming");
+    } else if (openTag === "Live") {
+      setOpenTagToShow("live");
+    } else {
+      setOpenTagToShow("completed");
+    }
+  }, [openTag]);
   return (
     <Box
       sx={{
@@ -23,7 +33,7 @@ export default function NoProps() {
           textAlign: "center",
         }}
       >
-        You do not have any props
+        You do not have any {openTagToShow} props
       </Typography>{" "}
     </Box>
   );
