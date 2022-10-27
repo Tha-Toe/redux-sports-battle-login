@@ -40,7 +40,12 @@ const ShowDate = ({ date, id }) => {
   );
 };
 
-export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
+export default function MyPropsCardContainer({
+  mode,
+  mainDetail,
+  openTag,
+  getEachProp,
+}) {
   const handelOpenDetail = (index) => {
     setClicked(index);
     if (openTag === "Upcoming") {
@@ -423,6 +428,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
             mainDetail={mainDetail}
             clicked={clicked}
             mode={mode}
+            getEachProp={getEachProp}
           />
         )}
         {openDetail === "Live" && (
@@ -433,6 +439,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
             mainDetail={mainDetail}
             clicked={clicked}
             mode={mode}
+            getEachProp={getEachProp}
           />
         )}
         {openDetail === "Completed" && (
@@ -443,6 +450,7 @@ export default function MyPropsCardContainer({ mode, mainDetail, openTag }) {
             mainDetail={mainDetail}
             clicked={clicked}
             mode={mode}
+            getEachProp={getEachProp}
           />
         )}
       </Box>

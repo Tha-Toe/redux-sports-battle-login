@@ -16,6 +16,7 @@ const GridItemComponent = ({
   historyTrue,
   selectMatches,
   selectStatTitle,
+  statsAndData,
 }) => {
   useEffect(() => {
     let conditionArray = selectedCardList.filter((each) => {
@@ -34,7 +35,14 @@ const GridItemComponent = ({
     if (conditionArray.length === 0) {
       setType(null);
     }
-  }, [selectedCardList, selectStatTitle, selectMatches, selectSports]);
+  }, [
+    selectedCardList,
+    selectStatTitle,
+    selectMatches,
+    selectSports,
+    statsAndData,
+    e,
+  ]);
 
   const [type, setType] = useState(null);
   const addCardFunc = (overUnder) => {

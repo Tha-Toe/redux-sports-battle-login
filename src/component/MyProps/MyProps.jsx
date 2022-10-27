@@ -14,6 +14,7 @@ export default function MyProps({
   callCompletedMyPropsApi,
   callUpCommingMyPropsApi,
   callLiveMyPropsApi,
+  getEachProp,
 }) {
   const [openTag, setOpenTag] = useState("Upcoming");
   // useEffect(() => {
@@ -274,6 +275,7 @@ export default function MyProps({
           mode={mode}
           mainDetail={upComingDataCommingFromApi}
           openTag={openTag}
+          getEachProp={getEachProp}
         />
       )}
       {openTag === "Live" && (
@@ -281,6 +283,7 @@ export default function MyProps({
           mode={mode}
           mainDetail={liveDataCommingFromApi}
           openTag={openTag}
+          getEachProp={getEachProp}
         />
       )}
       {openTag === "Completed" && (
@@ -288,6 +291,7 @@ export default function MyProps({
           mode={mode}
           mainDetail={completeDataCommingFromApi}
           openTag={openTag}
+          getEachProp={getEachProp}
         />
       )}
     </Box>

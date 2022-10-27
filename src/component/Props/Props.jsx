@@ -845,7 +845,7 @@ export default function Props({
     }
   };
 
-  //select stats func
+  //select games func
   const handleSelectGame = (e) => {
     if (selectMatches && selectMatches.gameId === e.gameId) {
       setSelectMatches(null);
@@ -878,6 +878,51 @@ export default function Props({
       }
     }
   };
+
+  //searchFunc
+  const handleSearch = (searchText) => {
+    let statsDataFromRedux = currentSportsData.projections;
+    if (searchText) {
+      let sportStatAllData = [];
+      if (statsDataFromRedux.length > 0) {
+        statsDataFromRedux.map((e) => {
+          if (e.data.length > 0) {
+            e.data.map((each) => {
+              sportStatAllData.push(each);
+            });
+          }
+        });
+        if (sportStatAllData.length > 0) {
+          let filterStatData = sportStatAllData.filter((each) => {
+            return (
+              each.playerName
+                .toLowerCase()
+                .includes(searchText.toLowerCase()) ||
+              each.teamName.toLowerCase().includes(searchText.toLowerCase()) ||
+              (each.myTeamLongName &&
+                each.myTeamLongName
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase())) ||
+              each.statDisplay.toLowerCase().includes(searchText.toLowerCase())
+            );
+          });
+          // let prevstatsAndData = statsAndData;
+          let title = statsAndData.title;
+          let statsAndDataToAdd = { data: filterStatData, title: title };
+          // prevstatsAndData.data = filterStatData;
+          setStatsAndData(statsAndDataToAdd);
+          console.log(filterStatData);
+          console.log(statsAndDataToAdd);
+        }
+      }
+    } else {
+      let emptyValueStat = statsDataFromRedux.filter((each) => {
+        return each.title === selectStatTitle;
+      });
+      setStatsAndData(emptyValueStat[0]);
+    }
+  };
+
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -1084,6 +1129,7 @@ export default function Props({
                     </InputAdornment>
                   }
                   placeholder="Search"
+                  onChange={(e) => handleSearch(e.target.value)}
                   disableUnderline
                   sx={{
                     bgcolor: `${mode === "dark" ? "#242423" : "white"}`,
@@ -1478,6 +1524,7 @@ export default function Props({
                               historyTrue={historyTrue}
                               selectMatches={selectMatches}
                               selectStatTitle={selectStatTitle}
+                              statsAndData={statsAndData}
                             />
                           ))}
                       </Grid>

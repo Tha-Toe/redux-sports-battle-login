@@ -17,6 +17,7 @@ export default function Detail({
   mainDetail,
   clicked,
   emptyText,
+  getEachProp,
 }) {
   const [tabelHead, setTabelHead] = useState([
     "Game",
