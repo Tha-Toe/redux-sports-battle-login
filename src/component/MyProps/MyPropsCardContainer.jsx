@@ -202,6 +202,23 @@ export default function MyPropsCardContainer({
     // console.log(index);
     // userId, status, propid
   };
+  const refreshAndCallDetailApi = async (e) => {
+    setDetailLoading(true);
+    let userData = JSON.parse(localStorage.getItem("user"));
+    try {
+      let result = await getEachProp(userData.uid, "live", e.id);
+      if (result) {
+        console.log(result);
+        setDetailData(result);
+        setOpenDetail(openTag);
+        setDetailLoading(false);
+      }
+    } catch (error) {
+      if (error) {
+        console.log("error", error);
+      }
+    }
+  };
   const [upCommingDetailData, setUpComminngDetailData] = useState([
     {
       player: { name: "Mohamed Salah", forward: "LIV - Forward " },
@@ -735,6 +752,7 @@ export default function MyPropsCardContainer({
                 mode={mode}
                 getEachProp={getEachProp}
                 detailLoading={detailLoading}
+                refreshAndCallDetailApi={refreshAndCallDetailApi}
               />
             )}
             {openDetail === "Completed" && (

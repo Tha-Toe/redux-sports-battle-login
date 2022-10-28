@@ -22,6 +22,7 @@ export default function Detail({
   clickedId,
   emptyText,
   detailLoading,
+  refreshAndCallDetailApi,
 }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [code, setCode] = useState(null);
@@ -96,17 +97,63 @@ export default function Detail({
         <>
           {detailData ? (
             <Box sx={{ width: "90%", mx: "auto" }}>
-              <Typography
+              <Box
                 sx={{
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
-                  fontWeight: 600,
-                  fontFamily: "poppins",
-                  color: "secondary.dark_gray",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
                   mt: "14px",
                 }}
               >
-                Entry
-              </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                    fontWeight: 600,
+                    fontFamily: "poppins",
+                    color: "secondary.dark_gray",
+                  }}
+                >
+                  Entry
+                </Typography>
+                {openDetail === "Live" && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: { sm: "row", xxxs: "column" },
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      flexWrap: "wrap",
+                      border: "1px solid #4831D4",
+                      padding: "3px 10px",
+                      borderRadius: "4px",
+                    }}
+                    onClick={() => refreshAndCallDetailApi(mainDetail)}
+                  >
+                    <img
+                      src="/refresh.png"
+                      style={{
+                        marginRight: "3px",
+                        height: "15px",
+                      }}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                        fontFamily: "poppins",
+                        fontWeight: 500,
+                        color: "secondary.main",
+                        ml: { sm: "5px", xxxs: "0px" },
+                      }}
+                    >
+                      Refresh
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+
               <Box
                 sx={{
                   width: "70px",
