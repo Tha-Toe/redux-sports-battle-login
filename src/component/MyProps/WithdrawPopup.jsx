@@ -60,27 +60,16 @@ export default function WithdrawPopup({
     >
       <Box
         sx={{
-          width: { sm: "466px", xxxs: "90%" },
+          width: { sm: "396px", xxxs: "90%" },
           bgcolor: "primary.dark",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           borderRadius: "8px",
-          height: "300px",
+          height: "250px",
+          justifyContent: "center",
         }}
       >
-        <Typography
-          sx={{
-            fontSize: "18px",
-            fontWeight: "600",
-            fontFamily: "poppins",
-            color: "white",
-            width: "90%",
-            mt: "10px",
-          }}
-        >
-          Action
-        </Typography>
         {condition === "asking" && (
           <>
             <Typography
@@ -89,7 +78,6 @@ export default function WithdrawPopup({
                 fontWeight: "400",
                 fontFamily: "poppins",
                 color: "white",
-                mt: "60px",
               }}
             >
               Are you sure you want to withdraw?
@@ -101,8 +89,7 @@ export default function WithdrawPopup({
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                mt: "10px",
-                mb: "50px",
+                mt: "30px",
               }}
             >
               <Button
@@ -159,7 +146,7 @@ export default function WithdrawPopup({
                 fontFamily: "poppins",
                 padding: { xs: "14px 89px", xxxs: "10px 70px" },
                 color: "#F4C7CC",
-                mt: "60px",
+                mt: "0px",
               }}
               onClick={() => {}}
             >
@@ -184,9 +171,7 @@ export default function WithdrawPopup({
         )}
         {condition === "success" && (
           <>
-            <CheckCircle
-              sx={{ fontSize: "60px", color: "green", mt: "25px" }}
-            />
+            <CheckCircle sx={{ fontSize: "60px", color: "green" }} />
             <Typography
               sx={{
                 fontSize: "16px",
@@ -225,7 +210,7 @@ export default function WithdrawPopup({
         )}
         {condition === "fail" && errorResponse && (
           <>
-            <CancelIcon sx={{ fontSize: "60px", color: "red", mt: "25px" }} />
+            <CancelIcon sx={{ fontSize: "60px", color: "red" }} />
             <Typography
               sx={{
                 fontSize: "18px",
