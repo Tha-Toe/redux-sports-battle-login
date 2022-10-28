@@ -42,6 +42,7 @@ export const userSlice = createSlice({
       state.userDetail = action.payload;
     },
     addSportDataCommingFromApi: (state, action) => {
+      console.log(action.payload);
       state.sportDataCommingFromApi = action.payload;
     },
     addUpComingDataCommingFromApi: (state, action) => {

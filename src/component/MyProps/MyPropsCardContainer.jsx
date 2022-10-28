@@ -121,9 +121,12 @@ const Sports = ({ sports }) => {
             fontFamily: "poppins",
             color: "secondary.dark_gray",
             ml: "2px",
+            display: "flex",
+            flexDirection: "row",
           }}
         >
-          {each.toUpperCase()},
+          {each.toUpperCase()}
+          {sportsToShow.length > 1 && ","}
         </Typography>
       ))}
     </>

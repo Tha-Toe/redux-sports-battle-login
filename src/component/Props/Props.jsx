@@ -812,6 +812,7 @@ export default function Props({
         setNotes(noteFromApi[`${e.code}`]);
       }
     }
+    console.log(result);
     dispatch(addPropsDataCommingFromApi(result));
     console.log(result.projections[0]);
     dispatch(setCallClickSportApiFinish(true));

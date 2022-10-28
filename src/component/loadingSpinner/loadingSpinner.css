@@ -75,3 +75,8 @@
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+
+.noDataImage {
+  width: 100px;
+  margin-bottom: 30px;
+}
