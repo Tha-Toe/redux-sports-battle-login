@@ -22,15 +22,14 @@ export default function WithdrawPopup({
     if (openWithdrawPopup.id && user) {
       try {
         setCondition("pending");
-        await withdrawProp(openWithdrawPopup.id, user.uid).then((res) => {
-          if (res.status === "fail") {
+        var res = await withdrawProp(openWithdrawPopup.id, user.uid);
+          if (res.status === "failed") {
             setCondition("fail");
             setErrorResponse(res);
           } else {
             console.log(res);
             setCondition("success");
           }
-        });
       } catch (error) {
         if (error) {
           console.log(error);
@@ -289,7 +288,7 @@ export const withdrawProp = async (propId, userId) => {
     return apiResponse.data;
   } else {
     return {
-      status: "fail",
+      status: "failed",
       errorMsg: "Error occurred, Please try later.",
     };
   }
