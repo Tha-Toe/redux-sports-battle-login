@@ -330,7 +330,7 @@ export default function Detail({
                         color: "secondary.dark_gray",
                       }}
                     >
-                      {each.picks}/{detailData.props[0].prop.numGames} - wins{" "}
+                      {each.picks}/{detailData.props[0].prop.projections.length} - wins{" "}
                       {each.payout}x{" "}
                     </Typography>
                   ))}
