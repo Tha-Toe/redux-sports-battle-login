@@ -50,7 +50,8 @@ export default function Detail({
     <Box
       sx={{
         width: { md: "50%", xxxs: "100%" },
-        minHeight: "566px",
+        minHeight: "600px",
+        height: "600px",
         margin: "auto",
         display: "flex",
         flexDirection: "column",
@@ -62,6 +63,7 @@ export default function Detail({
         bgcolor: "primary.main",
         bgcolor: "transparent",
         mt: "0px",
+        marginBottom: "50px",
       }}
       component="div"
     >

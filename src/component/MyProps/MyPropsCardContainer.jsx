@@ -337,6 +337,13 @@ export default function MyPropsCardContainer({
               sx={{
                 width: { md: "50%", xxxs: "100%" },
                 border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
+                maxHeight: "600px",
+                overflow: "scroll",
+                "&::-webkit-scrollbar": { display: "none" },
+                marginBottom: "50px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
               }}
             >
               <Box
@@ -472,6 +479,7 @@ export default function MyPropsCardContainer({
                             flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "center",
+                            mr: "5px",
                           }}
                         >
                           {e.certifyStatus === "x" && (
@@ -500,6 +508,11 @@ export default function MyPropsCardContainer({
                               fontWeight: 600,
                               fontFamily: "poppins",
                               color: `${e.userWon ? "#459F48" : "#D04643"}`,
+                              width: "50px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                           >
                             {e.userWon ? "+" : "-"}${e.toWin}
@@ -542,6 +555,7 @@ export default function MyPropsCardContainer({
                             flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "center",
+                            mr: "5px",
                           }}
                         >
                           {e.certifyStatus === "x" && (
@@ -571,13 +585,18 @@ export default function MyPropsCardContainer({
                               fontFamily: "poppins",
                               color: `${
                                 openTag === "Upcoming"
-                                  ? "#BBDEFB"
+                                  ? "#4831D4"
                                   : e.userWon
                                   ? "#459F48"
                                   : e.certifyStatus === "x"
                                   ? "#459f48"
                                   : "#D04643"
                               }`,
+                              width: "50px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                           >
                             {e.userWon
@@ -620,8 +639,8 @@ export default function MyPropsCardContainer({
                         sx={{
                           display: "flex",
                           flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "flex-start",
+                          alignItems: "flex-start",
+                          justifyContent: "center",
                         }}
                       >
                         <Box

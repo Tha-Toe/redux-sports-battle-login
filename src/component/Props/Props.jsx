@@ -789,15 +789,19 @@ export default function Props({
     dispatch(setCallClickSportApiFinish(false));
     setNotes(null);
     // console.log(noDataSports);
-    setNoProjection(setNoProjection(null));
+    dispatch(setNoProjection(null));
     setSelectMatches(null);
     setSelectSports(e.code);
     setSelectColor(e.color);
     setSelectSrc(e.activeImage);
     let result = await getPropsSport(e.code);
     if (result.projections.length < 1) {
-      setNoProjection(setNoProjection(result.sportCode));
+      dispatch(setNoProjection(result.sportCode));
     }
+    if (result.projections.length > 0) {
+      setSelectStatTitle(result.projections[0].title);
+    }
+    setStatsAndData(result.projections[0]);
     // console.log(result);
     if (result.metadata.notes) {
       let noteFromApi = result.metadata.notes;
@@ -809,10 +813,8 @@ export default function Props({
       }
     }
     dispatch(addPropsDataCommingFromApi(result));
-    setSelectStatTitle(result.projections[0].title);
-    setStatsAndData(result.projections[0]);
-    dispatch(setCallClickSportApiFinish(true));
     console.log(result.projections[0]);
+    dispatch(setCallClickSportApiFinish(true));
 
     // let statsDataFromRedux = currentSportsData.projections;
     // if (statsDataFromRedux.length > 0) {
@@ -1483,7 +1485,8 @@ export default function Props({
                       flexDirection: { sm: "row", xxxs: "column" },
                       justifyContent: "center",
                       alignItems: { xs: "flex-start", xxxs: "center" },
-                      pb: "50px",
+                      height: "65%",
+                      pb: "30px",
                     }}
                   >
                     <Box
@@ -1494,10 +1497,15 @@ export default function Props({
                           sm: "50%",
                           xxxs: "100%",
                         },
-                        height: "auto",
+                        height: "100%",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        overflow: "scroll",
+                        maxHeight: "100%",
+                        "&::-webkit-scrollbar": {
+                          display: "none",
+                        },
                       }}
                     >
                       <Grid

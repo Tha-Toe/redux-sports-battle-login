@@ -1215,6 +1215,7 @@ export function Home({ mode, setMode }) {
             },
             bgcolor: "primary.dark_gray",
             height: "100%",
+            maxHeight: "100%",
           }}
           ref={homeRef}
         >
