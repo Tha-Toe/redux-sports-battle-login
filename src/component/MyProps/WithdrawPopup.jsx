@@ -30,7 +30,6 @@ export default function WithdrawPopup({
         } else {
           console.log(res);
           setCondition("success");
-          callUpCommingMyPropsApi();
         }
       } catch (error) {
         if (error) {
@@ -217,6 +216,7 @@ export default function WithdrawPopup({
               onClick={() => {
                 setCondition("asking");
                 setOpenWithdrawPopup(null);
+                callUpCommingMyPropsApi();
               }}
             >
               Okay
@@ -266,6 +266,7 @@ export default function WithdrawPopup({
               onClick={() => {
                 setCondition("asking");
                 setOpenWithdrawPopup(null);
+                callUpCommingMyPropsApi();
               }}
             >
               Okay
