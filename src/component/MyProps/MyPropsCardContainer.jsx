@@ -15,38 +15,37 @@ import WithdrawPopup from "./WithdrawPopup";
 
 const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
   const [time, setTime] = useState(null);
-  let [deadLine, setDeadLine] = useState(null);
   useEffect(() => {
-    if (propData.remTimeToWithdraw && propData.remTimeToWithdraw > 0) {
-      let totalSeconds = propData.remTimeToWithdraw / 1000;
-      setDeadLine(totalSeconds);
-    }
-  }, [propData]);
-  useEffect(() => {
-    if (deadLine) {
-      const id = setInterval(() => updateTimesSecond(deadLine), 1000);
+    if (propData.withdrawAllowed) {
+      const id = setInterval(() => updateTimesSecond(), 1000);
       return () => {
         clearInterval(id);
       };
     }
-  }, [deadLine]);
-  const updateTimesSecond = async (deadLine) => {
-    if (deadLine > 0) {
-      let mins = Math.trunc(deadLine / 60);
-      let seconds = Math.trunc(deadLine - mins * 60);
-      if (seconds.toString().length === 1) {
-        seconds = "0" + seconds;
+  }, [propData]);
+
+  const updateTimesSecond = async () => {
+    if (propData.withdrawAllowed) {
+      let currTime = new Date();
+      let currTimeMili = currTime.getTime();
+      let expireDate = new Date(propData.withdrawExpiryTime);
+      let expireDataMili = expireDate.getTime();
+      let differentMili = expireDataMili - currTimeMili;
+      if (differentMili > 0) {
+        let differentSec = Math.floor(differentMili / 1000);
+        let mins = Math.trunc(differentSec / 60);
+        let seconds = Math.trunc(differentSec - mins * 60);
+        if (seconds.toString().length === 1) {
+          seconds = "0" + seconds;
+        }
+        if (mins.toString().length === 1) {
+          mins = "0" + mins;
+        }
+        let format = mins + " : " + seconds;
+        setTime(format);
+      } else {
+        setTime(null);
       }
-      if (mins.toString().length === 1) {
-        mins = "0" + mins;
-      }
-      let format = mins + " : " + seconds;
-      setTime(format);
-      let decreaseSec = deadLine;
-      decreaseSec--;
-      setDeadLine(decreaseSec);
-    } else {
-      setTime(null);
     }
   };
   if (time) {
@@ -486,7 +485,7 @@ export default function MyPropsCardContainer({
                             mr: "5px",
                           }}
                         >
-                          {e.certifyStatus === "x" && (
+                          {e.status === "x" && (
                             <Typography
                               sx={{
                                 color: "#9dc6d2",
@@ -695,14 +694,12 @@ export default function MyPropsCardContainer({
                           <Sports sports={e.sports} />
                         </Box>
                       </Box>
-                      {openTag === "Upcoming" &&
-                        e.remTimeToWithdraw &&
-                        e.remTimeToWithdraw > 0 && (
-                          <UpcomingWithdraw
-                            propData={e}
-                            setOpenWithdrawPopup={setOpenWithdrawPopup}
-                          />
-                        )}
+                      {openTag === "Upcoming" && e.withdrawAllowed && (
+                        <UpcomingWithdraw
+                          propData={e}
+                          setOpenWithdrawPopup={setOpenWithdrawPopup}
+                        />
+                      )}
                     </Box>
                   </Card>
                 </Grid>

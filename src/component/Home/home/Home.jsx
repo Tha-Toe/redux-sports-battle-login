@@ -263,7 +263,7 @@ export function Home({ mode, setMode }) {
         getMyProps(user_from_localstorage.uid, "upcoming")
           .then((result) => {
             if (result) {
-              // console.log(result);
+              console.log(result);
               dispatch(addUpComingDataCommingFromApi(result));
               // console.log(result);
               calling = false;
