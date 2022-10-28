@@ -26,3 +26,6 @@ export const getMyProps = ocApiGatewayCommon + 'user/props/{userId}/{status}';
 
 //get each prop details in myprops
 export const getEachProp = ocApiGatewayCommon + 'user/props/{userId}/{status}';
+
+//withdraw prop less than 2 mins
+export const withdrawProp = ocApiGatewayContests + 'withdraw/id/undefined';

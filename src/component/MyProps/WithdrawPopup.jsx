@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./withdrawPopup.css";
 import CheckCircle from "@mui/icons-material/CheckCircle";
+import { APIURLs } from "../../api/ApiUrls";
+import { makePOSTAPICall } from "../../api/methods";
 export default function WithdrawPopup({
   mode,
   setOpenWithdrawPopup,
@@ -205,3 +207,22 @@ export default function WithdrawPopup({
     </Box>
   );
 }
+
+export const withdrawProp = async (propId, userId) => {
+  var apiUrl = APIURLs.withdrawProp;
+  var reqBody = {
+    _id: propId,
+    userId: userId,
+    mixMatch: true
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody); 
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: 'fail',
+      errorMsg: 'Error occurred, Please try later.',
+    };
+  }
+};
