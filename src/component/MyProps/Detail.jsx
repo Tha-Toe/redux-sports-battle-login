@@ -265,7 +265,7 @@ export default function Detail({
                         color: `${mode === "dark" ? "#C2DDF8" : "#4831D4"}`,
                       }}
                     >
-                      {each.propStatus}
+                      {each.propStatus ? each.propStatus : "Actual"}
                     </Typography>
                     <Typography
                       sx={{
@@ -276,7 +276,7 @@ export default function Detail({
                         mt: "12px",
                       }}
                     >
-                      {each.actual}
+                      {each.actual ? each.actual : "0"}
                     </Typography>
                     <Box
                       sx={{

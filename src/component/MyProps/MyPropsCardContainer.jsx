@@ -16,7 +16,7 @@ import WithdrawPopup from "./WithdrawPopup";
 const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
   const [time, setTime] = useState(null);
   useEffect(() => {
-    if (propData.withdrawAllowed) {
+    if (propData.prop.withdrawAllowed) {
       const id = setInterval(() => updateTimesSecond(), 1000);
       return () => {
         clearInterval(id);
@@ -25,10 +25,10 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
   }, [propData]);
 
   const updateTimesSecond = async () => {
-    if (propData.withdrawAllowed) {
+    if (propData.prop.withdrawAllowed) {
       let currTime = new Date();
       let currTimeMili = currTime.getTime();
-      let expireDate = new Date(propData.withdrawExpiryTime);
+      let expireDate = new Date(propData.prop.withdrawExpiryTime);
       let expireDataMili = expireDate.getTime();
       let differentMili = expireDataMili - currTimeMili;
       if (differentMili > 0) {
@@ -42,6 +42,7 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
           mins = "0" + mins;
         }
         let format = mins + " : " + seconds;
+
         setTime(format);
       } else {
         setTime(null);
@@ -694,7 +695,7 @@ export default function MyPropsCardContainer({
                           <Sports sports={e.sports} />
                         </Box>
                       </Box>
-                      {openTag === "Upcoming" && e.withdrawAllowed && (
+                      {openTag === "Upcoming" && e.prop.withdrawAllowed && (
                         <UpcomingWithdraw
                           propData={e}
                           setOpenWithdrawPopup={setOpenWithdrawPopup}
