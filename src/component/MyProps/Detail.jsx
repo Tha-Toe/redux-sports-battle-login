@@ -126,6 +126,7 @@ export default function Detail({
                     borderBottom: "1px solid #494949",
                     pb: "12px",
                     mt: "12px",
+                    mb: "5px",
                   }}
                 >
                   <Box
@@ -193,7 +194,11 @@ export default function Detail({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
-                            each.propStatus === "lost" ? "#D04643" : "#439F48"
+                            openDetail === "Upcoming" || openDetail === "Live"
+                              ? "white"
+                              : each.propStatus === "lost"
+                              ? "#D04643"
+                              : "#439F48"
                           }`,
                           display: "flex",
                           flexDirection: "row",
@@ -213,7 +218,11 @@ export default function Detail({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
-                            each.propStatus === "lost" ? "#D04643" : "#439F48"
+                            openDetail === "Upcoming" || openDetail === "Live"
+                              ? "white"
+                              : each.propStatus === "lost"
+                              ? "#D04643"
+                              : "#439F48"
                           }`,
                           display: "flex",
                           flexDirection: "row",
@@ -262,7 +271,13 @@ export default function Detail({
                         fontSize: { sm: "10px", xxs: "8px", xxxs: "8px" },
                         fontWeight: 500,
                         fontFamily: "poppins",
-                        color: `${mode === "dark" ? "#C2DDF8" : "#4831D4"}`,
+                        color: `${
+                          openDetail === "Upcoming" || openDetail === "Live"
+                            ? "white"
+                            : mode === "dark"
+                            ? "#C2DDF8"
+                            : "#4831D4"
+                        }`,
                       }}
                     >
                       {each.propStatus ? each.propStatus : "Actual"}
@@ -272,7 +287,13 @@ export default function Detail({
                         fontSize: { sm: "20px", xxs: "18px", xxxs: "16px" },
                         fontWeight: 700,
                         fontFamily: "poppins",
-                        color: `${mode === "dark" ? "#C2DDF8" : "#4831D4"}`,
+                        color: `${
+                          openDetail === "Upcoming" || openDetail === "Live"
+                            ? "white"
+                            : mode === "dark"
+                            ? "#C2DDF8"
+                            : "#4831D4"
+                        }`,
                         mt: "12px",
                       }}
                     >
@@ -294,7 +315,11 @@ export default function Detail({
                           height: "100%",
                           background: "#439F48",
                           background: `${
-                            each.propStatus === "won" ? "#439F48" : "#D04643"
+                            openDetail === "Upcoming" || openDetail === "Live"
+                              ? "white"
+                              : each.propStatus === "won"
+                              ? "#439F48"
+                              : "#D04643"
                           }`,
                         }}
                       ></Box>
@@ -428,51 +453,95 @@ export default function Detail({
                   {detailData.props[0].playType}
                 </Typography>{" "}
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                {detailData.props[0].userWon && (
-                  <img src="/greatPick.png" className="greatPickPhoto" />
-                )}
-                <Typography
-                  sx={{
-                    fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
-                    fontWeight: 400,
-                    fontFamily: "poppins",
-                    color: "#BBDEFA",
-                    mt: "12px",
-                  }}
-                >
-                  Refer a Friend & Get $25{" "}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
-                    fontWeight: 400,
-                    fontFamily: "poppins",
-                    color: "#459F48",
-                    mt: "3px",
-                  }}
-                >
-                  Your Referral Code{" "}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: { sm: "24px", xxs: "22px", xxxs: "20px" },
-                    fontWeight: 600,
-                    fontFamily: "poppins",
-                    color: "secondary.dark_gray",
-                    mt: "3px",
-                    mb: "15px",
-                  }}
-                >
-                  {code}{" "}
-                </Typography>
-              </Box>
+              {openDetail === "Upcoming" || openDetail === "Live" ? (
+                <></>
+              ) : (
+                <>
+                  {detailData.props[0].prop.status === "x" ? (
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                        fontWeight: 400,
+                        fontFamily: "poppins",
+                        color: "white",
+                        mt: "12px",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {detailData.props[0].prop.comment}
+                    </Typography>
+                  ) : (
+                    <>
+                      {detailData.props[0].prop.userWon && (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          {detailData.props[0].userWon && (
+                            <img
+                              src="/greatPick.png"
+                              className="greatPickPhoto"
+                            />
+                          )}
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                sm: "14px",
+                                xxs: "12px",
+                                xxxs: "10px",
+                              },
+                              fontWeight: 400,
+                              fontFamily: "poppins",
+                              color: "#BBDEFA",
+                              mt: "12px",
+                            }}
+                          >
+                            Refer a Friend & Get $25{" "}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                sm: "12px",
+                                xxs: "10px",
+                                xxxs: "8px",
+                              },
+                              fontWeight: 400,
+                              fontFamily: "poppins",
+                              color: "#459F48",
+                              mt: "3px",
+                            }}
+                          >
+                            Your Referral Code{" "}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                sm: "24px",
+                                xxs: "22px",
+                                xxxs: "20px",
+                              },
+                              fontWeight: 600,
+                              fontFamily: "poppins",
+                              color: "secondary.dark_gray",
+                              mt: "3px",
+                              mb: "15px",
+                            }}
+                          >
+                            {code}{" "}
+                          </Typography>
+                        </Box>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
             </Box>
           ) : (
             <Typography
