@@ -13,6 +13,7 @@ export default function WithdrawPopup({
   setOpenWithdrawPopup,
   openWithdrawPopup,
   setOpenWithdrawLoading,
+  callUpCommingMyPropsApi,
 }) {
   const [condition, setCondition] = useState("asking");
 
@@ -23,13 +24,14 @@ export default function WithdrawPopup({
       try {
         setCondition("pending");
         var res = await withdrawProp(openWithdrawPopup.id, user.uid);
-          if (res.status === "failed") {
-            setCondition("fail");
-            setErrorResponse(res);
-          } else {
-            console.log(res);
-            setCondition("success");
-          }
+        if (res.status === "failed") {
+          setCondition("fail");
+          setErrorResponse(res);
+        } else {
+          console.log(res);
+          setCondition("success");
+          callUpCommingMyPropsApi();
+        }
       } catch (error) {
         if (error) {
           console.log(error);

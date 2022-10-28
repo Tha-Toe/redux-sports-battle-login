@@ -276,6 +276,7 @@ export default function MyProps({
           mainDetail={upComingDataCommingFromApi}
           openTag={openTag}
           getEachProp={getEachProp}
+          callUpCommingMyPropsApi={callUpCommingMyPropsApi}
         />
       )}
       {openTag === "Live" && (

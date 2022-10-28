@@ -166,6 +166,7 @@ export default function MyPropsCardContainer({
   mainDetail,
   openTag,
   getEachProp,
+  callUpCommingMyPropsApi,
 }) {
   useEffect(() => {
     console.log(mainDetail);
@@ -756,6 +757,7 @@ export default function MyPropsCardContainer({
                 setOpenWithdrawPopup={setOpenWithdrawPopup}
                 openWithdrawPopup={openWithdrawPopup}
                 setOpenWithdrawLoading={setOpenWithdrawLoading}
+                callUpCommingMyPropsApi={callUpCommingMyPropsApi}
               />
             )}
           </Box>
