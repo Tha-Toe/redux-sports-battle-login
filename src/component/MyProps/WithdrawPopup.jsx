@@ -7,6 +7,7 @@ import "./withdrawPopup.css";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall } from "../../api/methods";
+import CancelIcon from "@mui/icons-material/Cancel";
 export default function WithdrawPopup({
   mode,
   setOpenWithdrawPopup,
@@ -14,10 +15,29 @@ export default function WithdrawPopup({
   setOpenWithdrawLoading,
 }) {
   const [condition, setCondition] = useState("asking");
-  const checkCondition = () => {
-    setTimeout(() => {
-      setCondition("success");
-    }, 3000);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [errorResponse, setErrorResponse] = useState(null);
+  const withdrawApiCall = async () => {
+    if (openWithdrawPopup.id && user) {
+      try {
+        setCondition("pending");
+        await withdrawProp(openWithdrawPopup.id, user.uid).then((res) => {
+          if (res.status === "fail") {
+            setCondition("fail");
+            setErrorResponse(res);
+          } else {
+            console.log(res);
+            setCondition("success");
+          }
+        });
+      } catch (error) {
+        if (error) {
+          console.log(error);
+          setCondition("fail");
+        }
+      }
+    }
   };
   return (
     <Box
@@ -102,8 +122,7 @@ export default function WithdrawPopup({
                   mr: "10px",
                 }}
                 onClick={() => {
-                  checkCondition();
-                  setCondition("pending");
+                  withdrawApiCall();
                 }}
               >
                 Yes
@@ -203,6 +222,55 @@ export default function WithdrawPopup({
             </Button>
           </>
         )}
+        {condition === "fail" && errorResponse && (
+          <>
+            <CancelIcon sx={{ fontSize: "60px", color: "red", mt: "25px" }} />
+            <Typography
+              sx={{
+                fontSize: "18px",
+                fontWeight: "600",
+                fontFamily: "poppins",
+                color: "red",
+                mt: "10px",
+              }}
+            >
+              {errorResponse && errorResponse.status.toUpperCase()}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: "600",
+                fontFamily: "poppins",
+                color: "white",
+                mt: "10px",
+              }}
+            >
+              {errorResponse && errorResponse.errorMsg}
+            </Typography>
+            <Button
+              sx={{
+                fontSize: "16px",
+                fontWeight: "600",
+                fontFamily: "poppins",
+                color: "white",
+                mt: "10px",
+                padding: "5px 75px",
+                borderRadius: "5px",
+                background: "#4831D4",
+                "&.MuiButtonBase-root:hover": {
+                  background: "#4831D4",
+                },
+                textTransform: "none",
+              }}
+              onClick={() => {
+                setCondition("asking");
+                setOpenWithdrawPopup(null);
+              }}
+            >
+              Okay
+            </Button>
+          </>
+        )}
       </Box>
     </Box>
   );
@@ -213,16 +281,16 @@ export const withdrawProp = async (propId, userId) => {
   var reqBody = {
     _id: propId,
     userId: userId,
-    mixMatch: true
+    mixMatch: true,
   };
   //console.log(apiUrl);
-  const apiResponse = await makePOSTAPICall(apiUrl, reqBody); 
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {
     return {
-      status: 'fail',
-      errorMsg: 'Error occurred, Please try later.',
+      status: "fail",
+      errorMsg: "Error occurred, Please try later.",
     };
   }
 };

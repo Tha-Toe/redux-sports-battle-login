@@ -318,7 +318,7 @@ export default function MyPropsCardContainer({
 
   const [openWithdrawLoading, setOpenWithdrawLoading] = useState(false);
 
-  const [openWithdrawPopup, setOpenWithdrawPopup] = useState(null);
+  const [openWithdrawPopup, setOpenWithdrawPopup] = useState("data");
   if (mainDetail && mainDetail.props.length === 0 && !openWithdrawLoading) {
     return <NoProps openTag={openTag} />;
   } else if (mainDetail && mainDetail.props.length > 0) {
