@@ -64,6 +64,8 @@ export default function Detail({
         bgcolor: "transparent",
         mt: "0px",
         marginBottom: "50px",
+        overflow: "scroll",
+        "&::-webkit-scrollbar": { display: "none" },
       }}
       component="div"
     >
@@ -330,8 +332,8 @@ export default function Detail({
                         color: "secondary.dark_gray",
                       }}
                     >
-                      {each.picks}/{detailData.props[0].prop.projections.length} - wins{" "}
-                      {each.payout}x{" "}
+                      {each.picks}/{detailData.props[0].prop.projections.length}{" "}
+                      - wins {each.payout}x{" "}
                     </Typography>
                   ))}
                 </Box>
