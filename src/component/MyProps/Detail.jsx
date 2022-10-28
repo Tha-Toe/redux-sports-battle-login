@@ -50,7 +50,7 @@ export default function Detail({
     <Box
       sx={{
         width: { md: "50%", xxxs: "100%" },
-        minHeight: "600px",
+        minHeight: "500px",
         margin: "auto",
         display: "flex",
         flexDirection: "column",
@@ -126,7 +126,7 @@ export default function Detail({
                     borderBottom: "1px solid #494949",
                     pb: "12px",
                     mt: "12px",
-                    mb: "5px",
+                    mb: "10px",
                   }}
                 >
                   <Box
