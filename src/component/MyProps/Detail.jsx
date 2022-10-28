@@ -51,7 +51,6 @@ export default function Detail({
       sx={{
         width: { md: "50%", xxxs: "100%" },
         minHeight: "600px",
-        height: "600px",
         margin: "auto",
         display: "flex",
         flexDirection: "column",
@@ -64,8 +63,6 @@ export default function Detail({
         bgcolor: "transparent",
         mt: "0px",
         marginBottom: "50px",
-        overflow: "scroll",
-        "&::-webkit-scrollbar": { display: "none" },
       }}
       component="div"
     >

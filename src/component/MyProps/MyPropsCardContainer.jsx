@@ -340,7 +340,7 @@ export default function MyPropsCardContainer({
               sx={{
                 width: { md: "50%", xxxs: "100%" },
                 border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
-                maxHeight: "600px",
+                maxHeight: "1000px",
                 overflow: "scroll",
                 "&::-webkit-scrollbar": { display: "none" },
                 marginBottom: "50px",
