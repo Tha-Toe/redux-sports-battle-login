@@ -1,4 +1,9 @@
-import { Box, Card, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  getBottomNavigationUtilityClass,
+  Typography,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import "./props.css";
 import { APIURLs } from "../../api/ApiUrls";
@@ -42,6 +47,23 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
       }
     }
   }, [sportDataCommingFromApi, currentSportsData]);
+
+  useEffect(() => {
+    if (currentSportsData && currentSportsData.sportCode) {
+      setApiData(null);
+      getFpsSport(currentSportsData.sportCode)
+        .then((res) => {
+          console.log("t20", res);
+          setApiData(res);
+        })
+        .catch((error) => {
+          if (error) {
+            console.log(error);
+          }
+        });
+    }
+  }, [currentSportsData]);
+
   return (
     <Box
       sx={{
@@ -230,9 +252,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
 export const getFpsSport = async (sportcode) => {
   var apiUrl = APIURLs.getFpsSport;
   apiUrl = apiUrl.replace("{sportcode}", sportcode);
-  const apiResponse = await makeGETAPICall(apiUrl, [
-    { "fps-game-type": "ou" },
-  ]);
+  const apiResponse = await makeGETAPICall(apiUrl, [{ "fps-game-type": "ou" }]);
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {

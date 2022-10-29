@@ -25,7 +25,7 @@ import {
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
-import FpsCricket from "./FpsCrieket";
+import FpsCricket from "./FpsCricket";
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
 
