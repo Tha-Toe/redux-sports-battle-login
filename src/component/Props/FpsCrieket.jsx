@@ -1,12 +1,12 @@
 import { Box, Card, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./props.css";
+import { Button } from "@mui/material";
 
 import ClearIcon from "@mui/icons-material/Clear";
-import { useSelector } from "react-redux";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
-export default function Fps({ setOpenFps, mode, currentSportsData }) {
+export default function FpsCricket({ setOpenFps, mode }) {
   const [point, setPoint] = useState([
     { name: "Single Batter", point: "+3" },
     { name: "Single Batter", point: "+3" },
@@ -24,23 +24,13 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
     { name: "Single Batter", point: "+3" },
     { name: "Single Batter", point: "+3" },
     { name: "Single Batter", point: "+3" },
+    { name: "Single Batter", point: "+3" },
   ]);
-
-  const sportDataCommingFromApi = useSelector(
-    (state) => state.user.sportDataCommingFromApi
-  );
-  const [sportName, setSportName] = useState(null);
+  const [openTag, setOpenTag] = useState("T20/T10");
   const [apiData, setApiData] = useState("data");
-  useEffect(() => {
-    if (sportDataCommingFromApi && currentSportsData) {
-      let currSportDataNameArray = sportDataCommingFromApi.filter((each) => {
-        return each.code === currentSportsData.sportCode;
-      });
-      if (currSportDataNameArray.length > 0) {
-        setSportName(currSportDataNameArray[0].sportName);
-      }
-    }
-  }, [sportDataCommingFromApi, currentSportsData]);
+  const clickTagAndCallApi = (name) => {
+    setOpenTag(name);
+  };
   return (
     <Box
       sx={{
@@ -84,8 +74,8 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
             margin: "0 auto",
             justifyContent: "space-between",
             alignItems: "center",
-            mt: "11px",
             mb: "20px",
+            mt: "11px",
           }}
         >
           <Box
@@ -102,7 +92,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                 borderBottom: "3px solid white",
               }}
             >
-              {sportName}{" "}
+              Cricket
             </Typography>{" "}
             <Typography
               sx={{
@@ -126,6 +116,76 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
             }}
           />
         </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            sx={{
+              color: `${openTag === "T20/T10" ? "#4831D4" : "secondary.main"}`,
+              borderBottom: `${
+                openTag === "T20/T10" ? "3px solid #4831D4" : "none"
+              }`,
+              width: "33%",
+              display: "flex",
+              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontWeight: 600,
+              fontFamily: "poppins",
+              py: "10px",
+              borderRadius: 0,
+            }}
+            onClick={() => {
+              clickTagAndCallApi("T20/T10");
+            }}
+          >
+            T20/T10
+          </Button>
+          <Button
+            sx={{
+              color: `${openTag === "ODI" ? "#4831D4" : "secondary.main"}`,
+              borderBottom: `${
+                openTag === "ODI" ? "3px solid #4831D4" : "none"
+              }`,
+              width: "33%",
+              display: "flex",
+              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontWeight: 600,
+              fontFamily: "poppins",
+              py: "10px",
+              borderRadius: 0,
+            }}
+            onClick={() => {
+              clickTagAndCallApi("ODI");
+            }}
+          >
+            ODI
+          </Button>
+          <Button
+            sx={{
+              color: `${openTag === "TEST" ? "#4831D4" : "secondary.main"}`,
+              borderBottom: `${
+                openTag === "TEST" ? "3px solid #4831D4" : "none"
+              }`,
+              width: "33%",
+              display: "flex",
+              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontWeight: 600,
+              fontFamily: "poppins",
+              py: "10px",
+              borderRadius: 0,
+            }}
+            onClick={() => {
+              clickTagAndCallApi("TEST");
+            }}
+          >
+            TEST
+          </Button>
+        </Box>
         {apiData ? (
           <Box
             sx={{
@@ -135,9 +195,9 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
               justifyContent: "flex-start",
               width: "100%",
               margin: "0 auto",
-              height: "100%",
-              maxHeight: "100%",
+              height: "90%",
               overflow: "scroll",
+              maxHeight: "90%",
               "&::-webkit-scrollbar": {
                 display: "none",
               },

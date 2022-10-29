@@ -25,6 +25,7 @@ import {
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
+import FpsCricket from "./FpsCrieket";
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
 
@@ -1567,7 +1568,21 @@ export default function Props({
         {openRule && (
           <Rule setOpenRule={setOpenRule} mode={mode} rulesData={rulesData} />
         )}
-        {openFps && <Fps setOpenFps={setOpenFps} mode={mode} />}
+        {openFps && selectSports === "cricket" ? (
+          <FpsCricket
+            setOpenFps={setOpenFps}
+            mode={mode}
+            currentSportsData={currentSportsData}
+          />
+        ) : (
+          openFps && (
+            <Fps
+              setOpenFps={setOpenFps}
+              mode={mode}
+              currentSportsData={currentSportsData}
+            />
+          )
+        )}
         {successSubmit && (
           <SuccessSubmit
             setSuccessSubmit={setSuccessSubmit}
