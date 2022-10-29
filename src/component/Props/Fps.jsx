@@ -508,7 +508,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
   useEffect(() => {
     if (apiData) {
       apiData.fps.map((each) => {
-        console.log(each);
+        console.log(each.events[0].profiles[0]);
       });
     }
   }, [apiData]);
@@ -548,13 +548,13 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
       <Box
         sx={{
           width: {
-            md: "501px",
-            sm: "400px",
+            md: "601px",
+            sm: "450px",
             xs: "400px",
             xxs: "320px",
             xxxs: "300px",
           },
-          height: "512px",
+          height: "85%",
           bgcolor: "primary.main",
           display: "flex",
           flexDirection: "column",
@@ -670,11 +670,11 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                       POINTS
                     </Typography>
                   </Box>
-                  {each.events.map((e, index) => (
+                  {each.events.map((e, indexEvents) => (
                     <>
                       {e.value !== "+0" && (
                         <Box
-                          key={index}
+                          key={indexEvents}
                           sx={{
                             display: "flex",
                             width: "90%",
@@ -685,7 +685,6 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                           }}
                         >
                           <Box
-                            key={index}
                             sx={{
                               display: "flex",
                               flexDirection: "column",
@@ -726,7 +725,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                                 mt: "5px",
                               }}
                             >
-                              {e.profiles[0].name}
+                              {each.events[index].profiles[0].name}{" "}
                             </Typography>
                           </Box>
                           <Typography
@@ -738,13 +737,15 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                               mr: "25px",
                               py: "10px",
                               color: `${
-                                e.profiles[0].ouPoints.charAt() === "-"
+                                each.events[
+                                  index
+                                ].profiles[0].ouPoints.charAt() === "-"
                                   ? "red"
                                   : "#52C03C"
                               }`,
                             }}
                           >
-                            {e.profiles[0].ouPoints}
+                            {each.events[index].profiles[0].ouPoints}{" "}
                           </Typography>
                         </Box>
                       )}

@@ -813,13 +813,13 @@ export default function FpsCricket({ setOpenFps, mode }) {
       <Box
         sx={{
           width: {
-            md: "501px",
-            sm: "400px",
+            md: "601px",
+            sm: "450px",
             xs: "400px",
             xxs: "320px",
             xxxs: "300px",
           },
-          height: "512px",
+          height: "85%",
           bgcolor: "primary.main",
           display: "flex",
           flexDirection: "column",
@@ -836,8 +836,8 @@ export default function FpsCricket({ setOpenFps, mode }) {
             margin: "0 auto",
             justifyContent: "space-between",
             alignItems: "center",
-            mb: "20px",
             mt: "11px",
+            mb: "10px",
           }}
         >
           <Box
@@ -1011,7 +1011,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1118,7 +1118,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1225,7 +1225,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1332,7 +1332,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1439,7 +1439,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1546,7 +1546,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1651,7 +1651,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                       key={index}
                       sx={{
                         display: "flex",
-                        width: "90%",
+                        width: "95%",
                         margin: "0 auto",
                         justifyContent: "space-between",
                         alignItems: "center",
@@ -1756,7 +1756,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           key={index}
                           sx={{
                             display: "flex",
-                            width: "90%",
+                            width: "95%",
                             margin: "0 auto",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -1885,7 +1885,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -1994,7 +1994,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2103,7 +2103,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2212,7 +2212,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2321,7 +2321,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2430,7 +2430,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2539,7 +2539,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2648,7 +2648,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               key={index}
                               sx={{
                                 display: "flex",
-                                width: "90%",
+                                width: "95%",
                                 margin: "0 auto",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -2779,7 +2779,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -2889,7 +2889,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -2999,7 +2999,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3109,7 +3109,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3219,7 +3219,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3329,7 +3329,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3439,7 +3439,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3549,7 +3549,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   key={index}
                                   sx={{
                                     display: "flex",
-                                    width: "90%",
+                                    width: "95%",
                                     margin: "0 auto",
                                     justifyContent: "space-between",
                                     alignItems: "center",
