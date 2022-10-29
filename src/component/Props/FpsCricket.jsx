@@ -1065,7 +1065,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1172,7 +1172,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1279,7 +1279,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1386,7 +1386,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1493,7 +1493,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1600,7 +1600,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1705,7 +1705,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           }`,
                         }}
                       >
-                        {e.Points}
+                        {e.Points.charAt() !== "-" && "+"} {e.Points}
                       </Typography>
                     </Box>
                   ))}
@@ -1810,7 +1810,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                               }`,
                             }}
                           >
-                            {e.Points}
+                            {e.Points.charAt() !== "-" && "+"} {e.Points}
                           </Typography>
                         </Box>
                       )}
@@ -1941,7 +1941,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2050,7 +2050,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2159,7 +2159,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2268,7 +2268,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2377,7 +2377,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2486,7 +2486,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2595,7 +2595,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2704,7 +2704,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                   }`,
                                 }}
                               >
-                                {e.Points}
+                                {e.Points.charAt() !== "-" && "+"} {e.Points}
                               </Typography>
                             </Box>
                           )}
@@ -2835,6 +2835,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -2944,6 +2945,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3053,6 +3055,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3162,6 +3165,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3271,6 +3275,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3380,6 +3385,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3489,6 +3495,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>
@@ -3598,6 +3605,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                                       }`,
                                     }}
                                   >
+                                    {e.Points.charAt() !== "-" && "+"}{" "}
                                     {e.Points}
                                   </Typography>
                                 </Box>

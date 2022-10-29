@@ -717,6 +717,17 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                             >
                               {e.subText}
                             </Typography>
+                            <Typography
+                              sx={{
+                                color: "secondary.dark_gray",
+                                fontSize: "14px",
+                                fontWeight: 600,
+                                fontFamily: "poppins",
+                                mt: "5px",
+                              }}
+                            >
+                              {e.profiles[0].name}
+                            </Typography>
                           </Box>
                           <Typography
                             sx={{
@@ -727,11 +738,13 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                               mr: "25px",
                               py: "10px",
                               color: `${
-                                e.value.charAt() === "-" ? "red" : "#52C03C"
+                                e.profiles[0].ouPoints.charAt() === "-"
+                                  ? "red"
+                                  : "#52C03C"
                               }`,
                             }}
                           >
-                            {e.value}
+                            {e.profiles[0].ouPoints}
                           </Typography>
                         </Box>
                       )}
