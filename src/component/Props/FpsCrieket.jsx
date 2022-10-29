@@ -2,7 +2,8 @@ import { Box, Card, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "./props.css";
 import { Button } from "@mui/material";
-
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 import ClearIcon from "@mui/icons-material/Clear";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
@@ -285,3 +286,16 @@ export default function FpsCricket({ setOpenFps, mode }) {
     </Box>
   );
 }
+
+export const getFpsSport = async (sportcode) => {
+  var apiUrl = APIURLs.getFpsSport;
+  apiUrl = apiUrl.replace("{sportcode}", sportcode);
+  const apiResponse = await makeGETAPICall(apiUrl, [
+    { "fps-game-type": "ou" },
+  ]);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
