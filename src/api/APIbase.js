@@ -32,4 +32,4 @@ export const withdrawProp = ocApiGatewayContests + 'withdraw/id/undefined';
 
 
 //get FPS per sport
-export const getFpsSport = ocApiGatewayCommon + 'common/fps/{sportcode}';
+export const getFpsSport = ocApiGatewayCommon + 'fps/{sportcode}';
