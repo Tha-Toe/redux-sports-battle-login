@@ -655,7 +655,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                 fontFamily: "poppins",
               }}
             >
-              - Over/ Under Points{" "}
+              - Above/ Below Points{" "}
             </Typography>{" "}
           </Box>
           <ClearIcon

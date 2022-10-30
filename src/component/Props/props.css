@@ -83,7 +83,7 @@ a {
 }
 .matchesButton {
   height: 100%;
-  min-width: 100px;
+  min-width: 120px;
   background-color: #4831d4;
   display: flex;
   flex-direction: column;

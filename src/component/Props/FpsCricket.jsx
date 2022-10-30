@@ -864,7 +864,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                 fontFamily: "poppins",
               }}
             >
-              - Over/ Under Points{" "}
+              - Above/ Below Points{" "}
             </Typography>{" "}
           </Box>
           <ClearIcon

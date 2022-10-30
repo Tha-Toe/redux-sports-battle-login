@@ -726,7 +726,8 @@ export function Home({ mode, setMode }) {
                 }}
                 onClick={goAddCashBonus}
               >
-                Cash: ${cash}
+                {}
+                Cash: ${cash && cash.toFixed(2)}
               </Button>
               <Button
                 sx={{
