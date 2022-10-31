@@ -119,20 +119,9 @@ export default function FpsCricket({ setOpenFps, mode }) {
                 fontSize: { sm: fs.x_large, xxxs: fs.normal },
                 fontWeight: 700,
                 fontFamily: "poppins",
-                borderBottom: "3px solid white",
               }}
             >
-              Cricket
-            </Typography>{" "}
-            <Typography
-              sx={{
-                color: "secondary.dark_gray",
-                fontSize: { sm: fs.x_large, xxxs: fs.normal },
-                fontWeight: 700,
-                fontFamily: "poppins",
-              }}
-            >
-              - Above/ Below Points{" "}
+              Cricket - Above/ Below Points{" "}
             </Typography>{" "}
           </Box>
           <ClearIcon

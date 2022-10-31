@@ -122,13 +122,13 @@ const Sports = ({ sports }) => {
             fontWeight: 500,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
-            ml: "2px",
+            ml: "4px",
             display: "flex",
             flexDirection: "row",
           }}
         >
           {each.toUpperCase()}
-          {sportsToShow.length > 1 && ","}
+          {sportsToShow.length > 1 && sportsToShow.length - 1 !== index && ","}
         </Typography>
       ))}
     </>

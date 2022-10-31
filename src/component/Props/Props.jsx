@@ -1264,9 +1264,9 @@ export default function Props({
                             }`,
                             minWidth: `${
                               e.length < 5
-                                ? e.length * 20
+                                ? e.length * 25
                                 : e.length < 10
-                                ? e.length * 18
+                                ? e.length * 21
                                 : e.length * 10
                             }px`,
                             cursor: "pointer",

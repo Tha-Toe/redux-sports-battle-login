@@ -37,6 +37,8 @@ export function EntireTitleContainer({ each, index }) {
       });
     }
   }, [each, ouPoints]);
+
+  const [lastElement, setLastElement] = useState(null);
   if (ouPoints) {
     return (
       <Box key={index}>
@@ -93,6 +95,8 @@ export function EntireTitleContainer({ each, index }) {
             e={e}
             each={each}
             indexEvent={indexEvent}
+            setLastElement={setLastElement}
+            lastElement={lastElement}
           />
         ))}
       </Box>
@@ -102,18 +106,27 @@ export function EntireTitleContainer({ each, index }) {
   }
 }
 
-export function EventTag({ each, e, index, indexEvent }) {
+export function EventTag({
+  each,
+  e,
+  index,
+  indexEvent,
+  lastElement,
+  setLastElement,
+}) {
   const [ouPoints, setOuPoints] = useState(null);
   useEffect(() => {
     if (each && e) {
       if (e.ouPoints && e.ouPoints !== "+0") {
         setOuPoints(e.ouPoints);
+        setLastElement(e);
       } else if (e.profiles) {
         let filterArr = e.profiles.filter((eachObj) => {
           return eachObj.ouPoints && eachObj.ouPoints !== "+0";
         });
         if (filterArr.length > 0) {
           setOuPoints(filterArr[0].ouPoints);
+          setLastElement(e);
         } else {
           setOuPoints(null);
         }
@@ -133,7 +146,7 @@ export function EventTag({ each, e, index, indexEvent }) {
           margin: "0 auto",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: "1px solid #494949",
+          borderBottom: `${lastElement !== e && "1px solid #494949"}`,
         }}
       >
         <Box
@@ -189,12 +202,13 @@ export function EventTag({ each, e, index, indexEvent }) {
                       fontSize: fs.small,
                       fontWeight: 600,
                       fontFamily: "poppins",
+                      mr: "5px",
                     }}
                   >
                     {profile.name}
                     {e.profiles.length > 1 &&
                       e.profiles.length - 1 !== i &&
-                      ", "}
+                      ",  "}
                   </Typography>
                 ))}
               </Box>
@@ -228,8 +242,6 @@ export function EventTag({ each, e, index, indexEvent }) {
         </Typography>
       </Box>
     );
-  } else {
-    return <></>;
   }
 }
 
@@ -346,6 +358,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                 fontWeight: 700,
                 fontFamily: "poppins",
                 borderBottom: "3px solid white",
+                mr: "5px",
               }}
             >
               {sportName}{" "}
