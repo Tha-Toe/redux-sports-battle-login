@@ -12,6 +12,7 @@ const UserAccountNotExist = ({ mode }) => {
   const userAccountNotExist = useSelector(
     (state) => state.user.userAccountNotExist
   );
+  const fs = useSelector((state) => state.user.fs);
   const navigate = useNavigate();
   const goSignUpPage = () => {
     navigate("/choose", { replace: true });
@@ -56,7 +57,7 @@ const UserAccountNotExist = ({ mode }) => {
         <Typography
           sx={{
             color: "secondary.dark_gray",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 700,
             fontFamily: "poppins",
             mt: "36px",
@@ -69,7 +70,7 @@ const UserAccountNotExist = ({ mode }) => {
         <Button
           sx={{
             background: "#4831D4",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 500,
             fontFamily: "poppins",
             padding: { xs: "12px 89px", xxxs: "10px 70px" },

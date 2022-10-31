@@ -8,8 +8,9 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckIcon from "@mui/icons-material/Check";
 import "./defaultComponent.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import { useSelector } from "react-redux";
 export function ButtonComponent({ name, disabled, handleContinue }) {
+  const fs = useSelector((state) => state.user.fs);
   const theme = createTheme({
     palette: {
       action: {
@@ -46,7 +47,7 @@ export function ButtonComponent({ name, disabled, handleContinue }) {
           height: { xs: "64px", xxxs: "50px" },
           background: "#4831D4",
           color: "white",
-          fontSize: { xs: "16px", xxs: "14px" },
+          fontSize: { xs: fs.normal, xxs: fs.small },
           fontWeight: "500",
           mb: 3,
           "&.MuiButtonBase-root:hover": {
@@ -69,6 +70,7 @@ export function ContinueButtonComponent({
   rightArrow,
   checkIcon,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const theme = createTheme({
     palette: {
       action: {
@@ -103,7 +105,7 @@ export function ContinueButtonComponent({
           height: { xs: "64px", xxxs: "50px" },
           background: "#4831D4",
           color: "white",
-          fontSize: { xs: "16px", xxxs: "12px" },
+          fontSize: { xs: fs.normal, xxxs: fs.xs },
           fontWeight: "700",
           mb: 3,
           "&.MuiButtonBase-root:hover": {
@@ -123,6 +125,8 @@ export function ContinueButtonComponent({
 }
 
 export function BackButtonComponent({ text, handleBack }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Button
       startIcon={<ArrowBackIcon />}
@@ -137,7 +141,7 @@ export function BackButtonComponent({ text, handleBack }) {
         height: { xs: "64px", xxxs: "50px" },
         background: "#494949",
         color: "white",
-        fontSize: { xs: "16px", xxxs: "12px" },
+        fontSize: { xs: fs.normal, xxxs: fs.xs },
         fontWeight: "700",
         mb: 3,
         "&.MuiButtonBase-root:hover": {
@@ -190,6 +194,8 @@ export function PasswordInputComponent({
   setReEnterPassword,
   mode,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -241,7 +247,7 @@ export function PasswordInputComponent({
             top: { sm: "25px", xs: "20px", xxxs: "16px" },
             right: "10px",
             cursor: "pointer",
-            fontSize: { xs: "23px", xxxs: "18px" },
+            fontSize: { xs: fs.xxx_large, xxxs: fs.large },
           }}
           onClick={() => {
             setShowPass(true);
@@ -286,6 +292,8 @@ export function PasswordInputComponentLogin({
   setReEnterPassword,
   mode,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -325,7 +333,7 @@ export function PasswordInputComponentLogin({
             outline: 1,
           },
           pl: 2,
-          fontSize: { xs: "16px", xxxs: "14px" },
+          fontSize: { xs: fs.normal, xxxs: fs.small },
           fontFamily: "Poppins",
           fontWeight: 300,
         }}
@@ -356,7 +364,7 @@ export function PasswordInputComponentLogin({
             top: { sm: "25px", xs: "20px", xxxs: "16px" },
             right: "10px",
             cursor: "pointer",
-            fontSize: { xs: "23px", xxxs: "18px" },
+            fontSize: { xs: fs.xxx_large, xxxs: fs.large },
           }}
           onClick={() => {
             setShowPass(true);

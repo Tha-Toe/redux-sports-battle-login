@@ -1,6 +1,7 @@
 import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
+import { useSelector } from "react-redux";
 
 const GridItemComponent = ({
   e,
@@ -18,6 +19,8 @@ const GridItemComponent = ({
   selectStatTitle,
   statsAndData,
 }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   useEffect(() => {
     let conditionArray = selectedCardList.filter((each) => {
       return (
@@ -174,7 +177,7 @@ const GridItemComponent = ({
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: { lg: "12px", md: "10px", sm: "8px", xxxs: "10px" },
+              fontSize: { xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
             }}
@@ -184,11 +187,10 @@ const GridItemComponent = ({
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: "8px",
               fontSize: {
-                md: "10px",
-                sm: "8px",
-                xxxs: "10px",
+                md: fs.xxs,
+                sm: fs.xxxs,
+                xxxs: fs.xxs,
               },
               fontWeight: 400,
               fontFamily: "poppins",
@@ -201,9 +203,9 @@ const GridItemComponent = ({
               sx={{
                 color: "secondary.dark_gray",
                 fontSize: {
-                  md: "10px",
-                  sm: "8px",
-                  xxxs: "10px",
+                  md: fs.xxs,
+                  sm: fs.xxxs,
+                  xxxs: fs.xxs,
                 },
                 fontWeight: 400,
                 fontFamily: "poppins",
@@ -215,9 +217,9 @@ const GridItemComponent = ({
               sx={{
                 color: "secondary.dark_gray",
                 fontSize: {
-                  md: "10px",
-                  sm: "8px",
-                  xxxs: "10px",
+                  md: fs.xxs,
+                  sm: fs.xxxs,
+                  xxxs: fs.xxs,
                 },
                 fontWeight: 400,
                 fontFamily: "poppins",
@@ -235,9 +237,9 @@ const GridItemComponent = ({
                   sx={{
                     color: "secondary.dark_gray",
                     fontSize: {
-                      md: "10px",
-                      sm: "8px",
-                      xxxs: "10px",
+                      md: fs.xxs,
+                      sm: fs.xxxs,
+                      xxxs: fs.xxs,
                     },
                     fontWeight: 400,
                     fontFamily: "poppins",
@@ -250,9 +252,9 @@ const GridItemComponent = ({
                   sx={{
                     color: "#3A6DBE",
                     fontSize: {
-                      md: "10px",
-                      sm: "8px",
-                      xxxs: "10px",
+                      md: fs.xxs,
+                      sm: fs.xxxs,
+                      xxxs: fs.xxs,
                     },
                     fontWeight: 400,
                     fontFamily: "poppins",
@@ -269,9 +271,9 @@ const GridItemComponent = ({
                         sx={{
                           color: "#3A6DBE",
                           fontSize: {
-                            md: "10px",
-                            sm: "8px",
-                            xxxs: "10px",
+                            md: fs.xxs,
+                            sm: fs.xxxs,
+                            xxxs: fs.xxs,
                           },
                           fontWeight: 400,
                           fontFamily: "poppins",
@@ -286,9 +288,9 @@ const GridItemComponent = ({
                 sx={{
                   color: "secondary.dark_gray",
                   fontSize: {
-                    md: "10px",
-                    sm: "8px",
-                    xxxs: "10px",
+                    md: fs.xxs,
+                    sm: fs.xxxs,
+                    xxxs: fs.xxs,
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",
@@ -311,10 +313,10 @@ const GridItemComponent = ({
             sx={{
               color: "secondary.dark_gray",
               fontSize: {
-                lg: "10px",
-                md: "12px",
-                sm: "8px",
-                xxxs: "10px",
+                lg: fs.xs,
+                md: fs.xs,
+                sm: fs.xxxs,
+                xxxs: fs.xxs,
               },
               fontWeight: 500,
               fontFamily: "poppins",
@@ -325,8 +327,8 @@ const GridItemComponent = ({
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: "22px",
-              fontWeight: 600,
+              fontSize: "28px",
+              fontWeight: 900,
               fontFamily: "poppins",
             }}
           >
@@ -348,7 +350,7 @@ const GridItemComponent = ({
               width: { sm: "48px", xxxs: "24px" },
               py: "4px",
               color: "secondary.dark_gray",
-              fontSize: { sm: "9px", xs: "7px", xxxs: "9px" },
+              fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               border: `${type === "over" ? "none" : "1px solid white"}`,
@@ -375,7 +377,7 @@ const GridItemComponent = ({
               width: { sm: "48px", xxxs: "24px" },
               color: "secondary.dark_gray",
               py: "4px",
-              fontSize: { sm: "9px", xs: "7px", xxxs: "9px" },
+              fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               border: `${type === "under" ? "none" : "1px solid white"}`,

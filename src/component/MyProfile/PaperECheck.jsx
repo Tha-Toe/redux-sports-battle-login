@@ -9,12 +9,13 @@ import Button from "@mui/material/Button";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HomeIcon from "@mui/icons-material/Home";
-
+import { useSelector } from "react-redux";
 export default function PaperECheck({
   setOpenTag,
   setAlreadyChooseWidthDraw,
   address,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const goSelectAddressPaperCheck = () => {
     setOpenTag("select-address-paper-check");
   };
@@ -64,7 +65,7 @@ export default function PaperECheck({
           <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -76,7 +77,7 @@ export default function PaperECheck({
         </Box>
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 500,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -120,7 +121,7 @@ export default function PaperECheck({
           >
             <Typography
               sx={{
-                fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -132,7 +133,7 @@ export default function PaperECheck({
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -144,7 +145,7 @@ export default function PaperECheck({
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -163,7 +164,7 @@ export default function PaperECheck({
         sx={{
           color: "secondary.dark_gray",
           fontFamily: "poppins",
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           mt: "16px",
           width: "100%",
@@ -185,7 +186,7 @@ export default function PaperECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
           }}
         >
@@ -195,7 +196,7 @@ export default function PaperECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             ml: "8px",
           }}
@@ -231,7 +232,7 @@ export default function PaperECheck({
           {!address && (
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxxs: "12px" },
+                fontSize: { sm: fs.small, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "white",
@@ -242,7 +243,7 @@ export default function PaperECheck({
           )}
           <Typography
             sx={{
-              fontSize: { sm: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.xs, xxxs: fs.xxxs },
               fontWeight: 300,
               fontFamily: "poppins",
               color: "white",
@@ -258,7 +259,7 @@ export default function PaperECheck({
 
       <Button
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "white",
@@ -280,7 +281,7 @@ export default function PaperECheck({
       </Button>
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",

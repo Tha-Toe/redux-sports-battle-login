@@ -8,6 +8,8 @@ import CheckCircle from "@mui/icons-material/CheckCircle";
 import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall } from "../../api/methods";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useSelector } from "react-redux";
+
 export default function WithdrawPopup({
   mode,
   setOpenWithdrawPopup,
@@ -15,6 +17,8 @@ export default function WithdrawPopup({
   setOpenWithdrawLoading,
   callUpCommingMyPropsApi,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const [condition, setCondition] = useState("asking");
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -74,7 +78,7 @@ export default function WithdrawPopup({
           <>
             <Typography
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "400",
                 fontFamily: "poppins",
                 color: "white",
@@ -96,7 +100,7 @@ export default function WithdrawPopup({
                 sx={{
                   width: "130px",
                   height: "40px",
-                  fontSize: "16px",
+                  fontSize: fs.normal,
                   fontWeight: "400",
                   fontFamily: "poppins",
                   color: "white",
@@ -118,7 +122,7 @@ export default function WithdrawPopup({
                 sx={{
                   width: "130px",
                   height: "40px",
-                  fontSize: "16px",
+                  fontSize: fs.normal,
                   fontWeight: "400",
                   fontFamily: "poppins",
                   color: "white",
@@ -141,7 +145,7 @@ export default function WithdrawPopup({
           <>
             <Box
               sx={{
-                fontSize: { sm: "16px", xxxs: "14px" },
+                fontSize: { sm: fs.normal, xxxs: fs.small },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 padding: { xs: "14px 89px", xxxs: "10px 70px" },
@@ -158,7 +162,7 @@ export default function WithdrawPopup({
             </Box>
             <Typography
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "400",
                 fontFamily: "poppins",
                 color: "white",
@@ -174,7 +178,7 @@ export default function WithdrawPopup({
             <CheckCircle sx={{ fontSize: "60px", color: "green" }} />
             <Typography
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "600",
                 fontFamily: "poppins",
                 color: "white",
@@ -185,7 +189,7 @@ export default function WithdrawPopup({
             </Typography>
             <Button
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "600",
                 fontFamily: "poppins",
                 color: "white",
@@ -224,7 +228,7 @@ export default function WithdrawPopup({
             </Typography>
             <Typography
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "600",
                 fontFamily: "poppins",
                 color: "white",
@@ -235,7 +239,7 @@ export default function WithdrawPopup({
             </Typography>
             <Button
               sx={{
-                fontSize: "16px",
+                fontSize: fs.normal,
                 fontWeight: "600",
                 fontFamily: "poppins",
                 color: "white",

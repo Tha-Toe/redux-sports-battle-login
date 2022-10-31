@@ -196,6 +196,7 @@ export default function MyProps({
   const upComingDataCommingFromApi = useSelector(
     (state) => state.user.upComingDataCommingFromApi
   );
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -216,7 +217,7 @@ export default function MyProps({
     >
       <Typography
         sx={{
-          fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 700,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -250,7 +251,7 @@ export default function MyProps({
           <Button
             key={index}
             sx={{
-              fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
+              fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: `${e.name === openTag ? "white" : "white"}`,

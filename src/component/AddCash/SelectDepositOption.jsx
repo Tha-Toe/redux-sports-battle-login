@@ -4,10 +4,12 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useSelector } from "react-redux";
 export default function SelectDepositOption({
   setOpenSelectDepositOption,
   mode,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -48,7 +50,7 @@ export default function SelectDepositOption({
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 700,
               fontFamily: "poppins",
             }}
@@ -76,7 +78,7 @@ export default function SelectDepositOption({
         >
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 700,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -94,7 +96,7 @@ export default function SelectDepositOption({
               "&.MuiButtonBase-root:hover": {
                 bgcolor: "primary.light",
               },
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 500,
               fontFamily: "poppins",
               textTransform: "none",
@@ -107,7 +109,7 @@ export default function SelectDepositOption({
           sx={{
             py: "16px",
             width: "90%",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeigh: 600,
             fontFamily: "poppins",
             color: "white",
@@ -126,7 +128,7 @@ export default function SelectDepositOption({
         </Button>
         <Typography
           sx={{
-            fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+            fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -136,7 +138,7 @@ export default function SelectDepositOption({
         </Typography>
         <Typography
           sx={{
-            fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+            fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "#2582E3",

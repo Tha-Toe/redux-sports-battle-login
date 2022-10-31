@@ -9,8 +9,11 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useEffect } from "react";
 import "./refralBonus.css";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { useSelector } from "react-redux";
 
 export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const navigate = useNavigate();
   const goRefralBonusCashRandoom = () => {
     navigate("/home?deposit=go-refral-bonus-cash-randoom", { replace: true });
@@ -96,13 +99,13 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
         >
           <ArrowBackIosIcon
             sx={{
-              fontSize: { md: "23px", xxxs: "18px" },
+              fontSize: { md: fs.xxx_large, xxxs: fs.large },
               color: "secondary.dark_gray",
             }}
           />
           <Typography
             sx={{
-              fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+              fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -113,7 +116,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
         </Box>
         <Typography
           sx={{
-            fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+            fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             width: "100%",
@@ -127,7 +130,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             width: "100%",
@@ -149,7 +152,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
         >
           <Typography
             sx={{
-              fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+              fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
               fontFamily: "poppins",
               fontWeight: 500,
               color: "secondary.dark_gray",
@@ -168,7 +171,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
               borderBottom: "1px solid #494949",
               width: "100%",
               py: "8px",
-              fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+              fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
               fontWeight: 500,
               fontFamily: "poppins",
               outline: "none",
@@ -191,7 +194,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
           <Button
             sx={{
               background: "transparent",
-              fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+              fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
               width: { xs: "45%", xxxs: "48%" },
               fontWeight: 400,
               py: { xs: "14px", xxxs: "10px" },
@@ -212,7 +215,7 @@ export default function VerifyPhoneNumberCode({ number, mode, getUserById }) {
             <Button
               sx={{
                 background: "#4831D4",
-                fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+                fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 width: { xs: "45%", xxxs: "48%" },

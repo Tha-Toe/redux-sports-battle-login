@@ -5,8 +5,10 @@ import Button from "@mui/material/Button";
 
 import PriorityHigh from "@mui/icons-material/PriorityHigh";
 import { setErrorPopUp } from "../../feature/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const NotAllowSameEmail = ({ mode, errorPopUp }) => {
+  const fs = useSelector((state) => state.user.fs);
   const dispatch = useDispatch();
   return (
     <Box
@@ -48,7 +50,7 @@ const NotAllowSameEmail = ({ mode, errorPopUp }) => {
         <Typography
           sx={{
             color: "secondary.dark_gray",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 700,
             fontFamily: "poppins",
             mt: "36px",
@@ -61,7 +63,7 @@ const NotAllowSameEmail = ({ mode, errorPopUp }) => {
         <Button
           sx={{
             background: "#4831D4",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 500,
             fontFamily: "poppins",
             padding: { xs: "12px 89px", xxxs: "10px 70px" },

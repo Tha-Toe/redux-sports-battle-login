@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { connectStorageEmulator } from "firebase/storage";
 import WithdrawPopup from "./WithdrawPopup";
-
 const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
+  const fs = useSelector((state) => state.user.fs);
   const [time, setTime] = useState(null);
   useEffect(() => {
     if (propData.prop.withdrawAllowed) {
@@ -63,7 +63,7 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
           sx={{
             background: "#FFCCCB",
             color: "red",
-            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+            fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 500,
             fontFamily: "poppins",
             padding: "2px 10px",
@@ -82,7 +82,7 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
         </Button>
         <Typography
           sx={{
-            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+            fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 500,
             fontFamily: "poppins",
             color: "#ffcccb",
@@ -97,6 +97,8 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
   }
 };
 const Sports = ({ sports }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   const removeDuplicates = (arr) => {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   };
@@ -116,7 +118,7 @@ const Sports = ({ sports }) => {
         <Typography
           key={index}
           sx={{
-            fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+            fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 500,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -135,6 +137,8 @@ const Sports = ({ sports }) => {
 
 const ShowDate = ({ date, id }) => {
   const [showDate, setShowDate] = useState(null);
+  const fs = useSelector((state) => state.user.fs);
+
   useEffect(() => {
     let createDate = new Date(date);
     let toDateString = createDate.toDateString();
@@ -149,7 +153,7 @@ const ShowDate = ({ date, id }) => {
   return (
     <Typography
       sx={{
-        fontSize: { xs: "12px", xxxs: "10px" },
+        fontSize: { xs: fs.xs, xxxs: fs.xxs },
         fontWeight: 500,
         fontFamily: "poppins",
         color: "secondary.dark_gray",
@@ -168,6 +172,8 @@ export default function MyPropsCardContainer({
   getEachProp,
   callUpCommingMyPropsApi,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   useEffect(() => {
     console.log(mainDetail);
   }, [mainDetail]);
@@ -381,7 +387,7 @@ export default function MyPropsCardContainer({
                 <Typography
                   sx={{
                     color: `${mainDetail.lhsColor}`,
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxs },
                     fontWeight: 600,
                     fontFamily: "poppins",
                   }}
@@ -391,7 +397,7 @@ export default function MyPropsCardContainer({
                 <Typography
                   sx={{
                     color: `${mainDetail.rhsColor}`,
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "10px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxs },
                     fontWeight: 600,
                     fontFamily: "poppins",
                   }}
@@ -438,7 +444,7 @@ export default function MyPropsCardContainer({
                   >
                     <Typography
                       sx={{
-                        fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -446,11 +452,11 @@ export default function MyPropsCardContainer({
                         width: "95%",
                       }}
                     >
-                      {e.title}
+                      {e.playTypeEmoji} {e.title}
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                        fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -464,7 +470,7 @@ export default function MyPropsCardContainer({
                       sx={{
                         display: "flex",
                         flexDirection: "row",
-                        alignItems: "center",
+                        alignItems: "flex-start",
                         justifyContent: "space-between",
                         width: "95%",
                         mt: "8px",
@@ -477,20 +483,6 @@ export default function MyPropsCardContainer({
                           alignItems: "flex-start",
                         }}
                       >
-                        <Typography
-                          sx={{
-                            fontSize: "13px",
-                            fontWeight: "600",
-                            color: "#9dc6d2",
-                            color: `${
-                              e.playType === "DEFENSE PLAY"
-                                ? "#9dc6d2"
-                                : "#D04643"
-                            }`,
-                          }}
-                        >
-                          {e.playTypeEmoji} {e.playType}
-                        </Typography>
                         <ShowDate date={e.createDate} id={e.id} />
                       </Box>
                       {e.userWon ? (
@@ -508,10 +500,11 @@ export default function MyPropsCardContainer({
                               sx={{
                                 color: "#9dc6d2",
                                 fontSize: {
-                                  xs: "12px",
-                                  xxs: "10px",
-                                  xxxs: "8px",
+                                  xs: fs.xs,
+                                  xxs: fs.xxs,
+                                  xxxs: fs.xxxs,
                                 },
+
                                 fontWeight: 400,
                                 fontFamily: "poppins",
                               }}
@@ -522,9 +515,9 @@ export default function MyPropsCardContainer({
                           <Typography
                             sx={{
                               fontSize: {
-                                xs: "14px",
-                                xxs: "12px",
-                                xxxs: "10px",
+                                xs: fs.small,
+                                xxs: fs.xs,
+                                xxxs: fs.xxs,
                               },
                               fontWeight: 600,
                               fontFamily: "poppins",
@@ -542,10 +535,11 @@ export default function MyPropsCardContainer({
                             sx={{
                               color: "#9dc6d2",
                               fontSize: {
-                                xs: "12px",
-                                xxs: "10px",
-                                xxxs: "8px",
+                                xs: fs.xs,
+                                xxs: fs.xxs,
+                                xxxs: fs.xxxs,
                               },
+
                               fontWeight: 400,
                               fontFamily: "poppins",
                             }}
@@ -557,10 +551,11 @@ export default function MyPropsCardContainer({
                               sx={{
                                 color: "#9dc6d2",
                                 fontSize: {
-                                  xs: "12px",
-                                  xxs: "10px",
-                                  xxxs: "8px",
+                                  xs: fs.xs,
+                                  xxs: fs.xxs,
+                                  xxxs: fs.xxxs,
                                 },
+
                                 fontWeight: 400,
                                 fontFamily: "poppins",
                               }}
@@ -584,10 +579,11 @@ export default function MyPropsCardContainer({
                               sx={{
                                 color: "#9dc6d2",
                                 fontSize: {
-                                  xs: "12px",
-                                  xxs: "10px",
-                                  xxxs: "8px",
+                                  xs: fs.xs,
+                                  xxs: fs.xxs,
+                                  xxxs: fs.xxxs,
                                 },
+
                                 fontWeight: 400,
                                 fontFamily: "poppins",
                               }}
@@ -598,9 +594,9 @@ export default function MyPropsCardContainer({
                           <Typography
                             sx={{
                               fontSize: {
-                                xs: "14px",
-                                xxs: "12px",
-                                xxxs: "10px",
+                                xs: fs.small,
+                                xxs: fs.xs,
+                                xxxs: fs.xxs,
                               },
                               fontWeight: 600,
                               fontFamily: "poppins",
@@ -632,10 +628,11 @@ export default function MyPropsCardContainer({
                               sx={{
                                 color: "#9dc6d2",
                                 fontSize: {
-                                  xs: "12px",
-                                  xxs: "10px",
-                                  xxxs: "8px",
+                                  xs: fs.xs,
+                                  xxs: fs.xxs,
+                                  xxxs: fs.xxxs,
                                 },
+
                                 fontWeight: 400,
                                 fontFamily: "poppins",
                               }}
@@ -675,8 +672,8 @@ export default function MyPropsCardContainer({
                             <div
                               key={index}
                               style={{
-                                width: "18px",
-                                height: "18px",
+                                width: "16px",
+                                height: "16px",
                                 background: `${each.color}`,
                                 borderRadius: "50%",
                                 display: "flex",

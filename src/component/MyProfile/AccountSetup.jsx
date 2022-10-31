@@ -10,6 +10,7 @@ export default function AccountSetup({
   setOpenTag,
   myAccountDataCommingFromApi,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   if (myAccountDataCommingFromApi) {
     return (
       <Box
@@ -46,7 +47,7 @@ export default function AccountSetup({
           <ArrowBackIosNewIcon />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -58,7 +59,7 @@ export default function AccountSetup({
         </Box>
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.main",
@@ -71,7 +72,7 @@ export default function AccountSetup({
         </Typography>
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "#4831D4",
@@ -116,7 +117,7 @@ export default function AccountSetup({
               <Typography
                 sx={{
                   ml: "17px",
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "secondary.main ",
@@ -128,7 +129,7 @@ export default function AccountSetup({
                 <Typography
                   sx={{
                     ml: "17px",
-                    fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.main ",
@@ -142,7 +143,7 @@ export default function AccountSetup({
           {!myAccountDataCommingFromApi.phoneNumberVerified && (
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 500,
                 fontFamily: "poppins",
                 color: "#459F48 ",
@@ -187,7 +188,7 @@ export default function AccountSetup({
               <Typography
                 sx={{
                   ml: "17px",
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "secondary.main ",
@@ -199,7 +200,7 @@ export default function AccountSetup({
                 <Typography
                   sx={{
                     ml: "17px",
-                    fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.main ",
@@ -213,7 +214,7 @@ export default function AccountSetup({
           {!myAccountDataCommingFromApi.firstDeposit && (
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 500,
                 fontFamily: "poppins",
                 color: "#459F48 ",
@@ -259,7 +260,7 @@ export default function AccountSetup({
               <Typography
                 sx={{
                   ml: "17px",
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "secondary.main ",
@@ -272,7 +273,7 @@ export default function AccountSetup({
                   <Typography
                     sx={{
                       ml: "17px",
-                      fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.main ",
@@ -287,7 +288,7 @@ export default function AccountSetup({
           !myAccountDataCommingFromApi.idpVerified ? (
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 500,
                 fontFamily: "poppins",
                 color: "#459F48 ",

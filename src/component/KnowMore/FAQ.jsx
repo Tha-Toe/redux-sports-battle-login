@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./knowMore.css";
 
 export default function FAQ() {
+  const fs = useSelector((state) => state.user.fs);
   const [FAQnote, setFAQnote] = useState([
     {
       head: "What is SportsBattle?",
@@ -36,7 +38,7 @@ export default function FAQ() {
         sx={{
           width: "90%",
           color: "secondary.main",
-          fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+          fontSize: { lg: fs.normal, xs: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           fontFamily: "poppins",
           py: "13px",
@@ -49,7 +51,7 @@ export default function FAQ() {
           sx={{
             width: "90%",
             color: "white",
-            fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+            fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
             fontWeight: 600,
             fontFamily: "poppins",
             py: "9px",
@@ -73,7 +75,7 @@ export default function FAQ() {
         >
           <Typography
             sx={{
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 700,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -85,7 +87,7 @@ export default function FAQ() {
           </Typography>
           <Typography
             sx={{
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 500,
               fontFamily: "poppins",
               color: "secondary.main",

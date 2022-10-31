@@ -5,12 +5,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Input } from "@mui/material";
-
+import { useSelector } from "react-redux";
 export default function AddPhoneNumber({
   setOpenTag,
   phoneNumber,
   setPhoneNumber,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const goToVerifyCodePage = () => {
     if (phoneNumber) {
       setOpenTag("verifycation-code");
@@ -50,7 +51,7 @@ export default function AddPhoneNumber({
         <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -62,7 +63,7 @@ export default function AddPhoneNumber({
       </Box>
       <Typography
         sx={{
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontFamily: "poppins",
           fontWeight: 600,
           color: "secondary.dark_gray",
@@ -74,7 +75,7 @@ export default function AddPhoneNumber({
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontFamily: "poppins",
           fontWeight: 400,
           color: "secondary.dark_gray",
@@ -90,7 +91,7 @@ export default function AddPhoneNumber({
           width: "100%",
           borderBottom: "1px solid #494949",
           color: "secondary.dark_gray",
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 500,
           mt: "24px",
           pb: "16px",
@@ -110,7 +111,7 @@ export default function AddPhoneNumber({
           "&.MuiButtonBase-root:hover": {
             background: "#4831D4",
           },
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 600,
           fontFamily: "poppins",
         }}

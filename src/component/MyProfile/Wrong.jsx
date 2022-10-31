@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
-
+import { useSelector } from "react-redux";
 export default function Wrong({ setWrong, setOpenTag, mode }) {
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -57,7 +58,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
         />
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: `${mode === "dark" ? "#F4C7CC" : "#E4313C"}`,
@@ -80,7 +81,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
         >
           <Button
             sx={{
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "white",
@@ -105,7 +106,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
           </Button>
           <Button
             sx={{
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "#439F48",

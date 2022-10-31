@@ -8,8 +8,10 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./newAddCashForm.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FailVerify from "./FailVerify";
-
+import { useSelector } from "react-redux";
 export default function NewAddCashFrom({ address, setNewUser, mode }) {
+  const fs = useSelector((state) => state.user.fs);
+
   let navigate = useNavigate();
   const goDepositVerify = () => {
     navigate("/home?deposit=new&page=verify", { replace: true });
@@ -58,13 +60,13 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
       >
         <ArrowBackIosIcon
           sx={{
-            fontSize: { sm: "23px", xxxs: "18px" },
+            fontSize: { sm: fs.xxx_large, xxxs: fs.large },
             color: "secondary.dark_gray",
           }}
         />
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxxs: "14px" },
+            fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -92,7 +94,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -110,7 +112,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               borderBottom: "1px solid #494949",
               width: "100%",
               py: "7px",
-              fontSize: { sm: "16px", xxxs: "14px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
               outline: "none",
@@ -123,7 +125,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         <Box sx={{ width: { xs: "45%", xxxs: "100%" } }}>
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -141,7 +143,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               borderBottom: "1px solid #494949",
               width: "100%",
               py: "7px",
-              fontSize: { sm: "16px", xxxs: "14px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
               outline: "none",
@@ -155,7 +157,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
       <Box sx={{ mb: "32px", width: "100%" }}>
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -173,7 +175,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             borderBottom: "1px solid #494949",
             width: "100%",
             py: "7px",
-            fontSize: { sm: "16px", xxxs: "14px" },
+            fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 500,
             fontFamily: "poppins",
             outline: "none",
@@ -208,7 +210,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           {!address && (
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxxs: "12px" },
+                fontSize: { sm: fs.small, xxxs: fs.xs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -219,7 +221,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           )}
           <Typography
             sx={{
-              fontSize: { sm: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.xs, xxxs: fs.xxs },
               fontWeight: 300,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -236,7 +238,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
       </Box>
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "#E4313C",
@@ -250,7 +252,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         <Button
           sx={{
             background: "#4831D4",
-            fontSize: { sm: "16px", xxxs: "14px" },
+            fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 600,
             fontFamily: "poppins",
             padding: { xs: "14px 89px", xxxs: "10px 70px" },
@@ -280,7 +282,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
       <Button
         sx={{
           border: "1px solid #439F48",
-          fontSize: { sm: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.small, xxxs: fs.xs },
           fontWeight: 500,
           fontFamily: "poppins",
           color: "#439F48",
@@ -328,7 +330,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             <Typography
               sx={{
                 color: "secondary.dark_gray",
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxxs },
                 fontWeight: 700,
                 fontFamily: "poppins",
                 mt: "16px",
@@ -339,7 +341,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             <Button
               sx={{
                 background: "#4831D4",
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxxs },
                 fontWeight: 500,
                 fontFamily: "poppins",
                 padding: { xs: "12px 89px", xxxs: "10px 70px" },

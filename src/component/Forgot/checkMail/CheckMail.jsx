@@ -8,6 +8,7 @@ import {
   BackButtonComponent,
   ContinueButtonComponent,
 } from "../../defaultComponent/DefaultComponent";
+import { useSelector } from "react-redux";
 const CheckMail = ({ mode, setMode }) => {
   const [verifyCode, setVerifyCode] = useState(null);
   let navigate = useNavigate();
@@ -37,6 +38,8 @@ const CheckMail = ({ mode, setMode }) => {
       setMode("dark");
     }
   };
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <div className="second-signup-flow-container">
       <Box
@@ -89,7 +92,7 @@ const CheckMail = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -100,7 +103,7 @@ const CheckMail = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "11px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",

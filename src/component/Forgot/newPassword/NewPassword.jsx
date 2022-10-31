@@ -10,8 +10,10 @@ import {
   BackButtonComponent,
   PasswordInputComponent,
 } from "../../defaultComponent/DefaultComponent";
+import { useSelector } from "react-redux";
 
 const NewPassword = () => {
+  const fs = useSelector((state) => state.user.fs);
   const [enterPassword, setEnterPassword] = useState(null);
   const [reEnterPassword, setReEnterPassword] = useState(null);
   const [showPass, setShowPass] = useState(false);
@@ -89,7 +91,7 @@ const NewPassword = () => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "28px", xxxs: "18px" },
+                fontSize: { xs: "28px", xxxs: fs.large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -99,7 +101,7 @@ const NewPassword = () => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "25px",
                 fontFamily: "Poppins",
               }}

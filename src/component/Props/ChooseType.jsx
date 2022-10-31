@@ -2,13 +2,16 @@ import { Box, Typography } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useSelector } from "react-redux";
 
 export default function ({ setPickPlayType, pickPlayType, mode }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <>
       <Typography
         sx={{
-          fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+          fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
           fontFamily: "poppins",
           fontWeight: 600,
           color: "secondary.dark_gray",
@@ -19,7 +22,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
       </Typography>
       <Typography
         sx={{
-          fontSize: { xl: "10px", md: "8px", xxxs: "6px" },
+          fontSize: { xl: fs.xxs, md: fs.xxxs, xxxs: "6px" },
           fontFamily: "poppins",
           fontWeight: 400,
           color: `${mode === "dark" ? "#FFCED6" : "#EA1E63"}`,
@@ -41,7 +44,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
         <Box sx={{ width: "auto", minWidth: "35%" }}>
           <Typography
             sx={{
-              fontSize: "13px",
+              fontSize: fs.small,
               fontFamily: "poppins",
               fontWeight: "600",
               color: "#459F48",
@@ -68,18 +71,16 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           >
             {pickPlayType === "defence" && (
               <CheckCircleIcon
-                sx={{ color: "#52C03C", fontSize: "14px", mr: "6px" }}
+                sx={{ color: "#52C03C", fontSize: fs.small, mr: "6px" }}
               />
             )}
             <Box>
               <Typography
                 sx={{
                   fontSize: {
-                    xl: "11px",
-                    lg: "10px",
-                    md: "10px",
-                    sm: "10px",
-                    xxxs: "8px",
+                    xl: fs.xs,
+                    sm: fs.xxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",
@@ -93,11 +94,9 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
               <Typography
                 sx={{
                   fontSize: {
-                    xl: "11px",
-                    lg: "10px",
-                    md: "10px",
-                    sm: "10px",
-                    xxxs: "8px",
+                    xl: fs.xs,
+                    sm: fs.xxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",
@@ -114,7 +113,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
         <Box sx={{ width: "auto", minWidth: "35%" }}>
           <Typography
             sx={{
-              fontSize: "13px",
+              fontSize: fs.small,
               fontFamily: "poppins",
               fontWeight: "600",
               color: "#459F48",
@@ -142,18 +141,16 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
           >
             {pickPlayType === "attack" && (
               <CheckCircleIcon
-                sx={{ color: "#52C03C", fontSize: "14px", mr: "6px" }}
+                sx={{ color: "#52C03C", fontSize: fs.small, mr: "6px" }}
               />
             )}
             <Box>
               <Typography
                 sx={{
                   fontSize: {
-                    xl: "11px",
-                    lg: "10px",
-                    md: "10px",
-                    sm: "10px",
-                    xxxs: "8px",
+                    xl: fs.xs,
+                    sm: fs.xxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",
@@ -167,11 +164,9 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
               <Typography
                 sx={{
                   fontSize: {
-                    xl: "11px",
-                    lg: "10px",
-                    md: "10px",
-                    sm: "10px",
-                    xxxs: "8px",
+                    xl: fs.xs,
+                    sm: fs.xxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",

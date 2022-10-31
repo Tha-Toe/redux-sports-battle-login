@@ -6,8 +6,9 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./profile.css";
-
+import { useSelector } from "react-redux";
 export default function ReferalHistory({ setOpenReferalHistory, mode }) {
+  const fs = useSelector((state) => state.user.fs);
   const [data, setData] = useState([
     {
       name: "SOFTWARE EURO",
@@ -62,7 +63,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 700,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -78,7 +79,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
         <img src="/gift.png" className="giftIcon" />
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 700,
             fontFamily: "poppins",
             color: "secondary.main",
@@ -104,7 +105,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
         <Button
           sx={{
             padding: "12px 47px",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeigh: 500,
             fontFamily: "poppins",
             color: "white",
@@ -170,7 +171,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.main",
@@ -180,7 +181,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.main",
@@ -192,7 +193,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
                 </Box>
                 <Typography
                   sx={{
-                    fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -227,7 +228,7 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
         </Box>
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.main",

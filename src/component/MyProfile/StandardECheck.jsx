@@ -6,11 +6,12 @@ import Button from "@mui/material/Button";
 import "./profile.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
+import { useSelector } from "react-redux";
 export default function StandardECheck({
   setOpenTag,
   setAlreadyChooseWidthDraw,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -56,7 +57,7 @@ export default function StandardECheck({
           <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -68,7 +69,7 @@ export default function StandardECheck({
         </Box>
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 500,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -112,7 +113,7 @@ export default function StandardECheck({
           >
             <Typography
               sx={{
-                fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -124,7 +125,7 @@ export default function StandardECheck({
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -136,7 +137,7 @@ export default function StandardECheck({
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -156,7 +157,7 @@ export default function StandardECheck({
         sx={{
           color: "secondary.dark_gray",
           fontFamily: "poppins",
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           mt: "16px",
           width: "100%",
@@ -178,7 +179,7 @@ export default function StandardECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
           }}
         >
@@ -188,7 +189,7 @@ export default function StandardECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             ml: "8px",
           }}
@@ -210,7 +211,7 @@ export default function StandardECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
           }}
         >
@@ -220,7 +221,7 @@ export default function StandardECheck({
           sx={{
             color: "secondary.dark_gray",
             fontFamily: "poppins",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             ml: "8px",
           }}
@@ -230,7 +231,7 @@ export default function StandardECheck({
       </Box>
       <Button
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "white",
@@ -252,7 +253,7 @@ export default function StandardECheck({
       </Button>
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",

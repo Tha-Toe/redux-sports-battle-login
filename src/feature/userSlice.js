@@ -1,6 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  fs: {
+    xxxs: "8px",
+    xxs: "10px",
+    xs: "12px",
+    small: "14px",
+    normal: "16px",
+    large: "18px",
+    x_large: "20px",
+    xx_large: "22px",
+    xxx_large: "24px",
+    mega: "32px",
+  },
   user: null,
   checking: true,
   userDetail: [],

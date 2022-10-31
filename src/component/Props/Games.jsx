@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
 export default function Games({
   gameData,
   mode,
   handleSelectGame,
   selectMatches,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const [time, setTime] = useState(null);
 
   useEffect(() => {
@@ -87,10 +88,10 @@ export default function Games({
         }`,
         minWidth: `${
           gameData.gameName.length < 5
-            ? gameData.gameName.length * 17
+            ? gameData.gameName.length * 12
             : gameData.gameName.length < 10
-            ? gameData.gameName.length * 15
-            : gameData.gameName.length * 10
+            ? gameData.gameName.length * 10
+            : gameData.gameName.length * 8
         }px`,
         cursor: "pointer",
       }}
@@ -101,7 +102,16 @@ export default function Games({
       <div
         className="matchesName"
         style={{
-          color: `${mode === "dark" ? "white" : "#4831D4"}`,
+          color: `${
+            mode === "dark"
+              ? selectMatches && selectMatches.gameId === gameData.gameId
+                ? "black"
+                : "white"
+              : "#4831D4"
+          }`,
+          fontWeight: `${
+            selectMatches && selectMatches.gameId === gameData.gameId && "600"
+          }`,
         }}
       >
         {gameData.gameName}
@@ -109,7 +119,16 @@ export default function Games({
       <div
         className="matchesTime"
         style={{
-          color: `${mode === "dark" ? "white" : "#4831D4"}`,
+          color: `${
+            mode === "dark"
+              ? selectMatches && selectMatches.gameId === gameData.gameId
+                ? "black"
+                : "white"
+              : "#4831D4"
+          }`,
+          fontWeight: `${
+            selectMatches && selectMatches.gameId === gameData.gameId && "600"
+          }`,
         }}
       >
         {time}

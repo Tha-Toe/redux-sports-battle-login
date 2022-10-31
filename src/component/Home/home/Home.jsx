@@ -565,7 +565,7 @@ export function Home({ mode, setMode }) {
     localStorage.removeItem("user");
   };
   const user = useSelector((state) => state.user.user);
-
+  const fs = useSelector((state) => state.user.fs);
   return (
     <div className="logged-container" ref={homeContainerRef}>
       <Box
@@ -616,7 +616,7 @@ export function Home({ mode, setMode }) {
               <Typography
                 sx={{
                   color: "white",
-                  fontSize: { sm: "15px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   position: "relative",
@@ -653,10 +653,10 @@ export function Home({ mode, setMode }) {
                   textTransform: "none",
                   fontFamily: "poppins",
                   fontSize: {
-                    sm: "10px",
-                    xs: "10px",
-                    xxs: "8px",
-                    xxxs: "8px",
+                    sm: fs.xxs,
+                    xs: fs.xxs,
+                    xxs: fs.xxxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 500,
                   padding: { xs: "8px 12px", xxxs: "6px 6px" },
@@ -684,10 +684,10 @@ export function Home({ mode, setMode }) {
                   textTransform: "none",
                   fontFamily: "poppins",
                   fontSize: {
-                    sm: "10px",
-                    xs: "10px",
-                    xxs: "8px",
-                    xxxs: "8px",
+                    sm: fs.xxs,
+                    xs: fs.xxs,
+                    xxs: fs.xxxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 500,
                   maxWidth: { sm: "auto", xxs: "22%", xxxs: "25%" },
@@ -709,10 +709,10 @@ export function Home({ mode, setMode }) {
                   textTransform: "none",
                   fontFamily: "poppins",
                   fontSize: {
-                    sm: "10px",
-                    xs: "10px",
-                    xxs: "8px",
-                    xxxs: "8px",
+                    sm: fs.xxs,
+                    xs: fs.xxs,
+                    xxs: fs.xxxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 500,
                   maxWidth: { sm: "auto", xxs: "22%", xxxs: "25%" },
@@ -737,10 +737,10 @@ export function Home({ mode, setMode }) {
                   textTransform: "none",
                   fontFamily: "poppins",
                   fontSize: {
-                    sm: "10px",
-                    xs: "10px",
-                    xxs: "8px",
-                    xxxs: "8px",
+                    sm: fs.xxs,
+                    xs: fs.xxs,
+                    xxs: fs.xxxs,
+                    xxxs: fs.xxxs,
                   },
                   fontWeight: 500,
                   padding: { xs: "8px 12px", xxxs: "6px 6px" },
@@ -775,7 +775,7 @@ export function Home({ mode, setMode }) {
                 <Box
                   sx={{
                     background: "#439F48",
-                    fontSize: "13px",
+                    fontSize: fs.small,
                     fontWeight: 400,
                     color: "white",
                     fontFamily: "poppins",
@@ -793,7 +793,7 @@ export function Home({ mode, setMode }) {
                   <KeyboardArrowUpIcon
                     sx={{
                       color: "#494949",
-                      fontSize: "25px",
+                      fontSize: fs.xxx_large,
                       cursor: "pointer",
                     }}
                     onClick={() => setOpenDropDown(false)}
@@ -802,7 +802,7 @@ export function Home({ mode, setMode }) {
                   <KeyboardArrowDownIcon
                     sx={{
                       color: "#494949",
-                      fontSize: "25px",
+                      fontSize: fs.xxx_large,
                       cursor: "pointer",
                     }}
                     onClick={() => setOpenDropDown(true)}
@@ -830,7 +830,7 @@ export function Home({ mode, setMode }) {
                         color: "primary.main",
                         width: { sm: "100px", xs: "80px", xxxs: "80px" },
                         py: { sm: "14px", xs: "10px", xxxs: "10px" },
-                        fontSize: { sm: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.small, xxxs: fs.xs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         textTransform: "none",
@@ -965,7 +965,7 @@ export function Home({ mode, setMode }) {
                   <Typography
                     sx={{
                       fontFamily: "poppins",
-                      fontSize: { xl: "15px", sm: "12px", xxxs: "10px" },
+                      fontSize: { xl: fs.normal, sm: fs.xs, xxxs: fs.xxs },
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
                       mt: { lg: "0px", sm: "5px", xxxs: "0px" },
@@ -1000,7 +1000,7 @@ export function Home({ mode, setMode }) {
             >
               <Typography
                 sx={{
-                  fontSize: "10px",
+                  fontSize: fs.xxs,
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "#2582E3",
@@ -1038,7 +1038,7 @@ export function Home({ mode, setMode }) {
                   <Typography
                     sx={{
                       fontFamily: "poppins",
-                      fontSize: { xl: "15px", sm: "12px", xxxs: "10px" },
+                      fontSize: { xl: fs.normal, sm: fs.xs, xxxs: fs.xxs },
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
                       ml: { lg: "12px", sm: "0px", xxxs: "8px" },
@@ -1076,7 +1076,7 @@ export function Home({ mode, setMode }) {
             >
               <Typography
                 sx={{
-                  fontSize: { xl: "15px", xxxs: "10px" },
+                  fontSize: { xl: fs.normal, xxxs: fs.xxs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "#2582E3",
@@ -1130,7 +1130,7 @@ export function Home({ mode, setMode }) {
             >
               <Typography
                 sx={{
-                  fontSize: { xl: "15px", xxxs: "10px" },
+                  fontSize: { xl: fs.normal, xxxs: fs.xxs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "#2582E3",
@@ -1162,7 +1162,7 @@ export function Home({ mode, setMode }) {
                 <Typography
                   sx={{
                     fontFamily: "poppins",
-                    fontSize: { xl: "15px", xxxs: "12px" },
+                    fontSize: { xl: fs.normal, xxxs: fs.xs },
                     ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",
@@ -1194,7 +1194,7 @@ export function Home({ mode, setMode }) {
                 <Typography
                   sx={{
                     fontFamily: "poppins",
-                    fontSize: { xl: "15px", xxxs: "12px" },
+                    fontSize: { xl: fs.normal, xxxs: fs.xs },
                     ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",

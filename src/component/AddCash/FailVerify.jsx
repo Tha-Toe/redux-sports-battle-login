@@ -8,8 +8,10 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./newAddCashForm.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Clear from "@mui/icons-material/Clear";
-
+import { useSelector } from "react-redux";
 export default function FailVerify({ mode }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -49,7 +51,7 @@ export default function FailVerify({ mode }) {
         <Typography
           sx={{
             color: "#E4313C",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 700,
             fontFamily: "poppins",
             mt: "8px",
@@ -60,7 +62,7 @@ export default function FailVerify({ mode }) {
         <Typography
           sx={{
             color: "white",
-            fontSize: { sm: "15px", xxs: "13px", xxxs: "11px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             fontFamily: "poppins",
             mt: "6px",
@@ -85,7 +87,7 @@ export default function FailVerify({ mode }) {
           <Button
             sx={{
               background: "transparent",
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 500,
               fontFamily: "poppins",
               py: { xs: "12px", xxxs: "10px" },
@@ -105,7 +107,7 @@ export default function FailVerify({ mode }) {
           <Button
             sx={{
               background: "#4831D4",
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 500,
               fontFamily: "poppins",
               py: { xs: "12px", xxxs: "10px" },

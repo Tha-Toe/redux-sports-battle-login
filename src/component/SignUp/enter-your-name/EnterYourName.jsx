@@ -10,7 +10,11 @@ import {
   BackButtonComponent,
   ContinueButtonComponent,
 } from "../../defaultComponent/DefaultComponent";
+import { useSelector } from "react-redux";
+
 const EnterYourName = () => {
+  const fs = useSelector((state) => state.user.fs);
+
   const [firstName, setFirstName] = useState(null);
   const [secondName, setSecondName] = useState(null);
   let navigate = useNavigate();
@@ -69,7 +73,7 @@ const EnterYourName = () => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 mb: "11px",
                 fontFamily: "Poppins",
               }}
@@ -78,7 +82,7 @@ const EnterYourName = () => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
               }}
@@ -87,7 +91,7 @@ const EnterYourName = () => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "25px",
                 fontFamily: "Poppins",
               }}
@@ -168,7 +172,7 @@ const EnterYourName = () => {
           >
             <CheckIcon
               sx={{
-                fontSize: { md: "20px", sm: "20px" },
+                fontSize: { sm: fs.x_large },
                 color: "white",
               }}
             />

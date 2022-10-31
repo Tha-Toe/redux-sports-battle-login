@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserAccountNotExist from "../../NotAllowPopup/UserAccountNotExist";
 import { startChecking, endChecking } from "../../../feature/userSlice";
 const LoginFlow = ({ mode, setMode }) => {
+  const fs = useSelector((state) => state.user.fs);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const checking = useSelector((state) => state.user.checking);
@@ -153,7 +154,7 @@ const LoginFlow = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { md: "32px", sm: "25px", xxxs: "20px" },
+                fontSize: { md: fs.mega, sm: fs.xxx_large, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "11px",
                 fontFamily: "Poppins",
@@ -203,7 +204,7 @@ const LoginFlow = ({ mode, setMode }) => {
                     color: "secondary.dark_gray",
                     width: "100%",
                     height: "100%",
-                    fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                     "&.MuiButtonBase-root:hover": {
                       bgcolor: "primary.main",
                     },
@@ -244,7 +245,7 @@ const LoginFlow = ({ mode, setMode }) => {
                     color: "secondary.dark_gray",
                     width: "100%",
                     height: "100%",
-                    fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                     "&.MuiButtonBase-root:hover": {
                       bgcolor: "primary.main",
                     },
@@ -282,7 +283,7 @@ const LoginFlow = ({ mode, setMode }) => {
                 },
                 display: "flex",
                 justifyContent: "flex-end",
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 mb: 1,
                 fontFamily: "Poppins",
                 fontWieght: 300,
@@ -315,7 +316,7 @@ const LoginFlow = ({ mode, setMode }) => {
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { xs: "18px", xxxs: "14px" },
+                  fontSize: { xs: fs.large, xxxs: fs.small },
                   fontFamily: "Poppins",
                 }}
               >
@@ -325,7 +326,7 @@ const LoginFlow = ({ mode, setMode }) => {
                 <Typography
                   sx={{
                     color: "secondary.dark_gray",
-                    fontSize: { xs: "18px", xxxs: "14px" },
+                    fontSize: { xs: fs.large, xxxs: fs.small },
                     fontWeight: 700,
                     ml: "5px",
                     cursor: "pointer",

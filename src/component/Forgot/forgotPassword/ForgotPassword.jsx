@@ -10,10 +10,12 @@ import {
   InputComponent,
 } from "../../defaultComponent/DefaultComponent";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useSelector } from "react-redux";
 
 const ForgotPassword = ({ mode, setMode }) => {
   const [email, setEmail] = useState(null);
   const [disableButton, setDisableButton] = useState(false);
+  const fs = useSelector((state) => state.user.fs);
 
   useEffect(() => {
     if (email) {
@@ -97,7 +99,7 @@ const ForgotPassword = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { md: "32px", sm: "25px", xxxs: "20px" },
+                fontSize: { md: fs.mega, sm: fs.xxx_large, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "11px",
                 fontFamily: "Poppins",
@@ -108,7 +110,7 @@ const ForgotPassword = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "21px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -139,7 +141,7 @@ const ForgotPassword = ({ mode, setMode }) => {
                 <Typography
                   sx={{
                     color: "rgba(228, 49, 60, 1)",
-                    fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                     ml: { xs: "10px", xxs: "5px" },
                     fontFamily: "Poppins",
                     fontWeight: 700,
@@ -166,7 +168,7 @@ const ForgotPassword = ({ mode, setMode }) => {
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { xs: "18px", xxxs: "14px" },
+                  fontSize: { xs: fs.large, xxxs: fs.small },
                   fontFamily: "Poppins",
                 }}
               >
@@ -176,7 +178,7 @@ const ForgotPassword = ({ mode, setMode }) => {
                 <Typography
                   sx={{
                     color: "secondary.dark_gray",
-                    fontSize: { xs: "18px", xxxs: "14px" },
+                    fontSize: { xs: fs.large, xxxs: fs.small },
 
                     fontWeight: 700,
                     ml: 1,

@@ -26,6 +26,7 @@ const useHorizontalScroll = () => {
   return elRef;
 };
 export default function KnowMore({ mode }) {
+  const fs = useSelector((state) => state.user.fs);
   const [general, setGeneral] = useState([
     {
       name: "Over-Under Points System",
@@ -278,7 +279,7 @@ export default function KnowMore({ mode }) {
                     </Box>
                     <Typography
                       sx={{
-                        fontSize: "12px",
+                        fontSize: fs.xs,
                         fontWeight: 400,
                         fontFamily: "poppins",
                         mt: "5px",
@@ -325,7 +326,7 @@ export default function KnowMore({ mode }) {
           >
             <Typography
               sx={{
-                fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+                fontSize: { lg: fs.normal, xs: fs.small, xxxs: fs.xs },
                 fontWeight: 700,
                 fontFamily: "poppins",
                 width: "100%",
@@ -370,7 +371,7 @@ export default function KnowMore({ mode }) {
                 <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
                   <Typography
                     sx={{
-                      fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 700,
                       color: `${
                         openTag === e.name ? "#4831D4" : "secondary.dark_gray"
@@ -383,7 +384,7 @@ export default function KnowMore({ mode }) {
                   {e.extra && (
                     <Typography
                       sx={{
-                        fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 400,
                         color: "secondary.dark_gray",
                         fontFamily: "poppins",
@@ -397,7 +398,7 @@ export default function KnowMore({ mode }) {
             ))}
             <Typography
               sx={{
-                fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+                fontSize: { lg: fs.normal, xs: fs.small, xxxs: fs.xs },
                 fontWeight: 700,
                 fontFamily: "poppins",
                 width: "100%",
@@ -438,7 +439,7 @@ export default function KnowMore({ mode }) {
                 <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
                   <Typography
                     sx={{
-                      fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 700,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -449,7 +450,7 @@ export default function KnowMore({ mode }) {
                   {e.extra && (
                     <Typography
                       sx={{
-                        fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",

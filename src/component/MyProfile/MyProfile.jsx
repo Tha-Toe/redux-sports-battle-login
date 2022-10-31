@@ -31,6 +31,7 @@ export default function MyProfile({
   goDepositNewUser,
   goAddCashBonus,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const [wallet, setWallet] = useState([
     {
       name: "Total Won Cash",
@@ -295,7 +296,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 700,
                       fontFamily: "poppins",
                       color: "secondary.main",
@@ -305,7 +306,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 500,
                       fontFamily: "poppins",
                       color: "secondary.main",
@@ -319,7 +320,7 @@ export default function MyProfile({
               <Button
                 sx={{
                   color: "white",
-                  fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                  fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 500,
                   fontFamily: "poppins",
                   padding: "7px 24px",
@@ -356,7 +357,7 @@ export default function MyProfile({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -366,7 +367,7 @@ export default function MyProfile({
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -386,7 +387,7 @@ export default function MyProfile({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -398,7 +399,7 @@ export default function MyProfile({
                 {phoneNumber ? (
                   <Typography
                     sx={{
-                      fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 500,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -411,7 +412,7 @@ export default function MyProfile({
                   <Button
                     sx={{
                       color: "white",
-                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 500,
                       fontFamily: "poppins",
                       background: "#4831D4",
@@ -443,7 +444,7 @@ export default function MyProfile({
             >
               <Typography
                 sx={{
-                  fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -479,7 +480,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 700,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -489,7 +490,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -504,7 +505,7 @@ export default function MyProfile({
                 <Box sx={{ position: "absolute", right: "50px" }}>
                   <Typography
                     sx={{
-                      fontSize: { sm: "18px", xs: "16px", xxxs: "14px" },
+                      fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
                       fontWeight: 700,
                       fontFamily: "poppins",
                       color: "#459F48",
@@ -534,7 +535,7 @@ export default function MyProfile({
                     alignItems: "center",
                     justifyContent: "flex-start",
                     borderRadius: "4px",
-                    fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
                     fontWeight: 700,
                     fontFamily: "poppins",
                   }}
@@ -548,7 +549,7 @@ export default function MyProfile({
                     alignItems: "center",
                     justifyContent: "flex-start",
                     borderRadius: "4px",
-                    fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
                     fontWeight: 700,
                     fontFamily: "poppins",
                   }}
@@ -637,7 +638,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 600,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -660,7 +661,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -689,7 +690,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 600,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -712,7 +713,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -741,7 +742,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 600,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -764,7 +765,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -815,7 +816,7 @@ export default function MyProfile({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                        fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -827,7 +828,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -841,7 +842,7 @@ export default function MyProfile({
                 <ArrowForwardIosIcon
                   sx={{
                     color: "secondary.dark_gray",
-                    fontSize: { sm: "17px", xs: "15px", xxxs: "13px" },
+                    fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
                     mr: "10px",
                   }}
                 />
@@ -864,7 +865,7 @@ export default function MyProfile({
             >
               <Typography
                 sx={{
-                  fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -1027,7 +1028,11 @@ export default function MyProfile({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1038,7 +1043,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1054,7 +1059,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1080,7 +1085,11 @@ export default function MyProfile({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "#459F48",
@@ -1091,7 +1100,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1106,7 +1115,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1140,7 +1149,11 @@ export default function MyProfile({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1151,7 +1164,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1167,7 +1180,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1193,7 +1206,11 @@ export default function MyProfile({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "#459F48",
@@ -1204,7 +1221,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
+                        fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1219,7 +1236,7 @@ export default function MyProfile({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -1233,7 +1250,7 @@ export default function MyProfile({
               </Box>
               <Typography
                 sx={{
-                  fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -1277,7 +1294,7 @@ export default function MyProfile({
                 >
                   <Typography
                     sx={{
-                      fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                      fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -1290,7 +1307,11 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: "24px", xs: "22px", xxxs: "20px" },
+                      fontSize: {
+                        sm: fs.xxx_large,
+                        xs: fs.xx_large,
+                        xxxs: fs.x_large,
+                      },
                       fontWeight: 700,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -1304,7 +1325,7 @@ export default function MyProfile({
               <ArrowForwardIosIcon
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { sm: "17px", xs: "15px", xxxs: "13px" },
+                  fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
                   mr: "10px",
                 }}
               />
@@ -1335,7 +1356,7 @@ export default function MyProfile({
                 <img src="/group.png" className="groupImage" />
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -1348,7 +1369,7 @@ export default function MyProfile({
               <ArrowForwardIosIcon
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { sm: "17px", xs: "15px", xxxs: "13px" },
+                  fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
                   mr: "10px",
                 }}
               />
@@ -1378,7 +1399,7 @@ export default function MyProfile({
                 <img src="/gift.png" className="groupImage" />
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -1391,7 +1412,7 @@ export default function MyProfile({
               <ArrowForwardIosIcon
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { sm: "17px", xs: "15px", xxxs: "13px" },
+                  fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
                   mr: "10px",
                 }}
               />

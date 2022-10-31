@@ -4,7 +4,9 @@ import "./addCash.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Clear from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
+import { useSelector } from "react-redux";
 export default function SelectState({ setOpenStatePicker, mode }) {
+  const fs = useSelector((state) => state.user.fs);
   const [stateList, setStateList] = useState([
     { name: "Alabama", select: false },
     { name: "Alaska", select: false },
@@ -61,7 +63,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "20px", xxs: "18px", xxxs: "16px" },
+              fontSize: { sm: fs.x_large, xxs: fs.large, xxxs: fs.normal },
               fontWeight: 700,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -139,7 +141,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                       sx={{
                         color: "secondary.dark_gray",
 
-                        fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 400,
                         ml: "18px",
                         fontFamily: "poppins",

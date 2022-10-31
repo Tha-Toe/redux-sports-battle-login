@@ -1,8 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
-
+import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 export default function NotFound() {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -16,7 +18,7 @@ export default function NotFound() {
     >
       <Typography
         sx={{
-          fontSize: { sm: "18px", xxs: "16px", xxxs: "14px" },
+          fontSize: { sm: fs.large, xxs: fs.normal, xxxs: fs.small },
           fontWeight: 500,
           fontFamily: "poppins",
           color: "secondary.dark_gray",

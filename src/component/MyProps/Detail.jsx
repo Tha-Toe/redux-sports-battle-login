@@ -26,7 +26,7 @@ export default function Detail({
 }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [code, setCode] = useState(null);
-
+  const fs = useSelector((state) => state.user.fs);
   useEffect(() => {
     if (userDetail) {
       setCode(userDetail.referralCode);
@@ -74,7 +74,7 @@ export default function Detail({
           alignItems: "center",
           justifyContent: "center",
           borderBottom: "1px solid #494949",
-          pb: "5px",
+          py: "5px",
           width: "100%",
           background: "black",
         }}
@@ -83,9 +83,11 @@ export default function Detail({
         <Typography
           sx={{
             color: "white",
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 700,
             fontFamily: "poppins",
+            position: "relative",
+            left: "-5px",
           }}
         >
           SportsBattle
@@ -109,7 +111,7 @@ export default function Detail({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                     fontWeight: 600,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -141,7 +143,7 @@ export default function Detail({
                     />
                     <Typography
                       sx={{
-                        fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                        fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
                         fontFamily: "poppins",
                         fontWeight: 500,
                         color: "secondary.main",
@@ -185,7 +187,7 @@ export default function Detail({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                        fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -195,7 +197,7 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -206,25 +208,14 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
                         mt: "3px",
                       }}
                     >
-                      {each.sport.toUpperCase()}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
-                        fontWeight: 500,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mt: "3px",
-                      }}
-                    >
-                      {each.gameName}
+                      {each.sport.toUpperCase()}, {each.gameName}
                     </Typography>
                   </Box>
                   <Box
@@ -237,7 +228,7 @@ export default function Detail({
                     {each.action === "under" ? (
                       <Typography
                         sx={{
-                          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
@@ -255,13 +246,13 @@ export default function Detail({
                       >
                         BELOW{" "}
                         <KeyboardArrowDownIcon
-                          sx={{ mb: "4px", fontSize: "18px" }}
+                          sx={{ mb: "4px", fontSize: fs.large }}
                         />
                       </Typography>
                     ) : (
                       <Typography
                         sx={{
-                          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
@@ -279,13 +270,17 @@ export default function Detail({
                       >
                         ABOVE{" "}
                         <KeyboardArrowUpIcon
-                          sx={{ mb: "3px", fontSize: "18px" }}
+                          sx={{ mb: "3px", fontSize: fs.large }}
                         />
                       </Typography>
                     )}
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xxs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xxs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -295,7 +290,7 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -315,7 +310,7 @@ export default function Detail({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "10px", xxs: "8px", xxxs: "8px" },
+                        fontSize: { sm: fs.xxs, xxs: fs.xxxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: `${
@@ -331,7 +326,11 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "20px", xxs: "18px", xxxs: "16px" },
+                        fontSize: {
+                          sm: fs.x_large,
+                          xxs: fs.large,
+                          xxxs: fs.normal,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: `${
@@ -395,7 +394,7 @@ export default function Detail({
                     <Typography
                       key={index}
                       sx={{
-                        fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                        fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -421,7 +420,7 @@ export default function Detail({
                 >
                   <Typography
                     sx={{
-                      fontSize: { xs: "12px", xxs: "8px", xxxs: "6px" },
+                      fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
                       fontWeight: 500,
                       fontFamily: "poppins",
                       color: "#459F48",
@@ -446,7 +445,7 @@ export default function Detail({
                   sx={{
                     background: "#C2DDF8",
                     borderRadius: "4px",
-                    fontSize: { xs: "12px", xxs: "8px", xxxs: "6px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
                     fontWeight: 700,
                     fontFamily: "poppins",
                     color: "#4831D4",
@@ -464,7 +463,7 @@ export default function Detail({
                   sx={{
                     background: "#CEE4CC",
                     borderRadius: "4px",
-                    fontSize: { xs: "12px", xxs: "8px", xxxs: "6px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
                     fontWeight: 700,
                     fontFamily: "poppins",
                     color: "#459F48",
@@ -491,7 +490,7 @@ export default function Detail({
               >
                 <Typography
                   sx={{
-                    fontSize: "13px",
+                    fontSize: fs.small,
                     fontWeight: "600",
                     color: `${detailData.props[0].modeColor}`,
                   }}
@@ -507,7 +506,7 @@ export default function Detail({
                   {detailData.props[0].prop.status === "x" ? (
                     <Typography
                       sx={{
-                        fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                        fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "white",
@@ -540,10 +539,11 @@ export default function Detail({
                           <Typography
                             sx={{
                               fontSize: {
-                                sm: "14px",
-                                xxs: "12px",
-                                xxxs: "10px",
+                                sm: fs.small,
+                                xxs: fs.xs,
+                                xxxs: fs.xxs,
                               },
+
                               fontWeight: 400,
                               fontFamily: "poppins",
                               color: "#BBDEFA",
@@ -555,9 +555,9 @@ export default function Detail({
                           <Typography
                             sx={{
                               fontSize: {
-                                sm: "12px",
-                                xxs: "10px",
-                                xxxs: "8px",
+                                sm: fs.xs,
+                                xxs: fs.xxs,
+                                xxxs: fs.xxxs,
                               },
                               fontWeight: 400,
                               fontFamily: "poppins",
@@ -570,9 +570,9 @@ export default function Detail({
                           <Typography
                             sx={{
                               fontSize: {
-                                sm: "24px",
-                                xxs: "22px",
-                                xxxs: "20px",
+                                sm: fs.xxx_large,
+                                xxs: fs.xx_large,
+                                xxxs: fs.x_large,
                               },
                               fontWeight: 600,
                               fontFamily: "poppins",
@@ -593,7 +593,7 @@ export default function Detail({
           ) : (
             <Typography
               sx={{
-                fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",

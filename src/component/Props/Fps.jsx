@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 
 export function EntireTitleContainer({ each, index }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const [ouPoints, setOuPoints] = useState(null);
   useEffect(() => {
     if (each && each.events) {
@@ -34,7 +36,7 @@ export function EntireTitleContainer({ each, index }) {
         }
       });
     }
-  }, [each, index, ouPoints]);
+  }, [each, ouPoints]);
   if (ouPoints) {
     return (
       <Box key={index}>
@@ -52,7 +54,7 @@ export function EntireTitleContainer({ each, index }) {
           <Typography
             sx={{
               color: "white",
-              fontSize: "14px",
+              fontSize: fs.small,
               fontWeight: 600,
               fontFamily: "poppins",
               ml: "25px",
@@ -64,7 +66,7 @@ export function EntireTitleContainer({ each, index }) {
           <Typography
             sx={{
               color: "white",
-              fontSize: "14px",
+              fontSize: fs.small,
               fontWeight: 600,
               fontFamily: "poppins",
               mr: "25px",
@@ -75,7 +77,13 @@ export function EntireTitleContainer({ each, index }) {
           </Typography>
         </Box>
         {each.events.map((e, indexEvent) => (
-          <EventTag index={index} e={e} each={each} indexEvent={indexEvent} />
+          <EventTag
+            key={indexEvent}
+            index={index}
+            e={e}
+            each={each}
+            indexEvent={indexEvent}
+          />
         ))}
       </Box>
     );
@@ -87,7 +95,8 @@ export function EntireTitleContainer({ each, index }) {
 export function EventTag({ each, e, index, indexEvent }) {
   const [ouPoints, setOuPoints] = useState(null);
   useEffect(() => {
-    if ((each && indexEvent && e, index)) {
+    if (each && e) {
+      console.log(e);
       if (e.ouPoints && e.ouPoints !== "+0") {
         setOuPoints(e.ouPoints);
       } else if (e.profiles) {
@@ -103,11 +112,12 @@ export function EventTag({ each, e, index, indexEvent }) {
         setOuPoints(null);
       }
     }
-  }, [each, e, indexEvent, index]);
+  }, [each, e]);
+  const fs = useSelector((state) => state.user.fs);
+
   if (ouPoints) {
     return (
       <Box
-        key={indexEvent}
         sx={{
           display: "flex",
           width: "90%",
@@ -131,7 +141,7 @@ export function EventTag({ each, e, index, indexEvent }) {
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: "14px",
+              fontSize: fs.small,
               fontWeight: 600,
               fontFamily: "poppins",
             }}
@@ -143,7 +153,7 @@ export function EventTag({ each, e, index, indexEvent }) {
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: "14px",
+                  fontSize: fs.small,
                   fontWeight: 600,
                   fontFamily: "poppins",
                   mt: "5px",
@@ -160,11 +170,12 @@ export function EventTag({ each, e, index, indexEvent }) {
                   mt: "5px",
                 }}
               >
-                {e.profiles.map((profile) => (
+                {e.profiles.map((profile, i) => (
                   <Typography
+                    key={i}
                     sx={{
                       color: "secondary.dark_gray",
-                      fontSize: "14px",
+                      fontSize: fs.small,
                       fontWeight: 600,
                       fontFamily: "poppins",
                     }}
@@ -179,7 +190,7 @@ export function EventTag({ each, e, index, indexEvent }) {
             <Typography
               sx={{
                 color: "secondary.dark_gray",
-                fontSize: "14px",
+                fontSize: fs.small,
                 fontWeight: 600,
                 fontFamily: "poppins",
                 mt: "5px",
@@ -192,7 +203,7 @@ export function EventTag({ each, e, index, indexEvent }) {
         <Typography
           sx={{
             color: "#52C03C",
-            fontSize: "14px",
+            fontSize: fs.small,
             fontWeight: 600,
             fontFamily: "poppins",
             mr: "25px",
@@ -210,6 +221,8 @@ export function EventTag({ each, e, index, indexEvent }) {
 }
 
 export default function Fps({ setOpenFps, mode, currentSportsData }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const [point, setPoint] = useState([
     { name: "Single Batter", point: "+3" },
     { name: "Single Batter", point: "+3" },
@@ -233,330 +246,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
     (state) => state.user.sportDataCommingFromApi
   );
   const [sportName, setSportName] = useState(null);
-  const [apiData, setApiData] = useState({
-    sport: "Soccer",
-    sportCode: "soccer",
-    fps: [
-      {
-        title: "PLAYING TIME",
-        events: [
-          {
-            text: "Played :value minutes or more",
-            subText: "Calculated at end of the game",
-            endOfGame: true,
-            key: "playingTime",
-            value: "55",
-            points: "+2",
-            custom: "true",
-            ouPoints: "+0",
-          },
-          {
-            text: "Played less than :value minutes",
-            subText: "Calculated at end of the game",
-            endOfGame: true,
-            key: "playingTime",
-            value: "55",
-            points: "+1",
-            custom: "true",
-            ouPoints: "+0",
-          },
-        ],
-      },
-      {
-        title: "ATTACK",
-        events: [
-          {
-            text: "For every :value goal scored",
-            key: "goals",
-            value: "1",
-            profiles: [
-              {
-                name: "Keeper",
-                key: "keeper",
-                points: "+10",
-                custom: "false",
-                ouPoints: "+4",
-              },
-              {
-                name: "Defender",
-                key: "defender",
-                points: "+10",
-                custom: "false",
-                ouPoints: "+4",
-              },
-              {
-                name: "Midfielder",
-                key: "midFielder",
-                points: "+9",
-                custom: "false",
-                ouPoints: "+4",
-              },
-              {
-                name: "Forward",
-                key: "forward",
-                points: "+8",
-                custom: "false",
-                ouPoints: "+4",
-              },
-            ],
-          },
-          {
-            text: "For every :value assist",
-            value: "1",
-            key: "assists",
-            points: "+5",
-            custom: "false",
-            ouPoints: "+3",
-          },
-          {
-            text: "For every :value accurate pass",
-            value: "1",
-            key: "passes",
-            points: "+1",
-            custom: "false",
-            ouPoints: "+0.1",
-          },
-          {
-            text: "For every :value pass attempted",
-            value: "1",
-            key: "passesAttempted",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-          {
-            text: "For every :value pass attempted",
-            value: "1",
-            key: "crossesAttempted",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-          {
-            text: "For every :value pass attempted",
-            value: "1",
-            key: "fouls",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-          {
-            text: "For every :value pass attempted",
-            value: "1",
-            key: "corners",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-          {
-            text: "For every :value shots on target",
-            value: "1",
-            key: "shotsOnTarget",
-            points: "+0.5",
-            custom: "false",
-            ouPoints: "+1",
-          },
-          {
-            text: "For every :value shots",
-            value: "1",
-            key: "shots",
-            points: "+0.5",
-            custom: "false",
-            ouPoints: "+1",
-          },
-          {
-            text: "For every :value goal + assist",
-            value: "1",
-            key: "goalAssists",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-        ],
-      },
-      {
-        title: "DEFENSE",
-        events: [
-          {
-            text: "Clean Sheet",
-            subText: "Calculated at end of the game",
-            endOfGame: true,
-            key: "cleanSheet",
-            profiles: [
-              {
-                name: "Midfielder",
-                key: "midFielder",
-                points: "+1",
-                custom: "true",
-              },
-              {
-                name: "Defender",
-                key: "defender",
-                points: "+5",
-                custom: "true",
-              },
-              {
-                name: "Keeper",
-                key: "keeper",
-                points: "+5",
-                custom: "true",
-                ouPoints: "+5",
-              },
-            ],
-          },
-          {
-            text: "For every :value shots saved",
-            value: "1",
-            key: "shotsSaved",
-            profiles: [
-              {
-                name: "Keeper",
-                key: "keeper",
-                points: "+2",
-                custom: "false",
-                ouPoints: "+2",
-              },
-            ],
-          },
-          {
-            text: "For every :value penalty saved",
-            value: "1",
-            key: "penaltySaved",
-            profiles: [
-              {
-                name: "Keeper",
-                key: "keeper",
-                points: "+9",
-                custom: "false",
-              },
-            ],
-          },
-          {
-            text: "For every :value tackles made",
-            value: "3",
-            key: "tackles",
-            points: "+1",
-            custom: "false",
-            ouPoints: "+0",
-          },
-          {
-            text: "For every :value tackles won",
-            value: "1",
-            key: "tacklesWon",
-            points: "+0",
-            custom: "false",
-            ouPoints: "+0",
-          },
-        ],
-      },
-      {
-        title: "PENALTIES",
-        events: [
-          {
-            text: "For every :value yellow card",
-            value: "1",
-            key: "yellowCards",
-            points: "-1",
-            custom: "false",
-            ouPoints: "-1.5",
-          },
-          {
-            text: "Red Card",
-            key: "redCards",
-            value: "1",
-            points: "-3",
-            custom: "false",
-            ouPoints: "-3",
-          },
-          {
-            text: "For every :value own goal",
-            value: "1",
-            key: "ownGoals",
-            points: "-2",
-            custom: "false",
-            ouPoints: "-2",
-          },
-          {
-            text: "For every :value penalty missed",
-            value: "1",
-            key: "penaltyMissed",
-            points: "-2",
-            custom: "false",
-          },
-          {
-            text: "For every :value goals conceded",
-            value: "1",
-            key: "goalsConceded",
-            endOfGame: false,
-            profiles: [
-              {
-                name: "Keeper",
-                key: "keeper",
-                points: "-1",
-                custom: "false",
-                ouPoints: "-3",
-              },
-              {
-                name: "Defender",
-                key: "defender",
-                points: "-2",
-                custom: "false",
-                ouPoints: "-3",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: "OTHER",
-        events: [
-          {
-            text: "Single Stat Note",
-            subText:
-              "Single Stats are actual values of the stat and has nothing to with Fantasy Score. You will see the actual value in the player points breakdown.",
-            key: "singleStatNote",
-            value: "0",
-            points: "0",
-            custom: "false",
-            ouPoints: "0",
-          },
-          {
-            text: "Captain",
-            subText: "Gets 2x the points earned by the captain you choose",
-            key: "captain",
-            value: "1",
-            points: "2",
-            custom: "false",
-          },
-          {
-            text: "Vice Captain",
-            subText:
-              "Gets 1.5x the points earned by the vice-captain you choose",
-            key: "captain",
-            value: "1",
-            points: "1.5",
-            custom: "false",
-          },
-          {
-            text: "MVP",
-            subText: "Gets 1.25x the points earned by the mvp you choose",
-            key: "mvp",
-            value: "1",
-            points: "1.25",
-            custom: "false",
-          },
-          {
-            text: "Playing Bonus",
-            subText: "Player should play the game",
-            key: "playingBonus",
-            value: "1",
-            points: "+2",
-            custom: "false",
-          },
-        ],
-      },
-    ],
-  });
+  const [apiData, setApiData] = useState(null);
   useEffect(() => {
     if (sportDataCommingFromApi && currentSportsData) {
       let currSportDataNameArray = sportDataCommingFromApi.filter((each) => {
@@ -568,21 +258,21 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
     }
   }, [sportDataCommingFromApi, currentSportsData]);
 
-  // useEffect(() => {
-  //   if (currentSportsData && currentSportsData.sportCode) {
-  //     setApiData(null);
-  //     getFpsSport(currentSportsData.sportCode)
-  //       .then((res) => {
-  //         console.log("t20", res);
-  //         setApiData(res);
-  //       })
-  //       .catch((error) => {
-  //         if (error) {
-  //           console.log(error);
-  //         }
-  //       });
-  //   }
-  // }, [currentSportsData]);
+  useEffect(() => {
+    if (currentSportsData && currentSportsData.sportCode) {
+      setApiData(null);
+      getFpsSport(currentSportsData.sportCode)
+        .then((res) => {
+          console.log(res);
+          setApiData(res);
+        })
+        .catch((error) => {
+          if (error) {
+            console.log(error);
+          }
+        });
+    }
+  }, [currentSportsData]);
 
   return (
     <Box
@@ -639,7 +329,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
             <Typography
               sx={{
                 color: "secondary.dark_gray",
-                fontSize: { sm: "20px", xxxs: "16px" },
+                fontSize: { sm: fs.x_large, xxxs: fs.normal },
                 fontWeight: 700,
                 fontFamily: "poppins",
                 borderBottom: "3px solid white",
@@ -650,7 +340,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
             <Typography
               sx={{
                 color: "secondary.dark_gray",
-                fontSize: { sm: "20px", xxxs: "16px" },
+                fontSize: { sm: fs.x_large, xxxs: fs.normal },
                 fontWeight: 700,
                 fontFamily: "poppins",
               }}
@@ -688,7 +378,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
               }}
             >
               {apiData.fps.map((each, index) => (
-                <EntireTitleContainer each={each} index={index} />
+                <EntireTitleContainer each={each} index={index} key={index} />
               ))}
             </Box>
           </>

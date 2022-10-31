@@ -9,8 +9,10 @@ import "./refralBonus.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
-
+import { useSelector } from "react-redux";
 export default function RefralBonusCashCode({ getUserById }) {
+  const fs = useSelector((state) => state.user.fs);
+
   let navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
   const [disableVerify, setDisableVerify] = useState(true);
@@ -99,13 +101,13 @@ export default function RefralBonusCashCode({ getUserById }) {
         >
           <ArrowBackIosIcon
             sx={{
-              fontSize: { md: "23px", xxxs: "18px" },
+              fontSize: { md: fs.xxx_large, xxxs: fs.large },
               color: "secondary.dark_gray",
             }}
           />
           <Typography
             sx={{
-              fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+              fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -116,7 +118,7 @@ export default function RefralBonusCashCode({ getUserById }) {
         </Box>
         <Typography
           sx={{
-            fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+            fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -130,7 +132,7 @@ export default function RefralBonusCashCode({ getUserById }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+            fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -143,7 +145,7 @@ export default function RefralBonusCashCode({ getUserById }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -155,7 +157,7 @@ export default function RefralBonusCashCode({ getUserById }) {
         </Typography>{" "}
         <Typography
           sx={{
-            fontSize: { md: "12px", sm: "10px", xxxs: "8px" },
+            fontSize: { md: fs.xs, sm: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -174,7 +176,7 @@ export default function RefralBonusCashCode({ getUserById }) {
             borderBottom: "1px solid #494949",
             width: "100%",
             py: "8px",
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 500,
             fontFamily: "poppins",
             outline: "none",
@@ -195,7 +197,7 @@ export default function RefralBonusCashCode({ getUserById }) {
             <ClearIcon sx={{ color: "#E4313C", mr: "12px" }} />
             <Typography
               sx={{
-                fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+                fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
                 fontWeight: 300,
                 fontFamily: "poppins",
                 color: "#E4313C",
@@ -222,7 +224,7 @@ export default function RefralBonusCashCode({ getUserById }) {
             />
             <Typography
               sx={{
-                fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+                fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -241,7 +243,7 @@ export default function RefralBonusCashCode({ getUserById }) {
             <Button
               sx={{
                 background: "#4831D4",
-                fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+                fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 padding: { xs: "17px 119px 9px 123px", xxxs: "10px 70px" },
@@ -274,7 +276,7 @@ export default function RefralBonusCashCode({ getUserById }) {
         >
           <Typography
             sx={{
-              fontSize: { md: "12px", sm: "10px", xxxs: "8px" },
+              fontSize: { md: fs.xs, sm: fs.xxs, xxxs: fs.xxxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -284,7 +286,7 @@ export default function RefralBonusCashCode({ getUserById }) {
           </Typography>
           <Typography
             sx={{
-              fontSize: { md: "12px", sm: "10px", xxxs: "8px" },
+              fontSize: { md: fs.xs, sm: fs.xxs, xxxs: fs.xxxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "#2072C4",

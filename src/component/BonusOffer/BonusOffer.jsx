@@ -8,6 +8,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useSelector } from "react-redux";
 export default function BonusOffer({ setOpenInviteFriend, mode }) {
   const userDetail = useSelector((state) => state.user.userDetail);
+  const fs = useSelector((state) => state.user.fs);
   const [code, setCode] = useState(null);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
         >
           <ClearIcon
             sx={{
-              fontSize: "25px",
+              fontSize: fs.xxx_large,
               color: `${mode === "dark" ? "white" : "#494949"}`,
               mr: "14px",
               mt: "14px",
@@ -66,7 +67,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
         <img src="/refer1.png" className="refer1" />
         <Typography
           sx={{
-            fontSize: { sm: "20px", xxxs: "18px" },
+            fontSize: { sm: fs.x_large, xxxs: fs.large },
             fontWeight: 800,
             fontFamily: "poppins",
             mt: "23px",
@@ -77,7 +78,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxxs: "14px" },
+            fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 600,
             fontFamily: "poppins",
             mt: "8px",
@@ -106,7 +107,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               mt: "24px",
@@ -117,7 +118,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
           </Typography>
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxxs: "14px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 600,
               fontFamily: "poppins",
               mt: "12px",
@@ -131,7 +132,7 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
             sx={{
               color: "primary.main",
               background: "#F5A922",
-              fontSize: { sm: "15px", xxxs: "13px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 700,
               p: {
                 sm: "14px 45px",
@@ -182,14 +183,14 @@ export default function BonusOffer({ setOpenInviteFriend, mode }) {
               <CheckCircleIcon
                 sx={{
                   color: "#F5A922",
-                  fontSize: { sm: "25px", xxxs: "23px" },
+                  fontSize: { sm: fs.xxx_large, xxxs: fs.xx_large },
                   mr: "12px",
                 }}
               />
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { sm: "12px", xxxs: "10px" },
+                  fontSize: { sm: fs.xs, xxxs: fs.xxs },
                   fontFamily: "poppins",
                 }}
               >

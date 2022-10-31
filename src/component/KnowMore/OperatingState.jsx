@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import "./knowMore.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useSelector } from "react-redux";
+
 export default function OperatingState() {
+  const fs = useSelector((state) => state.user.fs);
   const [operatingState, setOperatingState] = useState([
     { name: "Alabama", status: false, age: "18", collegeSports: false },
     { name: "Alaska", status: true, age: "18", collegeSports: false },
@@ -36,7 +39,7 @@ export default function OperatingState() {
     >
       <Typography
         sx={{
-          fontSize: { lg: "16px", xs: "14px", xxxs: "12px" },
+          fontSize: { lg: fs.normal, xs: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "secondary.main",
@@ -84,7 +87,7 @@ export default function OperatingState() {
           <Typography
             sx={{
               color: "white",
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               py: "9px",
@@ -96,7 +99,7 @@ export default function OperatingState() {
           <Typography
             sx={{
               color: "white",
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               py: "9px",
@@ -109,7 +112,7 @@ export default function OperatingState() {
           <Typography
             sx={{
               color: "white",
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               py: "9px",
@@ -122,7 +125,7 @@ export default function OperatingState() {
           <Typography
             sx={{
               color: "white",
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               py: "9px",
@@ -148,7 +151,7 @@ export default function OperatingState() {
         >
           <Typography
             sx={{
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 500,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -168,14 +171,14 @@ export default function OperatingState() {
                   background: "#E4313C",
                   color: "black",
                   borderRadius: "50%",
-                  fontSize: "22px",
+                  fontSize: fs.xx_large,
                 }}
               />
             </Box>
           )}
           <Typography
             sx={{
-              fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 500,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -196,7 +199,7 @@ export default function OperatingState() {
                   background: "#E4313C",
                   color: "black",
                   borderRadius: "50%",
-                  fontSize: "22px",
+                  fontSize: fs.xx_large,
                 }}
               />
             </Box>

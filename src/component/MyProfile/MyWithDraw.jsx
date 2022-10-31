@@ -6,8 +6,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import { Grid, Card } from "@mui/material";
-
+import { useSelector } from "react-redux";
 export default function MyWithDraw({ mode }) {
+  const fs = useSelector((state) => state.user.fs);
   const [detail, setDetail] = useState([
     {
       name: "Standard eCheck",
@@ -76,7 +77,7 @@ export default function MyWithDraw({ mode }) {
     >
       <Typography
         sx={{
-          fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 700,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -123,7 +124,7 @@ export default function MyWithDraw({ mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                    fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -134,7 +135,7 @@ export default function MyWithDraw({ mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -145,7 +146,7 @@ export default function MyWithDraw({ mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -156,7 +157,7 @@ export default function MyWithDraw({ mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -167,7 +168,7 @@ export default function MyWithDraw({ mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                    fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -189,7 +190,7 @@ export default function MyWithDraw({ mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { xs: "20px", xxs: "14px", xxxs: "12px" },
+                    fontSize: { xs: fs.x_large, xxs: fs.small, xxxs: fs.xs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: `${mode === "dark" ? "#FFCED6" : "#E4313C"}`,

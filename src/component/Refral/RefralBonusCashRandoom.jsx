@@ -15,6 +15,8 @@ export default function RefralBonusCashRandoom({
   setOpenTag,
   getUserById,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   let navigate = useNavigate();
   const backPropsPage = () => {
     navigate("/home", { replace: true });
@@ -103,13 +105,13 @@ export default function RefralBonusCashRandoom({
         >
           <ArrowBackIosIcon
             sx={{
-              fontSize: { md: "23px", xxxs: "18px" },
+              fontSize: { md: fs.xxx_large, xxxs: fs.large },
               color: "secondary.dark_gray",
             }}
           />
           <Typography
             sx={{
-              fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+              fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -120,7 +122,7 @@ export default function RefralBonusCashRandoom({
         </Box>
         <Typography
           sx={{
-            fontSize: { md: "14px", sm: "12px", xxxs: "10px" },
+            fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -134,7 +136,7 @@ export default function RefralBonusCashRandoom({
         </Typography>
         <Typography
           sx={{
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -146,7 +148,7 @@ export default function RefralBonusCashRandoom({
         </Typography>{" "}
         <Typography
           sx={{
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -166,7 +168,7 @@ export default function RefralBonusCashRandoom({
             borderBottom: "1px solid #494949",
             width: "100%",
             py: "8px",
-            fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+            fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
             fontWeight: 500,
             fontFamily: "poppins",
             outline: "none",
@@ -178,7 +180,7 @@ export default function RefralBonusCashRandoom({
           <Button
             sx={{
               background: "#4831D4",
-              fontSize: { md: "16px", sm: "14px", xxxs: "12px" },
+              fontSize: { md: fs.normal, sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               padding: { xs: "17px 145px 9px 145px", xxxs: "10px 70px" },

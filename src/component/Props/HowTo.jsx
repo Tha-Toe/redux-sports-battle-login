@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import "./props.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useSelector } from "react-redux";
 
 export default function HowTo({
   setOpenHowTo,
@@ -9,6 +10,8 @@ export default function HowTo({
   howToPlayTitles,
   howToPlayData,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -46,7 +49,7 @@ export default function HowTo({
         <Typography
           sx={{
             color: "#4831D4",
-            fontSize: { md: "24px", sm: "20px", xxxs: "18px" },
+            fontSize: { md: fs.xxx_large, sm: fs.x_large, xxxs: fs.large },
             fontWeight: 700,
             fontFamily: "poppins",
             width: "90%",
@@ -78,7 +81,7 @@ export default function HowTo({
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { xs: "16px", xxxs: "12px" },
+                  fontSize: { xs: fs.normal, xxxs: fs.xs },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   textAlign: "justify",
@@ -92,7 +95,7 @@ export default function HowTo({
         <Button
           sx={{
             color: "white",
-            fontSize: "16px",
+            fontSize: fs.normal,
             fontWieght: 500,
             fontFamily: "poppins",
             background: "#4831D4",

@@ -1,8 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./props.css";
+import { useSelector } from "react-redux";
 
 export default function Times({ selectedCardList, mode }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box
       sx={{
@@ -15,7 +18,7 @@ export default function Times({ selectedCardList, mode }) {
       <Typography
         sx={{
           fontFamily: "poppins",
-          fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 400,
           color: "secondary.dark_gray",
           width: "90%",
@@ -39,7 +42,7 @@ export default function Times({ selectedCardList, mode }) {
         <Box
           sx={{
             padding: "5px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: "primary.gray",
             borderRadius: "4px",
             fontFamily: "poppins",
@@ -61,7 +64,7 @@ export default function Times({ selectedCardList, mode }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "12px",
+            fontSize: fs.xs,
             mr: "4px",
             color: `${
               selectedCardList.length === 2 ? "white" : "secondary.dark_gray"
@@ -79,7 +82,7 @@ export default function Times({ selectedCardList, mode }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "12px",
+            fontSize: fs.xs,
             mr: "4px",
             color: `${
               selectedCardList.length === 3 ? "white" : "secondary.dark_gray"
@@ -97,7 +100,7 @@ export default function Times({ selectedCardList, mode }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "12px",
+            fontSize: fs.xs,
             mr: "4px",
             color: `${
               selectedCardList.length === 4 ? "white" : "secondary.dark_gray"
@@ -115,7 +118,7 @@ export default function Times({ selectedCardList, mode }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            fontSize: "12px",
+            fontSize: fs.xs,
             mr: "4px",
             color: `${
               selectedCardList.length > 4 ? "white" : "secondary.dark_gray"

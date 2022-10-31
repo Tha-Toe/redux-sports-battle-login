@@ -14,12 +14,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Success from "./Success";
 import Wrong from "./Wrong";
-
+import { useSelector } from "react-redux";
 export default function WidthDrawCash({
   setOpenTag,
   alreadyChooseWidthDraw,
   mode,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const [note, setNote] = useState([
     {
       note: "Once you request a withdrawal, it takes our Compliance Team around 1-2 business days to review it. ",
@@ -104,7 +105,7 @@ export default function WidthDrawCash({
         <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -117,7 +118,7 @@ export default function WidthDrawCash({
 
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -129,7 +130,7 @@ export default function WidthDrawCash({
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -151,7 +152,7 @@ export default function WidthDrawCash({
       >
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -161,7 +162,7 @@ export default function WidthDrawCash({
         </Typography>{" "}
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "#459F48",
@@ -192,7 +193,7 @@ export default function WidthDrawCash({
                     width: "100%",
                     borderBottom: "1px solid #494949",
                     color: "secondary.dark_gray",
-                    fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                     fontWeight: 500,
                   }}
                 />
@@ -228,7 +229,7 @@ export default function WidthDrawCash({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -240,7 +241,7 @@ export default function WidthDrawCash({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                        fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -257,7 +258,7 @@ export default function WidthDrawCash({
               </Box>
               <Button
                 sx={{
-                  fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                  fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "white",
@@ -296,7 +297,7 @@ export default function WidthDrawCash({
                     width: "100%",
                     borderBottom: "1px solid #494949",
                     color: "secondary.dark_gray",
-                    fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                     fontWeight: 500,
                   }}
                 />
@@ -332,7 +333,7 @@ export default function WidthDrawCash({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                        fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                         fontWeight: 600,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -344,7 +345,7 @@ export default function WidthDrawCash({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                        fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -362,7 +363,7 @@ export default function WidthDrawCash({
               </Box>
               <Button
                 sx={{
-                  fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                  fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "white",
@@ -388,7 +389,7 @@ export default function WidthDrawCash({
           <Input
             placeholder="Enter dollar amount"
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 500,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -415,7 +416,7 @@ export default function WidthDrawCash({
         {exceed && (
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 300,
               fontFamily: "poppins",
               color: "#E4313C",
@@ -436,7 +437,7 @@ export default function WidthDrawCash({
       ></Typography>
       <Typography
         sx={{
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 700,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -467,7 +468,7 @@ export default function WidthDrawCash({
           />
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -516,7 +517,7 @@ export default function WidthDrawCash({
             >
               <Typography
                 sx={{
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontFamily: "poppins",
                   fontWeight: 700,
                   color: "secondary.dark_gray",
@@ -542,7 +543,7 @@ export default function WidthDrawCash({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -552,7 +553,7 @@ export default function WidthDrawCash({
                 </Typography>{" "}
                 <Typography
                   sx={{
-                    fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                    fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 700,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -565,7 +566,7 @@ export default function WidthDrawCash({
             ))}
             <Button
               sx={{
-                fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "white",
@@ -597,7 +598,7 @@ export default function WidthDrawCash({
             </Button>
             <Typography
               sx={{
-                fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -608,7 +609,7 @@ export default function WidthDrawCash({
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "12px", xxs: "10px", xxxs: "8px" },
+                fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "#99CAD8",

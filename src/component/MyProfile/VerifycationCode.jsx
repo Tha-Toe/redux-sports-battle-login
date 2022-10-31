@@ -9,12 +9,14 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Input } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckIcon from "@mui/icons-material/Check";
+import { useSelector } from "react-redux";
 export default function VerifycationCode({
   setOpenTag,
   phoneNumber,
   setPhoneNumber,
   setVerify,
 }) {
+  const fs = useSelector((state) => state.user.fs);
   const goToVerifyCodePage = () => {
     if (verifyCode) {
       setVerify(true);
@@ -66,7 +68,7 @@ export default function VerifycationCode({
           <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -83,7 +85,7 @@ export default function VerifycationCode({
       </Box>
       <Typography
         sx={{
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontFamily: "poppins",
           fontWeight: 600,
           color: "secondary.dark_gray",
@@ -95,7 +97,7 @@ export default function VerifycationCode({
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontFamily: "poppins",
           fontWeight: 400,
           color: "secondary.dark_gray",
@@ -113,7 +115,7 @@ export default function VerifycationCode({
           width: "100%",
           borderBottom: "1px solid #494949",
           color: "secondary.dark_gray",
-          fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontWeight: 500,
           mt: "24px",
           pb: "16px",
@@ -142,7 +144,7 @@ export default function VerifycationCode({
             "&.MuiButtonBase-root:hover": {
               background: "#000000",
             },
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 600,
             fontFamily: "poppins",
             border: "1px solid #fafafa",
@@ -161,7 +163,7 @@ export default function VerifycationCode({
             "&.MuiButtonBase-root:hover": {
               background: "#4831D4",
             },
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 600,
             fontFamily: "poppins",
             width: "45%",
@@ -186,7 +188,7 @@ export default function VerifycationCode({
           <Typography
             sx={{
               color: "#52C03C",
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               ml: { xs: "21px", xxxs: "10px" },
               fontWeight: 400,
               fontFamily: "poppins",
@@ -211,7 +213,7 @@ export default function VerifycationCode({
           <Typography
             sx={{
               color: "#E4313C",
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               ml: { xs: "21px", xxxs: "10px" },
               fontWeight: 400,
               fontFamily: "poppins",

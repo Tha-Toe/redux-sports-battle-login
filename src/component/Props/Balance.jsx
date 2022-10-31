@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./props.css";
-
+import { useSelector } from "react-redux";
 export default function () {
+  const fs = useSelector((state) => state.user.fs);
   return (
     <>
       <Box
@@ -15,7 +16,7 @@ export default function () {
       >
         <Typography
           sx={{
-            fontSize: { xl: "14px", md: "12px", xxxs: "10px" },
+            fontSize: { xl: fs.small, md: fs.xs, xxxs: fs.xxs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -25,7 +26,7 @@ export default function () {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xl: "18px", md: "16px", xxxs: "14px" },
+            fontSize: { xl: fs.large, md: fs.normal, xxxs: fs.small },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "#52C03C",
@@ -36,7 +37,7 @@ export default function () {
       </Box>
       <Typography
         sx={{
-          fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+          fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
           fontWeight: 500,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -55,7 +56,7 @@ export default function () {
       >
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -65,7 +66,7 @@ export default function () {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -85,7 +86,7 @@ export default function () {
       >
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -95,7 +96,7 @@ export default function () {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -115,7 +116,7 @@ export default function () {
       >
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -125,7 +126,7 @@ export default function () {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+            fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",

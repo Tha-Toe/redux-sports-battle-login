@@ -1,8 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "./knowMore.css";
-
+import { useSelector } from "react-redux";
 export default function OverUnderPointSystem({ selectSports, mode }) {
+  const fs = useSelector((state) => state.user.fs);
   const [header, setHeader] = useState([
     { name: "T20/T10" },
     { name: "ODI" },
@@ -133,7 +134,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
                 }`,
                 width: "33%",
                 display: "flex",
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 py: "10px",
@@ -166,7 +167,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
           >
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "white",
@@ -177,7 +178,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "white",
@@ -221,7 +222,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -231,7 +232,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -242,7 +243,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               </Box>
               <Typography
                 sx={{
-                  fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                  fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 500,
                   fontFamily: "poppins",
                   color: "#52C03C",
@@ -285,7 +286,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
           >
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -296,7 +297,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -340,7 +341,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -350,7 +351,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -361,7 +362,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               </Box>
               <Typography
                 sx={{
-                  fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                  fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 500,
                   fontFamily: "poppins",
                   color: "#52C03C",
@@ -393,7 +394,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
           >
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -404,7 +405,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -448,7 +449,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -458,7 +459,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -469,7 +470,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               </Box>
               <Typography
                 sx={{
-                  fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                  fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 500,
                   fontFamily: "poppins",
                   color: "#E4313C",
@@ -501,7 +502,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
           >
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -512,7 +513,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                 fontWeight: 600,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -556,7 +557,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               >
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -566,7 +567,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { lg: "14px", xs: "12px", xxxs: "10px" },
+                    fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
                     fontWeight: 500,
                     fontFamily: "poppins",
                     color: "secondary.main",
@@ -577,7 +578,7 @@ export default function OverUnderPointSystem({ selectSports, mode }) {
               </Box>
               <Typography
                 sx={{
-                  fontSize: { lg: "12px", xs: "10px", xxxs: "8px" },
+                  fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 500,
                   fontFamily: "poppins",
                   color: "#E4313C",

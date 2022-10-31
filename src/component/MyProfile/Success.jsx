@@ -5,13 +5,14 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./profile.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useSelector } from "react-redux";
 
 export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
   const goWrongPage = () => {
     setWrong(true);
     setSuccess(false);
   };
-
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -61,7 +62,7 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
         />
         <Typography
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: `${mode === "dark" ? "#C8E6CA" : "#439F48"}`,
@@ -75,7 +76,7 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
         </Typography>
         <Button
           sx={{
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "white",

@@ -9,8 +9,10 @@ import {
   InputComponent,
   BackButtonComponent,
 } from "../../defaultComponent/DefaultComponent";
-
+import { useSelector } from "react-redux";
 const EnterYourDetail = ({ mode, setMode }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   const [email, setEmail] = useState(null);
   const [name, setName] = useState(null);
   let navigate = useNavigate();
@@ -91,7 +93,7 @@ const EnterYourDetail = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 mb: "11px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -101,7 +103,7 @@ const EnterYourDetail = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -112,7 +114,7 @@ const EnterYourDetail = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "11px", xxxs: "8px" },
+                fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                 mb: "25px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -127,7 +129,7 @@ const EnterYourDetail = ({ mode, setMode }) => {
             />
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "11px", xxxs: "8px" },
+                fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                 mb: "22px",
                 mt: "-8px",
                 fontFamily: "Poppins",

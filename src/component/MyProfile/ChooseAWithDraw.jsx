@@ -5,10 +5,11 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
+import { useSelector } from "react-redux";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function ChooseAWithDraw({ setOpenTag }) {
+  const fs = useSelector((state) => state.user.fs);
   const openStandardECheck = () => {
     setOpenTag("standardECheck");
   };
@@ -78,7 +79,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
         <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
         <Typography
           sx={{
-            fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+            fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -124,7 +125,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
             >
               <Typography
                 sx={{
-                  fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+                  fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -136,7 +137,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
               </Typography>
               <Typography
                 sx={{
-                  fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                  fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -148,7 +149,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
               </Typography>
               <Typography
                 sx={{
-                  fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+                  fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -161,13 +162,13 @@ export default function ChooseAWithDraw({ setOpenTag }) {
             </Box>
           </Box>
           <ArrowForwardIosIcon
-            sx={{ fontSize: { sm: "25px", xxxs: "20px" } }}
+            sx={{ fontSize: { sm: fs.xxx_large, xxxs: fs.x_large } }}
           />
         </Box>
       ))}{" "}
       <Typography
         sx={{
-          fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",

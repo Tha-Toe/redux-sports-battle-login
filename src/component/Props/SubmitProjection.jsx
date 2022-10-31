@@ -7,7 +7,7 @@ import Amount from "./Amount";
 import ChooseType from "./ChooseType";
 import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
-
+import { useSelector } from "react-redux";
 const SubmitProjection = ({
   selectedCardList,
   setSelectedCardList,
@@ -16,6 +16,8 @@ const SubmitProjection = ({
   setSuccessSubmit,
   setErrorSubmit,
 }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   const [startSelect, setStartSelect] = useState(false);
   const [moreThanOneCard, setMoreThanOneCard] = useState(false);
   const [selectAmount, setSelectAmount] = useState(null);
@@ -58,7 +60,7 @@ const SubmitProjection = ({
       <Typography
         sx={{
           fontFamily: "poppins",
-          fontSize: "14px",
+          fontSize: fs.small,
           fontWeight: 600,
           color: "secondary.dark_gray",
           mt: "13px",
@@ -113,7 +115,7 @@ const SubmitProjection = ({
                     sx={{
                       color: "secondary.dark_gray",
                       width: "100%",
-                      fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                      fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: "500",
                       fontFamily: "poppins",
                     }}
@@ -125,7 +127,7 @@ const SubmitProjection = ({
                     type="number"
                     sx={{
                       width: "100%",
-                      fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                      fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
@@ -138,7 +140,11 @@ const SubmitProjection = ({
                           <Typography
                             sx={{
                               color: "#E4313C",
-                              fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                              fontSize: {
+                                xl: fs.xs,
+                                md: fs.xxs,
+                                xxxs: fs.xxxs,
+                              },
                               fontWeight: "500",
                               fontFamily: "poppins",
                             }}
@@ -176,7 +182,7 @@ const SubmitProjection = ({
             >
               <Typography
                 sx={{
-                  fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                  fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 400,
                   fontFamily: "poppins",
                   mr: "3px",
@@ -202,7 +208,7 @@ const SubmitProjection = ({
             <Button
               sx={{
                 color: "white",
-                fontSize: "10px",
+                fontSize: fs.xxs,
                 fontWieght: 600,
                 fontFamily: "poppins",
                 background: "#4831D4",
@@ -224,7 +230,7 @@ const SubmitProjection = ({
         <Typography
           sx={{
             fontFamily: "poppins",
-            fontSize: "12px",
+            fontSize: fs.xs,
             fontWeight: 400,
             color: "secondary.dark_gray",
             mx: "auto",

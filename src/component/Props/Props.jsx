@@ -121,6 +121,8 @@ export default function Props({
   setSelectSrc,
   getPropsSport,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const callClickSportApiFinish = useSelector(
     (state) => state.user.callClickSportApiFinish
   );
@@ -967,12 +969,12 @@ export default function Props({
                       width: { xs: "34px", xxxs: "30px" },
                       border: `${
                         e.code === selectSports
-                          ? `2px solid ${e.color}`
+                          ? `1px solid ${e.color}`
                           : noDataSports.indexOf(e.code) > -1
-                          ? "2px solid gray"
+                          ? "1px solid gray"
                           : activeSports.indexOf(e.code) > -1
-                          ? "2px solid white"
-                          : "2px solid gray"
+                          ? "1px solid white"
+                          : "1px solid gray"
                       }`,
                       borderRadius: "50%",
                       mt: "13px",
@@ -1024,7 +1026,7 @@ export default function Props({
                   </Box>
                   <Typography
                     sx={{
-                      fontSize: "12px",
+                      fontSize: fs.xs,
                       fontWeight: 400,
                       fontFamily: "poppins",
                       mt: "5px",
@@ -1109,7 +1111,7 @@ export default function Props({
 
                       <Typography
                         sx={{
-                          fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                          fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
                           fontFamily: "poppins",
                           fontWeight: 500,
                           color: "secondary.main",
@@ -1127,7 +1129,7 @@ export default function Props({
                       <SearchIcon
                         sx={{
                           color: "secondary.gray",
-                          fontSize: "25px",
+                          fontSize: fs.xxx_large,
                           mr: "7px",
                         }}
                       />
@@ -1147,7 +1149,7 @@ export default function Props({
                       xxxs: "120px",
                     },
                     color: "secondary.main",
-                    fontSize: "12px",
+                    fontSize: fs.xs,
                     fontWeight: 400,
                     fontFamily: "poppins",
                     height: "32px",
@@ -1171,7 +1173,7 @@ export default function Props({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "16px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxxs: fs.xs },
                     fontWeight: "400",
                     fontFamily: "poppins",
                     width: { md: "10%", xs: "14%", xxxs: "22%" },
@@ -1230,7 +1232,7 @@ export default function Props({
                       >
                         <ArrowBackIosNew
                           sx={{
-                            fontSize: "18px",
+                            fontSize: fs.large,
                             color: "primary.main",
                           }}
                         />
@@ -1243,7 +1245,16 @@ export default function Props({
                         <button
                           key={index}
                           style={{
-                            color: `${mode === "dark" ? "white" : "#4831D4"}`,
+                            color: `${
+                              mode === "dark"
+                                ? statsAndData && selectStatTitle === e
+                                  ? "black"
+                                  : "white"
+                                : "#4831D4"
+                            }`,
+                            fontWeight: `${
+                              statsAndData && selectStatTitle === e && "600"
+                            }`,
                             background: `${
                               mode === "dark"
                                 ? selectStatTitle === e
@@ -1255,7 +1266,7 @@ export default function Props({
                               e.length < 5
                                 ? e.length * 20
                                 : e.length < 10
-                                ? e.length * 12
+                                ? e.length * 18
                                 : e.length * 10
                             }px`,
                             cursor: "pointer",
@@ -1309,7 +1320,7 @@ export default function Props({
                       >
                         <ArrowForwardIosIcon
                           sx={{
-                            fontSize: "18px",
+                            fontSize: fs.large,
                             color: "primary.main",
                           }}
                         />
@@ -1333,7 +1344,7 @@ export default function Props({
               >
                 <Typography
                   sx={{
-                    fontSize: { sm: "16px", xxxs: "12px" },
+                    fontSize: { sm: fs.normal, xxxs: fs.xs },
                     fontWeight: "400",
                     fontFamily: "poppins",
                     width: { md: "10%", xs: "14%", xxxs: "22%" },
@@ -1392,7 +1403,7 @@ export default function Props({
                       >
                         <ArrowBackIosNew
                           sx={{
-                            fontSize: "18px",
+                            fontSize: fs.large,
                             color: "primary.main",
                           }}
                         />
@@ -1450,7 +1461,7 @@ export default function Props({
                       >
                         <ArrowForwardIosIcon
                           sx={{
-                            fontSize: "18px",
+                            fontSize: fs.large,
                             color: "primary.main",
                           }}
                         />
@@ -1469,13 +1480,15 @@ export default function Props({
                     width: "100%",
                     position: "relative",
                     mb: "20px",
-                    fontSize: { md: "14px", sm: "10px", xxxs: "8px" },
+                    fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
                     fontFamily: "poppins",
                     fontWeight: 500,
                     color: "#89CBF5",
                   }}
                 >
-                  <ErrorIcon sx={{ fontSize: "16px", mr: "5px", mb: "2px" }} />
+                  <ErrorIcon
+                    sx={{ fontSize: fs.normal, mr: "5px", mb: "2px" }}
+                  />
                   {notes}
                 </Typography>
               )}

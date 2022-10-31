@@ -6,8 +6,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddIcon from "@mui/icons-material/Add";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useSelector } from "react-redux";
 export default function Address({ setAddress }) {
   let navigate = useNavigate();
+  const fs = useSelector((state) => state.user.fs);
 
   const goDepositForm = () => {
     navigate("/home?deposit=new&page=form", { replace: true });
@@ -51,13 +53,13 @@ export default function Address({ setAddress }) {
         >
           <ArrowBackIosIcon
             sx={{
-              fontSize: { sm: "23px", xxxs: "18px" },
+              fontSize: { sm: fs.xx_large, xxxs: fs.large },
               color: "secondary.dark_gray",
             }}
           />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -82,7 +84,7 @@ export default function Address({ setAddress }) {
           <Typography
             sx={{
               color: "secondary.dark_gray",
-              fontSize: "14px",
+              fontSize: fs.small,
               fontWeight: 400,
               fontFamily: "poppins",
             }}
@@ -112,7 +114,11 @@ export default function Address({ setAddress }) {
         }}
       >
         <LocationOnIcon
-          sx={{ fontSize: "25px", mr: "15px", color: "secondary.dark_gray" }}
+          sx={{
+            fontSize: fs.xx_large,
+            mr: "15px",
+            color: "secondary.dark_gray",
+          }}
         />
         <Box
           sx={{
@@ -127,7 +133,7 @@ export default function Address({ setAddress }) {
         >
           <Typography
             sx={{
-              fontSize: "14px",
+              fontSize: fs.small,
               fontWeight: 400,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -156,7 +162,7 @@ export default function Address({ setAddress }) {
         <Typography
           sx={{
             color: "white",
-            fontSize: "14px",
+            fontSize: fs.small,
             fontWeight: 400,
             fontFamily: "poppins",
             ml: "4px",

@@ -12,8 +12,10 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddIcon from "@mui/icons-material/Add";
 import SelectState from "./SelectState";
+import { useSelector } from "react-redux";
 
 export default function AddAddress({ setAddress, mode }) {
+  const fs = useSelector((state) => state.user.fs);
   let navigate = useNavigate();
   const goAddress = () => {
     navigate("/home?deposit=new&page=address", { replace: true });
@@ -66,13 +68,13 @@ export default function AddAddress({ setAddress, mode }) {
         >
           <ArrowBackIosIcon
             sx={{
-              fontSize: { sm: "23px", xxxs: "18px" },
+              fontSize: { sm: fs.xxx_large, xxxs: fs.large },
               color: "secondary.dark_gray",
             }}
           />
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -87,7 +89,7 @@ export default function AddAddress({ setAddress, mode }) {
       <Typography
         sx={{
           color: "secondary.dark_gray",
-          fontSize: "14px",
+          fontSize: fs.small,
           fontWeight: 600,
           fontFamily: "poppins",
         }}
@@ -103,7 +105,7 @@ export default function AddAddress({ setAddress, mode }) {
           borderBottom: "1px solid #494949",
           width: "100%",
           py: "7px",
-          fontSize: { sm: "16px", xxxs: "14px" },
+          fontSize: { sm: fs.normal, xxxs: fs.small },
           fontWeight: 500,
           fontFamily: "poppins",
           outline: "none",
@@ -113,7 +115,7 @@ export default function AddAddress({ setAddress, mode }) {
       <Typography
         sx={{
           color: "secondary.dark_gray",
-          fontSize: "14px",
+          fontSize: fs.small,
           fontWeight: 600,
           fontFamily: "poppins",
           mt: "12px",
@@ -130,7 +132,7 @@ export default function AddAddress({ setAddress, mode }) {
           borderBottom: "1px solid #494949",
           width: "100%",
           py: "7px",
-          fontSize: { sm: "16px", xxxs: "14px" },
+          fontSize: { sm: fs.normal, xxxs: fs.small },
           fontWeight: 500,
           fontFamily: "poppins",
           outline: "none",
@@ -155,7 +157,7 @@ export default function AddAddress({ setAddress, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -173,7 +175,7 @@ export default function AddAddress({ setAddress, mode }) {
               borderBottom: "1px solid #494949",
               width: "100%",
               py: "7px",
-              fontSize: { sm: "16px", xxxs: "14px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
               outline: "none",
@@ -183,7 +185,7 @@ export default function AddAddress({ setAddress, mode }) {
         <Box sx={{ width: { xs: "45%", xxxs: "100%" } }}>
           <Typography
             sx={{
-              fontSize: { sm: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.small, xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -201,7 +203,7 @@ export default function AddAddress({ setAddress, mode }) {
               borderBottom: "1px solid #494949",
               width: "100%",
               py: "7px",
-              fontSize: { sm: "16px", xxxs: "14px" },
+              fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
               outline: "none",
@@ -226,7 +228,7 @@ export default function AddAddress({ setAddress, mode }) {
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
           <LocationOnIcon
-            sx={{ color: "#4831D4", mr: "14px", fontSize: "30px" }}
+            sx={{ color: "#4831D4", mr: "14px", fontSize: fs.mega }}
           />
           <Box
             sx={{
@@ -237,7 +239,7 @@ export default function AddAddress({ setAddress, mode }) {
           >
             <Typography
               sx={{
-                fontSize: { sm: "16px", xxxs: "14px" },
+                fontSize: { sm: fs.normal, xxxs: fs.small },
                 fontWeight: 700,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -248,7 +250,7 @@ export default function AddAddress({ setAddress, mode }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "16px", xxxs: "14px" },
+                fontSize: { sm: fs.normal, xxxs: fs.small },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.dark_gray",
@@ -284,7 +286,7 @@ export default function AddAddress({ setAddress, mode }) {
         <Typography
           sx={{
             color: "white",
-            fontSize: "14px",
+            fontSize: fs.small,
             fontWeight: 400,
             fontFamily: "poppins",
             ml: "4px",

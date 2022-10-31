@@ -14,7 +14,7 @@ export default function ProfileComplete({
   completePercent,
 }) {
   const user = useSelector((state) => state.user.user);
-
+  const fs = useSelector((state) => state.user.fs);
   return (
     <Box
       sx={{
@@ -26,7 +26,7 @@ export default function ProfileComplete({
     >
       <Typography
         sx={{
-          fontSize: { sm: "16px", xs: "14px", xxxs: "12px" },
+          fontSize: { sm: fs.normal, xs: fs.small, xxxs: fs.xs },
           fontWeight: 700,
           fontFamily: "poppins",
           color: "secondary.main",
@@ -70,7 +70,7 @@ export default function ProfileComplete({
         <CheckCircleIcon
           sx={{
             color: "#52c03c",
-            fontSize: { sm: "25px", xs: "23px", xxxs: "21px" },
+            fontSize: { sm: fs.xxx_large, xs: fs.xx_large, xxxs: fs.x_large },
           }}
         />
       </Box>
@@ -92,7 +92,7 @@ export default function ProfileComplete({
         >
           <Typography
             sx={{
-              fontSize: { sm: "14px", xs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -102,7 +102,7 @@ export default function ProfileComplete({
           </Typography>
           <Typography
             sx={{
-              fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
+              fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "secondary.main",
@@ -115,7 +115,7 @@ export default function ProfileComplete({
         <Button
           sx={{
             color: "primary.main",
-            fontSize: "12px",
+            fontSize: fs.xs,
             fontWeight: 500,
             fontFamily: "poppins",
             background: "#52C03C",

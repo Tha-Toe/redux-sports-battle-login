@@ -7,7 +7,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
+
 export default function EmailPrefrence({ setOpenTag }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const [emailSettingStore, setEmailSettingStore] = useState([
     { name: " When I join game plays ", open: true },
     { name: "When I withdraw from game plays", open: true },
@@ -68,7 +71,7 @@ export default function EmailPrefrence({ setOpenTag }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: "14px", xxxs: "12px" },
+            fontSize: { xs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "#2072C4",
@@ -80,7 +83,7 @@ export default function EmailPrefrence({ setOpenTag }) {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: "12px", xxxs: "10px" },
+            fontSize: { xs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.main",
@@ -106,7 +109,7 @@ export default function EmailPrefrence({ setOpenTag }) {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 fontWeight: 400,
                 fontFamily: "poppins",
                 color: "secondary.main",
@@ -161,7 +164,7 @@ export default function EmailPrefrence({ setOpenTag }) {
         ></Box>
         <Button
           sx={{
-            fontSize: { xs: "14px", xxxs: "12px" },
+            fontSize: { xs: fs.small, xxxs: fs.xs },
             fontWeight: 600,
             fontFamily: "poppins",
             color: "white",

@@ -3,7 +3,9 @@ import "./newAddCashVerify.css";
 import React from "react";
 import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 export default function NewAddCashVerify() {
+  const fs = useSelector((state) => state.user.fs);
   let navigate = useNavigate();
   const goDepositForm = () => {
     navigate("/home?deposit=new&page=form", { replace: true });
@@ -30,7 +32,12 @@ export default function NewAddCashVerify() {
       />
       <Typography
         sx={{
-          fontSize: { sm: "20px", xs: "18px", xxs: "14px", xxxs: "12px" },
+          fontSize: {
+            sm: fs.x_large,
+            xs: fs.large,
+            xxs: fs.small,
+            xxxs: fs.xs,
+          },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -41,7 +48,12 @@ export default function NewAddCashVerify() {
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "20px", xs: "18px", xxs: "14px", xxxs: "12px" },
+          fontSize: {
+            sm: fs.x_large,
+            xs: fs.large,
+            xxs: fs.small,
+            xxxs: fs.xs,
+          },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -52,7 +64,12 @@ export default function NewAddCashVerify() {
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "20px", xs: "18px", xxs: "14px", xxxs: "12px" },
+          fontSize: {
+            sm: fs.x_large,
+            xs: fs.large,
+            xxs: fs.small,
+            xxxs: fs.xs,
+          },
           fontWeight: 600,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -63,7 +80,7 @@ export default function NewAddCashVerify() {
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: "16px", xs: "14px", xxs: "10px", xxxs: "8px" },
+          fontSize: { sm: fs.normal, xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -76,7 +93,7 @@ export default function NewAddCashVerify() {
       <Button
         sx={{
           background: "#4831D4",
-          fontSize: { sm: "16px", xs: "14px", xxs: "10px", xxxs: "8px" },
+          fontSize: { sm: fs.normal, xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
           fontWeight: 600,
           fontFamily: "poppins",
           padding: { xs: "16px 89px", xxxs: "12px 70px" },

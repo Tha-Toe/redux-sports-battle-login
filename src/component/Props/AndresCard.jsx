@@ -10,6 +10,8 @@ export function AndresCard({
   setSelectedCardList,
   mode,
 }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const handleChangeOverUnder = (action) => {
     let selectCardIdClone = selectedCardList.map((each) => {
       if (
@@ -107,7 +109,7 @@ export function AndresCard({
         >
           <Typography
             sx={{
-              fontSize: { xl: "14px", sm: "12px", xxxs: "10px" },
+              fontSize: { xl: fs.small, sm: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
               ml: "10px",
@@ -119,7 +121,7 @@ export function AndresCard({
           <RemoveIcon
             sx={{
               color: "#EA1E63",
-              fontSize: "20px",
+              fontSize: fs.x_large,
               borderRadius: "50%",
               border: "2px solid #EA1E63",
               mr: "10px",
@@ -149,7 +151,7 @@ export function AndresCard({
           />
           <Typography
             sx={{
-              fontSize: { xl: "12px", md: "10px", xxxs: "10px" },
+              fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "white",
@@ -180,7 +182,7 @@ export function AndresCard({
               <Box sx={{ display: "flex", alignItems: "center", mb: "5px" }}>
                 <Typography
                   sx={{
-                    fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                    fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
@@ -190,7 +192,7 @@ export function AndresCard({
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                    fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: " #459F48",
@@ -205,7 +207,7 @@ export function AndresCard({
               <img src="/clock.png" style={{ width: "14px", height: "14px" }} />
               <Typography
                 sx={{
-                  fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
+                  fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                   fontWeight: 600,
                   fontFamily: "poppins",
                   color: "secondary.dark_gray",
@@ -231,7 +233,7 @@ export function AndresCard({
             <Typography
               sx={{
                 fontFamily: "poppins",
-                fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+                fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
                 fontWeight: 400,
                 color: "secondary.dark_gray",
               }}
@@ -241,7 +243,7 @@ export function AndresCard({
             <Typography
               sx={{
                 fontFamily: "poppins",
-                fontSize: "18px",
+                fontSize: fs.large,
                 fontWeight: 600,
                 color: "secondary.dark_gray",
                 ml: "6px",
@@ -265,7 +267,7 @@ export function AndresCard({
               width: "50%",
               py: "6px",
               color: `${e.action === "over" ? "white" : "secondary.dark_gray"}`,
-              fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
+              fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
               fontFamily: "poppins",
               fontWeight: 600,
               border: `${
@@ -290,7 +292,7 @@ export function AndresCard({
               color: `${
                 e.action === "under" ? "white" : "secondary.dark_gray"
               }`,
-              fontSize: { xl: "13px", md: "11px", xxxs: "9px" },
+              fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
               fontFamily: "poppins",
               fontWeight: 600,
               border: `${

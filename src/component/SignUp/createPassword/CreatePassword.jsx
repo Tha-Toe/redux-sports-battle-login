@@ -10,8 +10,11 @@ import {
   PasswordInputComponent,
 } from "../../defaultComponent/DefaultComponent";
 import CheckIcon from "@mui/icons-material/Check";
+import { useSelector } from "react-redux";
 
 const CreatePassword = ({ mode, setMode }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   const [enterPassword, setEnterPassword] = useState(null);
   const [reEnterPassword, setReEnterPassword] = useState(null);
   const [showPass, setShowPass] = useState(false);
@@ -86,7 +89,7 @@ const CreatePassword = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 mb: "11px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -96,7 +99,7 @@ const CreatePassword = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -107,7 +110,7 @@ const CreatePassword = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "25px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -196,15 +199,15 @@ const CreatePassword = ({ mode, setMode }) => {
           >
             <CheckIcon
               sx={{
-                fontSize: { md: "20px", sm: "20px" },
+                fontSize: { sm: fs.x_large },
                 color: "white",
               }}
             />
           </Box>
           <Box
             sx={{
-              width: { md: "30px", xs: "20px" },
-              height: { md: "30px", xs: "20px" },
+              width: { md: "30px", xs: fs.x_large },
+              height: { md: "30px", xs: fs.x_large },
               position: "relative",
               right: "-50%",
               border: 2,
@@ -218,7 +221,7 @@ const CreatePassword = ({ mode, setMode }) => {
           >
             <CheckIcon
               sx={{
-                fontSize: { md: "20px", sm: "20px" },
+                fontSize: { md: fs.x_large, sm: fs.x_large },
                 color: "white",
               }}
             />

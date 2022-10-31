@@ -4,6 +4,7 @@ import "./loadingSpinner.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 export default function NoProjection({ refresh }) {
+  const fs = useSelector((state) => state.user.fs);
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
@@ -24,7 +25,7 @@ export default function NoProjection({ refresh }) {
       {noDataImg && <img className="noDataImage" src={noDataImg} />}
       <Typography
         sx={{
-          fontSize: "16px",
+          fontSize: fs.normal,
           fontFamily: "poppins",
           width: "500px",
           textAlign: "center",
@@ -36,7 +37,7 @@ export default function NoProjection({ refresh }) {
       </Typography>
       <Button
         sx={{
-          fontSize: "16px",
+          fontSize: fs.normal,
           fontFamily: "poppins",
           color: "white",
           padding: "5px 20px",

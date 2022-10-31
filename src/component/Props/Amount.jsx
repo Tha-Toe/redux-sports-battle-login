@@ -1,13 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./props.css";
+import { useSelector } from "react-redux";
 export default function ({ setSelectAmount, selectAmount }) {
+  const fs = useSelector((state) => state.user.fs);
+
   return (
     <Box sx={{ mb: "7px" }}>
       <Typography
         sx={{
           fontFamily: "poppins",
-          fontSize: { xl: "12px", md: "10px", xxxs: "8px" },
+          fontSize: { xl: fs.xs, md: fs.xxs, xxxs: fs.xxxs },
           fontWeight: 400,
           color: "secondary.dark_gray",
           width: "90%",
@@ -31,7 +34,7 @@ export default function ({ setSelectAmount, selectAmount }) {
         <Box
           sx={{
             padding: "10px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: `${selectAmount === 5 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
@@ -47,7 +50,7 @@ export default function ({ setSelectAmount, selectAmount }) {
         <Box
           sx={{
             padding: "10px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: `${selectAmount === 10 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
@@ -63,7 +66,7 @@ export default function ({ setSelectAmount, selectAmount }) {
         <Box
           sx={{
             padding: "10px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: `${selectAmount === 25 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
@@ -79,7 +82,7 @@ export default function ({ setSelectAmount, selectAmount }) {
         <Box
           sx={{
             padding: "10px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: `${selectAmount === 50 ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",
@@ -95,7 +98,7 @@ export default function ({ setSelectAmount, selectAmount }) {
         <Box
           sx={{
             padding: "10px 12px",
-            fontSize: "12px",
+            fontSize: fs.xs,
             bgcolor: `${selectAmount === "other" ? "#4831D4" : "primary.gray"}`,
             cursor: "pointer",
             borderRadius: "4px",

@@ -18,6 +18,7 @@ import { startChecking } from "../../../feature/userSlice";
 import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
 import UserAccountExist from "../../NotAllowPopup/UserAccountExist";
 const Choose = ({ mode, setMode, setClickedSignUp }) => {
+  const fs = useSelector((state) => state.user.fs);
   let navigate = useNavigate();
 
   const handleGoSignUp = () => {
@@ -124,7 +125,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
           >
             <Typography
               sx={{
-                fontSize: { md: "32px", sm: "25px", xxxs: "20px" },
+                fontSize: { md: fs.mega, sm: fs.xxx_large, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "11px",
                 fontFamily: "Poppins",
@@ -160,7 +161,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
                     xxxs: "120px",
                   },
                   height: { xs: "64px", xxxs: "50px" },
-                  fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                  fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                   border: 2,
                   borderRadius: "5px",
                   borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
@@ -188,7 +189,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
                     xxxs: "120px",
                   },
                   height: { xs: "64px", xxxs: "50px" },
-                  fontSize: { xs: "14px", xxs: "10px", xxxs: "8px" },
+                  fontSize: { xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
                   border: 2,
                   borderRadius: "5px",
                   borderColor: `${mode === "dark" ? "#272727" : "#e0e0e0"}`,
@@ -218,7 +219,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
                   xxxs: "250px",
                 },
                 height: "64px",
-                fontSize: { xs: "16px", xxxs: "14px" },
+                fontSize: { xs: fs.normal, xxxs: fs.small },
                 mb: 3,
                 border: 2,
                 borderRadius: "5px",
@@ -254,7 +255,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
               <Typography
                 sx={{
                   color: "secondary.dark_gray",
-                  fontSize: { xxs: "16px", xxxs: "14px" },
+                  fontSize: { xs: fs.normal, xxxs: fs.small },
                   fontFamily: "Poppins",
                 }}
               >
@@ -264,7 +265,7 @@ const Choose = ({ mode, setMode, setClickedSignUp }) => {
                 <Typography
                   sx={{
                     color: "secondary.dark_gray",
-                    fontSize: { xxs: "16px", xxxs: "14px" },
+                    fontSize: { xs: fs.normal, xxxs: fs.small },
                     fontWeight: "700",
                     ml: { xs: "5px", xxxs: "5px" },
                     cursor: "pointer",

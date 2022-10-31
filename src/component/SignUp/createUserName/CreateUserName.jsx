@@ -11,9 +11,10 @@ import {
 } from "../../defaultComponent/DefaultComponent";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-
+import { useSelector } from "react-redux";
 const CreateUserName = ({ mode, setMode }) => {
   const [name, setName] = useState(null);
+  const fs = useSelector((state) => state.user.fs);
 
   let navigate = useNavigate();
 
@@ -83,7 +84,7 @@ const CreateUserName = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs },
                 mb: "11px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -93,7 +94,7 @@ const CreateUserName = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -104,7 +105,7 @@ const CreateUserName = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxs: "12px", xxxs: "10px" },
+                fontSize: { xs: fs.small, xxs: fs.xs, xxxs: fs.xxs },
                 mb: "25px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -130,23 +131,25 @@ const CreateUserName = ({ mode, setMode }) => {
               {name && (
                 <>
                   {validCode ? (
-                    <CheckIcon sx={{ color: "green", fontSize: "25px" }} />
+                    <CheckIcon
+                      sx={{ color: "green", fontSize: fs.xxx_large }}
+                    />
                   ) : (
-                    <ClearIcon sx={{ color: "red", fontSize: "25px" }} />
+                    <ClearIcon sx={{ color: "red", fontSize: fs.xxx_large }} />
                   )}
                   <Typography
                     sx={
                       validCode
                         ? {
                             color: "green",
-                            fontSize: "14px",
+                            fontSize: fs.small,
                             ml: "16px",
                             fontFamily: "Poppins",
                             fontWeight: 700,
                           }
                         : {
                             color: "red",
-                            fontSize: "14px",
+                            fontSize: fs.small,
                             ml: "16px",
                             fontFamily: "Poppins",
                             fontWeight: 700,
@@ -223,7 +226,7 @@ const CreateUserName = ({ mode, setMode }) => {
           >
             <CheckIcon
               sx={{
-                fontSize: { md: "20px", sm: "20px" },
+                fontSize: { md: fs.x_large, sm: fs.x_large },
                 color: "white",
               }}
             />

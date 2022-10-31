@@ -3,8 +3,11 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useSelector } from "react-redux";
 
 export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
+  const fs = useSelector((state) => state.user.fs);
+
   const [pays, setPays] = useState([
     "3 considered & 3/3 correct - pays 2.25x",
     "3 considered & 2/3 correct - pays 1.25x",
@@ -50,7 +53,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
         >
           <Typography
             sx={{
-              fontSize: { sm: "16px", xxs: "14px", xxxs: "12px" },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
               fontWeight: 700,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -66,7 +69,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
         <Typography
           sx={{
             width: "95%",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -85,7 +88,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
           <Typography
             sx={{
               width: "95%",
-              fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               color: "secondary.dark_gray",
@@ -98,7 +101,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
         <Typography
           sx={{
             width: "95%",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
@@ -114,7 +117,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
         <Typography
           sx={{
             width: "95%",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 400,
             fontFamily: "poppins",
             color: "secondary.dark_gray",

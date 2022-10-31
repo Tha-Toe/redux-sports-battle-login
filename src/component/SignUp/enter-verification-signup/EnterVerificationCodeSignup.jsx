@@ -9,7 +9,11 @@ import {
   ContinueButtonComponent,
 } from "../../defaultComponent/DefaultComponent";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useSelector } from "react-redux";
+
 const EnterVerificationCodeSignup = ({ mode, setMode }) => {
+  const fs = useSelector((state) => state.user.fs);
+
   const [verifyCode, setVerifyCode] = useState(null);
   let navigate = useNavigate();
   const handleBack = () => {
@@ -90,7 +94,7 @@ const EnterVerificationCodeSignup = ({ mode, setMode }) => {
           >
             <Typography
               sx={{
-                fontSize: { xs: "14px", xxxs: "12px" },
+                fontSize: { xs: fs.small, xxxs: fs.xs },
                 mb: "11px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -100,7 +104,7 @@ const EnterVerificationCodeSignup = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { sm: "32px", xxxs: "20px" },
+                fontSize: { sm: fs.mega, xxxs: fs.x_large },
                 fontWeight: "700",
                 mb: "4px",
                 fontFamily: "Poppins",
@@ -111,7 +115,7 @@ const EnterVerificationCodeSignup = ({ mode, setMode }) => {
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "12px", xxs: "10px", xxxs: "8px" },
+                fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                 mb: "21px",
                 fontFamily: "Poppins",
                 color: "secondary.dark_gray",
@@ -162,7 +166,7 @@ const EnterVerificationCodeSignup = ({ mode, setMode }) => {
                   background: `${mode === "dark" ? "#272727" : "white"}`,
                   color: `${mode === "dark" ? "white" : "#494949"}`,
                   pl: 2,
-                  fontSize: "16px",
+                  fontSize: fs.normal,
                   "&.Mui-focused": {
                     background: `${mode === "dark" ? "black" : "white"}`,
                     border: "1px solid #2C2C2C",
@@ -188,11 +192,13 @@ const EnterVerificationCodeSignup = ({ mode, setMode }) => {
                   }}
                 >
                   <Typography
-                    sx={{ color: "#E4313C", fontSize: "14px", mr: "5px" }}
+                    sx={{ color: "#E4313C", fontSize: fs.small, mr: "5px" }}
                   >
                     Invalid Code
                   </Typography>
-                  <ClearIcon sx={{ color: "#E4313C", fontSize: "25px" }} />
+                  <ClearIcon
+                    sx={{ color: "#E4313C", fontSize: fs.xxx_large }}
+                  />
                 </Box>
               )}
             </Box>

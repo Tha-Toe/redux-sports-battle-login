@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const UserAccountExist = ({ mode }) => {
   const dispatch = useDispatch();
   const userAccountExist = useSelector((state) => state.user.userAccountExist);
+  const fs = useSelector((state) => state.user.fs);
   const navigate = useNavigate();
   const goSignInPage = () => {
     navigate("/", { replace: true });
@@ -54,7 +55,7 @@ const UserAccountExist = ({ mode }) => {
         <Typography
           sx={{
             color: "secondary.dark_gray",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 700,
             fontFamily: "poppins",
             mt: "36px",
@@ -67,7 +68,7 @@ const UserAccountExist = ({ mode }) => {
         <Button
           sx={{
             background: "#4831D4",
-            fontSize: { sm: "14px", xxs: "12px", xxxs: "10px" },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontWeight: 500,
             fontFamily: "poppins",
             padding: { xs: "12px 89px", xxxs: "10px 70px" },
