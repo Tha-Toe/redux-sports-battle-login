@@ -45,36 +45,46 @@ export function EntireTitleContainer({ each, index }) {
             display: "flex",
             width: "100%",
             margin: "0 auto",
-            justifyContent: "space-between",
+            flexDirection: "row",
+            justifyContent: "center",
             alignItems: "center",
             background: "#494949",
-            alignItems: "center",
           }}
         >
-          <Typography
+          <Box
             sx={{
-              color: "white",
-              fontSize: fs.small,
-              fontWeight: 600,
-              fontFamily: "poppins",
-              ml: "25px",
-              py: "10px",
+              display: "flex",
+              width: "90%",
+              margin: "0 auto",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            {each.title}
-          </Typography>
-          <Typography
-            sx={{
-              color: "white",
-              fontSize: fs.small,
-              fontWeight: 600,
-              fontFamily: "poppins",
-              mr: "25px",
-              py: "10px",
-            }}
-          >
-            POINTS
-          </Typography>
+            <Typography
+              sx={{
+                color: "white",
+                fontSize: fs.small,
+                fontWeight: 600,
+                fontFamily: "poppins",
+                ml: "25px",
+                py: "10px",
+              }}
+            >
+              {each.title}
+            </Typography>
+            <Typography
+              sx={{
+                color: "white",
+                fontSize: fs.small,
+                fontWeight: 600,
+                fontFamily: "poppins",
+                mr: "25px",
+                py: "10px",
+              }}
+            >
+              POINTS
+            </Typography>
+          </Box>
         </Box>
         {each.events.map((e, indexEvent) => (
           <EventTag
@@ -96,7 +106,6 @@ export function EventTag({ each, e, index, indexEvent }) {
   const [ouPoints, setOuPoints] = useState(null);
   useEffect(() => {
     if (each && e) {
-      console.log(e);
       if (e.ouPoints && e.ouPoints !== "+0") {
         setOuPoints(e.ouPoints);
       } else if (e.profiles) {
@@ -146,21 +155,23 @@ export function EventTag({ each, e, index, indexEvent }) {
               fontFamily: "poppins",
             }}
           >
-            {e.text}
+            {e.text.includes(":value")
+              ? e.text.replace(":value", `${e.value}`)
+              : e.text}
+          </Typography>
+          <Typography
+            sx={{
+              color: "secondary.dark_gray",
+              fontSize: fs.small,
+              fontWeight: 600,
+              fontFamily: "poppins",
+              mt: "5px",
+            }}
+          >
+            {e.subText}
           </Typography>
           {e.profiles ? (
             <>
-              <Typography
-                sx={{
-                  color: "secondary.dark_gray",
-                  fontSize: fs.small,
-                  fontWeight: 600,
-                  fontFamily: "poppins",
-                  mt: "5px",
-                }}
-              >
-                {e.subText}
-              </Typography>
               <Box
                 sx={{
                   display: "flex",
@@ -181,7 +192,9 @@ export function EventTag({ each, e, index, indexEvent }) {
                     }}
                   >
                     {profile.name}
-                    {e.profiles.length > 1 && ", "}
+                    {e.profiles.length > 1 &&
+                      e.profiles.length - 1 !== i &&
+                      ", "}
                   </Typography>
                 ))}
               </Box>
@@ -345,7 +358,7 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
                 fontFamily: "poppins",
               }}
             >
-              - Above/ Below Points{" "}
+              - Above/Below Points{" "}
             </Typography>{" "}
           </Box>
           <ClearIcon
