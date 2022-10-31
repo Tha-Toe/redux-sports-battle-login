@@ -1251,6 +1251,13 @@ export default function Props({
                                   : "#4831D4"
                                 : "#DAD5F6"
                             }`,
+                            minWidth: `${
+                              e.length < 5
+                                ? e.length * 20
+                                : e.length < 10
+                                ? e.length * 12
+                                : e.length * 10
+                            }px`,
                             cursor: "pointer",
                           }}
                           className="statsButton"

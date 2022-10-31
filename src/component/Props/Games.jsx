@@ -85,6 +85,13 @@ export default function Games({
             ? "#4831D4"
             : "#DAD5F6"
         }`,
+        minWidth: `${
+          gameData.gameName.length < 5
+            ? gameData.gameName.length * 17
+            : gameData.gameName.length < 10
+            ? gameData.gameName.length * 15
+            : gameData.gameName.length * 10
+        }px`,
         cursor: "pointer",
       }}
       onClick={() => {
