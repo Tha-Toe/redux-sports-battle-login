@@ -122,7 +122,7 @@ const Sports = ({ sports }) => {
             fontWeight: 500,
             fontFamily: "poppins",
             color: "secondary.dark_gray",
-            ml: "4px",
+            mr: "4px",
             display: "flex",
             flexDirection: "row",
           }}
@@ -424,7 +424,7 @@ export default function MyPropsCardContainer({
                   <Card
                     sx={{
                       display: "flex",
-                      flexDirection: "column",
+                      flexDirection: "row",
                       alignItems: "center",
                       width: "95%",
                       bgcolor: "primary.main",
@@ -442,49 +442,147 @@ export default function MyPropsCardContainer({
                     }}
                     onClick={() => handelOpenDetail(e)}
                   >
-                    <Typography
-                      sx={{
-                        fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
-                        fontWeight: 700,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mt: "7px",
-                        width: "95%",
-                      }}
-                    >
-                      {e.playTypeEmoji} {e.title}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
-                        fontWeight: 500,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mt: "5px",
-                        width: "95%",
-                      }}
-                    >
-                      {e.playerNames}
-                    </Typography>
                     <Box
                       sx={{
+                        width: "70%",
                         display: "flex",
-                        flexDirection: "row",
-                        alignItems: "flex-start",
-                        justifyContent: "space-between",
-                        width: "95%",
-                        mt: "8px",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
                       }}
                     >
+                      <Typography
+                        sx={{
+                          fontSize: {
+                            xs: fs.normal,
+                            xxs: fs.small,
+                            xxxs: fs.xs,
+                          },
+                          fontWeight: 700,
+                          fontFamily: "poppins",
+                          color: "secondary.dark_gray",
+                          mt: "7px",
+                          width: "95%",
+                        }}
+                      >
+                        {e.playTypeEmoji} {e.title}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
+                          fontWeight: 500,
+                          fontFamily: "poppins",
+                          color: "secondary.dark_gray",
+                          mt: "5px",
+                          width: "95%",
+                        }}
+                      >
+                        {e.playerNames}
+                      </Typography>
                       <Box
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
+                          flexDirection: "row",
                           alignItems: "flex-start",
+                          justifyContent: "space-between",
+                          width: "95%",
+                          mt: "4px",
                         }}
                       >
-                        <ShowDate date={e.createDate} id={e.id} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <ShowDate date={e.createDate} id={e.id} />
+                        </Box>
                       </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "95%",
+                          mt: "8px",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            {e.sports.map((each, index) => (
+                              <div
+                                key={index}
+                                style={{
+                                  width: "16px",
+                                  height: "16px",
+                                  background: `${each.color}`,
+                                  borderRadius: "50%",
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  marginRight: "6px",
+                                }}
+                              >
+                                <img
+                                  src="/dollar_my_prop.png"
+                                  key={index}
+                                  style={{
+                                    height: "10px",
+                                    width: "10px",
+                                    objectFit: "contain",
+                                    background: `${each.color}`,
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              width: "95%",
+                              mt: "12px",
+                              mb: "14px",
+                            }}
+                          >
+                            <Sports sports={e.sports} />
+                          </Box>
+                        </Box>
+                        {openTag === "Upcoming" && e.prop.withdrawAllowed && (
+                          <UpcomingWithdraw
+                            propData={e}
+                            setOpenWithdrawPopup={setOpenWithdrawPopup}
+                          />
+                        )}
+                      </Box>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "30%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                        height: "100%",
+                      }}
+                    >
                       {e.userWon ? (
                         <Box
                           sx={{
@@ -642,73 +740,6 @@ export default function MyPropsCardContainer({
                           )}
                         </Box>
                       )}
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "95%",
-                        mt: "8px",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          {e.sports.map((each, index) => (
-                            <div
-                              key={index}
-                              style={{
-                                width: "16px",
-                                height: "16px",
-                                background: `${each.color}`,
-                                borderRadius: "50%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginRight: "6px",
-                              }}
-                            >
-                              <img
-                                src="/dollar_my_prop.png"
-                                key={index}
-                                style={{
-                                  height: "10px",
-                                  width: "10px",
-                                  objectFit: "contain",
-                                  background: `${each.color}`,
-                                }}
-                              />
-                            </div>
-                          ))}
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            width: "95%",
-                            mt: "12px",
-                            mb: "14px",
-                          }}
-                        >
-                          <Sports sports={e.sports} />
-                        </Box>
-                      </Box>
                       {openTag === "Upcoming" && e.prop.withdrawAllowed && (
                         <UpcomingWithdraw
                           propData={e}

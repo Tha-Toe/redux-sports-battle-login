@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import LoadingSpinnerDetail from "../loadingSpinner/LoadingSpinnerDetail";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 export default function Detail({
   mode,
   setOpenDetail,
@@ -44,6 +45,7 @@ export default function Detail({
     if (detailData) {
       setProjection(detailData.props[0].prop.projections);
       console.log(detailData);
+      console.log(detailData.props[0].status);
     }
   }, [detailData]);
 
@@ -99,11 +101,47 @@ export default function Detail({
         <>
           {detailData ? (
             <Box sx={{ width: "90%", mx: "auto" }}>
+              {openDetail === "Live" && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: { sm: "row", xxxs: "column" },
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    flexWrap: "wrap",
+                    border: "1px solid #4831D4",
+                    padding: "3px 10px",
+                    borderRadius: "4px",
+                    mt: "4px",
+                  }}
+                  onClick={() => refreshAndCallDetailApi(mainDetail)}
+                >
+                  <img
+                    src="/refresh.png"
+                    style={{
+                      marginRight: "3px",
+                      height: "15px",
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
+                      fontFamily: "poppins",
+                      fontWeight: 500,
+                      color: "secondary.main",
+                      ml: { sm: "5px", xxxs: "0px" },
+                    }}
+                  >
+                    Refresh
+                  </Typography>
+                </Box>
+              )}
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   alignItems: "center",
                   width: "100%",
                   mt: "14px",
@@ -115,50 +153,43 @@ export default function Detail({
                     fontWeight: 600,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
+                    mr: "5px",
                   }}
                 >
-                  Entry
+                  {detailData.props[0].playTypeEmoji} Entry Fee: $
+                  {detailData.props[0].entryFee},
                 </Typography>
-                {openDetail === "Live" && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: { sm: "row", xxxs: "column" },
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      flexWrap: "wrap",
-                      border: "1px solid #4831D4",
-                      padding: "3px 10px",
-                      borderRadius: "4px",
-                    }}
-                    onClick={() => refreshAndCallDetailApi(mainDetail)}
-                  >
-                    <img
-                      src="/refresh.png"
-                      style={{
-                        marginRight: "3px",
-                        height: "15px",
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
-                        fontFamily: "poppins",
-                        fontWeight: 500,
-                        color: "secondary.main",
-                        ml: { sm: "5px", xxxs: "0px" },
-                      }}
-                    >
-                      Refresh
-                    </Typography>
-                  </Box>
-                )}
+                <Typography
+                  sx={{
+                    fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
+                    fontWeight: 600,
+                    fontFamily: "poppins",
+                    color: "secondary.dark_gray",
+                    mr: "7px",
+                  }}
+                >
+                  To Win: ${detailData.props[0].toWin}
+                </Typography>
+                <InfoOutlinedIcon
+                  sx={{
+                    fontSize: {
+                      sm: fs.large,
+                      xxs: fs.normal,
+                      xxxs: fs.normal,
+                    },
+                    fontWeight: 200,
+                    fontFamily: "poppins",
+                    color: "lightblue",
+                    cursor: "pointer",
+                    mb: "1px",
+                  }}
+                  onClick={() => setOpenPayoutScenarious(true)}
+                />
               </Box>
 
               <Box
                 sx={{
-                  width: "70px",
+                  width: "100%",
                   height: "3px",
                   mt: "6px",
                   bgcolor: "secondary.dark_gray",
@@ -187,7 +218,11 @@ export default function Detail({
                   >
                     <Typography
                       sx={{
-                        fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+                        fontSize: {
+                          sm: each.playerName.length > 14 ? fs.xxs : fs.small,
+                          xxs: each.playerName.length > 14 ? fs.xxxs : fs.xs,
+                          xxxs: each.playerName.length > 14 ? fs.xxxs : fs.xxs,
+                        },
                         fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -208,7 +243,7 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxxs },
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -216,6 +251,18 @@ export default function Detail({
                       }}
                     >
                       {each.sport.toUpperCase()}, {each.gameName}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
+                        fontWeight: 500,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mt: "3px",
+                      }}
+                    >
+                      {each.propStatus ? each.propStatus : "yet to begin"}
                     </Typography>
                   </Box>
                   <Box
@@ -322,7 +369,7 @@ export default function Detail({
                         }`,
                       }}
                     >
-                      {each.propStatus ? each.propStatus : "Actual"}
+                      Actual
                     </Typography>
                     <Typography
                       sx={{
@@ -380,6 +427,7 @@ export default function Detail({
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  mb: "25px",
                 }}
               >
                 <Box
@@ -387,7 +435,6 @@ export default function Detail({
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
-                    mt: "12px",
                   }}
                 >
                   {detailData.props[0].prop.payouts.map((each, index) => (
@@ -409,96 +456,22 @@ export default function Detail({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
-                    background: "#CEE4CC",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    p: "7px 18px",
-                    mr: "0px",
+                    justifyContent: "center",
                   }}
-                  onClick={() => setOpenPayoutScenarious(true)}
                 >
                   <Typography
                     sx={{
-                      fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
-                      fontWeight: 500,
-                      fontFamily: "poppins",
-                      color: "#459F48",
+                      fontSize: fs.small,
+                      fontWeight: "600",
+                      color: `${detailData.props[0].modeColor}`,
                     }}
                   >
-                    Payout Scenarios
-                  </Typography>
-                  <PlayArrowIcon sx={{ color: "#459F48" }} />
+                    {detailData.props[0].playTypeEmoji}{" "}
+                    {detailData.props[0].playType}
+                  </Typography>{" "}
                 </Box>
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  mt: "20px",
-                }}
-              >
-                <Button
-                  sx={{
-                    background: "#C2DDF8",
-                    borderRadius: "4px",
-                    fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
-                    fontWeight: 700,
-                    fontFamily: "poppins",
-                    color: "#4831D4",
-                    "&.MuiButtonBase-root:hover": {
-                      background: "#C2DDF8",
-                    },
-                    width: "47%",
-                    py: "11px",
-                    textTransform: "none",
-                  }}
-                >
-                  Entry: ${detailData.props[0].entryFee}
-                </Button>
-                <Button
-                  sx={{
-                    background: "#CEE4CC",
-                    borderRadius: "4px",
-                    fontSize: { xs: fs.xs, xxs: fs.xxxs, xxxs: "6px" },
-                    fontWeight: 700,
-                    fontFamily: "poppins",
-                    color: "#459F48",
-                    "&.MuiButtonBase-root:hover": {
-                      background: "#CEE4CC",
-                    },
-                    width: "47%",
-                    py: "11px",
-                    textTransform: "none",
-                  }}
-                >
-                  TO WIN: ${detailData.props[0].toWin}
-                </Button>
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  mt: "11px",
-                  mb: "8px",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: fs.small,
-                    fontWeight: "600",
-                    color: `${detailData.props[0].modeColor}`,
-                  }}
-                >
-                  {detailData.props[0].playTypeEmoji}{" "}
-                  {detailData.props[0].playType}
-                </Typography>{" "}
-              </Box>
+
               {openDetail === "Upcoming" || openDetail === "Live" ? (
                 <></>
               ) : (
@@ -510,7 +483,7 @@ export default function Detail({
                         fontWeight: 400,
                         fontFamily: "poppins",
                         color: "white",
-                        mt: "12px",
+                        mt: "16px",
                         width: "100%",
                         display: "flex",
                         flexDirection: "row",
