@@ -160,13 +160,13 @@ export const getPropsSport = async (code) => {
   }
 };
 
-export const getMyProps = async (userId, status) => {
+export const getMyProps = async (userId, status, pagenum) => {
   var apiUrl = APIURLs.getMyProps;
   apiUrl = apiUrl.replace("{userId}", userId);
   apiUrl = apiUrl.replace("{status}", status);
   const apiResponse = await makeGETAPICall(apiUrl, [
     { "app-version": 2 },
-    { "page-num": 1 },
+    { "page-num": pagenum },
   ]);
   if (apiResponse.status === 200) {
     return apiResponse.data;
@@ -260,7 +260,7 @@ export function Home({ mode, setMode }) {
       dispatch(addLiveDataCommingFromApi(null));
 
       if (user_from_localstorage) {
-        getMyProps(user_from_localstorage.uid, "upcoming")
+        getMyProps(user_from_localstorage.uid, "upcoming", 1)
           .then((result) => {
             if (result) {
               console.log(result);
@@ -289,7 +289,7 @@ export function Home({ mode, setMode }) {
     dispatch(addLiveDataCommingFromApi(null));
 
     if (user_from_localstorage) {
-      getMyProps(user_from_localstorage.uid, "live")
+      getMyProps(user_from_localstorage.uid, "live", 1)
         .then((result) => {
           if (result) {
             // console.log(result);
@@ -315,7 +315,7 @@ export function Home({ mode, setMode }) {
     dispatch(addLiveDataCommingFromApi(null));
 
     if (user_from_localstorage) {
-      getMyProps(user_from_localstorage.uid, "completed")
+      getMyProps(user_from_localstorage.uid, "completed", 1)
         .then((result) => {
           if (result) {
             // console.log(result);
