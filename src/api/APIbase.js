@@ -33,3 +33,7 @@ export const withdrawProp = ocApiGatewayContests + 'withdraw/id/undefined';
 
 //get FPS per sport
 export const getFpsSport = ocApiGatewayCommon + 'fps/{sportcode}';
+
+//get fantasy points breakdown per prop entry
+
+export const getFantasyPoints = ocApiGatewayGames + 'props/fps/{propId}';
