@@ -460,7 +460,7 @@ export default function MyPropsCardContainer({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
-                          mt: "7px",
+                          mt: "10px",
                           width: "95%",
                           mb: "5px",
                         }}
@@ -474,7 +474,7 @@ export default function MyPropsCardContainer({
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           width: "95%",
-                          mb: "5px",
+                          mb: "3px",
                         }}
                       >
                         {e.playerNames}
@@ -506,6 +506,7 @@ export default function MyPropsCardContainer({
                           alignItems: "center",
                           justifyContent: "space-between",
                           width: "95%",
+                          mb: "10px",
                         }}
                       >
                         <Box
@@ -514,7 +515,6 @@ export default function MyPropsCardContainer({
                             flexDirection: "column",
                             alignItems: "flex-start",
                             justifyContent: "center",
-                            mb: "5px",
                           }}
                         >
                           <Box

@@ -41,6 +41,7 @@ export default function SuccessSubmit({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Box

@@ -36,6 +36,7 @@ export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Box

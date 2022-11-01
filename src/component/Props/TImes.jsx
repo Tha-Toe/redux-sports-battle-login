@@ -13,6 +13,7 @@ export default function Times({ selectedCardList, mode }) {
           mode === "dark" ? "1px solid #2c2c2c" : "1px solid #DBDBDB"
         }`,
         mb: "16px",
+        pb: "4px",
       }}
     >
       <Typography
@@ -47,7 +48,7 @@ export default function Times({ selectedCardList, mode }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            mr: "4px",
+            mr: "5px",
             color: `${
               selectedCardList.length === 1 ? "white" : "secondary.dark_gray"
             }`,
@@ -65,7 +66,7 @@ export default function Times({ selectedCardList, mode }) {
             fontFamily: "poppins",
             fontWeight: 500,
             fontSize: fs.xs,
-            mr: "4px",
+            mr: "5px",
             color: `${
               selectedCardList.length === 2 ? "white" : "secondary.dark_gray"
             }`,
@@ -83,7 +84,7 @@ export default function Times({ selectedCardList, mode }) {
             fontFamily: "poppins",
             fontWeight: 500,
             fontSize: fs.xs,
-            mr: "4px",
+            mr: "5px",
             color: `${
               selectedCardList.length === 3 ? "white" : "secondary.dark_gray"
             }`,
@@ -101,7 +102,7 @@ export default function Times({ selectedCardList, mode }) {
             fontFamily: "poppins",
             fontWeight: 500,
             fontSize: fs.xs,
-            mr: "4px",
+            mr: "5px",
             color: `${
               selectedCardList.length === 4 ? "white" : "secondary.dark_gray"
             }`,
@@ -119,7 +120,7 @@ export default function Times({ selectedCardList, mode }) {
             fontFamily: "poppins",
             fontWeight: 500,
             fontSize: fs.xs,
-            mr: "4px",
+            mr: "5px",
             color: `${
               selectedCardList.length > 4 ? "white" : "secondary.dark_gray"
             }`,

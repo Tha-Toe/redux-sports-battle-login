@@ -40,7 +40,7 @@ export default function ({ setSelectAmount, selectAmount }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            mr: { xl: "7px", xxxs: "7px" },
+            mr: { xl: "5px", xxxs: "5px" },
             color: `${selectAmount === 5 ? "white" : "secondary.dark_gray"}`,
           }}
           onClick={() => setSelectAmount(5)}
@@ -56,7 +56,7 @@ export default function ({ setSelectAmount, selectAmount }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            mr: { xl: "7px", xxxs: "7px" },
+            mr: { xl: "5px", xxxs: "5px" },
             color: `${selectAmount === 10 ? "white" : "secondary.dark_gray"}`,
           }}
           onClick={() => setSelectAmount(10)}
@@ -72,7 +72,7 @@ export default function ({ setSelectAmount, selectAmount }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            mr: { xl: "7px", xxxs: "7px" },
+            mr: { xl: "5px", xxxs: "5px" },
             color: `${selectAmount === 25 ? "white" : "secondary.dark_gray"}`,
           }}
           onClick={() => setSelectAmount(25)}
@@ -88,7 +88,7 @@ export default function ({ setSelectAmount, selectAmount }) {
             borderRadius: "4px",
             fontFamily: "poppins",
             fontWeight: 500,
-            mr: { xl: "7px", xxxs: "7px" },
+            mr: { xl: "5px", xxxs: "5px" },
             color: `${selectAmount === 50 ? "white" : "secondary.dark_gray"}`,
           }}
           onClick={() => setSelectAmount(50)}

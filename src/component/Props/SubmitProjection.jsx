@@ -92,6 +92,7 @@ const SubmitProjection = ({
                 borderBottom: `${
                   mode === "dark" ? "1px solid #2c2c2c" : "1px solid #DBDBDB"
                 }`,
+                pb: "12px",
               }}
             >
               <Amount
@@ -208,7 +209,7 @@ const SubmitProjection = ({
             <Button
               sx={{
                 color: "white",
-                fontSize: fs.xxs,
+                fontSize: fs.xs,
                 fontWieght: 600,
                 fontFamily: "poppins",
                 background: "#4831D4",
@@ -219,6 +220,7 @@ const SubmitProjection = ({
                   background: "#4831D4",
                 },
                 textTransform: "none",
+                height: "31px",
               }}
               onClick={() => setSuccessSubmit(true)}
             >

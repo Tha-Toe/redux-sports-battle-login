@@ -39,6 +39,7 @@ export default function ErrorSubmit({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Box
@@ -58,7 +59,7 @@ export default function ErrorSubmit({
         </Box>
         <ClearIcon
           sx={{
-            color: "white",
+            color: "black",
             bgcolor: "#E4313C",
             borderRadius: "50%",
             fontSize: "40px",

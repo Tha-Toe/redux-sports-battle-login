@@ -345,7 +345,7 @@ export default function MyProfile({
                 justifyContent: "space-between",
                 py: "11px",
                 margin: "0 auto",
-                mb: "24px",
+                mb: "16px",
               }}
             >
               <Box
