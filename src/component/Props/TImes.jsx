@@ -19,7 +19,7 @@ export default function Times({ selectedCardList, mode }) {
       <Typography
         sx={{
           fontFamily: "poppins",
-          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+          fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxs },
           fontWeight: 400,
           color: "secondary.dark_gray",
           width: "90%",

@@ -258,7 +258,7 @@ export function AndresCard({
             width: "80%",
             display: "flex",
             margin: "0 auto",
-            mb: "10px",
+            mb: "13px",
           }}
         >
           <Button
