@@ -965,7 +965,7 @@ export function Home({ mode, setMode }) {
                   <Typography
                     sx={{
                       fontFamily: "poppins",
-                      fontSize: { xl: fs.normal, sm: fs.xs, xxxs: fs.xxs },
+                      fontSize: { xl: fs.small, sm: fs.xs, xxxs: fs.xxs },
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
                       mt: { lg: "0px", sm: "5px", xxxs: "0px" },
@@ -1038,7 +1038,7 @@ export function Home({ mode, setMode }) {
                   <Typography
                     sx={{
                       fontFamily: "poppins",
-                      fontSize: { xl: fs.normal, sm: fs.xs, xxxs: fs.xxs },
+                      fontSize: { xl: fs.small, sm: fs.xs, xxxs: fs.xxs },
                       textAlign: "center",
                       fontWeight: `${openTag === e.activeName ? 600 : 400}`,
                       ml: { lg: "12px", sm: "0px", xxxs: "8px" },
@@ -1076,7 +1076,7 @@ export function Home({ mode, setMode }) {
             >
               <Typography
                 sx={{
-                  fontSize: { xl: fs.normal, xxxs: fs.xxs },
+                  fontSize: { xl: fs.small, xxxs: fs.xxs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "#2582E3",
@@ -1130,7 +1130,7 @@ export function Home({ mode, setMode }) {
             >
               <Typography
                 sx={{
-                  fontSize: { xl: fs.normal, xxxs: fs.xxs },
+                  fontSize: { xl: fs.small, xxxs: fs.xxs },
                   fontWeight: 700,
                   fontFamily: "poppins",
                   color: "#2582E3",
@@ -1162,7 +1162,7 @@ export function Home({ mode, setMode }) {
                 <Typography
                   sx={{
                     fontFamily: "poppins",
-                    fontSize: { xl: fs.normal, xxxs: fs.xs },
+                    fontSize: { xl: fs.small, xxxs: fs.xs },
                     ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",
@@ -1194,7 +1194,7 @@ export function Home({ mode, setMode }) {
                 <Typography
                   sx={{
                     fontFamily: "poppins",
-                    fontSize: { xl: fs.normal, xxxs: fs.xs },
+                    fontSize: { xl: fs.small, xxxs: fs.xs },
                     ml: { lg: "12px", sm: "0px", xxxs: "8px" },
                     textAlign: "center",
                     color: "secondary.dark_gray",

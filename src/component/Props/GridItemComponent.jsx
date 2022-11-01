@@ -320,23 +320,23 @@ const GridItemComponent = ({
               >
                 Avg :: {avg}
               </Typography>
-              {disableButton && (
-                <Typography
-                  sx={{
-                    color: "#FFCCCB",
-                    fontSize: {
-                      md: fs.xxs,
-                      sm: fs.xxxs,
-                      xxxs: fs.xxs,
-                    },
-                    fontWeight: 400,
-                    fontFamily: "poppins",
-                  }}
-                >
-                  Already picked in cart
-                </Typography>
-              )}
             </>
+          )}
+          {disableButton && (
+            <Typography
+              sx={{
+                color: "#FFCCCB",
+                fontSize: {
+                  md: fs.xxs,
+                  sm: fs.xxxs,
+                  xxxs: fs.xxs,
+                },
+                fontWeight: 400,
+                fontFamily: "poppins",
+              }}
+            >
+              Already picked in cart
+            </Typography>
           )}
         </Box>
         <Box

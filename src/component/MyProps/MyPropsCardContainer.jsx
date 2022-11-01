@@ -462,6 +462,7 @@ export default function MyPropsCardContainer({
                           color: "secondary.dark_gray",
                           mt: "7px",
                           width: "95%",
+                          mb: "5px",
                         }}
                       >
                         {e.playTypeEmoji} {e.title}
@@ -473,6 +474,7 @@ export default function MyPropsCardContainer({
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           width: "95%",
+                          mb: "5px",
                         }}
                       >
                         {e.playerNames}
@@ -484,6 +486,7 @@ export default function MyPropsCardContainer({
                           alignItems: "flex-start",
                           justifyContent: "space-between",
                           width: "95%",
+                          mb: "5px",
                         }}
                       >
                         <Box
@@ -511,6 +514,7 @@ export default function MyPropsCardContainer({
                             flexDirection: "column",
                             alignItems: "flex-start",
                             justifyContent: "center",
+                            mb: "5px",
                           }}
                         >
                           <Box
@@ -518,6 +522,7 @@ export default function MyPropsCardContainer({
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
+                              mb: "5px",
                             }}
                           >
                             {e.sports.map((each, index) => (
@@ -554,7 +559,6 @@ export default function MyPropsCardContainer({
                               flexDirection: "row",
                               alignItems: "center",
                               width: "95%",
-                              mt: "4px",
                               mb: "4px",
                             }}
                           >
@@ -577,6 +581,7 @@ export default function MyPropsCardContainer({
                         alignItems: "center",
                         justifyContent: "space-around",
                         height: "100%",
+                        mb: "5px",
                       }}
                     >
                       {e.userWon ? (
