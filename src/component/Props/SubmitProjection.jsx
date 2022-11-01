@@ -2,7 +2,7 @@ import { Box, Typography, Button, Input } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 import { AndresCard } from "./AndresCard";
-import Times from "./TImes";
+import PropCart from "./PropCart";
 import Amount from "./Amount";
 import ChooseType from "./ChooseType";
 import Balance from "./Balance";
@@ -85,7 +85,7 @@ const SubmitProjection = ({
             }}
           >
             {moreThanOneCard && (
-              <Times selectedCardList={selectedCardList} mode={mode} />
+              <PropCart selectedCardList={selectedCardList} mode={mode} />
             )}
             <Box
               sx={{

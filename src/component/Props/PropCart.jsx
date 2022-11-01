@@ -3,7 +3,7 @@ import React from "react";
 import "./props.css";
 import { useSelector } from "react-redux";
 
-export default function Times({ selectedCardList, mode }) {
+export default function PropCart({ selectedCardList, mode }) {
   const fs = useSelector((state) => state.user.fs);
 
   return (
