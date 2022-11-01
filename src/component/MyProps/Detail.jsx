@@ -358,7 +358,7 @@ export default function Detail({
                             ? "#C2DDF8"
                             : "#4831D4"
                         }`,
-                        mt: "12px",
+                        mt: `${each.statKey !== "fps" && "12px"}`,
                       }}
                     >
                       {each.actual ? each.actual : "0"}
@@ -368,7 +368,7 @@ export default function Detail({
                         width: "43px",
                         height: "2px",
                         background: "#D9D9D9",
-                        mt: "12px",
+                        mt: `${each.statKey !== "fps" && "12px"}`,
                         display: "flex",
                         justifyContent: "flex-start",
                       }}
@@ -394,6 +394,23 @@ export default function Detail({
                         }}
                       ></Box>
                     </Box>
+                    {each.statKey === "fps" && (
+                      <Box
+                        sx={{
+                          background: "#4831D4",
+                          color: "white",
+                          padding: "5px",
+                          borderRadius: "4px",
+                          fontSize: { sm: fs.xxs, xxs: fs.xxxs, xxxs: fs.xxxs },
+
+                          fontWeight: 700,
+                          fontFamily: "poppins",
+                          mt: "10px",
+                        }}
+                      >
+                        FPS
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               ))}
