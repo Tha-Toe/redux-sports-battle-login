@@ -13,6 +13,8 @@ import LoadingSpinnerDetail from "../loadingSpinner/LoadingSpinnerDetail";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import FpsPopup from "./FpsPopup";
+import PointsBreakdown from "./PointsBreakdown";
 export default function Detail({
   mode,
   setOpenDetail,
@@ -28,6 +30,9 @@ export default function Detail({
   const userDetail = useSelector((state) => state.user.userDetail);
   const [code, setCode] = useState(null);
   const fs = useSelector((state) => state.user.fs);
+  const [openFpsPopup, setOpenFpsPopup] = useState(false);
+  const [openPointsBreakdown, setOpenPointsBreakdown] = useState(false);
+
   useEffect(() => {
     if (userDetail) {
       setCode(userDetail.referralCode);
@@ -370,7 +375,13 @@ export default function Detail({
                             ? "#C2DDF8"
                             : "#4831D4"
                         }`,
-                        mt: `${each.statKey !== "fps" && "12px"}`,
+                        mt: `${
+                          each.statKey !== "fps"
+                            ? !isRefunded
+                              ? "12px"
+                              : "0px"
+                            : "12px"
+                        }`,
                       }}
                     >
                       {each.actual ? each.actual : "0"}
@@ -380,7 +391,13 @@ export default function Detail({
                         width: "43px",
                         height: "2px",
                         background: "#D9D9D9",
-                        mt: `${each.statKey !== "fps" && "12px"}`,
+                        mt: `${
+                          each.statKey !== "fps"
+                            ? !isRefunded
+                              ? "12px"
+                              : "0px"
+                            : "12px"
+                        }`,
                         display: "flex",
                         justifyContent: "flex-start",
                       }}
@@ -406,7 +423,7 @@ export default function Detail({
                         }}
                       ></Box>
                     </Box>
-                    {each.statKey === "fps" && (
+                    {each.statKey === "fps" && !isRefunded && (
                       <Box
                         sx={{
                           background: "#4831D4",
@@ -419,6 +436,7 @@ export default function Detail({
                           fontFamily: "poppins",
                           mt: "10px",
                         }}
+                        onClick={() => setOpenFpsPopup(true)}
                       >
                         FPS
                       </Box>
@@ -628,6 +646,20 @@ export default function Detail({
               setOpenPayoutScenarious={setOpenPayoutScenarious}
               mode={mode}
               detailData={detailData}
+            />
+          )}
+          {openFpsPopup && (
+            <FpsPopup
+              mode={mode}
+              setOpenPointsBreakdown={setOpenPointsBreakdown}
+              setOpenFpsPopup={setOpenFpsPopup}
+            />
+          )}
+          {openPointsBreakdown && (
+            <PointsBreakdown
+              mode={mode}
+              setOpenPointsBreakdown={setOpenPointsBreakdown}
+              setOpenFpsPopup={setOpenFpsPopup}
             />
           )}
         </>
