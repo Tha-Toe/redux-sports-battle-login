@@ -3,15 +3,55 @@ import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Grid, Card } from "@mui/material";
 import Detail from "./Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import NoProps from "./NoProps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { connectStorageEmulator } from "firebase/storage";
 import WithdrawPopup from "./WithdrawPopup";
+import {
+  addCompleteDataCommingFromApiNewPage,
+  addUpComingDataCommingFromApiNewPage,
+  addLiveDataCommingFromApiNewPage,
+} from "../../feature/userSlice";
+
+const useVerticalScrollMyProps = ({
+  mainDetail,
+  setPageNumberToChange,
+  pageNumberToChange,
+}) => {
+  const containerRef = useRef();
+
+  useEffect(() => {
+    const containerRefl = containerRef.current;
+    if (containerRefl) {
+      const onWheel = (e) => {
+        // console.log(containerRefl.scrollTop);
+        // console.log(containerRefl.scrollHeight);
+        // console.log(containerRefl.clientHeight);
+
+        if (containerRefl.scrollHeight === containerRefl.clientHeight) {
+          return;
+        } else if (
+          containerRefl.scrollTop + containerRefl.clientHeight ===
+          containerRefl.scrollHeight
+        ) {
+          setPageNumberToChange(true);
+        }
+        if (e.deltaY == 0) return;
+        e.preventDefault();
+        containerRefl.scrollTop = containerRefl.scrollTop + e.deltaY;
+      };
+      containerRefl.addEventListener("wheel", onWheel);
+      return () => containerRefl.removeEventListener("wheel", onWheel);
+    }
+  }, [mainDetail]);
+  return containerRef;
+};
+
 const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
   const fs = useSelector((state) => state.user.fs);
   const [time, setTime] = useState(null);
@@ -170,7 +210,10 @@ export default function MyPropsCardContainer({
   openTag,
   getEachProp,
   callUpCommingMyPropsApi,
+  getMyProps,
 }) {
+  const dispatch = useDispatch();
+
   const fs = useSelector((state) => state.user.fs);
 
   useEffect(() => {
@@ -179,6 +222,52 @@ export default function MyPropsCardContainer({
   let userData = JSON.parse(localStorage.getItem("user"));
   const [detailData, setDetailData] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [pageNumberToChange, setPageNumberToChange] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    if (pageNumberToChange) {
+      let pageChange = page + 1;
+      setPage(pageChange);
+    }
+  }, [pageNumberToChange]);
+
+  useEffect(() => {
+    if (page > 1) {
+      handleChangePage();
+    }
+  }, [page]);
+  const user_from_localstorage = JSON.parse(localStorage.getItem("user"));
+  const handleChangePage = () => {
+    if (user_from_localstorage) {
+      let openTagToGive =
+        openTag === "Upcoming"
+          ? "upcoming"
+          : openTag === "Live"
+          ? "live"
+          : "completed";
+      console.log(openTagToGive);
+      getMyProps(user_from_localstorage.uid, openTagToGive, page)
+        .then((result) => {
+          if (result) {
+            if (openTag === "Upcoming") {
+              dispatch(addUpComingDataCommingFromApiNewPage(result));
+            } else if (openTag === "Live") {
+              dispatch(addLiveDataCommingFromApiNewPage(result));
+            } else {
+              dispatch(addCompleteDataCommingFromApiNewPage(result));
+            }
+            console.log(result);
+            setPageNumberToChange(false);
+          } else {
+            setPageNumberToChange(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   const handelOpenDetail = (e) => {
     // setClicked(index);
     console.log(e);
@@ -342,6 +431,17 @@ export default function MyPropsCardContainer({
   const [openWithdrawLoading, setOpenWithdrawLoading] = useState(false);
 
   const [openWithdrawPopup, setOpenWithdrawPopup] = useState(null);
+  const containerRef = useVerticalScrollMyProps({
+    mainDetail,
+    pageNumberToChange,
+    setPageNumberToChange,
+  });
+
+  useEffect(() => {
+    if (containerRef.current) {
+      console.log(containerRef.current.clientHeight);
+    }
+  }, []);
   if (mainDetail && mainDetail.props.length === 0 && !openWithdrawLoading) {
     return <NoProps openTag={openTag} />;
   } else if (mainDetail && mainDetail.props.length > 0) {
@@ -360,6 +460,7 @@ export default function MyPropsCardContainer({
           >
             <Grid
               container
+              ref={containerRef}
               sx={{
                 width: { md: "50%", xxxs: "100%" },
                 border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
@@ -565,12 +666,6 @@ export default function MyPropsCardContainer({
                             <Sports sports={e.sports} />
                           </Box>
                         </Box>
-                        {openTag === "Upcoming" && e.prop.withdrawAllowed && (
-                          <UpcomingWithdraw
-                            propData={e}
-                            setOpenWithdrawPopup={setOpenWithdrawPopup}
-                          />
-                        )}
                       </Box>
                     </Box>
                     <Box

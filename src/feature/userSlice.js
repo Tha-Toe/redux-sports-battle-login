@@ -60,11 +60,32 @@ export const userSlice = createSlice({
     addUpComingDataCommingFromApi: (state, action) => {
       state.upComingDataCommingFromApi = action.payload;
     },
+    addUpComingDataCommingFromApiNewPage: (state, action) => {
+      let newArray = action.payload.props;
+      let combineArray = [
+        ...state.upComingDataCommingFromApi.props,
+        ...newArray,
+      ];
+      state.upComingDataCommingFromApi.props = combineArray;
+    },
     addLiveDataCommingFromApi: (state, action) => {
       state.liveDataCommingFromApi = action.payload;
     },
+    addLiveDataCommingFromApiNewPage: (state, action) => {
+      let newArray = action.payload.props;
+      let combineArray = [...state.liveDataCommingFromApi.props, ...newArray];
+      state.liveDataCommingFromApi.props = combineArray;
+    },
     addCompleteDataCommingFromApi: (state, action) => {
       state.completeDataCommingFromApi = action.payload;
+    },
+    addCompleteDataCommingFromApiNewPage: (state, action) => {
+      let newArray = action.payload.props;
+      let combineArray = [
+        ...state.completeDataCommingFromApi.props,
+        ...newArray,
+      ];
+      state.completeDataCommingFromApi.props = combineArray;
     },
     addMyAccountDataCommingFromApi: (state, action) => {
       state.myAccountDataCommingFromApi = action.payload;
@@ -139,8 +160,11 @@ export const {
   addUserDetail,
   addSportDataCommingFromApi,
   addUpComingDataCommingFromApi,
+  addUpComingDataCommingFromApiNewPage,
+  addLiveDataCommingFromApiNewPage,
   addLiveDataCommingFromApi,
   addCompleteDataCommingFromApi,
+  addCompleteDataCommingFromApiNewPage,
   addMyAccountDataCommingFromApi,
   addTxHistoryDataCommingFromApi,
   addSupportChatDataCommingFromApi,

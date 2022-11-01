@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PayoutScenarious from "./PayoutScenarious";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoadingSpinnerDetail from "../loadingSpinner/LoadingSpinnerDetail";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -28,6 +28,7 @@ export default function Detail({
   refreshAndCallDetailApi,
 }) {
   const userDetail = useSelector((state) => state.user.userDetail);
+  const dispatch = useDispatch();
   const [code, setCode] = useState(null);
   const fs = useSelector((state) => state.user.fs);
   const [openFpsPopup, setOpenFpsPopup] = useState(false);
