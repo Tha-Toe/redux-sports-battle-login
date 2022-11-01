@@ -20,7 +20,7 @@ const GridItemComponent = ({
   statsAndData,
 }) => {
   const fs = useSelector((state) => state.user.fs);
-
+  const [disableButton, setDisableButton] = useState(false);
   useEffect(() => {
     let conditionArray = selectedCardList.filter((each) => {
       return (
@@ -34,9 +34,24 @@ const GridItemComponent = ({
     if (conditionArray.length > 0) {
       console.log(conditionArray);
       setType(conditionArray[0].action);
-    }
-    if (conditionArray.length === 0) {
+    } else {
       setType(null);
+    }
+
+    let toDisableButton = selectedCardList.filter((each) => {
+      return (
+        each.data.gameId === e.gameId &&
+        each.data.sport === e.sport &&
+        each.data.playerName === e.playerName &&
+        each.data.gameName === e.gameName &&
+        each.data.statKey !== e.statKey
+      );
+    });
+    if (toDisableButton.length > 0) {
+      console.log(toDisableButton);
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
     }
   }, [
     selectedCardList,
@@ -142,12 +157,16 @@ const GridItemComponent = ({
       }
     }
   };
+
   return (
     <Grid
       item
       xxxs={12}
       lg={6}
-      sx={{ padding: 0, height: { xs: "130px", xxxs: "130px" } }}
+      sx={{
+        padding: 0,
+        height: { xxxs: historyTrue && e.history ? "130px" : "100px" },
+      }}
     >
       <Card
         sx={{
@@ -176,10 +195,11 @@ const GridItemComponent = ({
         >
           <Typography
             sx={{
-              color: "secondary.dark_gray",
+              color: `${disableButton ? "#FFCCCB" : "secondary.dark_gray"}`,
               fontSize: { xxxs: fs.xs },
               fontWeight: 600,
               fontFamily: "poppins",
+              textDecoration: `${disableButton ? "line-through" : "none"}`,
             }}
           >
             {e.playerName}
@@ -277,9 +297,11 @@ const GridItemComponent = ({
                           },
                           fontWeight: 400,
                           fontFamily: "poppins",
+                          mr: "2px",
                         }}
                       >
-                        {each.battingPoints},
+                        {each.battingPoints.replace(".0", "")}
+                        {e.history.length - 1 !== i && ","}
                       </Typography>
                     ))}
                 </Box>
@@ -298,6 +320,22 @@ const GridItemComponent = ({
               >
                 Avg :: {avg}
               </Typography>
+              {disableButton && (
+                <Typography
+                  sx={{
+                    color: "#FFCCCB",
+                    fontSize: {
+                      md: fs.xxs,
+                      sm: fs.xxxs,
+                      xxxs: fs.xxs,
+                    },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  Already picked in cart
+                </Typography>
+              )}
             </>
           )}
         </Box>
@@ -313,7 +351,7 @@ const GridItemComponent = ({
             sx={{
               color: "secondary.dark_gray",
               fontSize: {
-                lg: fs.xs,
+                lg: e.statDisplay.length > 13 ? fs.xxs : fs.xs,
                 md: fs.xs,
                 sm: fs.xxxs,
                 xxxs: fs.xxs,
@@ -342,19 +380,21 @@ const GridItemComponent = ({
             justifyContent: "center",
             alignItems: "flex-end",
             mr: "8px",
-            width: "25%",
+            width: "20%",
           }}
         >
           <Button
             sx={{
               width: { sm: "48px", xxxs: "24px" },
               py: "4px",
-              color: "secondary.dark_gray",
+              color: `${disableButton ? "gray" : "secondary.dark_gray"}`,
               fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               border: `${type === "over" ? "none" : "1px solid white"}`,
-              borderColor: `${mode === "dark" ? "white" : "#494949"}`,
+              borderColor: `${
+                mode === "dark" ? (disableButton ? "gray" : "white") : "#494949"
+              }`,
               borderRadius: "3px",
               mb: "8px",
               background: `${type === "over" ? "#4831D4" : "transparent"}`,
@@ -363,10 +403,12 @@ const GridItemComponent = ({
               },
             }}
             onClick={() => {
-              setType("over");
-              addCardFunc("over");
-              if (innerWidth < 700) {
-                scrollDownFunc();
+              if (!disableButton) {
+                setType("over");
+                addCardFunc("over");
+                if (innerWidth < 700) {
+                  scrollDownFunc();
+                }
               }
             }}
           >
@@ -375,13 +417,15 @@ const GridItemComponent = ({
           <Button
             sx={{
               width: { sm: "48px", xxxs: "24px" },
-              color: "secondary.dark_gray",
+              color: `${disableButton ? "gray" : "secondary.dark_gray"}`,
               py: "4px",
               fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: fs.xxs },
               fontWeight: 400,
               fontFamily: "poppins",
               border: `${type === "under" ? "none" : "1px solid white"}`,
-              borderColor: `${mode === "dark" ? "white" : "#494949"}`,
+              borderColor: `${
+                mode === "dark" ? (disableButton ? "gray" : "white") : "#494949"
+              }`,
               borderRadius: "3px",
               background: `${type === "under" ? "#4831D4" : "transparent"}`,
               "&.MuiButtonBase-root:hover": {
@@ -389,10 +433,12 @@ const GridItemComponent = ({
               },
             }}
             onClick={() => {
-              setType("under");
-              addCardFunc("under");
-              if (innerWidth < 700) {
-                scrollDownFunc();
+              if (!disableButton) {
+                setType("under");
+                addCardFunc("under");
+                if (innerWidth < 700) {
+                  scrollDownFunc();
+                }
               }
             }}
           >

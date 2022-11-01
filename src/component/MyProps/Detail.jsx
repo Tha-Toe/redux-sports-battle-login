@@ -101,42 +101,6 @@ export default function Detail({
         <>
           {detailData ? (
             <Box sx={{ width: "90%", mx: "auto" }}>
-              {openDetail === "Live" && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: { sm: "row", xxxs: "column" },
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    flexWrap: "wrap",
-                    border: "1px solid #4831D4",
-                    padding: "3px 10px",
-                    borderRadius: "4px",
-                    mt: "4px",
-                  }}
-                  onClick={() => refreshAndCallDetailApi(mainDetail)}
-                >
-                  <img
-                    src="/refresh.png"
-                    style={{
-                      marginRight: "3px",
-                      height: "15px",
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
-                      fontFamily: "poppins",
-                      fontWeight: 500,
-                      color: "secondary.main",
-                      ml: { sm: "5px", xxxs: "0px" },
-                    }}
-                  >
-                    Refresh
-                  </Typography>
-                </Box>
-              )}
               <Box
                 sx={{
                   display: "flex",
@@ -260,6 +224,13 @@ export default function Detail({
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
                         mt: "3px",
+                        color: `${
+                          each.propStatus === "won"
+                            ? "#439F48"
+                            : each.propStatus === "lost"
+                            ? "#d04643"
+                            : "lightblue"
+                        }`,
                       }}
                     >
                       {each.propStatus ? each.propStatus : "yet to begin"}
@@ -404,7 +375,13 @@ export default function Detail({
                     >
                       <Box
                         sx={{
-                          width: "100%",
+                          width: `${
+                            each.actual
+                              ? (each.actual / each.projection) * 100 > 100
+                                ? 100
+                                : (each.actual / each.projection) * 100
+                              : 0
+                          }%`,
                           height: "100%",
                           background: "#439F48",
                           background: `${
@@ -473,7 +450,45 @@ export default function Detail({
               </Box>
 
               {openDetail === "Upcoming" || openDetail === "Live" ? (
-                <></>
+                <>
+                  {openDetail === "Live" && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: { sm: "row", xxxs: "column" },
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        flexWrap: "wrap",
+                        border: "1px solid #4831D4",
+                        padding: "3px 10px",
+                        borderRadius: "4px",
+                        mt: "4px",
+                        width: "100px",
+                      }}
+                      onClick={() => refreshAndCallDetailApi(mainDetail)}
+                    >
+                      <img
+                        src="/refresh.png"
+                        style={{
+                          marginRight: "3px",
+                          height: "15px",
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
+                          fontFamily: "poppins",
+                          fontWeight: 500,
+                          color: "secondary.main",
+                          ml: { sm: "5px", xxxs: "0px" },
+                        }}
+                      >
+                        Refresh
+                      </Typography>
+                    </Box>
+                  )}
+                </>
               ) : (
                 <>
                   {detailData.props[0].prop.status === "x" ? (
@@ -489,6 +504,7 @@ export default function Detail({
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "center",
+                        mb: "20px",
                       }}
                     >
                       {detailData.props[0].prop.comment}
@@ -582,6 +598,7 @@ export default function Detail({
             <PayoutScenarious
               setOpenPayoutScenarious={setOpenPayoutScenarious}
               mode={mode}
+              detailData={detailData}
             />
           )}
         </>

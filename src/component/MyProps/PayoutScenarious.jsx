@@ -5,7 +5,11 @@ import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 
-export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
+export default function PayoutScenarious({
+  setOpenPayoutScenarious,
+  mode,
+  detailData,
+}) {
   const fs = useSelector((state) => state.user.fs);
 
   const [pays, setPays] = useState([
@@ -76,6 +80,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
             mt: "16px",
             pb: "10px",
             borderBottom: "1px solid #D9D9D9",
+            mb: "5px",
           }}
         >
           A player is considered if (sohe s not a did Ni not play/ or not a tie
@@ -84,7 +89,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
           In • n event player(s) is not lc • nsideredir th entry is downgraded
           and payouts are adjusted accordingly as per below{" "}
         </Typography>
-        {pays.map((e) => (
+        {/* {pays.map((e) => (
           <Typography
             sx={{
               width: "95%",
@@ -97,7 +102,24 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
           >
             {e}
           </Typography>
-        ))}
+        ))} */}
+        {detailData &&
+          detailData.props[0].prop.payouts.map((each, index) => (
+            <Typography
+              key={index}
+              sx={{
+                width: "95%",
+                fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+                fontWeight: 400,
+                fontFamily: "poppins",
+                color: "secondary.dark_gray",
+                mt: "4px",
+              }}
+            >
+              {each.picks}/{detailData.props[0].prop.projections.length} - wins{" "}
+              {each.payout}x{" "}
+            </Typography>
+          ))}
         <Typography
           sx={{
             width: "95%",
@@ -108,6 +130,7 @@ export default function PayoutScenarious({ setOpenPayoutScenarious, mode }) {
             py: "16px",
             borderBottom: "1px solid #D9D9D9",
             borderTop: "1px solid #D9D9D9",
+            mt: "5px",
           }}
         >
           It only 2 players remain, one is a tie and other is green, pays out

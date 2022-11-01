@@ -157,7 +157,6 @@ const ShowDate = ({ date, id }) => {
         fontWeight: 500,
         fontFamily: "poppins",
         color: "secondary.dark_gray",
-        mt: "5px",
       }}
     >
       Conf#::{id.slice(-6)},{showDate}
@@ -473,7 +472,6 @@ export default function MyPropsCardContainer({
                           fontWeight: 500,
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
-                          mt: "5px",
                           width: "95%",
                         }}
                       >
@@ -486,7 +484,6 @@ export default function MyPropsCardContainer({
                           alignItems: "flex-start",
                           justifyContent: "space-between",
                           width: "95%",
-                          mt: "4px",
                         }}
                       >
                         <Box
@@ -506,7 +503,6 @@ export default function MyPropsCardContainer({
                           alignItems: "center",
                           justifyContent: "space-between",
                           width: "95%",
-                          mt: "8px",
                         }}
                       >
                         <Box
@@ -558,8 +554,8 @@ export default function MyPropsCardContainer({
                               flexDirection: "row",
                               alignItems: "center",
                               width: "95%",
-                              mt: "12px",
-                              mb: "14px",
+                              mt: "4px",
+                              mb: "4px",
                             }}
                           >
                             <Sports sports={e.sports} />
