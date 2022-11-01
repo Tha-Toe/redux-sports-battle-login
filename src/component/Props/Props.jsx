@@ -1507,7 +1507,7 @@ export default function Props({
                       flexDirection: { sm: "row", xxxs: "column" },
                       justifyContent: "center",
                       alignItems: { xs: "flex-start", xxxs: "center" },
-                      height: "65%",
+                      height: "100%",
                       pb: "30px",
                     }}
                   >
@@ -1528,6 +1528,7 @@ export default function Props({
                         "&::-webkit-scrollbar": {
                           display: "none",
                         },
+                        borderBottom: "1px solid #494949",
                       }}
                     >
                       <Grid

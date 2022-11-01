@@ -98,6 +98,8 @@ const SubmitProjection = ({
               <Amount
                 setSelectAmount={setSelectAmount}
                 selectAmount={selectAmount}
+                moreThanOneCard={moreThanOneCard}
+                setPickPlayType={setPickPlayType}
               />
               {selectAmount === "other" && (
                 <Box

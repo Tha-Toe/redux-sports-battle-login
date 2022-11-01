@@ -1,10 +1,20 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "./props.css";
 import { useSelector } from "react-redux";
-export default function ({ setSelectAmount, selectAmount }) {
+export default function ({
+  setSelectAmount,
+  selectAmount,
+  moreThanOneCard,
+  setPickPlayType,
+}) {
   const fs = useSelector((state) => state.user.fs);
-
+  useEffect(() => {
+    if (!moreThanOneCard) {
+      setSelectAmount(null);
+      setPickPlayType(null);
+    }
+  }, [moreThanOneCard]);
   return (
     <Box sx={{ mb: "7px" }}>
       <Typography
@@ -41,9 +51,19 @@ export default function ({ setSelectAmount, selectAmount }) {
             fontFamily: "poppins",
             fontWeight: 500,
             mr: { xl: "5px", xxxs: "5px" },
-            color: `${selectAmount === 5 ? "white" : "secondary.dark_gray"}`,
+            color: `${
+              !moreThanOneCard
+                ? "gray"
+                : selectAmount === 5
+                ? "white"
+                : "secondary.dark_gray"
+            }`,
           }}
-          onClick={() => setSelectAmount(5)}
+          onClick={() => {
+            if (moreThanOneCard) {
+              setSelectAmount(5);
+            }
+          }}
         >
           $5
         </Box>
@@ -57,9 +77,19 @@ export default function ({ setSelectAmount, selectAmount }) {
             fontFamily: "poppins",
             fontWeight: 500,
             mr: { xl: "5px", xxxs: "5px" },
-            color: `${selectAmount === 10 ? "white" : "secondary.dark_gray"}`,
+            color: `${
+              !moreThanOneCard
+                ? "gray"
+                : selectAmount === 10
+                ? "white"
+                : "secondary.dark_gray"
+            }`,
           }}
-          onClick={() => setSelectAmount(10)}
+          onClick={() => {
+            if (moreThanOneCard) {
+              setSelectAmount(10);
+            }
+          }}
         >
           $10
         </Box>
@@ -73,9 +103,19 @@ export default function ({ setSelectAmount, selectAmount }) {
             fontFamily: "poppins",
             fontWeight: 500,
             mr: { xl: "5px", xxxs: "5px" },
-            color: `${selectAmount === 25 ? "white" : "secondary.dark_gray"}`,
+            color: `${
+              !moreThanOneCard
+                ? "gray"
+                : selectAmount === 25
+                ? "white"
+                : "secondary.dark_gray"
+            }`,
           }}
-          onClick={() => setSelectAmount(25)}
+          onClick={() => {
+            if (moreThanOneCard) {
+              setSelectAmount(25);
+            }
+          }}
         >
           $25
         </Box>
@@ -89,9 +129,19 @@ export default function ({ setSelectAmount, selectAmount }) {
             fontFamily: "poppins",
             fontWeight: 500,
             mr: { xl: "5px", xxxs: "5px" },
-            color: `${selectAmount === 50 ? "white" : "secondary.dark_gray"}`,
+            color: `${
+              !moreThanOneCard
+                ? "gray"
+                : selectAmount === 50
+                ? "white"
+                : "secondary.dark_gray"
+            }`,
           }}
-          onClick={() => setSelectAmount(50)}
+          onClick={() => {
+            if (moreThanOneCard) {
+              setSelectAmount(50);
+            }
+          }}
         >
           $50
         </Box>
@@ -105,10 +155,18 @@ export default function ({ setSelectAmount, selectAmount }) {
             fontFamily: "poppins",
             fontWeight: 500,
             color: `${
-              selectAmount === "other" ? "white" : "secondary.dark_gray"
+              !moreThanOneCard
+                ? "gray"
+                : selectAmount === "other"
+                ? "white"
+                : "secondary.dark_gray"
             }`,
           }}
-          onClick={() => setSelectAmount("other")}
+          onClick={() => {
+            if (moreThanOneCard) {
+              setSelectAmount("other");
+            }
+          }}
         >
           Other
         </Box>
