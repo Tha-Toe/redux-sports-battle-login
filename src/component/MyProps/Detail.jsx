@@ -41,11 +41,17 @@ export default function Detail({
   ]);
   const [openPayoutScenarious, setOpenPayoutScenarious] = useState(false);
   const [projection, setProjection] = useState([]);
+  const [isRefunded, setIsRefunded] = useState(false);
   useEffect(() => {
     if (detailData) {
       setProjection(detailData.props[0].prop.projections);
       console.log(detailData);
       console.log(detailData.props[0].status);
+      if (detailData.props[0].status === "x") {
+        setIsRefunded(true);
+      } else {
+        setIsRefunded(false);
+      }
     }
   }, [detailData]);
 
@@ -250,7 +256,10 @@ export default function Detail({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
-                            openDetail === "Upcoming" || openDetail === "Live"
+                            isRefunded
+                              ? "gray"
+                              : openDetail === "Upcoming" ||
+                                openDetail === "Live"
                               ? "white"
                               : each.propStatus === "lost"
                               ? "#D04643"
@@ -274,7 +283,10 @@ export default function Detail({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           color: `${
-                            openDetail === "Upcoming" || openDetail === "Live"
+                            isRefunded
+                              ? "gray"
+                              : openDetail === "Upcoming" ||
+                                openDetail === "Live"
                               ? "white"
                               : each.propStatus === "lost"
                               ? "#D04643"
