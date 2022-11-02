@@ -8,7 +8,7 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useSelector } from "react-redux";
 import RefreshIcon from "@mui/icons-material/Refresh";
-
+import HomeIcon from "@mui/icons-material/Home";
 export default function Address({ setAddress }) {
   let navigate = useNavigate();
   const fs = useSelector((state) => state.user.fs);
@@ -109,13 +109,13 @@ export default function Address({ setAddress }) {
           borderBottom: "1px solid #494949",
         }}
         onClick={() => {
-          setAddress(
-            "27834 Gateway Blvd B308 Farmington hills, Michigan, 48334"
-          );
-          goDepositForm();
+          // setAddress(
+          //   "27834 Gateway Blvd B308 Farmington hills, Michigan, 48334"
+          // );
+          // goDepositForm();
         }}
       >
-        <LocationOnIcon
+        <HomeIcon
           sx={{
             fontSize: fs.xx_large,
             mr: "15px",
@@ -142,7 +142,7 @@ export default function Address({ setAddress }) {
               width: "100%",
             }}
           >
-            27834 Gateway Blvd B308 Farmington hills, Michigan, 48334
+            Please add a new address
           </Typography>
         </Box>
       </Box>

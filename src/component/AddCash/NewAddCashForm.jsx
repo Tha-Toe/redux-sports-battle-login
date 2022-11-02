@@ -229,7 +229,8 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               width: { md: "25%", xs: "40%", xxxs: "60%" },
             }}
           >
-            {address ? address : "Select your address"}
+            {/* {address ? address : "Select your address"} */}
+            Select your address
           </Typography>
         </Box>
         <ArrowForwardIosIcon
