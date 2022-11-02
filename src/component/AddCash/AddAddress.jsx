@@ -28,6 +28,88 @@ export default function AddAddress({ setAddress, mode }) {
   const goDepositForm = () => {
     navigate("/home?deposit=new&page=form", { replace: true });
   };
+  const [addressObject, setAddressObject] = useState({
+    addrLine1: null,
+    addrLine2: null,
+    addrCity: null,
+    addrZip: null,
+    addrState: null,
+    abbreviation: null,
+  });
+
+  const line1Change = (e) => {
+    if (e) {
+      let obj = addressObject;
+      obj.addrLine1 = e;
+      setAddressObject(obj);
+    } else {
+      let obj = addressObject;
+      obj.addressLine1 = null;
+      setAddressObject(obj);
+    }
+    console.log(e);
+  };
+  const line2Change = (e) => {
+    if (e) {
+      let obj = addressObject;
+      obj.addrLine2 = e;
+      setAddressObject(obj);
+    } else {
+      let obj = addressObject;
+      obj.addressLine2 = null;
+      setAddressObject(obj);
+    }
+    console.log(e);
+  };
+  const cityChange = (e) => {
+    if (e) {
+      let obj = addressObject;
+      obj.addrCity = e;
+      setAddressObject(obj);
+    } else {
+      let obj = addressObject;
+      obj.addrCity = null;
+      setAddressObject(obj);
+    }
+    console.log(e);
+  };
+  const zipChange = (e) => {
+    if (e) {
+      let obj = addressObject;
+      obj.addrZip = e;
+      setAddressObject(obj);
+    } else {
+      let obj = addressObject;
+      obj.addrZip = null;
+      setAddressObject(obj);
+    }
+    console.log(e);
+  };
+  const stateChange = (e) => {
+    if (e) {
+      let obj = addressObject;
+      obj.addrState = e;
+      setAddressObject(obj);
+    } else {
+      let obj = addressObject;
+      obj.addrState = null;
+      setAddressObject(obj);
+    }
+    console.log(e);
+  };
+  // const abbreviationChange = (e) => {
+  //   if (e) {
+  //     let obj = addressObject;
+  //     obj.abbreviation = e;
+  //     setAddressObject(obj);
+  //   } else {
+  //     let obj = addressObject;
+  //     obj.abbreviation = null;
+  //     setAddressObject(obj);
+  //   }
+  //   console.log(e);
+  // };
+
   return (
     <Box
       sx={{
@@ -104,6 +186,7 @@ export default function AddAddress({ setAddress, mode }) {
         type="text"
         placeholder="Address 1"
         variant="outlined"
+        onChange={(e) => line1Change(e.target.value)}
         sx={{
           color: "secondary.dark_gray",
           borderBottom: "1px solid #494949",
@@ -131,6 +214,7 @@ export default function AddAddress({ setAddress, mode }) {
         type="text"
         placeholder="Address 2"
         variant="outlined"
+        onChange={(e) => line2Change(e.target.value)}
         sx={{
           color: "secondary.dark_gray",
           borderBottom: "1px solid #494949",
@@ -174,6 +258,7 @@ export default function AddAddress({ setAddress, mode }) {
             type="text"
             placeholder="Enter City Name"
             variant="outlined"
+            onChange={(e) => cityChange(e.target.value)}
             sx={{
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
@@ -202,6 +287,7 @@ export default function AddAddress({ setAddress, mode }) {
             type="number"
             placeholder="Enter zipcode"
             variant="outlined"
+            onChange={(e) => zipChange(e.target.value)}
             sx={{
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
@@ -306,7 +392,6 @@ export default function AddAddress({ setAddress, mode }) {
   );
 }
 
-
 //add new address
 
 export const addUserAddress = async (userId, addressObject) => {
@@ -319,7 +404,7 @@ export const addUserAddress = async (userId, addressObject) => {
       addrCity: addressObject.addrCity,
       addrZip: addressObject.addrZip,
       addrState: addressObject.addrState,
-      abbreviation: addressObject.abbreviation
+      abbreviation: addressObject.abbreviation,
     },
   };
   //console.log(apiUrl);

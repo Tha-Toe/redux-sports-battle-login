@@ -34,6 +34,7 @@ const initialState = {
   eachMyPropDataCommingFromApi: null,
   callClickSportApiFinish: true,
   noProjection: null,
+  addressFromApi: [],
 };
 
 export const userSlice = createSlice({
@@ -156,6 +157,10 @@ export const userSlice = createSlice({
     setNoProjection: (state, action) => {
       state.noProjection = action.payload;
     },
+    setAddressFromApi: (state, action) => {
+      console.log(action.payload);
+      state.addressFromApi = action.payload;
+    },
   },
 });
 
@@ -189,6 +194,7 @@ export const {
   setCallClickSportApiFinish,
   setNoProjection,
   AddIdpverified,
+  setAddressFromApi,
 } = userSlice.actions;
 
 export default userSlice.reducer;

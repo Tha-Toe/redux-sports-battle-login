@@ -79,7 +79,6 @@ function App() {
       const user_from_localstorage = await JSON.parse(
         localStorage.getItem("user")
       );
-      console.log("here");
       if (user_from_localstorage) {
         //if user exists in local storage
 
