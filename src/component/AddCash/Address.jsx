@@ -9,6 +9,8 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useSelector } from "react-redux";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import HomeIcon from "@mui/icons-material/Home";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall, makePOSTAPICall } from "../../api/methods";
 export default function Address({ setAddress }) {
   let navigate = useNavigate();
   const fs = useSelector((state) => state.user.fs);
@@ -221,3 +223,45 @@ export default function Address({ setAddress }) {
     </Box>
   );
 }
+
+
+//get list of existing addresses
+
+export const getUserAddress = async (userId) => {
+  var apiUrl = APIURLs.getUserAddress;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
+
+
+//add new address
+
+export const addUserAddress = async (userId, addressObject) => {
+  var apiUrl = APIURLs.addUserAddress;
+  var reqBody = {
+    userId: userId,
+    address: {
+      addrLine1: addressObject.addrLine1,
+      addrLine2: addressObject.addrLine2,
+      addrCity: addressObject.addrCity,
+      addrZip: addressObject.addrZip,
+      addrState: addressObject.addrState,
+      abbreviation: addressObject.abbreviation
+    },
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};

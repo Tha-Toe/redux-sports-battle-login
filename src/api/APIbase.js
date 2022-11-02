@@ -37,3 +37,12 @@ export const getFpsSport = ocApiGatewayCommon + 'fps/{sportcode}';
 //get fantasy points breakdown per prop entry
 
 export const getFantasyPoints = ocApiGatewayGames + 'props/fps/{propId}';
+
+
+//get user addresses
+
+export const getUserAddress = ocApiGatewayPayment + 'user/{userId}/address';
+
+//add user new address
+
+export const addUserAddress = ocApiGatewayPayment + 'address/add';
