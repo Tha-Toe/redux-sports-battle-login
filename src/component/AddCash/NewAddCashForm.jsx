@@ -111,7 +111,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
               width: "100%",
-              py: "7px",
+              pb: "7px",
               fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
@@ -142,7 +142,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
               width: "100%",
-              py: "7px",
+              pb: "7px",
               fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
@@ -174,7 +174,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             color: "secondary.dark_gray",
             borderBottom: "1px solid #494949",
             width: "100%",
-            py: "7px",
+            pb: "7px",
             fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 500,
             fontFamily: "poppins",
@@ -255,12 +255,15 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             fontSize: { sm: fs.normal, xxxs: fs.small },
             fontWeight: 600,
             fontFamily: "poppins",
-            padding: { xs: "14px 89px", xxxs: "10px 70px" },
+            px: { xs: "89px", xxxs: "70px" },
+            height: "48px",
             color: "white",
             "&.MuiButtonBase-root:hover": {
               background: "#4831D4",
             },
             mt: "15px",
+            textTransform: "none",
+            borderRadius: "8px",
           }}
           onClick={() => {
             setStartAnimation(true);
@@ -289,6 +292,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           padding: { sm: "10px 51px", xxxs: "5px 27px" },
           mt: "32px",
           bgcolor: "primary.main",
+          borderRadius: "8px",
         }}
       >
         Support Chat
@@ -318,6 +322,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              borderRadius: "8px",
             }}
           >
             <CheckCircleIcon
@@ -342,7 +347,6 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               sx={{
                 background: "#4831D4",
                 fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxxs },
-                fontWeight: 500,
                 fontFamily: "poppins",
                 padding: { xs: "12px 89px", xxxs: "10px 70px" },
                 color: "white",
@@ -352,6 +356,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
                 mt: "24px",
                 mb: "32px",
                 textTransform: "none",
+                fontWeight: "600",
               }}
               onClick={() => {
                 goAddCashPage();

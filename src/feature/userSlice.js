@@ -21,6 +21,7 @@ const initialState = {
   liveDataCommingFromApi: null,
   completeDataCommingFromApi: null,
   myAccountDataCommingFromApi: null,
+  idpverified: false,
   txHistoryDataCommingFromApi: null,
   supportChatDataCommingFromApi: null,
   knowMoreDataCommingFromApi: null,
@@ -89,6 +90,9 @@ export const userSlice = createSlice({
     },
     addMyAccountDataCommingFromApi: (state, action) => {
       state.myAccountDataCommingFromApi = action.payload;
+    },
+    AddIdpverified: (state, action) => {
+      state.idpverified = action.payload;
     },
     addTxHistoryDataCommingFromApi: (state, action) => {
       state.txHistoryDataCommingFromApi = action.payload;
@@ -179,6 +183,7 @@ export const {
   removePropsDataCommingFromApi,
   setCallClickSportApiFinish,
   setNoProjection,
+  AddIdpverified,
 } = userSlice.actions;
 
 export default userSlice.reducer;

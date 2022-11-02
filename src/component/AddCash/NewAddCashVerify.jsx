@@ -33,8 +33,9 @@ export default function NewAddCashVerify() {
       <Typography
         sx={{
           fontSize: {
-            sm: fs.x_large,
-            xs: fs.large,
+            xl: fs.large,
+            sm: fs.normal,
+            xs: fs.normal,
             xxs: fs.small,
             xxxs: fs.xs,
           },
@@ -49,8 +50,9 @@ export default function NewAddCashVerify() {
       <Typography
         sx={{
           fontSize: {
-            sm: fs.x_large,
-            xs: fs.large,
+            xl: fs.large,
+            sm: fs.normal,
+            xs: fs.normal,
             xxs: fs.small,
             xxxs: fs.xs,
           },
@@ -65,8 +67,9 @@ export default function NewAddCashVerify() {
       <Typography
         sx={{
           fontSize: {
-            sm: fs.x_large,
-            xs: fs.large,
+            xl: fs.large,
+            sm: fs.normal,
+            xs: fs.normal,
             xxs: fs.small,
             xxxs: fs.xs,
           },
@@ -80,7 +83,13 @@ export default function NewAddCashVerify() {
       </Typography>
       <Typography
         sx={{
-          fontSize: { sm: fs.normal, xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
+          fontSize: {
+            xs: fs.small,
+            sm: fs.xs,
+            xs: fs.xs,
+            xxs: fs.xxs,
+            xxxs: fs.xxxs,
+          },
           fontWeight: 400,
           fontFamily: "poppins",
           color: "secondary.dark_gray",
@@ -93,10 +102,16 @@ export default function NewAddCashVerify() {
       <Button
         sx={{
           background: "#4831D4",
-          fontSize: { sm: fs.normal, xs: fs.small, xxs: fs.xxs, xxxs: fs.xxxs },
+          fontSize: {
+            xl: fs.normal,
+            sm: fs.small,
+            xs: fs.small,
+            xxs: fs.xxs,
+            xxxs: fs.xxxs,
+          },
           fontWeight: 600,
           fontFamily: "poppins",
-          padding: { xs: "16px 89px", xxxs: "12px 70px" },
+          padding: { xs: "9.5px 89px", xxxs: "8px 70px" },
           color: "white",
           "&.MuiButtonBase-root:hover": {
             background: "#4831D4",

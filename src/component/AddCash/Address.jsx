@@ -7,6 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useSelector } from "react-redux";
+import RefreshIcon from "@mui/icons-material/Refresh";
+
 export default function Address({ setAddress }) {
   let navigate = useNavigate();
   const fs = useSelector((state) => state.user.fs);
@@ -91,7 +93,7 @@ export default function Address({ setAddress }) {
           >
             Refresh
           </Typography>
-          <RestartAltIcon sx={{ color: "secondary.dark_gray", ml: "4px" }} />
+          <RefreshIcon sx={{ color: "secondary.dark_gray", ml: "4px" }} />
         </Box>
       </Box>
       <Box
@@ -163,7 +165,7 @@ export default function Address({ setAddress }) {
           sx={{
             color: "white",
             fontSize: fs.small,
-            fontWeight: 400,
+            fontWeight: 600,
             fontFamily: "poppins",
             ml: "4px",
           }}

@@ -19,6 +19,12 @@ export default function SelectState({ setOpenStatePicker, mode }) {
     { name: "Florida", select: false },
     { name: "Georgia", select: false },
     { name: "Hawaii", select: false },
+    { name: "Banda", select: false },
+    { name: "Kluer", select: false },
+    { name: "Maja", select: false },
+    { name: "San Moski", select: false },
+    { name: "Mogok", select: false },
+    { name: "Dinel", select: false },
   ]);
   const [selectName, setSelectName] = useState(null);
   return (
@@ -48,6 +54,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
           alignItems: "flex-start",
           border: `${mode === "dark" ? "1px solid #2C2C2C" : "none"}`,
           borderRadius: "4px",
+          height: "70%",
         }}
       >
         <Box
@@ -91,7 +98,8 @@ export default function SelectState({ setOpenStatePicker, mode }) {
           sx={{
             width: "90%",
             mx: "auto",
-            maxHeight: "483px",
+            height: "100%",
+            maxHeight: "100%",
             display: "flex",
             flexDirection: "row",
             alignItems: "spcae-between",
@@ -102,7 +110,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
             },
           }}
         >
-          <Box sx={{ width: "97%" }}>
+          <Box sx={{ width: "100%" }}>
             <Box
               sx={{
                 width: "100%",
@@ -157,7 +165,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
               ))}
             </Box>
           </Box>
-          <Box
+          {/* <Box
             sx={{ width: "3%", height: "100%", border: "1px solid #494949" }}
           >
             <Box
@@ -170,15 +178,15 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                 mt: "5px",
               }}
             ></Box>
-          </Box>
+          </Box> */}
         </Box>
         <Button
           sx={{
-            width: "70%",
             mx: "auto",
             background: "#4831D4",
             color: "white",
             py: "14px",
+            px: "78px",
             mt: "10px",
             textTransform: "none",
             "&.MuiButtonBase-root:hover": {
@@ -186,6 +194,9 @@ export default function SelectState({ setOpenStatePicker, mode }) {
             },
             mb: "12px",
             fontFamily: "poppins",
+            fontSize: fs.small,
+            fontWeight: "600",
+            borderRadius: "8px",
           }}
           onClick={() => setOpenStatePicker(false)}
         >

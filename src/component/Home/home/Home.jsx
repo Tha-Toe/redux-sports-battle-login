@@ -42,6 +42,7 @@ import {
   removePropsDataCommingFromApi,
   setCallClickSportApiFinish,
   setNoProjection,
+  AddIdpverified,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -222,12 +223,34 @@ export function Home({ mode, setMode }) {
   //getSportsdata
   let preventDoubleCall = true;
 
+  const getIdpVerified = () => {
+    let userData = JSON.parse(localStorage.getItem("user"));
+    getUserById(userData.uid)
+      .then((result) => {
+        if (result) {
+          //user is not null will get details
+          dispatch(AddIdpverified(result.idpVerified));
+        } else {
+          //user is null create user
+          localStorage.removeItem("user");
+          if (auth) {
+            signOut(auth);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const idpverified = useSelector((state) => state.user.idpverified);
+  // const [idpverified] = useState(false);
   useEffect(() => {
     const getPropsData = () => {
       if (userDetail && preventDoubleCall) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
         onPropsOUCounterUpdate({ dispatch });
+        getIdpVerified();
       }
     };
     getPropsData();
@@ -340,6 +363,7 @@ export function Home({ mode, setMode }) {
         if (result) {
           //user is not null will get details
           dispatch(addMyAccountDataCommingFromApi(result));
+          dispatch(AddIdpverified(result.idpVerified));
           console.log(result);
         } else {
           //user is null create user
@@ -420,7 +444,7 @@ export function Home({ mode, setMode }) {
     callTxHistoryApi();
   };
   const goDepositNewUser = () => {
-    if (newUser) {
+    if (!idpverified) {
       navigate("/home?deposit=new&page=verify", { replace: true });
     } else {
       navigate("/home?deposit=old-user", { replace: true });
@@ -452,7 +476,6 @@ export function Home({ mode, setMode }) {
   };
   const [activeTag, setActiveTag] = useState("props");
   const [number, setNumber] = useState(null);
-  const [newUser, setNewUser] = useState(true);
   const [sideBar, setSideBar] = useState([
     {
       name: "Props",
@@ -513,7 +536,7 @@ export function Home({ mode, setMode }) {
       func: supportChatOpen,
     },
   ]);
-
+  const [newUser, setNewUser] = useState(true);
   const [openSideNav, setOpenSideNav] = useState(false);
   const [openTag, setOpenTag] = useState("props");
   const [address, setAddress] = useState(null);
@@ -724,7 +747,6 @@ export function Home({ mode, setMode }) {
                   },
                   cursor: "pointer",
                 }}
-                onClick={goAddCashBonus}
               >
                 {}
                 Cash: ${cash && cash.toFixed(2)}
@@ -752,8 +774,12 @@ export function Home({ mode, setMode }) {
                   },
                 }}
                 onClick={() => {
-                  setOpenTag("addCash");
-                  goDepositNewUser();
+                  if (idpverified) {
+                    goAddCashBonus();
+                  } else {
+                    setOpenTag("addCash");
+                    goDepositNewUser();
+                  }
                 }}
               >
                 Deposit

@@ -13,7 +13,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddIcon from "@mui/icons-material/Add";
 import SelectState from "./SelectState";
 import { useSelector } from "react-redux";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
 export default function AddAddress({ setAddress, mode }) {
   const fs = useSelector((state) => state.user.fs);
   let navigate = useNavigate();
@@ -84,7 +84,7 @@ export default function AddAddress({ setAddress, mode }) {
           </Typography>
         </Box>
 
-        <RestartAltIcon sx={{ color: "secondary.main", ml: "4px" }} />
+        <RefreshIcon sx={{ color: "secondary.main", ml: "4px" }} />
       </Box>
       <Typography
         sx={{
@@ -104,7 +104,7 @@ export default function AddAddress({ setAddress, mode }) {
           color: "secondary.dark_gray",
           borderBottom: "1px solid #494949",
           width: "100%",
-          py: "7px",
+          pb: "7px",
           fontSize: { sm: fs.normal, xxxs: fs.small },
           fontWeight: 500,
           fontFamily: "poppins",
@@ -131,7 +131,7 @@ export default function AddAddress({ setAddress, mode }) {
           color: "secondary.dark_gray",
           borderBottom: "1px solid #494949",
           width: "100%",
-          py: "7px",
+          pb: "7px",
           fontSize: { sm: fs.normal, xxxs: fs.small },
           fontWeight: 500,
           fontFamily: "poppins",
@@ -174,7 +174,7 @@ export default function AddAddress({ setAddress, mode }) {
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
               width: "100%",
-              py: "7px",
+              pb: "7px",
               fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
@@ -202,7 +202,7 @@ export default function AddAddress({ setAddress, mode }) {
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
               width: "100%",
-              py: "7px",
+              pb: "7px",
               fontSize: { sm: fs.normal, xxxs: fs.small },
               fontWeight: 500,
               fontFamily: "poppins",
@@ -287,7 +287,7 @@ export default function AddAddress({ setAddress, mode }) {
           sx={{
             color: "white",
             fontSize: fs.small,
-            fontWeight: 400,
+            fontWeight: 600,
             fontFamily: "poppins",
             ml: "4px",
           }}
