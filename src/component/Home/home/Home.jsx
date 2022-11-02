@@ -242,8 +242,8 @@ export function Home({ mode, setMode }) {
         console.log(err);
       });
   };
-  const idpverified = useSelector((state) => state.user.idpverified);
-  // const [idpverified] = useState(false);
+  // const idpverified = useSelector((state) => state.user.idpverified);
+  const [idpverified] = useState(false);
   useEffect(() => {
     const getPropsData = () => {
       if (userDetail && preventDoubleCall) {

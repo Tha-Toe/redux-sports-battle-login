@@ -186,7 +186,7 @@ const GridItemComponent = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
             alignItems: "flex-start",
             ml: "8px",
             height: "80%",
@@ -200,6 +200,7 @@ const GridItemComponent = ({
               fontWeight: 600,
               fontFamily: "poppins",
               textDecoration: `${disableButton ? "line-through" : "none"}`,
+              mb: "3px",
             }}
           >
             {e.playerName}
@@ -214,11 +215,12 @@ const GridItemComponent = ({
               },
               fontWeight: 400,
               fontFamily: "poppins",
+              mb: "3px",
             }}
           >
             {e.myTeamLongName} - {e.profile}
           </Typography>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", mb: "3px" }}>
             <Typography
               sx={{
                 color: "secondary.dark_gray",
@@ -252,7 +254,7 @@ const GridItemComponent = ({
           </Box>
           {historyTrue && e.history && (
             <>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", mb: "3px" }}>
                 <Typography
                   sx={{
                     color: "secondary.dark_gray",
@@ -316,6 +318,7 @@ const GridItemComponent = ({
                   },
                   fontWeight: 400,
                   fontFamily: "poppins",
+                  mb: "3px",
                 }}
               >
                 Avg :: {avg}
