@@ -18,7 +18,7 @@ export default function Address({ setAddress }) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const fs = useSelector((state) => state.user.fs);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const goDepositForm = () => {
     navigate("/home?deposit=new&page=form", { replace: true });
   };

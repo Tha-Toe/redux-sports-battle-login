@@ -5,27 +5,33 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Clear from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 import { useSelector } from "react-redux";
-export default function SelectState({ setOpenStatePicker, mode }) {
+export default function SelectState({
+  setOpenStatePicker,
+  mode,
+  stateData,
+  setAbbreviation,
+  setSelectState,
+}) {
   const fs = useSelector((state) => state.user.fs);
-  const [stateList, setStateList] = useState([
-    { name: "Alabama", select: false },
-    { name: "Alaska", select: false },
-    { name: "Arizona", select: false },
-    { name: "Arkansas", select: false },
-    { name: "California", select: false },
-    { name: "Colorado", select: false },
-    { name: "Connecticut", select: false },
-    { name: "Delaware", select: false },
-    { name: "Florida", select: false },
-    { name: "Georgia", select: false },
-    { name: "Hawaii", select: false },
-    { name: "Banda", select: false },
-    { name: "Kluer", select: false },
-    { name: "Maja", select: false },
-    { name: "San Moski", select: false },
-    { name: "Mogok", select: false },
-    { name: "Dinel", select: false },
-  ]);
+  // const [stateList, setStateList] = useState([
+  //   { name: "Alabama", select: false },
+  //   { name: "Alaska", select: false },
+  //   { name: "Arizona", select: false },
+  //   { name: "Arkansas", select: false },
+  //   { name: "California", select: false },
+  //   { name: "Colorado", select: false },
+  //   { name: "Connecticut", select: false },
+  //   { name: "Delaware", select: false },
+  //   { name: "Florida", select: false },
+  //   { name: "Georgia", select: false },
+  //   { name: "Hawaii", select: false },
+  //   { name: "Banda", select: false },
+  //   { name: "Kluer", select: false },
+  //   { name: "Maja", select: false },
+  //   { name: "San Moski", select: false },
+  //   { name: "Mogok", select: false },
+  //   { name: "Dinel", select: false },
+  // ]);
   const [selectName, setSelectName] = useState(null);
   return (
     <Box
@@ -120,7 +126,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                 alignItems: "center",
               }}
             >
-              {stateList.map((e, index) => (
+              {stateData.map((e, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -133,7 +139,7 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    setSelectName(e.name);
+                    setSelectName(e);
                   }}
                 >
                   <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -141,7 +147,9 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                       sx={{
                         ml: "15px",
                         color: `${
-                          e.name === selectName ? "#4831D4" : "#494949"
+                          selectName && e.state === selectName.state
+                            ? "#4831D4"
+                            : "#494949"
                         }`,
                       }}
                     />
@@ -155,10 +163,10 @@ export default function SelectState({ setOpenStatePicker, mode }) {
                         fontFamily: "poppins",
                       }}
                     >
-                      {e.name}
+                      {e.state}
                     </Typography>
                   </Box>
-                  {e.name === selectName && (
+                  {selectName && e.state === selectName.state && (
                     <CheckIcon sx={{ color: "#52C03F" }} />
                   )}
                 </Box>
@@ -198,7 +206,13 @@ export default function SelectState({ setOpenStatePicker, mode }) {
             fontWeight: "600",
             borderRadius: "8px",
           }}
-          onClick={() => setOpenStatePicker(false)}
+          onClick={() => {
+            if (selectName) {
+              setOpenStatePicker(false);
+              setSelectState(selectName.state);
+              setAbbreviation(selectName.abbreviation);
+            }
+          }}
         >
           Confirm State
         </Button>

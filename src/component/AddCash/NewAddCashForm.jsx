@@ -274,9 +274,9 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         >
           {startAnimation ? (
             <div className="circleContainer">
-              <div className="circle-one"></div>
-              <div className="circle-two"></div>
-              <div className="circle-three"></div>
+              <div className="circle-one-address"></div>
+              <div className="circle-two-address"></div>
+              <div className="circle-three-address"></div>
             </div>
           ) : (
             "Verify"
