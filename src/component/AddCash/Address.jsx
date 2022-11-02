@@ -96,7 +96,7 @@ export default function Address({ setAddress }) {
           <RefreshIcon sx={{ color: "secondary.dark_gray", ml: "4px" }} />
         </Box>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -115,7 +115,7 @@ export default function Address({ setAddress }) {
           // goDepositForm();
         }}
       >
-        <HomeIcon
+        <LocationOnIcon
           sx={{
             fontSize: fs.xx_large,
             mr: "15px",
@@ -142,6 +142,51 @@ export default function Address({ setAddress }) {
               width: "100%",
             }}
           >
+            27834 Gateway Blvd B30B Farmington hills, Michigan,
+            48334
+          </Typography>
+        </Box>
+      </Box> */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "primary.main",
+          width: "100%",
+          cursor: "pointer",
+        }}
+      >
+        <HomeIcon
+          sx={{
+            fontSize: "50px",
+            color: "secondary.dark_gray",
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: { md: "45%", xs: "40%", xxxs: "60%" },
+            pb: "13px",
+            cursor: "pointer",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: fs.normal,
+              fontWeight: 400,
+              fontFamily: "poppins",
+              color: "secondary.dark_gray",
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             Please add a new address
           </Typography>
         </Box>
@@ -152,11 +197,11 @@ export default function Address({ setAddress }) {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
-          mt: "24px",
           cursor: "pointer",
           padding: { sm: "14px 71px", xxs: "12px 40px", xxxs: "12px 30px" },
           borderRadius: "4px",
           background: "#4831D4",
+          mt: "24px",
         }}
         onClick={goAddAddressPage}
       >
