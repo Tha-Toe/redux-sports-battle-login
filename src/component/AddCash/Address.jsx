@@ -84,7 +84,7 @@ export default function Address({ setAddress }) {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          mt: "13px",
+          mt: { sm: "13px", xxxs: "30px" },
           cursor: "pointer",
           width: "100%",
           mb: "32px",
@@ -96,7 +96,6 @@ export default function Address({ setAddress }) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            mt: "13px",
             cursor: "pointer",
           }}
           onClick={goDepositForm}
@@ -115,7 +114,7 @@ export default function Address({ setAddress }) {
               color: "secondary.dark_gray",
             }}
           >
-            Age Verification Setup{" "}
+            Address List{" "}
           </Typography>
         </Box>
         <Box
@@ -124,7 +123,6 @@ export default function Address({ setAddress }) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            mt: "13px",
             cursor: "pointer",
             border: "1px solid #494949",
             padding: "6px 24px",
@@ -182,10 +180,9 @@ export default function Address({ setAddress }) {
                     borderBottom: "1px solid #494949",
                   }}
                   onClick={() => {
-                    // setAddress(
-                    //   "27834 Gateway Blvd B308 Farmington hills, Michigan, 48334"
-                    // );
-                    // goDepositForm();
+                    setAddress(each);
+                    console.log(each);
+                    goDepositForm();
                   }}
                 >
                   <LocationOnIcon

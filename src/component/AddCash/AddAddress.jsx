@@ -215,7 +215,7 @@ export default function AddAddress({ setAddress, mode }) {
               color: "secondary.dark_gray",
             }}
           >
-            Age Verification Setup{" "}
+            Add Address{" "}
           </Typography>
         </Box>
       </Box>

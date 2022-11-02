@@ -35,6 +35,31 @@ const SubmitProjection = ({
     }
   }, [selectedCardList]);
   const [inputAmount, setInputAmount] = useState(null);
+  const [Lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
+  const [altitude, setAltitude] = useState(null);
+  const [speed, setSpeed] = useState(null);
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      // Geolocation is not supported by your browser
+    } else {
+      // setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // setStatus(null);
+          console.log(position.coords);
+          setLat(position.coords.latitude);
+          setLong(position.coords.longitude);
+          setAltitude(position.coords.altitude);
+          setSpeed(position.coords.speed);
+        },
+        () => {
+          // setStatus('Unable to retrieve your location');
+        }
+      );
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -224,7 +249,10 @@ const SubmitProjection = ({
                 textTransform: "none",
                 height: "31px",
               }}
-              onClick={() => setSuccessSubmit(true)}
+              onClick={() => {
+                // setSuccessSubmit(true)
+                getLocation();
+              }}
             >
               Submit
             </Button>

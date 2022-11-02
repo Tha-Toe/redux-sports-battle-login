@@ -35,6 +35,33 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const [startAnimation, setStartAnimation] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [failOpen, setFailOpen] = useState(false);
+
+  const [Lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
+  const [altitude, setAltitude] = useState(null);
+  const [speed, setSpeed] = useState(null);
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      // Geolocation is not supported by your browser
+    } else {
+      // setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // setStatus(null);
+          console.log(position.coords);
+          setLat(position.coords.latitude);
+          setLong(position.coords.longitude);
+          setAltitude(position.coords.altitude);
+          setSpeed(position.coords.speed);
+        },
+        () => {
+          // setStatus('Unable to retrieve your location');
+          console.log("fail");
+        }
+      );
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -229,8 +256,19 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
               width: { md: "25%", xs: "40%", xxxs: "60%" },
             }}
           >
-            {/* {address ? address : "Select your address"} */}
-            Select your address
+            {address
+              ? address.address.abbreviation +
+                " " +
+                address.address.addrCity +
+                " " +
+                address.address.addrLine1 +
+                " " +
+                address.address.addrLine2 +
+                " " +
+                address.address.addrStat +
+                ", " +
+                address.address.addrZip
+              : "Select your address"}
           </Typography>
         </Box>
         <ArrowForwardIosIcon
@@ -267,9 +305,10 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             borderRadius: "8px",
           }}
           onClick={() => {
-            setStartAnimation(true);
-            goSuccess();
-            setNewUser(false);
+            getLocation();
+            // setStartAnimation(true);
+            // goSuccess();
+            // setNewUser(false);
           }}
         >
           {startAnimation ? (
