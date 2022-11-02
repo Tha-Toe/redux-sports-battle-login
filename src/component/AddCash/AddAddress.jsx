@@ -418,3 +418,16 @@ export const addUserAddress = async (userId, addressObject) => {
     };
   }
 };
+
+
+//get list of states
+
+export const getStates = async () => {
+  var apiUrl = APIURLs.getStates;
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};

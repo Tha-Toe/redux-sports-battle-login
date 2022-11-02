@@ -46,3 +46,8 @@ export const getUserAddress = ocApiGatewayPayment + 'user/{userId}/address';
 //add user new address
 
 export const addUserAddress = ocApiGatewayPayment + 'address/add';
+
+
+// get states
+
+export const getStates = ocApiGatewayPayment + 'states';
