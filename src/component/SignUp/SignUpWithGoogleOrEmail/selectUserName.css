@@ -1,0 +1,20 @@
+.first-signup-flow-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .first-signup-flow-container {
+    margin-bottom: 50px;
+  }
+}
+@media (max-width: 500px) {
+  .first-logo-image {
+    width: 80px;
+  }
+}

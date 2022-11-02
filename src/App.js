@@ -29,6 +29,7 @@ import { APIURLs } from "./api/ApiUrls";
 
 import { auth } from "./config/firebase";
 import {
+  setGoSignUpPage,
   addUserInfo,
   removeUserInfo,
   endChecking,
@@ -38,6 +39,8 @@ import {
   setUserAccountExist,
 } from "./feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import SelectUserName from "./component/SignUp/SignUpWithGoogleOrEmail/SelectUserName";
+import ChooseRedirect from "./protected/ChooseRedirect";
 export const getUserInfoFromFirebaseUser = (firUser, fullName) => ({
   uid: firUser.uid,
   name: firUser.displayName || fullName,
@@ -108,6 +111,7 @@ function App() {
                   )
                 );
                 dispatch(addUserDetail(null));
+                dispatch(setGoSignUpPage(false));
                 if (auth) {
                   signOut(auth);
                 }
@@ -118,6 +122,7 @@ function App() {
                 //user is null go to signup func
                 setClickedSignUp(false);
                 dispatch(endChecking());
+                dispatch(setGoSignUpPage(true));
               }
               //loading false
             })
@@ -280,11 +285,13 @@ function App() {
               path="/choose"
               element={
                 <Redirect>
-                  <Choose
-                    mode={mode}
-                    setMode={setMode}
-                    setClickedSignUp={setClickedSignUp}
-                  />
+                  <ChooseRedirect>
+                    <Choose
+                      mode={mode}
+                      setMode={setMode}
+                      setClickedSignUp={setClickedSignUp}
+                    />
+                  </ChooseRedirect>
                 </Redirect>
               }
             />
@@ -321,6 +328,10 @@ function App() {
             <Route
               path="/createusername"
               element={<CreateUserName mode={mode} setMode={setMode} />}
+            />
+            <Route
+              path="/selectusername"
+              element={<SelectUserName mode={mode} setMode={setMode} />}
             />
             <Route
               path="/home"

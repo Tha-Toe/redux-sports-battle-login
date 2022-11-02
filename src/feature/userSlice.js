@@ -13,6 +13,7 @@ const initialState = {
     xxx_large: "24px",
     mega: "32px",
   },
+  goSignUpPage: false,
   user: null,
   checking: true,
   userDetail: [],
@@ -39,6 +40,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setGoSignUpPage: (state, action) => {
+      state.goSignUpPage = action.payload;
+    },
     addUserInfo: (state, action) => {
       state.user = action.payload;
     },
@@ -157,6 +161,7 @@ export const userSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setGoSignUpPage,
   addUserInfo,
   removeUserInfo,
   startChecking,
