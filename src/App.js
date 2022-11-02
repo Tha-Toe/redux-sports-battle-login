@@ -119,6 +119,10 @@ function App() {
                 dispatch(removeUserInfo());
                 setClickedSignUp(false);
                 dispatch(endChecking());
+              } else {
+                setClickedSignUp(false);
+                dispatch(endChecking());
+                dispatch(setGoSignUpPage(true));
               }
               //loading false
             })
