@@ -1,11 +1,26 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "./props.css";
 import { useSelector } from "react-redux";
-import _ from 'lodash';
+import _ from "lodash";
 
-export default function PropCart({ selectedCardList, mode }) {
+export default function PropCart({ selectedCardList, mode, selectSports }) {
   const fs = useSelector((state) => state.user.fs);
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
+
+  useEffect(() => {
+    if (selectedCardList.length > 0 && propsDataCommingFromApi) {
+      let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
+        return each.sportCode === selectSports;
+      });
+      if (selectedSportPropsData.length > 0) {
+        let metadata = selectedSportPropsData[0].metadata;
+        getPayouts(selectedCardList, metadata);
+      }
+    }
+  }, [selectedCardList, propsDataCommingFromApi, selectSports]);
 
   return (
     <Box
@@ -138,53 +153,100 @@ export const getPayouts = (selectedUserProps, metadata) => {
   if (!selectedUserProps || selectedUserProps.length < 2) {
     return {};
   }
-  const statsInThisEntry = _.uniq(_.map(selectedUserProps, o => o.statKey + '::' + o.sport));
-  const sportsInThisEntry = _.uniq(_.map(selectedUserProps, o => o.sport));
-  const uniqueCorrSportsInThisEntry = _.uniq(_.map(selectedUserProps.filter(x => metadata.correlatedSports.includes(x.sport)), o => o.sport));
-  const attackOnlySportsInThisEntry = _.uniq(_.map(selectedUserProps.filter(x => metadata.attackOnlySports.includes(x.sport)), o => o.sport));
+  const statsInThisEntry = _.uniq(
+    _.map(selectedUserProps, (o) => o.statKey + "::" + o.sport)
+  );
+  const sportsInThisEntry = _.uniq(_.map(selectedUserProps, (o) => o.sport));
+  const uniqueCorrSportsInThisEntry = _.uniq(
+    _.map(
+      selectedUserProps.filter((x) =>
+        metadata.correlatedSports.includes(x.sport)
+      ),
+      (o) => o.sport
+    )
+  );
+  const attackOnlySportsInThisEntry = _.uniq(
+    _.map(
+      selectedUserProps.filter((x) =>
+        metadata.attackOnlySports.includes(x.sport)
+      ),
+      (o) => o.sport
+    )
+  );
 
   let appPayouts = metadata.payouts;
   let payoutsHere = JSON.parse(JSON.stringify(appPayouts));
 
   const numPicks = selectedUserProps.length;
-  const attackPayouts = payoutsHere.filter(x => x.totalPicks === numPicks)[0]['attack'];
-  const attackPayoutsForStatsInThisEntry = attackPayouts.filter(x => statsInThisEntry.length === x.numStats)[0];
-  const defensePayouts = payoutsHere.filter(x => x.totalPicks === numPicks)[0]['defense'];
-  const defensePayoutsForStatsInThisEntry = defensePayouts.filter(x => statsInThisEntry.length === x.numStats);
+  const attackPayouts = payoutsHere.filter((x) => x.totalPicks === numPicks)[0][
+    "attack"
+  ];
+  const attackPayoutsForStatsInThisEntry = attackPayouts.filter(
+    (x) => statsInThisEntry.length === x.numStats
+  )[0];
+  const defensePayouts = payoutsHere.filter(
+    (x) => x.totalPicks === numPicks
+  )[0]["defense"];
+  const defensePayoutsForStatsInThisEntry = defensePayouts.filter(
+    (x) => statsInThisEntry.length === x.numStats
+  );
 
   let totalPayoutInThisEntry = 0.0;
-  const correlationSportEntries = selectedUserProps.filter(x => metadata.correlatedSports.includes(x.sport));
+  const correlationSportEntries = selectedUserProps.filter((x) =>
+    metadata.correlatedSports.includes(x.sport)
+  );
   let numOfCorrelatedSportEntries = correlationSportEntries.length;
 
   if (numOfCorrelatedSportEntries > 0) {
     // let payoutContributedByCorrSports = (numOfCorrelatedSportEntries / selectedUserProps.length) * attackPayoutsForStatsInThisEntry.payout * metadata.correlatedPayout;
     // let payoutContributedByCorrSports = (numOfCorrelatedSportEntries / selectedUserProps.length) * attackPayoutsForStatsInThisEntry.payout;
 
-    let payoutContributedByCorrSports = (numOfCorrelatedSportEntries / selectedUserProps.length) * attackPayoutsForStatsInThisEntry.payout;
-    const payoutContributedByOtherSports = ((selectedUserProps.length - numOfCorrelatedSportEntries) / selectedUserProps.length) * attackPayoutsForStatsInThisEntry.payout;
+    let payoutContributedByCorrSports =
+      (numOfCorrelatedSportEntries / selectedUserProps.length) *
+      attackPayoutsForStatsInThisEntry.payout;
+    const payoutContributedByOtherSports =
+      ((selectedUserProps.length - numOfCorrelatedSportEntries) /
+        selectedUserProps.length) *
+      attackPayoutsForStatsInThisEntry.payout;
 
-    const considerOtherSportsForPayoutReduction = payoutContributedByOtherSports > 0 && sportsInThisEntry.length - uniqueCorrSportsInThisEntry.length >= 2;
-    const action = _.map(correlationSportEntries, o => o.action === "over");
-    const numOvers = _.filter(correlationSportEntries, o => o.action === "over").length;
-    const numUnders = _.filter(correlationSportEntries, o => o.action === "under").length;
+    const considerOtherSportsForPayoutReduction =
+      payoutContributedByOtherSports > 0 &&
+      sportsInThisEntry.length - uniqueCorrSportsInThisEntry.length >= 2;
+    const action = _.map(correlationSportEntries, (o) => o.action === "over");
+    const numOvers = _.filter(
+      correlationSportEntries,
+      (o) => o.action === "over"
+    ).length;
+    const numUnders = _.filter(
+      correlationSportEntries,
+      (o) => o.action === "under"
+    ).length;
 
     let sameStatAllSameActionReduction = false;
-    if (numOfCorrelatedSportEntries >= 4 || considerOtherSportsForPayoutReduction) {
-      let distinctCorrelatedStats = _.uniq(_.map(correlationSportEntries, o => o.statKey));
-      distinctCorrelatedStats.forEach(x => {
+    if (
+      numOfCorrelatedSportEntries >= 4 ||
+      considerOtherSportsForPayoutReduction
+    ) {
+      let distinctCorrelatedStats = _.uniq(
+        _.map(correlationSportEntries, (o) => o.statKey)
+      );
+      distinctCorrelatedStats.forEach((x) => {
         if (!sameStatAllSameActionReduction) {
-          const thisStatPicks = _.filter(correlationSportEntries, o => o.statKey === x);
-          const thisStatActions = _.uniq(_.map(thisStatPicks, o => o.action));
+          const thisStatPicks = _.filter(
+            correlationSportEntries,
+            (o) => o.statKey === x
+          );
+          const thisStatActions = _.uniq(_.map(thisStatPicks, (o) => o.action));
           if (thisStatPicks.length > 1) {
             if (thisStatActions.length === 1) {
               sameStatAllSameActionReduction = true;
             }
           } else {
-            if (x === 'gir' || x === 'fairwaysHit' || x === 'birdiesOrBetter') {
+            if (x === "gir" || x === "fairwaysHit" || x === "birdiesOrBetter") {
               if (thisStatActions[0] === "under") {
                 sameStatAllSameActionReduction = true;
               }
-            } else if (x === 'strokes') {
+            } else if (x === "strokes") {
               if (thisStatActions[0] === "over") {
                 sameStatAllSameActionReduction = true;
               }
@@ -217,7 +279,8 @@ export const getPayouts = (selectedUserProps, metadata) => {
         } else {
           biggerChoice = numUnders;
         }
-        let biggerChoicePerc = 100 - (biggerChoice / (numOvers + numUnders)) * 100;
+        let biggerChoicePerc =
+          100 - (biggerChoice / (numOvers + numUnders)) * 100;
         if (biggerChoicePerc <= 25) {
           correlationPayoutPerc = 0.65;
         } else {
@@ -225,12 +288,20 @@ export const getPayouts = (selectedUserProps, metadata) => {
         }
       }
     }
-    let finalPayoutContributedByCorrSports = payoutContributedByCorrSports * correlationPayoutPerc;
-    totalPayoutInThisEntry = finalPayoutContributedByCorrSports + payoutContributedByOtherSports;
-    if (sameStatAllSameActionReduction || considerOtherSportsForPayoutReduction) {
+    let finalPayoutContributedByCorrSports =
+      payoutContributedByCorrSports * correlationPayoutPerc;
+    totalPayoutInThisEntry =
+      finalPayoutContributedByCorrSports + payoutContributedByOtherSports;
+    if (
+      sameStatAllSameActionReduction ||
+      considerOtherSportsForPayoutReduction
+    ) {
       totalPayoutInThisEntry = totalPayoutInThisEntry * 1;
     }
-    totalPayoutInThisEntry = totalPayoutInThisEntry >= 3 ? Math.round(totalPayoutInThisEntry * 2) / 2 : totalPayoutInThisEntry;
+    totalPayoutInThisEntry =
+      totalPayoutInThisEntry >= 3
+        ? Math.round(totalPayoutInThisEntry * 2) / 2
+        : totalPayoutInThisEntry;
     if (totalPayoutInThisEntry === 5.5) {
       totalPayoutInThisEntry = 5;
     } else if (totalPayoutInThisEntry >= 2.59 && totalPayoutInThisEntry < 2.6) {
@@ -239,7 +310,10 @@ export const getPayouts = (selectedUserProps, metadata) => {
       totalPayoutInThisEntry = 5;
     } else if (totalPayoutInThisEntry > 10 && totalPayoutInThisEntry <= 11) {
       totalPayoutInThisEntry = 10;
-    } else if (numOfCorrelatedSportEntries >= 2 && totalPayoutInThisEntry > 13) {
+    } else if (
+      numOfCorrelatedSportEntries >= 2 &&
+      totalPayoutInThisEntry > 13
+    ) {
       totalPayoutInThisEntry = 13.0;
     }
   } else {
@@ -251,7 +325,8 @@ export const getPayouts = (selectedUserProps, metadata) => {
   const payoutsForThisEntry = {
     attackPayouts: [attackPayoutsForStatsInThisEntry],
     defensePayouts: defensePayoutsForStatsInThisEntry,
-    attackOnlyEntry: attackOnlySportsInThisEntry.length > 0 || selectedUserProps.length <= 2,
+    attackOnlyEntry:
+      attackOnlySportsInThisEntry.length > 0 || selectedUserProps.length <= 2,
   };
   console.log(payoutsForThisEntry);
   return payoutsForThisEntry;

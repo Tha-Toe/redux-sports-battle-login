@@ -1568,6 +1568,7 @@ export default function Props({
                       removeCard={removeCard}
                       setSuccessSubmit={setSuccessSubmit}
                       setErrorSubmit={setErrorSubmit}
+                      selectSports={selectSports}
                     />
                     <div ref={messagesEndRef} />
                   </Box>

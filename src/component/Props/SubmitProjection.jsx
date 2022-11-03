@@ -16,6 +16,7 @@ const SubmitProjection = ({
   removeCard,
   setSuccessSubmit,
   setErrorSubmit,
+  selectSports,
 }) => {
   const fs = useSelector((state) => state.user.fs);
 
@@ -27,7 +28,6 @@ const SubmitProjection = ({
     if (selectedCardList.length === 0) {
       setStartSelect(false);
     } else {
-      console.log(selectedCardList);
       setStartSelect(true);
       if (selectedCardList.length > 1) {
         setMoreThanOneCard(true);
@@ -115,7 +115,11 @@ const SubmitProjection = ({
             }}
           >
             {moreThanOneCard && (
-              <PropCart selectedCardList={selectedCardList} mode={mode} />
+              <PropCart
+                selectedCardList={selectedCardList}
+                mode={mode}
+                selectSports={selectSports}
+              />
             )}
             <Box
               sx={{
