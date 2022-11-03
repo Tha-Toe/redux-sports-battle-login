@@ -8,6 +8,7 @@ import ChooseType from "./ChooseType";
 import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useSelector } from "react-redux";
+import FailLocationPermission from "../AddCash/FailLocationPermission";
 const SubmitProjection = ({
   selectedCardList,
   setSelectedCardList,
@@ -39,6 +40,8 @@ const SubmitProjection = ({
   const [long, setLong] = useState(null);
   const [altitude, setAltitude] = useState(null);
   const [speed, setSpeed] = useState(null);
+  const [locationBlock, setLocationBlock] = useState(false);
+
   const getLocation = () => {
     if (!navigator.geolocation) {
       // Geolocation is not supported by your browser
@@ -54,6 +57,7 @@ const SubmitProjection = ({
           setSpeed(position.coords.speed);
         },
         () => {
+          setLocationBlock(true);
           // setStatus('Unable to retrieve your location');
         }
       );
@@ -273,6 +277,12 @@ const SubmitProjection = ({
         >
           Choose over or under on a player to make your entry.{" "}
         </Typography>
+      )}
+      {locationBlock && (
+        <FailLocationPermission
+          mode={mode}
+          setLocationBlock={setLocationBlock}
+        />
       )}
     </Box>
   );

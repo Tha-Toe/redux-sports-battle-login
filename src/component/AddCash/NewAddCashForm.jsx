@@ -9,6 +9,7 @@ import "./newAddCashForm.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FailVerify from "./FailVerify";
 import { useSelector } from "react-redux";
+import FailLocationPermission from "./FailLocationPermission";
 export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -40,11 +41,13 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const [long, setLong] = useState(null);
   const [altitude, setAltitude] = useState(null);
   const [speed, setSpeed] = useState(null);
+  const [locationBlock, setLocationBlock] = useState(false);
+
   const getLocation = () => {
     if (!navigator.geolocation) {
       // Geolocation is not supported by your browser
     } else {
-      // setStatus('Locating...');
+      // setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           // setStatus(null);
@@ -56,7 +59,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         },
         () => {
           // setStatus('Unable to retrieve your location');
-          console.log("fail");
+          setLocationBlock(true);
         }
       );
     }
@@ -408,6 +411,12 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         </Box>
       )}
       {failOpen && <FailVerify mode={mode} />}
+      {locationBlock && (
+        <FailLocationPermission
+          setLocationBlock={setLocationBlock}
+          mode={mode}
+        />
+      )}
     </Box>
   );
 }
