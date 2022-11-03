@@ -710,11 +710,11 @@ export default function Props({
     // console.log(prop);
     let check = selectedCardList.filter((each) => {
       return (
-        each.data.gameId === prop.data.gameId &&
-        each.data.sport === prop.data.sport &&
-        each.data.playerName === prop.data.playerName &&
-        each.data.gameName === prop.data.gameName &&
-        each.data.statKey === prop.data.statKey
+        each.gameId === prop.gameId &&
+        each.sport === prop.sport &&
+        each.playerName === prop.playerName &&
+        each.gameName === prop.gameName &&
+        each.statKey === prop.statKey
       );
     });
     // console.log(check);
@@ -722,17 +722,15 @@ export default function Props({
       if (check[0].action !== prop.action) {
         let selectCardIdClone = selectedCardList.map((each) => {
           if (
-            each.data.gameId === prop.data.gameId &&
-            each.data.sport === prop.data.sport &&
-            each.data.playerName === prop.data.playerName &&
-            each.data.gameName === prop.data.gameName &&
-            each.data.statKey === prop.data.statKey
+            each.gameId === prop.gameId &&
+            each.sport === prop.sport &&
+            each.playerName === prop.playerName &&
+            each.gameName === prop.gameName &&
+            each.statKey === prop.statKey
           ) {
-            return {
-              data: each.data,
-              action: prop.action,
-              sportCode: each.sportCode,
-            };
+            let dataToAddCard = each;
+            dataToAddCard.action = prop.action;
+            return dataToAddCard;
           } else {
             return each;
           }
@@ -741,11 +739,11 @@ export default function Props({
       } else {
         let selectCardIdClone = selectedCardList.filter((each) => {
           return (
-            each.data.gameId !== prop.data.gameId ||
-            each.data.sport !== prop.data.sport ||
-            each.data.playerName !== prop.data.playerName ||
-            each.data.gameName !== prop.data.gameName ||
-            each.data.statKey !== prop.data.statKey
+            each.gameId !== prop.gameId ||
+            each.sport !== prop.sport ||
+            each.playerName !== prop.playerName ||
+            each.gameName !== prop.gameName ||
+            each.statKey !== prop.statKey
           );
         });
         setSelectedCardList(selectCardIdClone);

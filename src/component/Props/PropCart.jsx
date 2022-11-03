@@ -16,6 +16,7 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
         return each.sportCode === selectSports;
       });
       if (selectedSportPropsData.length > 0) {
+        console.log(selectedCardList);
         let metadata = selectedSportPropsData[0].metadata;
         getPayouts(selectedCardList, metadata);
       }

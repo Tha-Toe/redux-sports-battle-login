@@ -24,11 +24,11 @@ const GridItemComponent = ({
   useEffect(() => {
     let conditionArray = selectedCardList.filter((each) => {
       return (
-        each.data.gameId === e.gameId &&
-        each.data.sport === e.sport &&
-        each.data.playerName === e.playerName &&
-        each.data.gameName === e.gameName &&
-        each.data.statKey === e.statKey
+        each.gameId === e.gameId &&
+        each.sport === e.sport &&
+        each.playerName === e.playerName &&
+        each.gameName === e.gameName &&
+        each.statKey === e.statKey
       );
     });
     if (conditionArray.length > 0) {
@@ -40,11 +40,11 @@ const GridItemComponent = ({
 
     let toDisableButton = selectedCardList.filter((each) => {
       return (
-        each.data.gameId === e.gameId &&
-        each.data.sport === e.sport &&
-        each.data.playerName === e.playerName &&
-        each.data.gameName === e.gameName &&
-        each.data.statKey !== e.statKey
+        each.gameId === e.gameId &&
+        each.sport === e.sport &&
+        each.playerName === e.playerName &&
+        each.gameName === e.gameName &&
+        each.statKey !== e.statKey
       );
     });
     if (toDisableButton.length > 0) {
@@ -65,7 +65,11 @@ const GridItemComponent = ({
   const [type, setType] = useState(null);
   const addCardFunc = (overUnder) => {
     setType(overUnder);
-    addCard({ data: e, action: overUnder });
+    // let dataToAddCard = Object.create(e);
+    let dataToAddCard = { ...e, action: overUnder };
+    console.log(dataToAddCard);
+    // dataToAddCard.action = overUnder;
+    addCard(dataToAddCard);
   };
 
   const { innerWidth } = window;

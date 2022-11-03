@@ -15,17 +15,15 @@ export function AndresCard({
   const handleChangeOverUnder = (action) => {
     let selectCardIdClone = selectedCardList.map((each) => {
       if (
-        each.data.gameId === e.data.gameId &&
-        each.data.sport === e.data.sport &&
-        each.data.playerName === e.data.playerName &&
-        each.data.gameName === e.data.gameName &&
-        each.data.statKey === e.data.statKey
+        each.gameId === e.gameId &&
+        each.sport === e.sport &&
+        each.playerName === e.playerName &&
+        each.gameName === e.gameName &&
+        each.statKey === e.statKey
       ) {
-        return {
-          data: each.data,
-          action: action,
-          sportCode: each.sportCode,
-        };
+        let dataToAddCard = each;
+        dataToAddCard.action = action;
+        return dataToAddCard;
       } else {
         return each;
       }
@@ -34,12 +32,12 @@ export function AndresCard({
   };
   const [avg, setAvg] = useState(null);
   useEffect(() => {
-    if (e.data.history) {
+    if (e.history) {
       let total = 0;
-      for (let index = 0; index < e.data.history.length; index++) {
-        total += Number(e.data.history[index].battingPoints);
+      for (let index = 0; index < e.history.length; index++) {
+        total += Number(e.history[index].battingPoints);
       }
-      let totalAvg = Math.floor(total / e.data.history.length);
+      let totalAvg = Math.floor(total / e.history.length);
       setAvg(totalAvg);
     }
   }, [e]);
@@ -55,7 +53,7 @@ export function AndresCard({
     setSportImg(null);
     if (sportDataFromRedux.length > 0) {
       let currSport = sportDataFromRedux.filter((each) => {
-        return each.code === e.data.sport;
+        return each.code === e.sport;
       });
       // console.log(currSport);
       if (currSport.length > 0) {
@@ -67,10 +65,9 @@ export function AndresCard({
   useEffect(() => {
     if (propsDataCommingFromApi) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
-        return each.sportCode === e.data.sport;
+        return each.sportCode === e.sport;
       });
-      let history =
-        selectedSportPropsData[0].metadata.history[`${e.data.sport}`];
+      let history = selectedSportPropsData[0].metadata.history[`${e.sport}`];
       // console.log(history);
       if (history) {
         setHistoryTrue(history);
@@ -116,7 +113,7 @@ export function AndresCard({
               color: "secondary.dark_gray",
             }}
           >
-            {e.data.playerName}
+            {e.playerName}
           </Typography>
           <RemoveIcon
             sx={{
@@ -157,7 +154,7 @@ export function AndresCard({
               color: "white",
             }}
           >
-            {e.data.sport.toUpperCase()} : {e.data.gameName.toUpperCase()}
+            {e.sport.toUpperCase()} : {e.gameName.toUpperCase()}
           </Typography>
         </Box>
         <Box
@@ -238,7 +235,7 @@ export function AndresCard({
                 color: "secondary.dark_gray",
               }}
             >
-              {e.data.statDisplay}
+              {e.statDisplay}
             </Typography>
             <Typography
               sx={{
@@ -249,7 +246,7 @@ export function AndresCard({
                 ml: "6px",
               }}
             >
-              {e.data.projection}
+              {e.projection}
             </Typography>
           </Box>
         </Box>
