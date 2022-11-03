@@ -10,6 +10,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FailVerify from "./FailVerify";
 import { useSelector } from "react-redux";
 import FailLocationPermission from "./FailLocationPermission";
+import axios from "axios";
 export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -43,7 +44,13 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
 
-  const getLocation = () => {
+  const getLocation = async () => {
+    setStartAnimation(true);
+    const currTime = new Date();
+    console.log(currTime);
+    const res = await axios.get("https://geolocation-db.com/json/");
+    console.log(res.data);
+    // setIP(res.data.IPv4);
     if (!navigator.geolocation) {
       // Geolocation is not supported by your browser
     } else {
@@ -56,10 +63,12 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           setLong(position.coords.longitude);
           setAltitude(position.coords.altitude);
           setSpeed(position.coords.speed);
+          setStartAnimation(false);
         },
         () => {
           // setStatus('Unable to retrieve your location');
           setLocationBlock(true);
+          setStartAnimation(false);
         }
       );
     }

@@ -9,6 +9,8 @@ import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useSelector } from "react-redux";
 import FailLocationPermission from "../AddCash/FailLocationPermission";
+import axios from "axios";
+
 const SubmitProjection = ({
   selectedCardList,
   setSelectedCardList,
@@ -73,7 +75,12 @@ const SubmitProjection = ({
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
 
-  const getLocation = () => {
+  const getLocation = async () => {
+    const currTime = new Date();
+    console.log(currTime);
+    const res = await axios.get("https://geolocation-db.com/json/");
+    console.log(res.data);
+    // setIP(res.data.IPv4);
     if (!navigator.geolocation) {
       // Geolocation is not supported by your browser
     } else {
