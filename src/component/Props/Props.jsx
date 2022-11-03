@@ -757,11 +757,11 @@ export default function Props({
   const removeCard = (prop) => {
     let selectCardIdClone = selectedCardList.filter((each) => {
       return (
-        each.data.gameId !== prop.data.gameId ||
-        each.data.sport !== prop.data.sport ||
-        each.data.playerName !== prop.data.playerName ||
-        each.data.gameName !== prop.data.gameName ||
-        each.data.statKey !== prop.data.statKey
+        each.gameId !== prop.gameId ||
+        each.sport !== prop.sport ||
+        each.playerName !== prop.playerName ||
+        each.gameName !== prop.gameName ||
+        each.statKey !== prop.statKey
       );
     });
     setSelectedCardList(selectCardIdClone);
