@@ -9,6 +9,9 @@ export default function ({
   setPickPlayType,
 }) {
   const fs = useSelector((state) => state.user.fs);
+  const currentSportDataRedux = useSelector(
+    (state) => state.user.currentSportDataRedux
+  );
   useEffect(() => {
     if (!moreThanOneCard) {
       setSelectAmount(null);
@@ -41,7 +44,41 @@ export default function ({
           mb: "4px",
         }}
       >
-        <Box
+        {currentSportDataRedux &&
+          currentSportDataRedux.metadata.amount.map((each, index) => (
+            <Box
+              key={index}
+              sx={{
+                padding: "10px 12px",
+                fontSize: fs.xs,
+                bgcolor: `${
+                  selectAmount === each ? "#4831D4" : "primary.gray"
+                }`,
+                cursor: "pointer",
+                borderRadius: "4px",
+                fontFamily: "poppins",
+                fontWeight: 500,
+                mr: { xl: "5px", xxxs: "5px" },
+                color: `${
+                  !moreThanOneCard
+                    ? "gray"
+                    : selectAmount === each
+                    ? "white"
+                    : "secondary.dark_gray"
+                }`,
+              }}
+              onClick={() => {
+                if (moreThanOneCard) {
+                  setSelectAmount(each);
+                  setPickPlayType(null);
+                }
+              }}
+            >
+              {each !== "Other" && "$"}
+              {each}
+            </Box>
+          ))}
+        {/* <Box
           sx={{
             padding: "10px 12px",
             fontSize: fs.xs,
@@ -169,7 +206,7 @@ export default function ({
           }}
         >
           Other
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

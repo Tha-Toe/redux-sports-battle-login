@@ -1,9 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "./props.css";
 import { useSelector } from "react-redux";
-export default function () {
+export default function ({ winAmount }) {
   const fs = useSelector((state) => state.user.fs);
+  const userDetail = useSelector((state) => state.user.userDetail);
+  useEffect(() => {
+    if (userDetail) {
+      console.log(userDetail);
+    }
+  }, [userDetail]);
   return (
     <>
       <Box
@@ -32,7 +38,7 @@ export default function () {
             color: "#52C03C",
           }}
         >
-          $20
+          ${winAmount}
         </Typography>
       </Box>
       <Typography
@@ -72,7 +78,7 @@ export default function () {
             color: "secondary.dark_gray",
           }}
         >
-          $0
+          ${userDetail.unutilizedCash}
         </Typography>
       </Box>
       <Box
@@ -102,7 +108,7 @@ export default function () {
             color: "secondary.dark_gray",
           }}
         >
-          $0
+          ${userDetail.numCash}
         </Typography>
       </Box>
       <Box
@@ -132,7 +138,7 @@ export default function () {
             color: "secondary.dark_gray",
           }}
         >
-          $0
+          ${userDetail.numOUBonusCash}
         </Typography>
       </Box>
     </>

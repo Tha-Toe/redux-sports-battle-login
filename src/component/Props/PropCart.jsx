@@ -1,16 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import "./props.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
+import { addPropCartData } from "../../feature/userSlice";
 
 export default function PropCart({ selectedCardList, mode, selectSports }) {
   const fs = useSelector((state) => state.user.fs);
+  const dispatch = useDispatch();
   const propsDataCommingFromApi = useSelector(
     (state) => state.user.propsDataCommingFromApi
   );
-
+  let propCartData = useSelector((state) => state.user.propCartData);
   useEffect(() => {
+    dispatch(addPropCartData(null));
     if (selectedCardList.length > 0 && propsDataCommingFromApi) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
         return each.sportCode === selectSports;
@@ -18,7 +21,8 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
       if (selectedSportPropsData.length > 0) {
         console.log(selectedCardList);
         let metadata = selectedSportPropsData[0].metadata;
-        getPayouts(selectedCardList, metadata);
+        let propCartDataReturn = getPayouts(selectedCardList, metadata);
+        dispatch(addPropCartData(propCartDataReturn));
       }
     }
   }, [selectedCardList, propsDataCommingFromApi, selectSports]);
@@ -33,119 +37,147 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
         pb: "4px",
       }}
     >
-      <Typography
-        sx={{
-          fontFamily: "poppins",
-          fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxs },
-          fontWeight: 400,
-          color: "secondary.dark_gray",
-          width: "90%",
-          margin: "0 auto",
-          mb: "7px",
-        }}
-      >
-        Props Cart : : {selectedCardList.length} Player
-      </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          width: "90%",
-          margin: "0 auto",
-          mb: "3px",
-        }}
-      >
-        <Box
+      {propCartData && (
+        <Typography
           sx={{
-            padding: "5px 12px",
-            fontSize: fs.xs,
-            bgcolor: "primary.gray",
-            borderRadius: "4px",
             fontFamily: "poppins",
-            fontWeight: 500,
-            mr: "5px",
-            color: `${
-              selectedCardList.length === 1 ? "white" : "secondary.dark_gray"
-            }`,
+            fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxs },
+            fontWeight: 400,
+            color: "secondary.dark_gray",
+            width: "90%",
+            margin: "0 auto",
+            mb: "7px",
           }}
         >
-          1
-        </Box>
+          Props Cart : : {propCartData.attackPayouts[0].picks} Picks
+        </Typography>
+      )}
+      {propCartData && (
         <Box
           sx={{
-            padding: "5px 12px",
-            bgcolor: `${
-              selectedCardList.length === 2 ? "#439F48" : "primary.gray"
-            }`,
-            borderRadius: "4px",
-            fontFamily: "poppins",
-            fontWeight: 500,
-            fontSize: fs.xs,
-            mr: "5px",
-            color: `${
-              selectedCardList.length === 2 ? "white" : "secondary.dark_gray"
-            }`,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            width: "90%",
+            margin: "0 auto",
+            mb: "3px",
           }}
         >
-          {selectedCardList.length === 2 ? "2.6x" : "2"}
+          <Box
+            sx={{
+              padding: "5px 12px",
+              fontSize: fs.xs,
+              bgcolor: "primary.gray",
+              borderRadius: "4px",
+              fontFamily: "poppins",
+              fontWeight: 500,
+              mr: "5px",
+              color: `${
+                selectedCardList.length === 1 ? "white" : "secondary.dark_gray"
+              }`,
+            }}
+          >
+            1
+          </Box>
+          <Box
+            sx={{
+              padding: "5px 12px",
+              bgcolor: `${
+                propCartData.attackPayouts[0].picks === 2
+                  ? "#439F48"
+                  : "primary.gray"
+              }`,
+              borderRadius: "4px",
+              fontFamily: "poppins",
+              fontWeight: 500,
+              fontSize: fs.xs,
+              mr: "5px",
+              color: `${
+                propCartData.attackPayouts[0].picks === 2
+                  ? "white"
+                  : "secondary.dark_gray"
+              }`,
+            }}
+          >
+            {propCartData.attackPayouts[0].picks === 2
+              ? `${propCartData.attackPayouts[0].payout}x`
+              : "2"}
+          </Box>
+          <Box
+            sx={{
+              padding: "5px 12px",
+              bgcolor: `${
+                propCartData.attackPayouts[0].picks === 3
+                  ? "#439F48"
+                  : "primary.gray"
+              }`,
+              borderRadius: "4px",
+              fontFamily: "poppins",
+              fontWeight: 500,
+              fontSize: fs.xs,
+              mr: "5px",
+              color: `${
+                propCartData.attackPayouts[0].picks === 3
+                  ? "white"
+                  : "secondary.dark_gray"
+              }`,
+            }}
+          >
+            {propCartData.attackPayouts[0].picks === 3
+              ? `${propCartData.attackPayouts[0].payout}x`
+              : "3"}
+          </Box>
+          <Box
+            sx={{
+              padding: "5px 12px",
+              bgcolor: `${
+                propCartData.attackPayouts[0].picks === 4
+                  ? "#439F48"
+                  : "primary.gray"
+              }`,
+              borderRadius: "4px",
+              fontFamily: "poppins",
+              fontWeight: 500,
+              fontSize: fs.xs,
+              mr: "5px",
+              color: `${
+                propCartData.attackPayouts[0].picks === 4
+                  ? "white"
+                  : "secondary.dark_gray"
+              }`,
+            }}
+          >
+            {propCartData.attackPayouts[0].picks === 4
+              ? `${propCartData.attackPayouts[0].payout}x`
+              : "4"}
+          </Box>
+          <Box
+            sx={{
+              padding: "5px 12px",
+              bgcolor: `${
+                propCartData.attackPayouts[0].picks === 5
+                  ? "#439F48"
+                  : "primary.gray"
+              }`,
+              borderRadius: "4px",
+              fontFamily: "poppins",
+              fontWeight: 500,
+              fontSize: fs.xs,
+              mr: "5px",
+              color: `${
+                propCartData.attackPayouts[0].picks === 5
+                  ? "white"
+                  : "secondary.dark_gray"
+              }`,
+            }}
+          >
+            {propCartData.attackPayouts[0].picks === 5
+              ? `${propCartData.attackPayouts[0].payout}x`
+              : "5"}
+          </Box>
         </Box>
-        <Box
-          sx={{
-            padding: "5px 12px",
-            bgcolor: `${
-              selectedCardList.length === 3 ? "#439F48" : "primary.gray"
-            }`,
-            borderRadius: "4px",
-            fontFamily: "poppins",
-            fontWeight: 500,
-            fontSize: fs.xs,
-            mr: "5px",
-            color: `${
-              selectedCardList.length === 3 ? "white" : "secondary.dark_gray"
-            }`,
-          }}
-        >
-          {selectedCardList.length === 3 ? "3.6x" : "3"}
-        </Box>
-        <Box
-          sx={{
-            padding: "5px 12px",
-            bgcolor: `${
-              selectedCardList.length === 4 ? "#439F48" : "primary.gray"
-            }`,
-            borderRadius: "4px",
-            fontFamily: "poppins",
-            fontWeight: 500,
-            fontSize: fs.xs,
-            mr: "5px",
-            color: `${
-              selectedCardList.length === 4 ? "white" : "secondary.dark_gray"
-            }`,
-          }}
-        >
-          {selectedCardList.length === 4 ? "4.6x" : "4"}
-        </Box>
-        <Box
-          sx={{
-            padding: "5px 12px",
-            bgcolor: `${
-              selectedCardList.length > 4 ? "#439F48" : "primary.gray"
-            }`,
-            borderRadius: "4px",
-            fontFamily: "poppins",
-            fontWeight: 500,
-            fontSize: fs.xs,
-            mr: "5px",
-            color: `${
-              selectedCardList.length > 4 ? "white" : "secondary.dark_gray"
-            }`,
-          }}
-        >
-          {selectedCardList.length > 4 ? "5.6x" : "5"}
-        </Box>
-      </Box>
+      )}
     </Box>
   );
 }

@@ -22,6 +22,7 @@ import {
   setPropsApiCallComplete,
   setCallClickSportApiFinish,
   setNoProjection,
+  addCurrentSportDataRedux,
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -321,7 +322,7 @@ export default function Props({
         //set current sports data in
         // console.log(selectedSportPropsData[0]);
         setCurrentSportsData(selectedSportPropsData[0]);
-
+        dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
         //get statOUKeys
         let statOUKeys = selectedSportPropsData[0].statOUKeys;
         statOUKeys.map((each) => {
@@ -704,7 +705,9 @@ export default function Props({
       bat: "0.5",
     },
   ]);
-
+  let currentSportDataRedux = useSelector(
+    (state) => state.user.currentSportDataRedux
+  );
   const [selectedCardList, setSelectedCardList] = useState([]);
   const addCard = async (prop) => {
     // console.log(prop);
@@ -749,7 +752,15 @@ export default function Props({
         setSelectedCardList(selectCardIdClone);
       }
     } else {
-      setSelectedCardList((prev) => [...prev, prop]);
+      if (currentSportDataRedux && selectedCardList) {
+        if (
+          selectedCardList.length >= currentSportDataRedux.metadata.maxAllowed
+        ) {
+          return;
+        } else {
+          setSelectedCardList((prev) => [...prev, prop]);
+        }
+      }
     }
     console.log(selectedCardList);
     // console.log(selectedCardList);

@@ -35,6 +35,8 @@ const initialState = {
   callClickSportApiFinish: true,
   noProjection: null,
   addressFromApi: [],
+  propCartData: null,
+  currentSportDataRedux: null,
 };
 
 export const userSlice = createSlice({
@@ -161,6 +163,12 @@ export const userSlice = createSlice({
       console.log(action.payload);
       state.addressFromApi = action.payload;
     },
+    addPropCartData: (state, action) => {
+      state.propCartData = action.payload;
+    },
+    addCurrentSportDataRedux: (state, action) => {
+      state.currentSportDataRedux = action.payload;
+    },
   },
 });
 
@@ -195,6 +203,8 @@ export const {
   setNoProjection,
   AddIdpverified,
   setAddressFromApi,
+  addPropCartData,
+  addCurrentSportDataRedux,
 } = userSlice.actions;
 
 export default userSlice.reducer;

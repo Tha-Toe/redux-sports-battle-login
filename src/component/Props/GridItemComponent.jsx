@@ -61,14 +61,14 @@ const GridItemComponent = ({
     statsAndData,
     e,
   ]);
-
+  let currentSportDataRedux = useSelector(
+    (state) => state.user.currentSportDataRedux
+  );
   const [type, setType] = useState(null);
   const addCardFunc = (overUnder) => {
-    setType(overUnder);
-    // let dataToAddCard = Object.create(e);
+    console.log("add card fun run");
     let dataToAddCard = { ...e, action: overUnder };
-    console.log(dataToAddCard);
-    // dataToAddCard.action = overUnder;
+    // console.log(dataToAddCard);
     addCard(dataToAddCard);
   };
 
@@ -411,7 +411,6 @@ const GridItemComponent = ({
             }}
             onClick={() => {
               if (!disableButton) {
-                setType("over");
                 addCardFunc("over");
                 if (innerWidth < 700) {
                   scrollDownFunc();
@@ -441,7 +440,6 @@ const GridItemComponent = ({
             }}
             onClick={() => {
               if (!disableButton) {
-                setType("under");
                 addCardFunc("under");
                 if (innerWidth < 700) {
                   scrollDownFunc();

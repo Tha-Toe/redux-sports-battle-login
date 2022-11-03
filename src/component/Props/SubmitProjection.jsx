@@ -19,11 +19,42 @@ const SubmitProjection = ({
   selectSports,
 }) => {
   const fs = useSelector((state) => state.user.fs);
-
+  const propCartData = useSelector((state) => state.user.propCartData);
   const [startSelect, setStartSelect] = useState(false);
   const [moreThanOneCard, setMoreThanOneCard] = useState(false);
   const [selectAmount, setSelectAmount] = useState(null);
   const [pickPlayType, setPickPlayType] = useState(false);
+  const [winAmount, setWinAmount] = useState(null);
+  const [inputAmount, setInputAmount] = useState(null);
+  useEffect(() => {
+    if (pickPlayType && propCartData && selectAmount) {
+      if (pickPlayType === "defence") {
+        if (selectAmount === "Other") {
+          if (inputAmount && inputAmount > 0) {
+            setWinAmount(
+              Math.floor(inputAmount * propCartData.defensePayouts[0].payout)
+            );
+          } else {
+            setWinAmount(null);
+          }
+        } else {
+          setWinAmount(selectAmount * propCartData.defensePayouts[0].payout);
+        }
+      } else {
+        if (selectAmount === "Other") {
+          if (inputAmount && inputAmount > 0) {
+            setWinAmount(
+              Math.floor(inputAmount * propCartData.attackPayouts[0].payout)
+            );
+          } else {
+            setWinAmount(null);
+          }
+        } else {
+          setWinAmount(selectAmount * propCartData.attackPayouts[0].payout);
+        }
+      }
+    }
+  }, [pickPlayType, selectAmount, propCartData, selectedCardList, inputAmount]);
   useEffect(() => {
     if (selectedCardList.length === 0) {
       setStartSelect(false);
@@ -36,7 +67,6 @@ const SubmitProjection = ({
       }
     }
   }, [selectedCardList]);
-  const [inputAmount, setInputAmount] = useState(null);
   const [Lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const [altitude, setAltitude] = useState(null);
@@ -135,7 +165,7 @@ const SubmitProjection = ({
                 moreThanOneCard={moreThanOneCard}
                 setPickPlayType={setPickPlayType}
               />
-              {selectAmount === "other" && (
+              {selectAmount === "Other" && (
                 <Box
                   sx={{
                     display: "flex",
@@ -173,7 +203,7 @@ const SubmitProjection = ({
                     }}
                     endAdornment={
                       <InputAdornment position="end">
-                        {inputAmount && (
+                        {inputAmount && inputAmount >= 100 && (
                           <Typography
                             sx={{
                               color: "#E4313C",
@@ -186,12 +216,15 @@ const SubmitProjection = ({
                               fontFamily: "poppins",
                             }}
                           >
-                            Limit is $50{" "}
+                            Limit is $100{" "}
                           </Typography>
                         )}
                       </InputAdornment>
                     }
-                    onChange={(e) => setInputAmount(e.target.value)}
+                    onChange={(e) => {
+                      setPickPlayType(null);
+                      setInputAmount(e.target.value);
+                    }}
                   />
                 </Box>
               )}
@@ -202,7 +235,9 @@ const SubmitProjection = ({
                     pickPlayType={pickPlayType}
                     mode={mode}
                   />
-                  {pickPlayType && <Balance />}
+                  {pickPlayType && winAmount && (
+                    <Balance winAmount={winAmount} />
+                  )}
                 </Box>
               )}
             </Box>
