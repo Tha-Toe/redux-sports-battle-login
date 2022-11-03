@@ -253,5 +253,6 @@ export const getPayouts = (selectedUserProps, metadata) => {
     defensePayouts: defensePayoutsForStatsInThisEntry,
     attackOnlyEntry: attackOnlySportsInThisEntry.length > 0 || selectedUserProps.length <= 2,
   };
+  console.log(payoutsForThisEntry);
   return payoutsForThisEntry;
 };
