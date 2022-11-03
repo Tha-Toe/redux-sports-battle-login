@@ -27,6 +27,7 @@ const SubmitProjection = ({
     if (selectedCardList.length === 0) {
       setStartSelect(false);
     } else {
+      console.log(selectedCardList);
       setStartSelect(true);
       if (selectedCardList.length > 1) {
         setMoreThanOneCard(true);
