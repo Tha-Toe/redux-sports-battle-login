@@ -51,3 +51,10 @@ export const addUserAddress = ocApiGatewayPayment + 'address/add';
 // get states
 
 export const getStates = ocApiGatewayPayment + 'states';
+
+// verify identity
+
+export const addIdentityVerify = ocApiGatewayPayment + 'user/verify/age';
+
+
+
