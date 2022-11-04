@@ -465,3 +465,27 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
     </Box>
   );
 }
+
+
+//identity verify
+
+export const addIdentityVerify = async (locationObject, deviceTime, ipAddress, ipAdressCountry, userObject) => {
+  var apiUrl = APIURLs.addIdentityVerify;
+  var reqBody = {
+    location: locationObject,
+    deviceDateTime: deviceTime,
+    ipAddress: ipAddress,
+    ipAddressCountry: ipAdressCountry,
+    user: userObject
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};
