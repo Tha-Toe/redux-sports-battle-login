@@ -34,6 +34,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   };
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
+  const [dob, setDob] = useState(null);
   const [startAnimation, setStartAnimation] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [failOpen, setFailOpen] = useState(false);
@@ -43,34 +44,66 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const [altitude, setAltitude] = useState(null);
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
-
+  let userDetailFromLocalStorage = JSON.parse(localStorage.getItem("user"));
   const getLocation = async () => {
-    setStartAnimation(true);
-    const currTime = new Date();
-    console.log(currTime);
-    const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
-    // setIP(res.data.IPv4);
-    if (!navigator.geolocation) {
-      // Geolocation is not supported by your browser
-    } else {
-      // setStatus("Locating...");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // setStatus(null);
-          console.log(position.coords);
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-          setAltitude(position.coords.altitude);
-          setSpeed(position.coords.speed);
-          setStartAnimation(false);
-        },
-        () => {
-          // setStatus('Unable to retrieve your location');
-          setLocationBlock(true);
-          setStartAnimation(false);
-        }
-      );
+    if (firstName && lastName && dob) {
+      let locationObject = {};
+      let userObject = {};
+      setStartAnimation(true);
+      const currTime = new Date();
+      let deviceDateTime =
+        currTime.toLocaleDateString().toString() +
+        " " +
+        currTime.toTimeString().toString();
+      const res = await axios.get("https://geolocation-db.com/json/");
+      // console.log(res.data);
+      if (!res.data) {
+        return;
+      }
+      let ipAddress = res.data.IPv4;
+      let ipAddressCountry = res.data.country_code;
+      // setIP(res.data.IPv4);
+      if (!navigator.geolocation) {
+        // Geolocation is not supported by your browser
+      } else {
+        // setStatus("Locating...");
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // setStatus(null);
+            locationObject.latitude = position.coords.latitude;
+            locationObject.longitude = position.coords.longitude;
+            locationObject.altitude = 0;
+            locationObject.speed = -1;
+            // console.log(position.coords);
+            // setLat(position.coords.latitude);
+            // setLong(position.coords.longitude);
+            // setAltitude(position.coords.altitude);
+            // setSpeed(position.coords.speed);
+            setStartAnimation(false);
+            userObject.userId = userDetailFromLocalStorage.uid;
+            userObject.email = userDetailFromLocalStorage.email;
+            userObject.firstName = firstName;
+            userObject.lastName = lastName;
+            userObject.phoneNumber = "";
+            userObject.dob = dob;
+            // userObject.address =
+            // console.log(address);
+            userObject.address = {};
+            userObject.address.address = address.address;
+            console.log(locationObject);
+            console.log(deviceDateTime);
+            console.log(ipAddress);
+            console.log(ipAddressCountry);
+            console.log(userObject);
+          },
+
+          () => {
+            // setStatus('Unable to retrieve your location');
+            setLocationBlock(true);
+            setStartAnimation(false);
+          }
+        );
+      }
     }
   };
 
@@ -209,6 +242,9 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           type="text"
           variant="outlined"
           placeholder="MM/DD/YYYY"
+          onChange={(e) => {
+            setDob(e.target.value);
+          }}
           sx={{
             color: "secondary.dark_gray",
             borderBottom: "1px solid #494949",
@@ -299,7 +335,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         Please enter your details as per your license or any form of legal
         document{" "}
       </Typography>
-      {address && (
+      {address && firstName && lastName && dob && (
         <Button
           sx={{
             background: "#4831D4",
