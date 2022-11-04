@@ -788,7 +788,7 @@ export default function Props({
     setSelectedCardList(selectCardIdClone);
   };
 
-  const [successSubmit, setSuccessSubmit] = useState(true);
+  const [successSubmit, setSuccessSubmit] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState(null);
   const [notEnoughBalance, setNotEnoughBalance] = useState(false);
   const messagesEndRef = useRef(null);
