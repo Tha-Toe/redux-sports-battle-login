@@ -33,7 +33,6 @@ export default function Detail({
   const fs = useSelector((state) => state.user.fs);
   const [openFpsPopup, setOpenFpsPopup] = useState(false);
   const [openPointsBreakdown, setOpenPointsBreakdown] = useState(false);
-
   useEffect(() => {
     if (userDetail) {
       setCode(userDetail.referralCode);
