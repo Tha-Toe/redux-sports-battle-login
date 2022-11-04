@@ -6,6 +6,8 @@ import PriorityHigh from "@mui/icons-material/PriorityHigh";
 import { useDispatch, useSelector } from "react-redux";
 import ClearIcon from "@mui/icons-material/Clear";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import RunCircleIcon from "@mui/icons-material/RunCircle";
+import LoadingSpinnerTransparent from "../loadingSpinner/LoadingSpinnerTransparent";
 const FpsPopup = ({
   mode,
   setOpenPointsBreakdown,
@@ -47,6 +49,10 @@ const FpsPopup = ({
           justifyContent: "flex-start",
           alignItems: "center",
           height: "80%",
+          boxShadow: `${
+            fpsData.length < 1 && "1px 1px 100px -60px rgba(255,255,255,0.5)"
+          }`,
+          border: "1px solid #2C2C2C",
         }}
       >
         {fpsData.length > 0 ? (
@@ -126,12 +132,20 @@ const FpsPopup = ({
                       mb: "5px",
                     }}
                   >
-                    <img
+                    {/* <img
                       src="/wnba.png"
                       style={{
                         width: "50px",
                         height: "50px",
                         marginLeft: "10px",
+                      }}
+                    /> */}
+                    <RunCircleIcon
+                      sx={{
+                        width: "40px",
+                        height: "40px",
+                        marginLeft: "10px",
+                        color: `${each.jerseyColor}`,
                       }}
                     />
                     <Box
@@ -182,7 +196,7 @@ const FpsPopup = ({
             </Box>
           </>
         ) : (
-          <LoadingSpinnerEachSection />
+          <LoadingSpinnerTransparent />
         )}
       </Box>
     </Box>

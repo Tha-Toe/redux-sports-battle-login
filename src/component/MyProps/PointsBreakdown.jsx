@@ -232,7 +232,7 @@ const PointsBreakdown = ({
                   justifyContent: "space-between",
                   mt: "10px",
                   borderBottom: `${
-                    pbData.length - 1 !== index && "1px solid gray"
+                    pbData.statKeys.length - 1 !== index && "1px solid gray"
                   }`,
                 }}
               >
