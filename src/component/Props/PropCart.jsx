@@ -37,7 +37,7 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
         pb: "4px",
       }}
     >
-      {propCartData && (
+      {propCartData && propCartData.attackPayouts && (
         <Typography
           sx={{
             fontFamily: "poppins",
@@ -52,7 +52,7 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
           Props Cart : : {propCartData.attackPayouts[0].picks} Picks
         </Typography>
       )}
-      {propCartData && (
+      {propCartData && propCartData.attackPayouts && (
         <Box
           sx={{
             display: "flex",

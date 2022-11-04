@@ -9,7 +9,7 @@ import "./newAddCashForm.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Clear from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
-export default function FailVerify({ mode }) {
+export default function FailVerify({ mode, message, setFailOpen }) {
   const fs = useSelector((state) => state.user.fs);
 
   return (
@@ -37,6 +37,7 @@ export default function FailVerify({ mode }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Clear
@@ -70,8 +71,7 @@ export default function FailVerify({ mode }) {
             textAlign: "center",
           }}
         >
-          Unfortunately we could not verify you date of birth, Please contact
-          support{" "}
+          {message}
         </Typography>
         <Box
           sx={{
@@ -121,6 +121,7 @@ export default function FailVerify({ mode }) {
 
               textTransform: "none",
             }}
+            onClick={() => setFailOpen(false)}
           >
             Okay
           </Button>

@@ -9,10 +9,14 @@ export function AndresCard({
   selectedCardList,
   setSelectedCardList,
   mode,
+  setPickPlayType,
+  setSelectAmount,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
   const handleChangeOverUnder = (action) => {
+    setPickPlayType(false);
+    setSelectAmount(null);
     let selectCardIdClone = selectedCardList.map((each) => {
       if (
         each.gameId === e.gameId &&

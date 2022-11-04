@@ -19,13 +19,16 @@ const SubmitProjection = ({
   setSuccessSubmit,
   setErrorSubmit,
   selectSports,
+  selectAmount,
+  setSelectAmount,
+  pickPlayType,
+  setPickPlayType,
 }) => {
   const fs = useSelector((state) => state.user.fs);
   const propCartData = useSelector((state) => state.user.propCartData);
   const [startSelect, setStartSelect] = useState(false);
   const [moreThanOneCard, setMoreThanOneCard] = useState(false);
-  const [selectAmount, setSelectAmount] = useState(null);
-  const [pickPlayType, setPickPlayType] = useState(false);
+
   const [winAmount, setWinAmount] = useState(null);
   const [inputAmount, setInputAmount] = useState(null);
   const [startButtonAnimation, setStartButtonAnimation] = useState(false);
@@ -293,6 +296,8 @@ const SubmitProjection = ({
                 selectedCardList={selectedCardList}
                 setSelectedCardList={setSelectedCardList}
                 mode={mode}
+                setPickPlayType={setPickPlayType}
+                setSelectAmount={setSelectAmount}
               />
             ))}
           </Box>

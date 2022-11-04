@@ -83,8 +83,9 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
                   />
                 )}
                 <Box>
-                  {propCartData.defensePayouts.map((each) => (
+                  {propCartData.defensePayouts.map((each, index) => (
                     <Typography
+                      key={index}
                       sx={{
                         fontSize: {
                           xl: fs.xs,
@@ -141,8 +142,9 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
                 />
               )}
               <Box>
-                {propCartData.attackPayouts.map((each) => (
+                {propCartData.attackPayouts.map((each, index) => (
                   <Typography
+                    key={index}
                     sx={{
                       fontSize: {
                         xl: fs.xs,

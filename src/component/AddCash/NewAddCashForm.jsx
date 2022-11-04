@@ -46,6 +46,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const [altitude, setAltitude] = useState(null);
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
+  const [message, setMessage] = useState(null);
   let userDetailFromLocalStorage = JSON.parse(localStorage.getItem("user"));
   const getLocation = async () => {
     if (firstName && lastName && dob) {
@@ -53,7 +54,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
       let userObject = {};
       setStartAnimation(true);
       const currTime = new Date();
-      let deviceDateTime =
+      let deviceTime =
         currTime.toLocaleDateString().toString() +
         " " +
         currTime.toTimeString().toString();
@@ -63,7 +64,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         return;
       }
       let ipAddress = res.data.IPv4;
-      let ipAddressCountry = res.data.country_code;
+      let ipAdressCountry = res.data.country_code;
       // setIP(res.data.IPv4);
       if (!navigator.geolocation) {
         // Geolocation is not supported by your browser
@@ -81,7 +82,6 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             // setLong(position.coords.longitude);
             // setAltitude(position.coords.altitude);
             // setSpeed(position.coords.speed);
-            setStartAnimation(false);
             userObject.userId = userDetailFromLocalStorage.uid;
             userObject.email = userDetailFromLocalStorage.email;
             userObject.firstName = firstName;
@@ -92,11 +92,43 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
             // console.log(address);
             userObject.address = {};
             userObject.address.address = address.address;
-            console.log(locationObject);
-            console.log(deviceDateTime);
-            console.log(ipAddress);
-            console.log(ipAddressCountry);
-            console.log(userObject);
+            // console.log(locationObject);
+            // console.log(deviceTime);
+            // console.log(ipAddress);
+            // console.log(ipAdressCountry);
+            // console.log(userObject);
+            if (
+              locationObject &&
+              deviceTime &&
+              ipAddress &&
+              ipAdressCountry &&
+              userObject
+            ) {
+              addIdentityVerify(
+                locationObject,
+                deviceTime,
+                ipAddress,
+                ipAdressCountry,
+                userObject
+              )
+                .then((result) => {
+                  if (result && result.idp && result.idp.status === "fail") {
+                    setFailOpen(true);
+                    console.log(result);
+                    setMessage(result.idp.message);
+                    setStartAnimation(false);
+                  } else {
+                    setSuccessOpen(true);
+                    setStartAnimation(false);
+                  }
+                })
+                .catch((error) => {
+                  if (error) {
+                    console.log(error);
+                    setFailOpen(true);
+                  }
+                });
+            }
           },
 
           () => {
@@ -457,7 +489,9 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           </Box>
         </Box>
       )}
-      {failOpen && <FailVerify mode={mode} />}
+      {failOpen && (
+        <FailVerify mode={mode} message={message} setFailOpen={setFailOpen} />
+      )}
       {locationBlock && (
         <FailLocationPermission
           setLocationBlock={setLocationBlock}
@@ -468,18 +502,24 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
   );
 }
 
-
 //identity verify
 
-export const addIdentityVerify = async (locationObject, deviceTime, ipAddress, ipAdressCountry, userObject) => {
+export const addIdentityVerify = async (
+  locationObject,
+  deviceTime,
+  ipAddress,
+  ipAdressCountry,
+  userObject
+) => {
   var apiUrl = APIURLs.addIdentityVerify;
   var reqBody = {
     location: locationObject,
     deviceDateTime: deviceTime,
     ipAddress: ipAddress,
     ipAddressCountry: ipAdressCountry,
-    user: userObject
+    user: userObject,
   };
+  console.log("reqBody", reqBody);
   //console.log(apiUrl);
   const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
   if (apiResponse.status === 200) {

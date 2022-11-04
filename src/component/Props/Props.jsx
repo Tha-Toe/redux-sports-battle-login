@@ -123,7 +123,8 @@ export default function Props({
   getPropsSport,
 }) {
   const fs = useSelector((state) => state.user.fs);
-
+  const [selectAmount, setSelectAmount] = useState(null);
+  const [pickPlayType, setPickPlayType] = useState(false);
   const callClickSportApiFinish = useSelector(
     (state) => state.user.callClickSportApiFinish
   );
@@ -723,6 +724,8 @@ export default function Props({
     // console.log(check);
     if (check.length > 0) {
       if (check[0].action !== prop.action) {
+        setPickPlayType(false);
+        setSelectAmount(null);
         let selectCardIdClone = selectedCardList.map((each) => {
           if (
             each.gameId === prop.gameId &&
@@ -749,6 +752,8 @@ export default function Props({
             each.statKey !== prop.statKey
           );
         });
+        setPickPlayType(false);
+        setSelectAmount(null);
         setSelectedCardList(selectCardIdClone);
       }
     } else {
@@ -758,6 +763,8 @@ export default function Props({
         ) {
           return;
         } else {
+          setPickPlayType(false);
+          setSelectAmount(null);
           setSelectedCardList((prev) => [...prev, prop]);
         }
       }
@@ -775,6 +782,8 @@ export default function Props({
         each.statKey !== prop.statKey
       );
     });
+    setPickPlayType(false);
+    setSelectAmount(null);
     setSelectedCardList(selectCardIdClone);
   };
 
@@ -1578,6 +1587,10 @@ export default function Props({
                       setSuccessSubmit={setSuccessSubmit}
                       setErrorSubmit={setErrorSubmit}
                       selectSports={selectSports}
+                      selectAmount={selectAmount}
+                      setSelectAmount={setSelectAmount}
+                      pickPlayType={pickPlayType}
+                      setPickPlayType={setPickPlayType}
                     />
                     <div ref={messagesEndRef} />
                   </Box>
