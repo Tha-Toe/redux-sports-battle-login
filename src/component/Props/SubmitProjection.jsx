@@ -34,9 +34,10 @@ const SubmitProjection = ({
   const [startButtonAnimation, setStartButtonAnimation] = useState(false);
   useEffect(() => {
     if (pickPlayType && propCartData && selectAmount) {
-      if (pickPlayType === "defence") {
+      setWinAmount(null);
+      if (pickPlayType === "defense") {
         if (selectAmount === "Other") {
-          if (inputAmount && inputAmount > 0) {
+          if (inputAmount && inputAmount >= 5 && inputAmount <= 100) {
             setWinAmount(
               Math.floor(inputAmount * propCartData.defensePayouts[0].payout)
             );
@@ -46,9 +47,9 @@ const SubmitProjection = ({
         } else {
           setWinAmount(selectAmount * propCartData.defensePayouts[0].payout);
         }
-      } else {
+      } else if (pickPlayType === "attack") {
         if (selectAmount === "Other") {
-          if (inputAmount && inputAmount > 0) {
+          if (inputAmount && inputAmount >= 5 && inputAmount <= 100) {
             setWinAmount(
               Math.floor(inputAmount * propCartData.attackPayouts[0].payout)
             );
@@ -58,6 +59,9 @@ const SubmitProjection = ({
         } else {
           setWinAmount(selectAmount * propCartData.attackPayouts[0].payout);
         }
+      } else {
+        setWinAmount(null);
+        console.log("change");
       }
     }
   }, [pickPlayType, selectAmount, propCartData, selectedCardList, inputAmount]);
@@ -78,32 +82,81 @@ const SubmitProjection = ({
   const [altitude, setAltitude] = useState(null);
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
-
+  let user = JSON.parse(localStorage.getItem("user"));
   let doubleClick = false;
   const getLocation = async () => {
-    if (!doubleClick) {
+    if (
+      !doubleClick &&
+      user &&
+      selectedCardList.length > 0 &&
+      winAmount &&
+      pickPlayType &&
+      propCartData
+    ) {
       setStartButtonAnimation(true);
-      doubleClick = true;
-      setStartButtonAnimation(true);
-      const currTime = new Date();
-      console.log(currTime);
-      const res = await axios.get("https://geolocation-db.com/json/");
-      console.log(res.data);
+      // doubleClick = true;
 
-      // setIP(res.data.IPv4);
+      let submitObject = {};
+      //userId
+      submitObject.userId = user.uid;
+
+      //game
+      submitObject.game = {};
+
+      //projections
+      submitObject.projections = [...selectedCardList];
+
+      //amount
+      if (selectAmount === "Other") {
+        submitObject.amount = inputAmount;
+      } else {
+        submitObject.amount = selectAmount;
+      }
+      //towin
+      submitObject.toWin = winAmount;
+
+      //joinwith
+      submitObject.joinWith = "cash";
+
+      //playType
+      submitObject.playType = pickPlayType;
+
+      //payout
+      if (pickPlayType === "attack") {
+        submitObject.payouts = propCartData.attackPayouts[0];
+      } else {
+        submitObject.payouts = propCartData.defensePayouts[0];
+      }
+
+      //device
+      submitObject.device = {};
+
+      //deviceDateTime
+      const currTime = new Date();
+      let deviceTime =
+        currTime.toLocaleDateString().toString() +
+        " " +
+        currTime.toTimeString().toString();
+      submitObject.device.deviceDateTime = deviceTime;
+
+      //ipAddress
+      const res = await axios.get("https://geolocation-db.com/json/");
+      if (!res.data) {
+        return;
+      }
+      submitObject.device.ipAddress = res.data.IPv4;
+
       if (!navigator.geolocation) {
         // Geolocation is not supported by your browser
       } else {
-        // setStatus('Locating...');
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            // setStatus(null);
-            console.log(position.coords);
-            setLat(position.coords.latitude);
-            setLong(position.coords.longitude);
-            setAltitude(position.coords.altitude);
-            setSpeed(position.coords.speed);
-            setSuccessSubmit(true);
+            submitObject.device.latitude = position.coords.latitude;
+            submitObject.device.longitude = position.coords.longitude;
+            submitObject.device.altitude = 0;
+            submitObject.device.speed = -1;
+            console.log(submitObject);
+            // setSuccessSubmit(true);
             doubleClick = false;
             setStartButtonAnimation(false);
           },
@@ -187,6 +240,7 @@ const SubmitProjection = ({
                 selectAmount={selectAmount}
                 moreThanOneCard={moreThanOneCard}
                 setPickPlayType={setPickPlayType}
+                setInputAmount={setInputAmount}
               />
               {selectAmount === "Other" && (
                 <Box
@@ -224,9 +278,10 @@ const SubmitProjection = ({
                       borderBottom: "1px solid #4831D4",
                       py: "8px",
                     }}
+                    InputProps={{ inputProps: { min: 0, max: 100 } }}
                     endAdornment={
                       <InputAdornment position="end">
-                        {inputAmount && inputAmount >= 100 && (
+                        {inputAmount && inputAmount > 100 && (
                           <Typography
                             sx={{
                               color: "#E4313C",
@@ -242,6 +297,22 @@ const SubmitProjection = ({
                             Limit is $100{" "}
                           </Typography>
                         )}
+                        {inputAmount && inputAmount < 5 && (
+                          <Typography
+                            sx={{
+                              color: "#E4313C",
+                              fontSize: {
+                                xl: fs.xs,
+                                md: fs.xxs,
+                                xxxs: fs.xxxs,
+                              },
+                              fontWeight: "500",
+                              fontFamily: "poppins",
+                            }}
+                          >
+                            Minimum is $5{" "}
+                          </Typography>
+                        )}
                       </InputAdornment>
                     }
                     onChange={(e) => {
@@ -251,18 +322,37 @@ const SubmitProjection = ({
                   />
                 </Box>
               )}
-              {selectAmount && (
+              {selectAmount && selectAmount !== "Other" && (
                 <Box sx={{ width: "90%", margin: "0 auto" }}>
                   <ChooseType
                     setPickPlayType={setPickPlayType}
                     pickPlayType={pickPlayType}
                     mode={mode}
+                    selectAmount={selectAmount}
+                    inputAmount={inputAmount}
                   />
                   {pickPlayType && winAmount && (
                     <Balance winAmount={winAmount} />
                   )}
                 </Box>
               )}
+              {selectAmount &&
+                selectAmount === "Other" &&
+                inputAmount >= 5 &&
+                inputAmount <= 100 && (
+                  <Box sx={{ width: "90%", margin: "0 auto" }}>
+                    <ChooseType
+                      setPickPlayType={setPickPlayType}
+                      pickPlayType={pickPlayType}
+                      mode={mode}
+                      selectAmount={selectAmount}
+                      inputAmount={inputAmount}
+                    />
+                    {pickPlayType && winAmount && (
+                      <Balance winAmount={winAmount} />
+                    )}
+                  </Box>
+                )}
             </Box>
           </Box>
 
@@ -301,7 +391,7 @@ const SubmitProjection = ({
               />
             ))}
           </Box>
-          {pickPlayType && (
+          {pickPlayType && winAmount && (
             <Button
               sx={{
                 color: "white",

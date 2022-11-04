@@ -7,6 +7,7 @@ export default function ({
   selectAmount,
   moreThanOneCard,
   setPickPlayType,
+  setInputAmount,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const currentSportDataRedux = useSelector(
@@ -71,6 +72,7 @@ export default function ({
                 if (moreThanOneCard) {
                   setSelectAmount(each);
                   setPickPlayType(null);
+                  setInputAmount(null);
                 }
               }}
             >

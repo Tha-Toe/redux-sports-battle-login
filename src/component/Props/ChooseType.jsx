@@ -67,7 +67,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
                   mt: "5px",
                   p: "10px 4px",
                   border: `${
-                    pickPlayType === "defence"
+                    pickPlayType === "defense"
                       ? "1px solid #4831D4"
                       : "1px solid transparent"
                   }`,
@@ -75,9 +75,9 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
                   cursor: "pointer",
                   minHeight: "35px",
                 }}
-                onClick={() => setPickPlayType("defence")}
+                onClick={() => setPickPlayType("defense")}
               >
-                {pickPlayType === "defence" && (
+                {pickPlayType === "defense" && (
                   <CheckCircleIcon
                     sx={{ color: "#52C03C", fontSize: fs.small, mr: "6px" }}
                   />
