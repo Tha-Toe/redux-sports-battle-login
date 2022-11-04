@@ -193,10 +193,10 @@ const ShowDate = ({ date, id }) => {
   return (
     <Typography
       sx={{
-        fontSize: { xs: fs.xs, xxxs: fs.xxs },
+        fontSize: { xs: fs.xxs, xxxs: fs.xxxs },
         fontWeight: 500,
         fontFamily: "poppins",
-        color: "secondary.dark_gray",
+        color: "#BBDEFB",
       }}
     >
       Conf#::{id.slice(-6)},{showDate}
@@ -796,7 +796,7 @@ export default function MyPropsCardContainer({
                               fontFamily: "poppins",
                               color: `${
                                 openTag === "Upcoming"
-                                  ? "#4831D4"
+                                  ? "#BBDEFB"
                                   : e.userWon
                                   ? "#459F48"
                                   : e.certifyStatus === "x"

@@ -216,6 +216,8 @@ export function Home({ mode, setMode }) {
       // console.log(userDetail);
       setBonus(userDetail.numOUBonusCash);
       setCash(userDetail.numCash + userDetail.unutilizedCash);
+      console.log(userDetail);
+      dispatch(AddIdpverified(userDetail.idpVerified));
     }
     // console.log(userDetail);
   }, [userDetail]);
@@ -223,34 +225,14 @@ export function Home({ mode, setMode }) {
   //getSportsdata
   let preventDoubleCall = true;
 
-  const getIdpVerified = () => {
-    let userData = JSON.parse(localStorage.getItem("user"));
-    getUserById(userData.uid)
-      .then((result) => {
-        if (result) {
-          //user is not null will get details
-          dispatch(AddIdpverified(result.idpVerified));
-        } else {
-          //user is null create user
-          localStorage.removeItem("user");
-          if (auth) {
-            signOut(auth);
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // const idpverified = useSelector((state) => state.user.idpverified);
-  const [idpverified] = useState(false);
+  const idpverified = useSelector((state) => state.user.idpverified);
   useEffect(() => {
     const getPropsData = () => {
       if (userDetail && preventDoubleCall) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
         onPropsOUCounterUpdate({ dispatch });
-        getIdpVerified();
+        // getIdpVerified();
       }
     };
     getPropsData();

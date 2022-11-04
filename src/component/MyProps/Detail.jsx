@@ -391,7 +391,7 @@ export default function Detail({
                       sx={{
                         width: "43px",
                         height: "2px",
-                        background: "#D9D9D9",
+                        background: "gray",
                         mt: `${
                           each.statKey !== "fps"
                             ? !isRefunded

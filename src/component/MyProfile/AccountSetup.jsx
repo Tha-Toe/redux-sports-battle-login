@@ -6,11 +6,13 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useSelector } from "react-redux";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+import { useNavigate } from "react-router-dom";
 export default function AccountSetup({
   setOpenTag,
   myAccountDataCommingFromApi,
 }) {
   const fs = useSelector((state) => state.user.fs);
+  const navigate = useNavigate();
   if (myAccountDataCommingFromApi) {
     return (
       <Box
@@ -293,6 +295,10 @@ export default function AccountSetup({
                 fontFamily: "poppins",
                 color: "#459F48 ",
                 width: "120px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate("/home?deposit=new&page=verify", { replace: true });
               }}
             >
               Verify Account
