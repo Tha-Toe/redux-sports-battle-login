@@ -63,6 +63,20 @@ export default function Detail({
       }
     }
   }, [detailData]);
+  const [fpsData, setFpsData] = useState([]);
+  const [pbData, setPbData] = useState(null);
+  const callFpsFunc = () => {
+    setOpenFpsPopup(true);
+    getFantasyPoints(detailData.props[0].id)
+      .then((result) => {
+        setFpsData(result);
+      })
+      .catch((error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+  };
 
   return (
     <Box
@@ -439,8 +453,9 @@ export default function Detail({
                           fontWeight: 700,
                           fontFamily: "poppins",
                           mt: "10px",
+                          cursor: "pointer",
                         }}
-                        onClick={() => setOpenFpsPopup(true)}
+                        onClick={() => callFpsFunc()}
                       >
                         FPS
                       </Box>
@@ -657,6 +672,9 @@ export default function Detail({
               mode={mode}
               setOpenPointsBreakdown={setOpenPointsBreakdown}
               setOpenFpsPopup={setOpenFpsPopup}
+              fpsData={fpsData}
+              setPbData={setPbData}
+              setFpsData={setFpsData}
             />
           )}
           {openPointsBreakdown && (
@@ -664,6 +682,7 @@ export default function Detail({
               mode={mode}
               setOpenPointsBreakdown={setOpenPointsBreakdown}
               setOpenFpsPopup={setOpenFpsPopup}
+              pbData={pbData}
             />
           )}
         </>
