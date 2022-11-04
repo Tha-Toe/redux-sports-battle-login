@@ -13,6 +13,7 @@ export default function SuccessSubmit({
   setSuccessSubmit,
   setErrorSubmit,
   mode,
+  refresh,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -91,7 +92,7 @@ export default function SuccessSubmit({
             },
           }}
           onClick={() => {
-            setErrorSubmit(true);
+            refresh();
             setSuccessSubmit(false);
           }}
         >

@@ -25,9 +25,11 @@ const SubmitProjection = ({
   setSelectAmount,
   pickPlayType,
   setPickPlayType,
+  setNotEnoughBalance,
 }) => {
   const fs = useSelector((state) => state.user.fs);
   const propCartData = useSelector((state) => state.user.propCartData);
+  const userDetail = useSelector((state) => state.user.userDetail);
   const [startSelect, setStartSelect] = useState(false);
   const [moreThanOneCard, setMoreThanOneCard] = useState(false);
 
@@ -87,88 +89,152 @@ const SubmitProjection = ({
   let user = JSON.parse(localStorage.getItem("user"));
   let doubleClick = false;
   const getLocation = async () => {
-    if (
-      !doubleClick &&
-      user &&
-      selectedCardList.length > 0 &&
-      winAmount &&
-      pickPlayType &&
-      propCartData
-    ) {
-      setStartButtonAnimation(true);
-      // doubleClick = true;
+    if (userDetail) {
+      let totalBalance =
+        userDetail.numOUBonusCash +
+        userDetail.numCash +
+        userDetail.unutilizedCash;
 
-      let submitObject = {};
-      //userId
-      submitObject.userId = user.uid;
-
-      //game
-      submitObject.game = {};
-
-      //projections
-      submitObject.projections = [...selectedCardList];
-
-      //amount
+      let continues = false;
       if (selectAmount === "Other") {
-        submitObject.amount = inputAmount;
+        if (inputAmount > totalBalance) {
+          continues = false;
+          setNotEnoughBalance(true);
+        } else {
+          continues = true;
+        }
       } else {
-        submitObject.amount = selectAmount;
+        if (selectAmount > totalBalance) {
+          continues = false;
+          console.log(totalBalance);
+          setNotEnoughBalance(true);
+        } else {
+          continues = true;
+        }
       }
-      //towin
-      submitObject.toWin = winAmount;
+      if (continues) {
+        if (
+          !doubleClick &&
+          user &&
+          selectedCardList.length > 0 &&
+          winAmount &&
+          pickPlayType &&
+          propCartData
+        ) {
+          setStartButtonAnimation(true);
+          doubleClick = true;
 
-      //joinwith
-      submitObject.joinWith = "cash";
+          let submitObject = {};
+          //userId
+          submitObject.userId = user.uid;
 
-      //playType
-      submitObject.playType = pickPlayType;
+          //game
+          submitObject.game = {};
 
-      //payout
-      if (pickPlayType === "attack") {
-        submitObject.payouts = propCartData.attackPayouts[0];
-      } else {
-        submitObject.payouts = propCartData.defensePayouts[0];
-      }
+          //projections
+          submitObject.projections = [...selectedCardList];
 
-      //device
-      submitObject.device = {};
-
-      //deviceDateTime
-      const currTime = new Date();
-      let deviceTime =
-        currTime.toLocaleDateString().toString() +
-        " " +
-        currTime.toTimeString().toString();
-      submitObject.device.deviceDateTime = deviceTime;
-
-      //ipAddress
-      const res = await axios.get("https://geolocation-db.com/json/");
-      if (!res.data) {
-        return;
-      }
-      submitObject.device.ipAddress = res.data.IPv4;
-
-      if (!navigator.geolocation) {
-        // Geolocation is not supported by your browser
-      } else {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            submitObject.device.latitude = position.coords.latitude;
-            submitObject.device.longitude = position.coords.longitude;
-            submitObject.device.altitude = 0;
-            submitObject.device.speed = -1;
-            console.log(submitObject);
-            // setSuccessSubmit(true);
-            doubleClick = false;
-            setStartButtonAnimation(false);
-          },
-          () => {
-            setLocationBlock(true);
-            doubleClick = false;
-            setStartButtonAnimation(false);
-            // setStatus('Unable to retrieve your location');
+          //amount
+          if (selectAmount === "Other") {
+            submitObject.amount = inputAmount;
+          } else {
+            submitObject.amount = selectAmount;
           }
-        );
+          //towin
+          submitObject.toWin = winAmount;
+
+          //joinwith
+          submitObject.joinWith = "cash";
+
+          //playType
+          submitObject.playType = pickPlayType;
+
+          //payout
+          if (pickPlayType === "attack") {
+            submitObject.payouts = propCartData.attackPayouts[0];
+          } else {
+            submitObject.payouts = propCartData.defensePayouts[0];
+          }
+
+          //device
+          submitObject.device = {};
+
+          //deviceDateTime
+          const currTime = new Date();
+          let deviceTime =
+            currTime.toLocaleDateString().toString() +
+            " " +
+            currTime.toTimeString().toString();
+          submitObject.device.deviceDateTime = deviceTime;
+
+          //ipAddress
+          const res = await axios.get("https://geolocation-db.com/json/");
+          if (!res.data) {
+            return;
+          }
+          submitObject.device.ipAddress = res.data.IPv4;
+
+          if (!navigator.geolocation) {
+            // Geolocation is not supported by your browser
+          } else {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                submitObject.device.latitude = position.coords.latitude;
+                submitObject.device.longitude = position.coords.longitude;
+                submitObject.device.altitude = 0;
+                submitObject.device.speed = -1;
+                console.log(submitObject);
+                // setSuccessSubmit(true);
+                let userId = submitObject.userId;
+                let game = submitObject.game;
+                let projections = submitObject.projections;
+                let amount = submitObject.amount;
+                let toWin = submitObject.toWin;
+                let joinWith = submitObject.joinWith;
+                let playType = submitObject.playType;
+                let payouts = submitObject.payouts;
+                let device = submitObject.device;
+                submitProjections(
+                  userId,
+                  game,
+                  projections,
+                  amount,
+                  toWin,
+                  joinWith,
+                  playType,
+                  payouts,
+                  device
+                )
+                  .then((result) => {
+                    if (result) {
+                      if (result.status && result.status === "fail") {
+                        setErrorSubmit(result.message);
+                        setSelectedCardList([]);
+                      } else {
+                        if (result.status === "success") {
+                          setSuccessSubmit(true);
+                          setSelectedCardList([]);
+                        }
+                      }
+                      doubleClick = false;
+                      setStartButtonAnimation(false);
+                    }
+                  })
+                  .catch((error) => {
+                    if (error) {
+                      console.log("error");
+                    }
+                  });
+              },
+              () => {
+                setLocationBlock(true);
+                doubleClick = false;
+                setStartButtonAnimation(false);
+                // setStatus('Unable to retrieve your location');
+              }
+            );
+          }
+        }
       }
     }
   };
@@ -453,13 +519,21 @@ const SubmitProjection = ({
   );
 };
 
-
-
 // submit projections
 
-export const submitProjections = async (userId, game, projections, amount, toWin, joinWith, playType, payouts, device) => {
+export const submitProjections = async (
+  userId,
+  game,
+  projections,
+  amount,
+  toWin,
+  joinWith,
+  playType,
+  payouts,
+  device
+) => {
   var apiUrl = APIURLs.submitProjections;
-  
+
   var reqBody = {
     userId: userId,
     game: game,
@@ -471,7 +545,7 @@ export const submitProjections = async (userId, game, projections, amount, toWin
     payouts: payouts,
     mixMatch: true,
     device: device,
-    overUnder: true
+    overUnder: true,
   };
   //console.log(apiUrl);
   const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
@@ -484,12 +558,5 @@ export const submitProjections = async (userId, game, projections, amount, toWin
     };
   }
 };
-
-
-
-
-
-
-
 
 export default SubmitProjection;

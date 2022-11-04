@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 
 export default function ErrorSubmit({
   setErrorSubmit,
+  errorSubmit,
   setNotEnoughBalance,
   mode,
+  refresh,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -54,7 +56,7 @@ export default function ErrorSubmit({
         >
           <ClearIcon
             sx={{ color: "secondary.dark_gray", cursor: "pointer" }}
-            onClick={() => setErrorSubmit(false)}
+            onClick={() => setErrorSubmit(null)}
           />
         </Box>
         <ClearIcon
@@ -76,8 +78,7 @@ export default function ErrorSubmit({
             width: "75%",
           }}
         >
-          Unfortunately, we do not allow users from your current location to
-          participate in cash plays yet
+          {errorSubmit}
         </Typography>
         <Button
           sx={{
@@ -96,8 +97,8 @@ export default function ErrorSubmit({
             },
           }}
           onClick={() => {
-            setNotEnoughBalance(true);
-            setErrorSubmit(false);
+            refresh();
+            setErrorSubmit(null);
           }}
         >
           Okay{" "}

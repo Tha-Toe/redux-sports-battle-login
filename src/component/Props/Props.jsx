@@ -415,7 +415,7 @@ export default function Props({
     dispatch(setNoProjection(null));
     dispatch(setCallClickSportApiFinish(false));
     setSelectMatches(null);
-    selectStatTitle(null);
+    setSelectStatTitle(null);
     setNotes(null);
     let result = await getPropsSport(selectSports);
     if (result.projections.length < 1) {
@@ -788,7 +788,7 @@ export default function Props({
   };
 
   const [successSubmit, setSuccessSubmit] = useState(false);
-  const [errorSubmit, setErrorSubmit] = useState(false);
+  const [errorSubmit, setErrorSubmit] = useState(null);
   const [notEnoughBalance, setNotEnoughBalance] = useState(false);
   const messagesEndRef = useRef(null);
   const scrollDownFunc = () => {
@@ -1591,6 +1591,7 @@ export default function Props({
                       setSelectAmount={setSelectAmount}
                       pickPlayType={pickPlayType}
                       setPickPlayType={setPickPlayType}
+                      setNotEnoughBalance={setNotEnoughBalance}
                     />
                     <div ref={messagesEndRef} />
                   </Box>
@@ -1632,13 +1633,16 @@ export default function Props({
             setSuccessSubmit={setSuccessSubmit}
             setErrorSubmit={setErrorSubmit}
             mode={mode}
+            refresh={refresh}
           />
         )}
         {errorSubmit && (
           <ErrorSubmit
             setErrorSubmit={setErrorSubmit}
+            errorSubmit={errorSubmit}
             setNotEnoughBalance={setNotEnoughBalance}
             mode={mode}
+            refresh={refresh}
           />
         )}
         {notEnoughBalance && (

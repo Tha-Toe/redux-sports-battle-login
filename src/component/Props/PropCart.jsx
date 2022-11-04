@@ -19,7 +19,7 @@ export default function PropCart({ selectedCardList, mode, selectSports }) {
         return each.sportCode === selectSports;
       });
       if (selectedSportPropsData.length > 0) {
-        console.log(selectedCardList);
+        // console.log(selectedCardList);
         let metadata = selectedSportPropsData[0].metadata;
         let propCartDataReturn = getPayouts(selectedCardList, metadata);
         dispatch(addPropCartData(propCartDataReturn));
@@ -361,6 +361,6 @@ export const getPayouts = (selectedUserProps, metadata) => {
     attackOnlyEntry:
       attackOnlySportsInThisEntry.length > 0 || selectedUserProps.length <= 2,
   };
-  console.log(payoutsForThisEntry);
+  // console.log(payoutsForThisEntry);
   return payoutsForThisEntry;
 };

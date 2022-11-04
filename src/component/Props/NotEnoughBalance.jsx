@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
   const fs = useSelector((state) => state.user.fs);
-
+  const idpverified = useSelector((state) => state.user.idpverified);
   let navigate = useNavigate();
   return (
     <Box
@@ -97,7 +97,11 @@ export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
             }}
             onClick={() => {
               setNotEnoughBalance(false);
-              navigate("/home?deposit=old-user", { replace: true });
+              if (idpverified) {
+                navigate("/home?deposit=old-user", { replace: true });
+              } else {
+                navigate("/home?deposit=new&page=verify", { replace: true });
+              }
             }}
           >
             Add Cash{" "}
