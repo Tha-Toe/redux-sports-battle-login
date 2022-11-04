@@ -81,7 +81,6 @@ function App() {
       );
       if (user_from_localstorage) {
         //if user exists in local storage
-
         dispatch(addUserInfo(user_from_localstorage));
         // setUser(user_from_localstorage);
         setPreventFromMulitpleTimesRun(true);
@@ -95,7 +94,7 @@ function App() {
         let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
-        // console.log(firUser);
+        console.log(firUser);
         // setUser(firUser);
         console.log(clickedSignUp);
         if (clickedSignUp) {
@@ -179,7 +178,7 @@ function App() {
             // console.log(result);
           } else {
             //user is null create user
-            dispatch(addUserDetail("null"));
+            dispatch(addUserDetail(null));
           }
           //loading false
           dispatch(endChecking());
@@ -190,6 +189,23 @@ function App() {
     }
   }, [preventFromMultipleTimesRun]);
 
+  const updateGetUserById = () => {
+    getUserById(user.uid)
+      .then((result) => {
+        if (result) {
+          console.log("updated");
+          //user is not null will get details
+          dispatch(addUserDetail(result));
+          // console.log(result);
+        } else {
+          //user is null create user
+          dispatch(addUserDetail(null));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const [mode, setMode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
@@ -336,7 +352,11 @@ function App() {
               path="/home"
               element={
                 <Protected>
-                  <Home mode={mode} setMode={setMode} />
+                  <Home
+                    mode={mode}
+                    setMode={setMode}
+                    updateGetUserById={updateGetUserById}
+                  />
                 </Protected>
               }
             />

@@ -121,6 +121,7 @@ export default function Props({
   selectSrc,
   setSelectSrc,
   getPropsSport,
+  updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [selectAmount, setSelectAmount] = useState(null);
@@ -787,7 +788,7 @@ export default function Props({
     setSelectedCardList(selectCardIdClone);
   };
 
-  const [successSubmit, setSuccessSubmit] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(true);
   const [errorSubmit, setErrorSubmit] = useState(null);
   const [notEnoughBalance, setNotEnoughBalance] = useState(false);
   const messagesEndRef = useRef(null);
@@ -1634,6 +1635,7 @@ export default function Props({
             setErrorSubmit={setErrorSubmit}
             mode={mode}
             refresh={refresh}
+            updateGetUserById={updateGetUserById}
           />
         )}
         {errorSubmit && (

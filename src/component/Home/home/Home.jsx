@@ -202,7 +202,7 @@ export const getUserById = async (userId) => {
   }
 };
 
-export function Home({ mode, setMode }) {
+export function Home({ mode, setMode, updateGetUserById }) {
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -1238,6 +1238,7 @@ export function Home({ mode, setMode }) {
               selectColor={selectColor}
               selectSrc={selectSrc}
               getPropsSport={getPropsSport}
+              updateGetUserById={updateGetUserById}
             ></Props>
           )}
           {!location.search && openTag === "my-props" && (

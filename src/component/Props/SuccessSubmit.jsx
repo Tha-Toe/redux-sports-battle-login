@@ -14,6 +14,7 @@ export default function SuccessSubmit({
   setErrorSubmit,
   mode,
   refresh,
+  updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -93,6 +94,7 @@ export default function SuccessSubmit({
           }}
           onClick={() => {
             refresh();
+            updateGetUserById();
             setSuccessSubmit(false);
           }}
         >
