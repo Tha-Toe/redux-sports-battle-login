@@ -58,3 +58,6 @@ export const addIdentityVerify = ocApiGatewayPayment + 'user/verify/age';
 
 
 
+//submitProjections 
+export const submitProjections = ocApiGatewayContests + 'join/v2/id/undefined';
+

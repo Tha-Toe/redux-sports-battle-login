@@ -9,6 +9,8 @@ import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useSelector } from "react-redux";
 import FailLocationPermission from "../AddCash/FailLocationPermission";
+import { APIURLs } from "../../api/ApiUrls";
+import { makePOSTAPICall } from "../../api/methods";
 import axios from "axios";
 
 const SubmitProjection = ({
@@ -450,5 +452,44 @@ const SubmitProjection = ({
     </Box>
   );
 };
+
+
+
+// submit projections
+
+export const submitProjections = async (userId, game, projections, amount, toWin, joinWith, playType, payouts, device) => {
+  var apiUrl = APIURLs.submitProjections;
+  
+  var reqBody = {
+    userId: userId,
+    game: game,
+    projections: projections,
+    amount: amount,
+    toWin: toWin,
+    joinWith: joinWith,
+    playType: playType,
+    payouts: payouts,
+    mixMatch: true,
+    device: device,
+    overUnder: true
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};
+
+
+
+
+
+
+
 
 export default SubmitProjection;
