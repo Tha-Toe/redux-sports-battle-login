@@ -116,6 +116,44 @@ a {
 .atkAndDef {
   width: 100px;
 }
+
+.circleSubmitContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.circle-submit-one-address,
+.circle-submit-two-address,
+.circle-submit-three-address {
+  background-color: white;
+  border-radius: 50%;
+  height: 5px;
+  width: 5px;
+  margin-right: 10px;
+}
+.circle-submit-one-address {
+  animation: onSubmitAni 0.7s ease-in-out infinite;
+}
+.circle-submit-two-address {
+  animation: onSubmitAni 1s ease-in-out infinite 0.5s;
+}
+.circle-submit-three-address {
+  animation: onSubmitAni 1s ease-in-out infinite 1.3s;
+}
+
+@keyframes onSubmitAni {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 1100px) {
   .statsButton {
     height: 30px;

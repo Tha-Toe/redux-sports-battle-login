@@ -28,6 +28,7 @@ const SubmitProjection = ({
   const [pickPlayType, setPickPlayType] = useState(false);
   const [winAmount, setWinAmount] = useState(null);
   const [inputAmount, setInputAmount] = useState(null);
+  const [startButtonAnimation, setStartButtonAnimation] = useState(false);
   useEffect(() => {
     if (pickPlayType && propCartData && selectAmount) {
       if (pickPlayType === "defence") {
@@ -75,30 +76,42 @@ const SubmitProjection = ({
   const [speed, setSpeed] = useState(null);
   const [locationBlock, setLocationBlock] = useState(false);
 
+  let doubleClick = false;
   const getLocation = async () => {
-    const currTime = new Date();
-    console.log(currTime);
-    const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
-    // setIP(res.data.IPv4);
-    if (!navigator.geolocation) {
-      // Geolocation is not supported by your browser
-    } else {
-      // setStatus('Locating...');
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // setStatus(null);
-          console.log(position.coords);
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-          setAltitude(position.coords.altitude);
-          setSpeed(position.coords.speed);
-        },
-        () => {
-          setLocationBlock(true);
-          // setStatus('Unable to retrieve your location');
-        }
-      );
+    if (!doubleClick) {
+      setStartButtonAnimation(true);
+      doubleClick = true;
+      setStartButtonAnimation(true);
+      const currTime = new Date();
+      console.log(currTime);
+      const res = await axios.get("https://geolocation-db.com/json/");
+      console.log(res.data);
+
+      // setIP(res.data.IPv4);
+      if (!navigator.geolocation) {
+        // Geolocation is not supported by your browser
+      } else {
+        // setStatus('Locating...');
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // setStatus(null);
+            console.log(position.coords);
+            setLat(position.coords.latitude);
+            setLong(position.coords.longitude);
+            setAltitude(position.coords.altitude);
+            setSpeed(position.coords.speed);
+            setSuccessSubmit(true);
+            doubleClick = false;
+            setStartButtonAnimation(false);
+          },
+          () => {
+            setLocationBlock(true);
+            doubleClick = false;
+            setStartButtonAnimation(false);
+            // setStatus('Unable to retrieve your location');
+          }
+        );
+      }
     }
   };
 
@@ -305,7 +318,15 @@ const SubmitProjection = ({
                 getLocation();
               }}
             >
-              Submit
+              {startButtonAnimation ? (
+                <div className="circleSubmitContainer">
+                  <div className="circle-submit-one-address"></div>
+                  <div className="circle-submit-two-address"></div>
+                  <div className="circle-submit-three-address"></div>
+                </div>
+              ) : (
+                "Submit"
+              )}
             </Button>
           )}
         </>
