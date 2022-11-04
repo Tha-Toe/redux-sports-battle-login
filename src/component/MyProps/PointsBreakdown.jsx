@@ -220,6 +220,7 @@ const PointsBreakdown = ({
               "&::-webkit-scrollbar": {
                 display: "none",
               },
+              mb: "25px",
             }}
           >
             {pbData.statKeys.map((each, index) => (

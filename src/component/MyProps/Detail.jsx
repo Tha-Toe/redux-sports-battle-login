@@ -129,7 +129,7 @@ export default function Detail({
       ) : (
         <>
           {detailData ? (
-            <Box sx={{ width: "90%", mx: "auto" }}>
+            <Box sx={{ width: "90%", mx: "auto", mb: "100px" }}>
               <Box
                 sx={{
                   display: "flex",
