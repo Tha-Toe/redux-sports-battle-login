@@ -15,6 +15,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FpsPopup from "./FpsPopup";
 import PointsBreakdown from "./PointsBreakdown";
+
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
+
 export default function Detail({
   mode,
   setOpenDetail,
@@ -667,3 +671,16 @@ export default function Detail({
     </Box>
   );
 }
+
+// fantasy score api
+
+export const getFantasyPoints = async (propId) => {
+  var apiUrl = APIURLs.getFantasyPoints;
+  apiUrl = apiUrl.replace("{propId}", propId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
