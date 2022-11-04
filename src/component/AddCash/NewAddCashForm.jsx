@@ -11,6 +11,8 @@ import FailVerify from "./FailVerify";
 import { useSelector } from "react-redux";
 import FailLocationPermission from "./FailLocationPermission";
 import axios from "axios";
+import { APIURLs } from "../../api/ApiUrls";
+import { makePOSTAPICall } from "../../api/methods";
 export default function NewAddCashFrom({ address, setNewUser, mode }) {
   const fs = useSelector((state) => state.user.fs);
 
