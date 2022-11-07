@@ -44,6 +44,7 @@ export default function HowTo({
           flexDirection: "column",
           justifyContent: "space-evenly",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Typography

@@ -39,7 +39,7 @@ export default function KnowMore({ mode }) {
       darkSrc: "/rules-dark.png",
     },
     {
-      name: "Sports Battle Operating States",
+      name: "Operating States",
       src: "/fps.png",
       darkSrc: "/fps-dark.png",
     },
@@ -320,67 +320,6 @@ export default function KnowMore({ mode }) {
                       {e.sportName}
                     </Typography>
                   </Box>
-                  // <Box
-                  //   key={index}
-                  //   sx={{
-                  //     display: "flex",
-                  //     flexDirection: "column",
-                  //     alignItems: "center",
-                  //     justifyContent: "center",
-                  //     mr: { xxxs: "5px" },
-                  //   }}
-                  // >
-                  //   <Box
-                  //     sx={{
-                  //       height: { xs: "34px", xxxs: "30px" },
-                  //       width: { xs: "34px", xxxs: "30px" },
-                  //       border: `${
-                  //         mode === "dark"
-                  //           ? "2px solid white"
-                  //           : "1px solid #494949"
-                  //       }`,
-                  //       borderRadius: "50%",
-                  //       mt: "13px",
-                  //       display: "flex",
-                  //       flexDirection: "column",
-                  //       alignItems: "center",
-                  //       justifyContent: "center",
-                  //       bgcolor: `${
-                  //         e.name === selectSports ? e.color : "transparent"
-                  //       }`,
-                  //       cursor: "pointer",
-                  //     }}
-                  //     onClick={() => setSelectSports(e.name)}
-                  //   >
-                  //     {mode === "dark" ? (
-                  //       <img className="propsNavImg" src={e.src} />
-                  //     ) : (
-                  //       <>
-                  //         {e.name === selectSports ? (
-                  //           <img className="propsNavImg" src={e.src} />
-                  //         ) : (
-                  //           <img className="propsNavImg" src={e.light_src} />
-                  //         )}
-                  //       </>
-                  //     )}
-                  //   </Box>
-                  //   <Typography
-                  //     sx={{
-                  //       fontSize: fs.xs,
-                  //       fontWeight: 400,
-                  //       fontFamily: "poppins",
-                  //       mt: "5px",
-                  //       color: `${
-                  //         e.name === selectSports ? e.color : "secondary.main"
-                  //       }`,
-                  //       width: "50px",
-                  //       textAlign: "center",
-                  //     }}
-                  //   >
-                  //     {" "}
-                  //     {e.name}
-                  //   </Typography>
-                  // </Box>
                 ))}
               </div>
             </div>
@@ -447,7 +386,6 @@ export default function KnowMore({ mode }) {
                 }}
                 onClick={() => {
                   setOpenTag(e.name);
-                  e.func();
                 }}
               >
                 {mode === "dark" ? (
@@ -559,8 +497,12 @@ export default function KnowMore({ mode }) {
                 apiData={apiData}
               />
             )}
-            {openTag === "Frequently Asked Questions" && <FAQ />}
-            {openTag === "Sports Battle Operating States" && <OperatingState />}
+            {openTag === "Frequently Asked Questions" && (
+              <FAQ openTag={openTag} />
+            )}
+            {openTag === "Operating States" && (
+              <OperatingState openTag={openTag} />
+            )}
           </Box>
         </Box>
       </Box>

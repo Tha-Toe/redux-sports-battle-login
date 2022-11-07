@@ -38,6 +38,7 @@ export default function Rule({ setOpenRule, mode, rulesData }) {
           flexDirection: "column",
           justifyContent: "space-evenly",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Typography
