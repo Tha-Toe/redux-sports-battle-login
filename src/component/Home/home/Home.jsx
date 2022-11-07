@@ -205,7 +205,6 @@ export const getUserById = async (userId) => {
 export function Home({ mode, setMode, updateGetUserById }) {
   let navigate = useNavigate();
   let location = useLocation();
-  const dispatch = useDispatch();
 
   //getUserDetail
   const userDetail = useSelector((state) => state.user.userDetail);
@@ -241,9 +240,10 @@ export function Home({ mode, setMode, updateGetUserById }) {
   }, [userDetail]);
 
   const callPropsApi = async () => {
+    // dispatch(removePropsDataCommingFromApi());
+    dispatch(removePropsDataCommingFromApi());
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
-
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
     if (allSports && allSports.length > 0) {
       let count = 0;
@@ -290,6 +290,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
       }
     }
   };
+
   //getMyPropsDataFromApi
   const user_from_localstorage = JSON.parse(localStorage.getItem("user"));
   //upcomming
@@ -432,6 +433,14 @@ export function Home({ mode, setMode, updateGetUserById }) {
     setOpenSideNav(false);
     setOpenTag("props");
     callPropsApi();
+    if (sportDataCommingFromApi) {
+      let firstSportName = sportDataCommingFromApi[0].code;
+      let firstSportSrc = sportDataCommingFromApi[0].activeSrc;
+      let firstSportColor = sportDataCommingFromApi[0].color;
+      setSelectSports(firstSportName);
+      setSelectSrc(firstSportSrc);
+      setSelectColor(firstSportColor);
+    }
   };
   const knowMoreOpen = () => {
     navigate("/home", { replace: true });
@@ -592,6 +601,11 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const [selectSrc, setSelectSrc] = useState("/mlb.png");
   const [selectColor, setSelectColor] = useState("blue");
 
+  useEffect(() => {
+    if (selectSports) {
+      console.log(selectSports);
+    }
+  }, [selectSports]);
   const homeRef = useRef();
   const homeContainerRef = useRef();
 
@@ -599,6 +613,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
     homeRef.current.scrollTop = 0;
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
+  const dispatch = useDispatch();
   const logOut = () => {
     if (auth) {
       signOut(auth);
