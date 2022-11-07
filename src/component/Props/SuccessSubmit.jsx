@@ -15,7 +15,6 @@ export default function SuccessSubmit({
   mode,
   refresh,
   updateGetUserById,
-  setSelectedCardList,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -94,8 +93,8 @@ export default function SuccessSubmit({
             },
           }}
           onClick={() => {
+            refresh();
             updateGetUserById();
-            setSelectedCardList([]);
             setSuccessSubmit(false);
           }}
         >

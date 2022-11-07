@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Input, Button } from "@mui/material";
+import { Box, Grid, Typography, Input } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 import SearchIcon from "@mui/icons-material/Search";
@@ -23,7 +23,6 @@ import {
   setCallClickSportApiFinish,
   setNoProjection,
   addCurrentSportDataRedux,
-  removeEachPropsDataCommingFromApi,
 } from "../../feature/userSlice";
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -311,13 +310,12 @@ export default function Props({
   const [activeSports, setActiveSports] = useState([]);
   const [noDataSports, setNoDataSports] = useState([]);
   const [notes, setNotes] = useState(null);
-  const [finishOnce, setFinishOnce] = useState(false);
+
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
         return each.sportCode === selectSports;
       });
-      // console.log(selectedSportPropsData);
       let statsArray = [];
       let howToPlayArray = [];
       let rulesArray = [];
@@ -325,7 +323,6 @@ export default function Props({
       if (selectedSportPropsData.length > 0) {
         //set current sports data in
         // console.log(selectedSportPropsData[0]);
-
         setCurrentSportsData(selectedSportPropsData[0]);
         dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
         //get statOUKeys
@@ -381,6 +378,7 @@ export default function Props({
         if (!selectMatches && statsData && !selectStatTitle) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
+          // console.log(statsData);
         }
 
         //get active sports
@@ -406,38 +404,15 @@ export default function Props({
           });
           setNoDataSports(noDataObj);
         }
-        dispatch(setCallClickSportApiFinish(true));
-      } else {
-        dispatch(setCallClickSportApiFinish(false));
-        setNotes(null);
-        dispatch(setNoProjection(null));
       }
     }
-  }, [
-    selectSports,
-    propsDataCommingFromApi,
-    selectMatches,
-    selectStatTitle,
-    finishOnce,
-  ]);
-  const [currSports, setCurrSports] = useState(null);
+  }, [selectSports, propsDataCommingFromApi, selectMatches, selectStatTitle]);
 
-  useEffect(() => {
-    if (sportDataCommingFromApi && selectSports) {
-      console.log("select sports", selectSports);
-      let currSportArray = sportDataCommingFromApi.filter((each) => {
-        return each.code === selectSports;
-      });
-      if (currSportArray.length > 0) {
-        setCurrSports(currSportArray[0]);
-      }
-    }
-  }, [sportDataCommingFromApi, selectSports]);
-
+  // useEffect(() => {
+  //   console.log(stats);
+  // }, [stats]);
   const noProjection = useSelector((state) => state.user.noProjection);
   const refresh = async () => {
-    console.log("select sports", selectSports);
-    dispatch(removeEachPropsDataCommingFromApi(selectSports));
     dispatch(setNoProjection(null));
     dispatch(setCallClickSportApiFinish(false));
     setSelectMatches(null);
@@ -795,7 +770,7 @@ export default function Props({
         }
       }
     }
-    // console.log(selectedCardList);
+    console.log(selectedCardList);
     // console.log(selectedCardList);
   };
   const removeCard = (prop) => {
@@ -833,79 +808,48 @@ export default function Props({
     callClickSportApiFinish,
   });
   const handleCallPropSports = async (e) => {
+    dispatch(setCallClickSportApiFinish(false));
+    setNotes(null);
+    // console.log(noDataSports);
+    dispatch(setNoProjection(null));
     setSelectMatches(null);
-    setStatsAndData(null);
-    setSelectStatTitle(null);
     setSelectSports(e.code);
     setSelectColor(e.color);
     setSelectSrc(e.activeImage);
-
-    let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
-      return each.sportCode === e.code;
-    });
-    let statsArray = [];
-    let howToPlayArray = [];
-    let rulesArray = [];
-    let gamesArray = [];
-
-    if (selectedSportPropsData.length > 0) {
-      if (selectedSportPropsData[0].projections.length < 1) {
-        dispatch(setNoProjection(e.code));
-      } else {
-        let statsData = selectedSportPropsData[0].projections[0];
-
-        setStatsAndData(statsData);
-        setSelectStatTitle(statsData.title);
-
-        //get projection stats data
-        //set current sports data in
-        setCurrentSportsData(selectedSportPropsData[0]);
-        dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
-        //get statOUKeys
-        let statOUKeys = selectedSportPropsData[0].statOUKeys;
-        statOUKeys.map((each) => {
-          statsArray.push(each);
-        });
-        setStats([...statsArray]);
-
-        //get howToPlayData
-        let howToPlayTitleFromRedux =
-          selectedSportPropsData[0].metadata.howToPlay.title;
-        setHowToPlayTitle(howToPlayTitleFromRedux);
-        let howToPlayDataFromRedux =
-          selectedSportPropsData[0].metadata.howToPlay.data;
-        howToPlayDataFromRedux.map((each) => {
-          howToPlayArray.push(each);
-        });
-        setHowToPlayData([...howToPlayArray]);
-      }
-    } else {
-      //when click sport data was not arrived to redux. below will run
-      dispatch(setCallClickSportApiFinish(false));
-      setNotes(null);
-      // console.log(noDataSports);
-      dispatch(setNoProjection(null));
-
-      let result = await getPropsSport(e.code);
-      if (result.projections.length < 1) {
-        dispatch(setNoProjection(result.sportCode));
-      }
-      if (result.projections.length > 0) {
-        setSelectStatTitle(result.projections[0].title);
-        setStatsAndData(result.projections[0]);
-      }
-
-      // console.log(result);
-      if (result.metadata.notes) {
-        let noteFromApi = result.metadata.notes;
-
-        if (noteFromApi[`${e.code}`]) {
-          setNotes(noteFromApi[`${e.code}`]);
-        }
-      }
-      dispatch(addPropsDataCommingFromApi(result));
-      dispatch(setCallClickSportApiFinish(true));
+    let result = await getPropsSport(e.code);
+    if (result.projections.length < 1) {
+      dispatch(setNoProjection(result.sportCode));
     }
+    if (result.projections.length > 0) {
+      setSelectStatTitle(result.projections[0].title);
+    }
+    setStatsAndData(result.projections[0]);
+    // console.log(result);
+    if (result.metadata.notes) {
+      let noteFromApi = result.metadata.notes;
+      // console.log(noteFromApi);
+      // console.log(e.code);
+      if (noteFromApi[`${e.code}`]) {
+        // console.log(noteFromApi[`${e.code}`]);
+        setNotes(noteFromApi[`${e.code}`]);
+      }
+    }
+    console.log(result);
+    dispatch(addPropsDataCommingFromApi(result));
+    console.log(result.projections[0]);
+    dispatch(setCallClickSportApiFinish(true));
+
+    // let statsDataFromRedux = currentSportsData.projections;
+    // if (statsDataFromRedux.length > 0) {
+    //   let statFilterData = statsDataFromRedux.filter((each) => {
+    //     return each.title === result.projections[0].title;
+    //   });
+    //   console.log(statsDataFromRedux);
+    //   console.log(result.projections[0].title);
+    //   if (statFilterData.length > 0) {
+    //     setStatsAndData(statFilterData[0]);
+    //   }
+    // }
   };
 
   //select stats func
@@ -993,8 +937,8 @@ export default function Props({
           let statsAndDataToAdd = { data: filterStatData, title: title };
           // prevstatsAndData.data = filterStatData;
           setStatsAndData(statsAndDataToAdd);
-          // console.log(filterStatData);
-          // console.log(statsAndDataToAdd);
+          console.log(filterStatData);
+          console.log(statsAndDataToAdd);
         }
       }
     } else {
@@ -1606,85 +1550,35 @@ export default function Props({
                         borderBottom: "1px solid #494949",
                       }}
                     >
-                      {statsAndData && statsAndData.data.length > 0 ? (
-                        <Grid
-                          container
-                          sx={{
-                            width: "100%",
-                          }}
-                          spacing={"6px"}
-                        >
-                          {statsAndData &&
-                            statsAndData.data.map((e, index) => (
-                              <GridItemComponent
-                                e={e}
-                                key={index}
-                                index={index}
-                                selectedCardList={selectedCardList}
-                                setSelectedCardList={setSelectedCardList}
-                                addCard={addCard}
-                                mode={mode}
-                                selectSports={selectSports}
-                                setSelectSports={setSelectSports}
-                                selectColor={selectColor}
-                                selectSrc={selectSrc}
-                                scrollDownFunc={scrollDownFunc}
-                                historyTrue={historyTrue}
-                                selectMatches={selectMatches}
-                                selectStatTitle={selectStatTitle}
-                                statsAndData={statsAndData}
-                              />
-                            ))}
-                        </Grid>
-                      ) : (
-                        <>
-                          {statsAndData &&
-                            statsAndData.data.length < 1 &&
-                            currSports && (
-                              <Box
-                                sx={{
-                                  width: "100%",
-                                  height: "100%",
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "center",
-                                  justifyContent: "flex-start",
-                                }}
-                              >
-                                <img
-                                  src={currSports.noDataImage}
-                                  style={{ width: "150px", marginTop: "40px" }}
-                                />
-                                <Typography
-                                  sx={{
-                                    fontSize: fs.normal,
-                                    color: "white",
-                                    width: "80%",
-                                    mt: "20px",
-                                  }}
-                                >
-                                  No open projections at the moment for this
-                                  game. New projections will be up soon.
-                                </Typography>
-                                <Button
-                                  sx={{
-                                    fontSize: fs.normal,
-                                    fontFamily: "poppins",
-                                    color: "white",
-                                    padding: "5px 20px",
-                                    border: "2px solid white",
-                                    borderRadius: "8px",
-                                    mt: "20px",
-                                    textTransform: "none",
-                                  }}
-                                  onClick={refresh}
-                                >
-                                  Refresh
-                                </Button>
-                              </Box>
-                            )}
-                        </>
-                      )}
+                      <Grid
+                        container
+                        sx={{
+                          width: "100%",
+                        }}
+                        spacing={"6px"}
+                      >
+                        {statsAndData &&
+                          statsAndData.data.map((e, index) => (
+                            <GridItemComponent
+                              e={e}
+                              key={index}
+                              index={index}
+                              selectedCardList={selectedCardList}
+                              setSelectedCardList={setSelectedCardList}
+                              addCard={addCard}
+                              mode={mode}
+                              selectSports={selectSports}
+                              setSelectSports={setSelectSports}
+                              selectColor={selectColor}
+                              selectSrc={selectSrc}
+                              scrollDownFunc={scrollDownFunc}
+                              historyTrue={historyTrue}
+                              selectMatches={selectMatches}
+                              selectStatTitle={selectStatTitle}
+                              statsAndData={statsAndData}
+                            />
+                          ))}
+                      </Grid>
                     </Box>
                     <SubmitProjection
                       selectedCardList={selectedCardList}
@@ -1742,7 +1636,6 @@ export default function Props({
             mode={mode}
             refresh={refresh}
             updateGetUserById={updateGetUserById}
-            setSelectedCardList={setSelectedCardList}
           />
         )}
         {errorSubmit && (

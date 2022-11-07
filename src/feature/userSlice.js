@@ -143,19 +143,6 @@ export const userSlice = createSlice({
         state.propsDataCommingFromApi = [...checkArray];
       }
     },
-    removeEachPropsDataCommingFromApi: (state, action) => {
-      console.log(action.payload);
-      const data = [...state.propsDataCommingFromApi];
-      let checkArray = data.filter((each) => {
-        return each.sportCode !== action.payload;
-      });
-      console.log(checkArray);
-      if (checkArray.length > 0) {
-        state.propsDataCommingFromApi = [...checkArray];
-      } else {
-        state.propsDataCommingFromApi = [];
-      }
-    },
     removePropsDataCommingFromApi: (state, action) => {
       state.propsDataCommingFromApi = [];
     },
@@ -211,7 +198,6 @@ export const {
   addPropsDataCommingFromApi,
   setPropsApiCallComplete,
   addEachMyPropDataCommingFromApi,
-  removeEachPropsDataCommingFromApi,
   removePropsDataCommingFromApi,
   setCallClickSportApiFinish,
   setNoProjection,

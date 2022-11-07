@@ -207,16 +207,14 @@ export default function Detail({
                       display: "flex",
                       flexDirection: "column",
                       width: "35%",
-                      justifyContent: "space-between",
-                      height: "100%",
                     }}
                   >
                     <Typography
                       sx={{
                         fontSize: {
-                          sm: each.playerName.length > 16 ? fs.xs : fs.small,
-                          xxs: each.playerName.length > 16 ? fs.xxs : fs.xs,
-                          xxxs: each.playerName.length > 16 ? fs.xxxs : fs.xxs,
+                          sm: each.playerName.length > 14 ? fs.xxs : fs.small,
+                          xxs: each.playerName.length > 14 ? fs.xxxs : fs.xs,
+                          xxxs: each.playerName.length > 14 ? fs.xxxs : fs.xxs,
                         },
                         fontWeight: 700,
                         fontFamily: "poppins",
@@ -227,7 +225,7 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxxs },
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
@@ -238,16 +236,11 @@ export default function Detail({
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxxs },
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
                         mt: "3px",
-                        textDecoration: `${
-                          !each.considered && detailData.props[0].status === "c"
-                            ? "line-through"
-                            : "none"
-                        }`,
                       }}
                     >
                       {each.sport.toUpperCase()}, {each.gameName}
@@ -255,8 +248,8 @@ export default function Detail({
 
                     <Typography
                       sx={{
-                        fontSize: { sm: fs.xxs, xxs: fs.xxs, xxxs: fs.xxxs },
-                        fontWeight: 900,
+                        fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
+                        fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
                         mt: "3px",
@@ -277,8 +270,6 @@ export default function Detail({
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "space-around",
-                      height: "100%",
                     }}
                   >
                     {each.action === "under" ? (
@@ -356,6 +347,7 @@ export default function Detail({
                         fontWeight: 500,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
+                        mt: "3px",
                       }}
                     >
                       {each.statDisplay}
@@ -365,7 +357,7 @@ export default function Detail({
                     sx={{
                       display: "flex",
                       flexDirection: "column",
-                      height: "100%",
+                      justifyContent: "space-between",
                       alignItems: "center",
                     }}
                   >
@@ -402,11 +394,11 @@ export default function Detail({
                             : "#4831D4"
                         }`,
                         mt: `${
-                          each.statKey === "fps"
-                            ? isRefunded
-                              ? "10px"
+                          each.statKey !== "fps"
+                            ? !isRefunded
+                              ? "12px"
                               : "0px"
-                            : "10px"
+                            : "12px"
                         }`,
                       }}
                     >
@@ -418,11 +410,11 @@ export default function Detail({
                         height: "2px",
                         background: "gray",
                         mt: `${
-                          each.statKey === "fps"
-                            ? isRefunded
-                              ? "10px"
+                          each.statKey !== "fps"
+                            ? !isRefunded
+                              ? "12px"
                               : "0px"
-                            : "10px"
+                            : "12px"
                         }`,
                         display: "flex",
                         justifyContent: "flex-start",

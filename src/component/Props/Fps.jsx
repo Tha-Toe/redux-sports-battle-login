@@ -333,7 +333,6 @@ export default function Fps({ setOpenFps, mode, currentSportsData }) {
           alignItems: "center",
           boxShadow: "1px 1px 100px -60px rgba(255,255,255,0.5)",
           border: "1px solid #2C2C2C",
-          borderRadius: "8px",
         }}
       >
         <Box
