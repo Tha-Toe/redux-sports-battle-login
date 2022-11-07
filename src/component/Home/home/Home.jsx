@@ -487,13 +487,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       activeName: "transaction-history",
       func: transactionHistoryOpen,
     },
-    {
-      name: "Enter Referral Code",
-      activeSrc: "/referalCodeActive.png",
-      unactiveSrc: "/referalCode.png",
-      activeName: "enter-referral-code",
-      func: goRefralBonusCashRadeem,
-    },
+    // {
+    //   name: "Enter Referral Code",
+    //   activeSrc: "/referalCodeActive.png",
+    //   unactiveSrc: "/referalCode.png",
+    //   activeName: "enter-referral-code",
+    //   func: goRefralBonusCashRadeem,
+    // },
   ]);
   const [sideBarOther, setSideBarOther] = useState([
     {
@@ -503,13 +503,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       activeName: "know-more",
       func: knowMoreOpen,
     },
-    {
-      name: "Email Preferences",
-      activeSrc: "/email-prefrence-active.png",
-      unactiveSrc: "/email-prefrence-unactive.png",
-      activeName: "email-prefrence",
-      func: emailPrefrenceOpen,
-    },
+    // {
+    //   name: "Email Preferences",
+    //   activeSrc: "/email-prefrence-active.png",
+    //   unactiveSrc: "/email-prefrence-unactive.png",
+    //   activeName: "email-prefrence",
+    //   func: emailPrefrenceOpen,
+    // },
     {
       name: "Support Chat",
       activeSrc: "/nomore-active.png",
