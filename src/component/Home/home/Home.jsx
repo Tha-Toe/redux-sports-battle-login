@@ -241,15 +241,54 @@ export function Home({ mode, setMode, updateGetUserById }) {
 
   const callPropsApi = async () => {
     // dispatch(removePropsDataCommingFromApi());
+    dispatch(removePropsDataCommingFromApi());
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
-    let result = await getPropsSport(selectSports);
-    if (result.projections.length < 1) {
-      dispatch(setNoProjection(result.sportCode));
+    let allSports = JSON.parse(localStorage.getItem("all_sports"));
+    if (allSports && allSports.length > 0) {
+      let count = 0;
+      for (let i = 0; i < allSports.length; i++) {
+        let x = allSports[i];
+        if (x.code != "home" && x.activeSw) {
+          if (i == 1) {
+            try {
+              let result = await getPropsSport(x.code);
+              count++;
+              // console.log(result);
+              dispatch(addPropsDataCommingFromApi(result));
+              if (result.projections.length < 1) {
+                dispatch(setNoProjection(result.sportCode));
+              }
+              if (count > 0) {
+                dispatch(setPropsApiCallComplete(true));
+              }
+              dispatch(setCallClickSportApiFinish(true));
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            getPropsSport(x.code)
+              .then((result) => {
+                count++;
+                // console.log(result);
+                dispatch(addPropsDataCommingFromApi(result));
+                if (result.projections.length < 1) {
+                  dispatch(setNoProjection(result.sportCode));
+                }
+                if (count > 0) {
+                  dispatch(setPropsApiCallComplete(true));
+                }
+                dispatch(setCallClickSportApiFinish(true));
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        } else {
+          count++;
+        }
+      }
     }
-    dispatch(addPropsDataCommingFromApi(result));
-    dispatch(setPropsApiCallComplete(true));
-    dispatch(setCallClickSportApiFinish(true));
   };
 
   //getMyPropsDataFromApi
@@ -394,6 +433,14 @@ export function Home({ mode, setMode, updateGetUserById }) {
     setOpenSideNav(false);
     setOpenTag("props");
     callPropsApi();
+    if (sportDataCommingFromApi) {
+      let firstSportName = sportDataCommingFromApi[0].code;
+      let firstSportSrc = sportDataCommingFromApi[0].activeSrc;
+      let firstSportColor = sportDataCommingFromApi[0].color;
+      setSelectSports(firstSportName);
+      setSelectSrc(firstSportSrc);
+      setSelectColor(firstSportColor);
+    }
   };
   const knowMoreOpen = () => {
     navigate("/home", { replace: true });
@@ -487,13 +534,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       activeName: "transaction-history",
       func: transactionHistoryOpen,
     },
-    {
-      name: "Enter Referral Code",
-      activeSrc: "/referalCodeActive.png",
-      unactiveSrc: "/referalCode.png",
-      activeName: "enter-referral-code",
-      func: goRefralBonusCashRadeem,
-    },
+    // {
+    //   name: "Enter Referral Code",
+    //   activeSrc: "/referalCodeActive.png",
+    //   unactiveSrc: "/referalCode.png",
+    //   activeName: "enter-referral-code",
+    //   func: goRefralBonusCashRadeem,
+    // },
   ]);
   const [sideBarOther, setSideBarOther] = useState([
     {
@@ -503,13 +550,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       activeName: "know-more",
       func: knowMoreOpen,
     },
-    {
-      name: "Email Preferences",
-      activeSrc: "/email-prefrence-active.png",
-      unactiveSrc: "/email-prefrence-unactive.png",
-      activeName: "email-prefrence",
-      func: emailPrefrenceOpen,
-    },
+    // {
+    //   name: "Email Preferences",
+    //   activeSrc: "/email-prefrence-active.png",
+    //   unactiveSrc: "/email-prefrence-unactive.png",
+    //   activeName: "email-prefrence",
+    //   func: emailPrefrenceOpen,
+    // },
     {
       name: "Support Chat",
       activeSrc: "/nomore-active.png",
@@ -554,6 +601,11 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const [selectSrc, setSelectSrc] = useState("/mlb.png");
   const [selectColor, setSelectColor] = useState("blue");
 
+  useEffect(() => {
+    if (selectSports) {
+      console.log(selectSports);
+    }
+  }, [selectSports]);
   const homeRef = useRef();
   const homeContainerRef = useRef();
 

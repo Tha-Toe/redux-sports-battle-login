@@ -260,6 +260,7 @@ export default function MyProfile({
                 }`,
                 py: "11px",
                 mt: "21px",
+                borderRadius: "4px",
               }}
             >
               <Box
@@ -438,7 +439,6 @@ export default function MyProfile({
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-
                 borderRadius: "4px",
               }}
             >
