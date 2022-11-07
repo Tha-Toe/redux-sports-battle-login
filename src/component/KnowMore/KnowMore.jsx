@@ -6,7 +6,7 @@ import FAQ from "./FAQ";
 import OperatingState from "./OperatingState";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
-const useHorizontalScroll = () => {
+const useHorizontalScroll = ({ selectSports, overUnderNav, openTag }) => {
   const elRef = useRef();
   useEffect(() => {
     const el = elRef.current;
@@ -22,7 +22,7 @@ const useHorizontalScroll = () => {
       el.addEventListener("wheel", onWheel);
       return () => el.removeEventListener("wheel", onWheel);
     }
-  }, []);
+  }, [selectSports, overUnderNav, openTag]);
   return elRef;
 };
 export default function KnowMore({ mode }) {
@@ -51,159 +51,174 @@ export default function KnowMore({ mode }) {
   ]);
 
   const [openTag, setOpenTag] = useState("Over-Under Points System");
-  const [overUnderNav, setOverUnderNav] = useState([
-    {
-      name: "MLB",
-      src: "/mlb.png",
-      light_src: "/mlb_light.png",
-      color: "blue",
-    },
-    {
-      name: "PGA",
-      src: "/pga.png",
-      light_src: "/pga_light.png",
-      color: "blue",
-    },
-    {
-      name: "GOLF",
-      src: "/golf.png",
-      light_src: "/golf_light.png",
-      color: "#E431F4",
-    },
-    {
-      name: "NFL",
-      src: "/nfl.png",
-      light_src: "/nfl_light.png",
-      color: "#F5A922",
-    },
-    {
-      name: "WNBA",
-      src: "/wnba.png",
-      light_src: "/wnba_light.png",
-      color: "#F5A922",
-    },
-    {
-      name: "Cricket",
-      src: "/cricket.png",
-      light_src: "/cricket_light.png",
-      color: "#D04643",
-    },
-    {
-      name: "CSGO",
-      src: "/csgo.png",
-      light_src: "/csgo_light.png",
-      color: "#00ffff",
-    },
-    {
-      name: "MMA",
-      src: "/mma.png",
-      light_src: "/mma_light.png",
-      color: "orange",
-    },
-    { name: "F1", src: "/f1.png", light_src: "/f1_light.png", color: "red" },
-    {
-      name: "CFL",
-      src: "/cfl.png",
-      light_src: "/cfl_light.svg",
-      color: "#F5A922",
-    },
-    {
-      name: "DOTA2",
-      src: "/dota2.png",
-      light_src: "/dota2_light.png",
-      color: "#00ffff",
-    },
-    {
-      name: "VAL",
-      src: "/val.png",
-      light_src: "/val_light.png",
-      color: "blue",
-    },
-    {
-      name: "Soccer",
-      src: "/soccer.png",
-      light_src: "/soccer_light.png",
-      color: "#52C03C",
-    },
-    {
-      name: "NBA",
-      src: "/nba.png",
-      light_src: "/nba_light.png",
-      color: "#F5A922",
-    },
-    {
-      name: "CoD",
-      src: "/val.png",
-      light_src: "/val_light.png",
-      color: "blue",
-    },
-    {
-      name: "Nascor",
-      src: "/f1.png",
-      light_src: "/f1_light.png",
-      color: "red",
-    },
-    {
-      name: "WTA",
-      src: "/wta-light.png",
-      light_src: "/wta.png",
-      color: "#F5A922",
-    },
-    {
-      name: "Can-FL",
-      src: "/cfl.png",
-      light_src: "/cfl_light.svg",
-      color: "#F5A922",
-    },
-    {
-      name: "HR-Dby",
-      src: "/mlb.png",
-      light_src: "/mlb_light.png",
-      color: "blue",
-    },
-    {
-      name: "NHL",
-      src: "/nhl.png",
-      light_src: "/nhl-light.png",
-      color: "#F5A922",
-    },
-    {
-      name: "CBB",
-      src: "/wnba.png",
-      light_src: "/wnba_light.png",
-      color: "#F5A922",
-    },
-    {
-      name: "LoL",
-      src: "/val.png",
-      light_src: "/val_light.png",
-      color: "blue",
-    },
-    {
-      name: "ATP",
-      src: "/wta-light.png",
-      light_src: "/wta.png",
-      color: "#F5A922",
-    },
-    {
-      name: "CFB",
-      src: "/cfl.png",
-      light_src: "/cfl_light.svg",
-      color: "#F5A922",
-    },
-  ]);
-  const [selectSports, setSelectSports] = useState("Cricket");
+  // const [overUnderNav, setOverUnderNav] = useState([
+  //   {
+  //     name: "MLB",
+  //     src: "/mlb.png",
+  //     light_src: "/mlb_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "PGA",
+  //     src: "/pga.png",
+  //     light_src: "/pga_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "GOLF",
+  //     src: "/golf.png",
+  //     light_src: "/golf_light.png",
+  //     color: "#E431F4",
+  //   },
+  //   {
+  //     name: "NFL",
+  //     src: "/nfl.png",
+  //     light_src: "/nfl_light.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "WNBA",
+  //     src: "/wnba.png",
+  //     light_src: "/wnba_light.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "Cricket",
+  //     src: "/cricket.png",
+  //     light_src: "/cricket_light.png",
+  //     color: "#D04643",
+  //   },
+  //   {
+  //     name: "CSGO",
+  //     src: "/csgo.png",
+  //     light_src: "/csgo_light.png",
+  //     color: "#00ffff",
+  //   },
+  //   {
+  //     name: "MMA",
+  //     src: "/mma.png",
+  //     light_src: "/mma_light.png",
+  //     color: "orange",
+  //   },
+  //   { name: "F1", src: "/f1.png", light_src: "/f1_light.png", color: "red" },
+  //   {
+  //     name: "CFL",
+  //     src: "/cfl.png",
+  //     light_src: "/cfl_light.svg",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "DOTA2",
+  //     src: "/dota2.png",
+  //     light_src: "/dota2_light.png",
+  //     color: "#00ffff",
+  //   },
+  //   {
+  //     name: "VAL",
+  //     src: "/val.png",
+  //     light_src: "/val_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "Soccer",
+  //     src: "/soccer.png",
+  //     light_src: "/soccer_light.png",
+  //     color: "#52C03C",
+  //   },
+  //   {
+  //     name: "NBA",
+  //     src: "/nba.png",
+  //     light_src: "/nba_light.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "CoD",
+  //     src: "/val.png",
+  //     light_src: "/val_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "Nascor",
+  //     src: "/f1.png",
+  //     light_src: "/f1_light.png",
+  //     color: "red",
+  //   },
+  //   {
+  //     name: "WTA",
+  //     src: "/wta-light.png",
+  //     light_src: "/wta.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "Can-FL",
+  //     src: "/cfl.png",
+  //     light_src: "/cfl_light.svg",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "HR-Dby",
+  //     src: "/mlb.png",
+  //     light_src: "/mlb_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "NHL",
+  //     src: "/nhl.png",
+  //     light_src: "/nhl-light.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "CBB",
+  //     src: "/wnba.png",
+  //     light_src: "/wnba_light.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "LoL",
+  //     src: "/val.png",
+  //     light_src: "/val_light.png",
+  //     color: "blue",
+  //   },
+  //   {
+  //     name: "ATP",
+  //     src: "/wta-light.png",
+  //     light_src: "/wta.png",
+  //     color: "#F5A922",
+  //   },
+  //   {
+  //     name: "CFB",
+  //     src: "/cfl.png",
+  //     light_src: "/cfl_light.svg",
+  //     color: "#F5A922",
+  //   },
+  // ]);
+  const overUnderNav = useSelector(
+    (state) => state.user.sportDataCommingFromApi
+  );
+
+  const [selectSports, setSelectSports] = useState(null);
 
   const [propsWidth, setPropsWidth] = useState();
   const propsChildRef = useRef();
 
-  const sportsRef = useHorizontalScroll();
+  const sportsRef = useHorizontalScroll({
+    selectSports,
+    overUnderNav,
+    openTag,
+  });
 
-  const knowMoreDataCommingFromApi = useSelector(
-    (state) => state.user.knowMoreDataCommingFromApi
-  );
-
-  if (knowMoreDataCommingFromApi) {
+  // const knowMoreDataCommingFromApi = useSelector(
+  //   (state) => state.user.knowMoreDataCommingFromApi
+  // );
+  const knowMoreDataCommingFromApi = true;
+  const [apiData, setApiData] = useState(null);
+  useEffect(() => {
+    if (overUnderNav && !selectSports) {
+      let firstSport = overUnderNav[0];
+      setSelectSports(firstSport.code);
+    }
+  }, [overUnderNav, selectSports]);
+  if (selectSports) {
     return (
       <Box sx={{ minHeight: "100vh", width: "100%" }}>
         {openTag === "Over-Under Points System" && (
@@ -242,15 +257,28 @@ export default function KnowMore({ mode }) {
                       justifyContent: "center",
                       mr: { xxxs: "5px" },
                     }}
+                    onClick={() => {
+                      setApiData(null);
+                      setSelectSports(e.code);
+                    }}
                   >
                     <Box
                       sx={{
                         height: { xs: "34px", xxxs: "30px" },
                         width: { xs: "34px", xxxs: "30px" },
+                        // border: `${
+                        //   e.code === selectSports
+                        //     ? `1px solid ${e.color}`
+                        //     : noDataSports.indexOf(e.code) > -1
+                        //     ? "1px solid gray"
+                        //     : activeSports.indexOf(e.code) > -1
+                        //     ? "1px solid white"
+                        //     : "1px solid gray"
+                        // }`,
                         border: `${
-                          mode === "dark"
-                            ? "2px solid white"
-                            : "1px solid #494949"
+                          e.code === selectSports
+                            ? `1px solid ${e.color}`
+                            : "1px solid white"
                         }`,
                         borderRadius: "50%",
                         mt: "13px",
@@ -259,23 +287,18 @@ export default function KnowMore({ mode }) {
                         alignItems: "center",
                         justifyContent: "center",
                         bgcolor: `${
-                          e.name === selectSports ? e.color : "transparent"
+                          e.code === selectSports ? e.color : "transparent"
                         }`,
                         cursor: "pointer",
                       }}
-                      onClick={() => setSelectSports(e.name)}
                     >
-                      {mode === "dark" ? (
-                        <img className="propsNavImg" src={e.src} />
-                      ) : (
-                        <>
-                          {e.name === selectSports ? (
-                            <img className="propsNavImg" src={e.src} />
-                          ) : (
-                            <img className="propsNavImg" src={e.light_src} />
-                          )}
-                        </>
-                      )}
+                      <img
+                        className="propsNavImg"
+                        style={{
+                          color: e.color,
+                        }}
+                        src={e.activeImage}
+                      />
                     </Box>
                     <Typography
                       sx={{
@@ -284,16 +307,80 @@ export default function KnowMore({ mode }) {
                         fontFamily: "poppins",
                         mt: "5px",
                         color: `${
-                          e.name === selectSports ? e.color : "secondary.main"
+                          e.code === selectSports ? e.color : "secondary.main"
+                        }`,
+                        color: `${
+                          e.code === selectSports ? `${e.color}` : "white"
                         }`,
                         width: "50px",
                         textAlign: "center",
                       }}
                     >
                       {" "}
-                      {e.name}
+                      {e.sportName}
                     </Typography>
                   </Box>
+                  // <Box
+                  //   key={index}
+                  //   sx={{
+                  //     display: "flex",
+                  //     flexDirection: "column",
+                  //     alignItems: "center",
+                  //     justifyContent: "center",
+                  //     mr: { xxxs: "5px" },
+                  //   }}
+                  // >
+                  //   <Box
+                  //     sx={{
+                  //       height: { xs: "34px", xxxs: "30px" },
+                  //       width: { xs: "34px", xxxs: "30px" },
+                  //       border: `${
+                  //         mode === "dark"
+                  //           ? "2px solid white"
+                  //           : "1px solid #494949"
+                  //       }`,
+                  //       borderRadius: "50%",
+                  //       mt: "13px",
+                  //       display: "flex",
+                  //       flexDirection: "column",
+                  //       alignItems: "center",
+                  //       justifyContent: "center",
+                  //       bgcolor: `${
+                  //         e.name === selectSports ? e.color : "transparent"
+                  //       }`,
+                  //       cursor: "pointer",
+                  //     }}
+                  //     onClick={() => setSelectSports(e.name)}
+                  //   >
+                  //     {mode === "dark" ? (
+                  //       <img className="propsNavImg" src={e.src} />
+                  //     ) : (
+                  //       <>
+                  //         {e.name === selectSports ? (
+                  //           <img className="propsNavImg" src={e.src} />
+                  //         ) : (
+                  //           <img className="propsNavImg" src={e.light_src} />
+                  //         )}
+                  //       </>
+                  //     )}
+                  //   </Box>
+                  //   <Typography
+                  //     sx={{
+                  //       fontSize: fs.xs,
+                  //       fontWeight: 400,
+                  //       fontFamily: "poppins",
+                  //       mt: "5px",
+                  //       color: `${
+                  //         e.name === selectSports ? e.color : "secondary.main"
+                  //       }`,
+                  //       width: "50px",
+                  //       textAlign: "center",
+                  //     }}
+                  //   >
+                  //     {" "}
+                  //     {e.name}
+                  //   </Typography>
+                  // </Box>
                 ))}
               </div>
             </div>
@@ -465,7 +552,12 @@ export default function KnowMore({ mode }) {
           </Box>
           <Box sx={{ width: { xs: "65%", xxxs: "75%" } }}>
             {openTag === "Over-Under Points System" && (
-              <OverUnderPointSystem selectSports={selectSports} mode={mode} />
+              <OverUnderPointSystem
+                selectSports={selectSports}
+                mode={mode}
+                setApiData={setApiData}
+                apiData={apiData}
+              />
             )}
             {openTag === "Frequently Asked Questions" && <FAQ />}
             {openTag === "Sports Battle Operating States" && <OperatingState />}

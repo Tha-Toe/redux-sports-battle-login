@@ -262,7 +262,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.Batting.map((e, index) => (
-                    <Box sx={{ width: "100%" }}>
+                    <Box sx={{ width: "100%" }} key={index}>
                       {e.Points !== "+0" && (
                         <Box
                           key={index}
@@ -369,7 +369,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.Bowling.map((e, index) => (
-                    <Box sx={{ width: "100%" }}>
+                    <Box sx={{ width: "100%" }} key={index}>
                       {e.Points !== "+0" && (
                         <Box
                           key={index}
