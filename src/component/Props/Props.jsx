@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Input } from "@mui/material";
+import { Box, Grid, Typography, Input, Button } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./props.css";
 import SearchIcon from "@mui/icons-material/Search";
@@ -155,149 +155,6 @@ export default function Props({
     setOpenFps(true);
   };
   const propsNav = useSelector((state) => state.user.sportDataCommingFromApi);
-  // const [propsNav, setPropsNav] = useState([
-  //   {
-  //     name: "MLB",
-  //     src: "/mlb.png",
-  //     light_src: "/mlb_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "PGA",
-  //     src: "/pga.png",
-  //     light_src: "/pga_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "GOLF",
-  //     src: "/golf.png",
-  //     light_src: "/golf_light.png",
-  //     color: "#E431F4",
-  //   },
-  //   {
-  //     name: "NFL",
-  //     src: "/nfl.png",
-  //     light_src: "/nfl_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "WNBA",
-  //     src: "/wnba.png",
-  //     light_src: "/wnba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "Cricket",
-  //     src: "/cricket.png",
-  //     light_src: "/cricket_light.png",
-  //     color: "#D04643",
-  //   },
-  //   {
-  //     name: "CSGO",
-  //     src: "/csgo.png",
-  //     light_src: "/csgo_light.png",
-  //     color: "#00ffff",
-  //   },
-  //   {
-  //     name: "MMA",
-  //     src: "/mma.png",
-  //     light_src: "/mma_light.png",
-  //     color: "orange",
-  //   },
-  //   { name: "F1", src: "/f1.png", light_src: "/f1_light.png", color: "red" },
-  //   {
-  //     name: "CFL",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "DOTA2",
-  //     src: "/dota2.png",
-  //     light_src: "/dota2_light.png",
-  //     color: "#00ffff",
-  //   },
-  //   {
-  //     name: "VAL",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "Soccer",
-  //     src: "/soccer.png",
-  //     light_src: "/soccer_light.png",
-  //     color: "#52C03C",
-  //   },
-  //   {
-  //     name: "NBA",
-  //     src: "/nba.png",
-  //     light_src: "/nba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CoD",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "Nascor",
-  //     src: "/f1.png",
-  //     light_src: "/f1_light.png",
-  //     color: "red",
-  //   },
-  //   {
-  //     name: "WTA",
-  //     src: "/wta-light.png",
-  //     light_src: "/wta.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "Can-FL",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "HR-Dby",
-  //     src: "/mlb.png",
-  //     light_src: "/mlb_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "NHL",
-  //     src: "/nhl.png",
-  //     light_src: "/nhl-light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CBB",
-  //     src: "/wnba.png",
-  //     light_src: "/wnba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "LoL",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "ATP",
-  //     src: "/wta-light.png",
-  //     light_src: "/wta.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CFB",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  // ]);
-
-  //get props data from redux
 
   const [howToPlayData, setHowToPlayData] = useState([]);
   const [howToPlayTitles, setHowToPlayTitle] = useState([]);
@@ -485,89 +342,6 @@ export default function Props({
       }
     }
   });
-  // const [stats, setStats] = useState([
-  //   {
-  //     name: "Bat.Runs + RBIs",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   {
-  //     name: "Fantasy Score (77)",
-  //     bg: " #459F48",
-  //     color: "black",
-  //     light_color: "white",
-  //     light_bg: " #459F48",
-  //   },
-  //   {
-  //     name: "Hits Allowed",
-  //     bg: "#4831D4",
-  //     color: "white",
-  //     light_color: "#4831D4",
-  //     light_bg: "#DAD5F6",
-  //   },
-  //   // {
-  //   //   name: "Num. of Pitches",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  //   // {
-  //   //   name: "Pitch Outs",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  //   // {
-  //   //   name: "Strike Outs",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  //   // {
-  //   //   name: "Bat.Runs + RBIs",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  //   // {
-  //   //   name: "Hits Allowed",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  //   // {
-  //   //   name: "Num. of Pitches",
-  //   //   bg: "#4831D4",
-  //   //   color: "white",
-  //   //   light_color: "#4831D4",
-  //   //   light_bg: "#DAD5F6",
-  //   // },
-  // ]);
-  // const [matches, setMatches] = useState([
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  //   { name: "PHI vs WSH", time: "13h 48m" },
-  // ]);
 
   const propsChildRef = useRef();
 
@@ -596,117 +370,21 @@ export default function Props({
     }
   };
 
+  const [currSports, setCurrSports] = useState(null);
+
+  useEffect(() => {
+    if (sportDataCommingFromApi && selectSports) {
+      let currSportArray = sportDataCommingFromApi.filter((each) => {
+        return each.code === selectSports;
+      });
+      if (currSportArray.length > 0) {
+        setCurrSports(currSportArray[0]);
+      }
+    }
+  }, [sportDataCommingFromApi, selectSports]);
+
   //card
-  const [cardInfo, setCardInfo] = useState([
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-    {
-      name: "Frank Schwindel",
-      cubs: "Chicago Cubs - Batter",
-      vs: "vs Miami Marlins",
-      time: "09:08",
-      last: "0,0,1,0,0",
-      avg: "0.20",
-      bat: "0.5",
-    },
-  ]);
+
   let currentSportDataRedux = useSelector(
     (state) => state.user.currentSportDataRedux
   );
@@ -824,13 +502,9 @@ export default function Props({
       setSelectStatTitle(result.projections[0].title);
     }
     setStatsAndData(result.projections[0]);
-    // console.log(result);
     if (result.metadata.notes) {
       let noteFromApi = result.metadata.notes;
-      // console.log(noteFromApi);
-      // console.log(e.code);
       if (noteFromApi[`${e.code}`]) {
-        // console.log(noteFromApi[`${e.code}`]);
         setNotes(noteFromApi[`${e.code}`]);
       }
     }
@@ -1550,35 +1224,85 @@ export default function Props({
                         borderBottom: "1px solid #494949",
                       }}
                     >
-                      <Grid
-                        container
-                        sx={{
-                          width: "100%",
-                        }}
-                        spacing={"6px"}
-                      >
-                        {statsAndData &&
-                          statsAndData.data.map((e, index) => (
-                            <GridItemComponent
-                              e={e}
-                              key={index}
-                              index={index}
-                              selectedCardList={selectedCardList}
-                              setSelectedCardList={setSelectedCardList}
-                              addCard={addCard}
-                              mode={mode}
-                              selectSports={selectSports}
-                              setSelectSports={setSelectSports}
-                              selectColor={selectColor}
-                              selectSrc={selectSrc}
-                              scrollDownFunc={scrollDownFunc}
-                              historyTrue={historyTrue}
-                              selectMatches={selectMatches}
-                              selectStatTitle={selectStatTitle}
-                              statsAndData={statsAndData}
-                            />
-                          ))}
-                      </Grid>
+                      {statsAndData && statsAndData.data.length > 0 ? (
+                        <Grid
+                          container
+                          sx={{
+                            width: "100%",
+                          }}
+                          spacing={"6px"}
+                        >
+                          {statsAndData &&
+                            statsAndData.data.map((e, index) => (
+                              <GridItemComponent
+                                e={e}
+                                key={index}
+                                index={index}
+                                selectedCardList={selectedCardList}
+                                setSelectedCardList={setSelectedCardList}
+                                addCard={addCard}
+                                mode={mode}
+                                selectSports={selectSports}
+                                setSelectSports={setSelectSports}
+                                selectColor={selectColor}
+                                selectSrc={selectSrc}
+                                scrollDownFunc={scrollDownFunc}
+                                historyTrue={historyTrue}
+                                selectMatches={selectMatches}
+                                selectStatTitle={selectStatTitle}
+                                statsAndData={statsAndData}
+                              />
+                            ))}
+                        </Grid>
+                      ) : (
+                        <>
+                          {statsAndData &&
+                            statsAndData.data.length < 1 &&
+                            currSports && (
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  height: "100%",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  alignItems: "center",
+                                  justifyContent: "flex-start",
+                                }}
+                              >
+                                <img
+                                  src={currSports.noDataImage}
+                                  style={{ width: "150px", marginTop: "40px" }}
+                                />
+                                <Typography
+                                  sx={{
+                                    fontSize: fs.normal,
+                                    color: "white",
+                                    width: "80%",
+                                    mt: "20px",
+                                  }}
+                                >
+                                  No open projections at the moment for this
+                                  game. New projections will be up soon.
+                                </Typography>
+                                <Button
+                                  sx={{
+                                    fontSize: fs.normal,
+                                    fontFamily: "poppins",
+                                    color: "white",
+                                    padding: "5px 20px",
+                                    border: "2px solid white",
+                                    borderRadius: "8px",
+                                    mt: "20px",
+                                    textTransform: "none",
+                                  }}
+                                  onClick={refresh}
+                                >
+                                  Refresh
+                                </Button>
+                              </Box>
+                            )}
+                        </>
+                      )}
                     </Box>
                     <SubmitProjection
                       selectedCardList={selectedCardList}
@@ -1636,6 +1360,7 @@ export default function Props({
             mode={mode}
             refresh={refresh}
             updateGetUserById={updateGetUserById}
+            setSelectedCardList={setSelectedCardList}
           />
         )}
         {errorSubmit && (
@@ -1645,12 +1370,14 @@ export default function Props({
             setNotEnoughBalance={setNotEnoughBalance}
             mode={mode}
             refresh={refresh}
+            setSelectedCardList={setSelectedCardList}
           />
         )}
         {notEnoughBalance && (
           <NotEnoughBalance
             setNotEnoughBalance={setNotEnoughBalance}
             mode={mode}
+            setSelectedCardList={setSelectedCardList}
           />
         )}
       </main>

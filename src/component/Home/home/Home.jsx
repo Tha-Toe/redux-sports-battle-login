@@ -243,15 +243,54 @@ export function Home({ mode, setMode, updateGetUserById }) {
     // dispatch(removePropsDataCommingFromApi());
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
-    let result = await getPropsSport(selectSports);
-    if (result.projections.length < 1) {
-      dispatch(setNoProjection(result.sportCode));
-    }
-    dispatch(addPropsDataCommingFromApi(result));
-    dispatch(setPropsApiCallComplete(true));
-    dispatch(setCallClickSportApiFinish(true));
-  };
+    dispatch(removePropsDataCommingFromApi());
 
+    let allSports = JSON.parse(localStorage.getItem("all_sports"));
+    if (allSports && allSports.length > 0) {
+      let count = 0;
+      for (let i = 0; i < allSports.length; i++) {
+        let x = allSports[i];
+        if (x.code != "home" && x.activeSw) {
+          if (i == 1) {
+            try {
+              let result = await getPropsSport(x.code);
+              count++;
+              // console.log(result);
+              dispatch(addPropsDataCommingFromApi(result));
+              if (result.projections.length < 1) {
+                dispatch(setNoProjection(result.sportCode));
+              }
+              if (count > 0) {
+                dispatch(setPropsApiCallComplete(true));
+              }
+              dispatch(setCallClickSportApiFinish(true));
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            getPropsSport(x.code)
+              .then((result) => {
+                count++;
+                // console.log(result);
+                dispatch(addPropsDataCommingFromApi(result));
+                if (result.projections.length < 1) {
+                  dispatch(setNoProjection(result.sportCode));
+                }
+                if (count > 0) {
+                  dispatch(setPropsApiCallComplete(true));
+                }
+                dispatch(setCallClickSportApiFinish(true));
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        } else {
+          count++;
+        }
+      }
+    }
+  };
   //getMyPropsDataFromApi
   const user_from_localstorage = JSON.parse(localStorage.getItem("user"));
   //upcomming

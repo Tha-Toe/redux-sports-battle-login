@@ -47,22 +47,9 @@ export default function SuccessSubmit({
           borderRadius: "8px",
         }}
       >
-        <Box
-          sx={{
-            width: "90%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            mt: "12px",
-          }}
-        >
-          <ClearIcon
-            sx={{ color: "secondary.dark_gray", cursor: "pointer" }}
-            onClick={() => setSuccessSubmit(false)}
-          />
-        </Box>
-        <CheckCircleIcon sx={{ color: "#52C03C", fontSize: "40px" }} />
+        <CheckCircleIcon
+          sx={{ color: "#52C03C", fontSize: "40px", mt: "20px" }}
+        />
         <Typography
           sx={{
             fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
@@ -94,6 +81,7 @@ export default function SuccessSubmit({
             },
           }}
           onClick={() => {
+            updateGetUserById();
             setSelectedCardList([]);
             setSuccessSubmit(false);
           }}

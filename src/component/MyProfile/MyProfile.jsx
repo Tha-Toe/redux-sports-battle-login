@@ -709,7 +709,7 @@ export default function MyProfile({
                       mb: "16px",
                     }}
                   >
-                    ${myAccountDataCommingFromApi.unutilizedCash}
+                    ${myAccountDataCommingFromApi.unutilizedCash.toFixed(2)}
                   </Typography>
                   <Typography
                     sx={{

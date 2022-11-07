@@ -12,7 +12,7 @@ export default function ErrorSubmit({
   errorSubmit,
   setNotEnoughBalance,
   mode,
-  refresh,
+  setSelectedCardList,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -44,27 +44,13 @@ export default function ErrorSubmit({
           borderRadius: "8px",
         }}
       >
-        <Box
-          sx={{
-            width: "90%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            mt: "12px",
-          }}
-        >
-          <ClearIcon
-            sx={{ color: "secondary.dark_gray", cursor: "pointer" }}
-            onClick={() => setErrorSubmit(null)}
-          />
-        </Box>
         <ClearIcon
           sx={{
             color: "black",
             bgcolor: "#E4313C",
             borderRadius: "50%",
             fontSize: "40px",
+            mt: "20px",
           }}
         />
         <Typography
@@ -97,7 +83,7 @@ export default function ErrorSubmit({
             },
           }}
           onClick={() => {
-            refresh();
+            setSelectedCardList([]);
             setErrorSubmit(null);
           }}
         >

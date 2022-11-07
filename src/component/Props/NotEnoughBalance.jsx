@@ -7,7 +7,11 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 
-export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
+export default function NotEnoughBalance({
+  setNotEnoughBalance,
+  mode,
+  setSelectedCardList,
+}) {
   const fs = useSelector((state) => state.user.fs);
   const idpverified = useSelector((state) => state.user.idpverified);
   let navigate = useNavigate();
@@ -39,21 +43,6 @@ export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
           borderRadius: "8px",
         }}
       >
-        <Box
-          sx={{
-            width: "90%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            mt: "12px",
-          }}
-        >
-          <ClearIcon
-            sx={{ color: "secondary.dark_gray", cursor: "pointer" }}
-            onClick={() => setNotEnoughBalance(false)}
-          />
-        </Box>
         <img className="wallet" src="/wallet 1.png" />
 
         <Typography
@@ -124,6 +113,7 @@ export default function NotEnoughBalance({ setNotEnoughBalance, mode }) {
               },
             }}
             onClick={() => {
+              setSelectedCardList([]);
               setNotEnoughBalance(false);
             }}
           >

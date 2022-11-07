@@ -456,7 +456,7 @@ export default function OverUnderPointSystem({
               },
             }}
           >
-            {apiData.Batting.length > 0 && (
+            {apiData.Batting && apiData.Batting.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -563,7 +563,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.Bowling.length > 0 && (
+            {apiData.Bowling && apiData.Bowling.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -670,7 +670,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.Fielding.length > 0 && (
+            {apiData.Fielding && apiData.Fielding.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -777,7 +777,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.StrikeRate.length > 0 && (
+            {apiData.StrikeRate && apiData.StrikeRate.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -884,7 +884,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.EconomyRate.length > 0 && (
+            {apiData.EconomyRate && apiData.EconomyRate.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -991,7 +991,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.Other.length > 0 && (
+            {apiData.Other && apiData.Other.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -1098,7 +1098,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.Notes.length > 0 && (
+            {apiData.Notes && apiData.Notes.length > 0 && (
               <>
                 <Box
                   sx={{
@@ -1201,7 +1201,7 @@ export default function OverUnderPointSystem({
                 ))}
               </>
             )}
-            {apiData.OtherNotes.length > 0 && (
+            {apiData.OtherNotes && apiData.OtherNotes.length > 0 && (
               <>
                 <Box
                   sx={{

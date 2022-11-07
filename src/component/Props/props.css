@@ -101,6 +101,7 @@ a {
 .wallet {
   width: 48px;
   height: 48px;
+  margin-top: 20px;
 }
 
 .rulesDataContainer {

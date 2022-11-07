@@ -29,7 +29,7 @@ export default function KnowMore({ mode }) {
   const fs = useSelector((state) => state.user.fs);
   const [general, setGeneral] = useState([
     {
-      name: "Over-Under Points System",
+      name: "Above-Below Points System",
       src: "/howto.png",
       darkSrc: "/howto-dark.png",
     },
@@ -50,7 +50,7 @@ export default function KnowMore({ mode }) {
     { name: "Responsible Play", src: "/fps.png", darkSrc: "/fps-dark.png" },
   ]);
 
-  const [openTag, setOpenTag] = useState("Over-Under Points System");
+  const [openTag, setOpenTag] = useState("Above-Below Points System");
   // const [overUnderNav, setOverUnderNav] = useState([
   //   {
   //     name: "MLB",
@@ -221,7 +221,7 @@ export default function KnowMore({ mode }) {
   if (selectSports) {
     return (
       <Box sx={{ minHeight: "100vh", width: "100%" }}>
-        {openTag === "Over-Under Points System" && (
+        {openTag === "Above-Below Points System" && (
           <Box
             component="div"
             sx={{
@@ -233,6 +233,7 @@ export default function KnowMore({ mode }) {
                 xs: "90%",
                 xxxs: "95%",
               },
+              width: { xl: "1300px", lg: "80%", sm: "87%", xxxs: "95%" },
               margin: "0 auto",
               overflow: "hidden",
               "&::-webkit-scrollbar": {
@@ -241,12 +242,16 @@ export default function KnowMore({ mode }) {
             }}
           >
             {" "}
-            <div
-              className="propsContainer"
-              style={{ background: "transparent" }}
-              ref={sportsRef}
-            >
-              <div className="statsChild">
+            <div className="propsContainer" ref={sportsRef}>
+              <div
+                className="statsChild"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 {overUnderNav.map((e, index) => (
                   <Box
                     key={index}
@@ -335,6 +340,8 @@ export default function KnowMore({ mode }) {
               xs: "90%",
               xxxs: "95%",
             },
+            width: { xl: "1300px", lg: "80%", sm: "87%", xxxs: "95%" },
+
             height: "100vh",
             margin: "auto",
             mt: "30px",
@@ -489,7 +496,7 @@ export default function KnowMore({ mode }) {
             ))}
           </Box>
           <Box sx={{ width: { xs: "65%", xxxs: "75%" } }}>
-            {openTag === "Over-Under Points System" && (
+            {openTag === "Above-Below Points System" && (
               <OverUnderPointSystem
                 selectSports={selectSports}
                 mode={mode}
