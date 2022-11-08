@@ -139,6 +139,9 @@ export default function Props({
   const propsApiCallComplete = useSelector(
     (state) => state.user.propsApiCallComplete
   );
+  let currentSportDataRedux = useSelector(
+    (state) => state.user.currentSportDataRedux
+  );
 
   const [openHowTo, setOpenHowTo] = useState(false);
   const [openRule, setOpenRule] = useState(false);
@@ -168,6 +171,7 @@ export default function Props({
   const [noDataSports, setNoDataSports] = useState([]);
   const [notes, setNotes] = useState(null);
 
+  //sports changes
   useEffect(() => {
     if (selectSports) {
       let selectedSportPropsData = propsDataCommingFromApi.filter((each) => {
@@ -182,7 +186,7 @@ export default function Props({
         // console.log(selectedSportPropsData[0]);
         setCurrentSportsData(selectedSportPropsData[0]);
         dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
-
+        console.log(selectedSportPropsData);
         //get notes
         if (selectedSportPropsData[0].metadata.notes) {
           let noteFromApi = selectedSportPropsData[0].metadata.notes;
@@ -191,6 +195,17 @@ export default function Props({
           } else {
             setNotes(null);
           }
+        }
+
+        //get projection stats data
+        let statsData = selectedSportPropsData[0].projections[0];
+        // console.log(statsData);
+        // console.log(selectMatches);
+        // console.log(selectStatTitle);
+        if (!selectMatches && statsData && !selectStatTitle) {
+          setStatsAndData(statsData);
+          setSelectStatTitle(statsData.title);
+          // console.log(statsData);
         }
 
         //get statOUKeys
@@ -238,17 +253,6 @@ export default function Props({
           setHistoryTrue(false);
         }
 
-        //get projection stats data
-        let statsData = selectedSportPropsData[0].projections[0];
-        // console.log(statsData);
-        // console.log(selectMatches);
-        // console.log(selectStatTitle);
-        if (!selectMatches && statsData && !selectStatTitle) {
-          setStatsAndData(statsData);
-          setSelectStatTitle(statsData.title);
-          // console.log(statsData);
-        }
-
         //get active sports
         let obj = [];
         let activeData = propsDataCommingFromApi.filter((each) => {
@@ -272,6 +276,12 @@ export default function Props({
           });
           setNoDataSports(noDataObj);
         }
+        dispatch(setCallClickSportApiFinish(true));
+      } else {
+        dispatch(setCallClickSportApiFinish(false));
+        setStats([]);
+        setMatches([]);
+        setStatsAndData(null);
       }
     }
   }, [selectSports, propsDataCommingFromApi, selectMatches, selectStatTitle]);
@@ -280,16 +290,28 @@ export default function Props({
   //   console.log(stats);
   // }, [stats]);
   const noProjection = useSelector((state) => state.user.noProjection);
+
   const refresh = async () => {
     dispatch(setNoProjection(null));
     dispatch(setCallClickSportApiFinish(false));
     setSelectMatches(null);
-    setSelectStatTitle(null);
     setNotes(null);
+    let statsArray = [];
     let result = await getPropsSport(selectSports);
+    console.log(result);
     if (result.projections.length < 1) {
       dispatch(setNoProjection(result.sportCode));
     }
+    if (result.projections.length > 0) {
+      setSelectStatTitle(result.projections[0].title);
+    }
+    let statOUKeys = result.statOUKeys;
+    statOUKeys.map((each) => {
+      statsArray.push(each);
+    });
+
+    setStats([...statsArray]);
+    setStatsAndData(result.projections[0]);
     if (result.metadata.notes) {
       let noteFromApi = result.metadata.notes;
       if (noteFromApi[`${selectSports}`]) {
@@ -297,7 +319,6 @@ export default function Props({
       }
     }
     dispatch(addPropsDataCommingFromApi(result));
-    dispatch(setCallClickSportApiFinish(true));
   };
   const [propsGuide, setPropsGuide] = useState([
     {
@@ -317,12 +338,6 @@ export default function Props({
       src: "/fps.png",
       darkSrc: "/fps-dark.png",
       func: baseBallPointOpen,
-    },
-    {
-      name: "Refresh",
-      src: "/refresh.png",
-      darkSrc: "/refresh-dark.png",
-      func: refresh,
     },
   ]);
   const [stats, setStats] = useState([]);
@@ -396,9 +411,6 @@ export default function Props({
 
   //card
 
-  let currentSportDataRedux = useSelector(
-    (state) => state.user.currentSportDataRedux
-  );
   const [selectedCardList, setSelectedCardList] = useState([]);
   const addCard = async (prop) => {
     // console.log(prop);
@@ -497,6 +509,7 @@ export default function Props({
     callClickSportApiFinish,
   });
   const handleCallPropSports = async (e) => {
+    if (e.code === selectSports) return;
     dispatch(setCallClickSportApiFinish(false));
     setNotes(null);
     // console.log(noDataSports);
@@ -505,25 +518,73 @@ export default function Props({
     setSelectSports(e.code);
     setSelectColor(e.color);
     setSelectSrc(e.activeImage);
-    let result = await getPropsSport(e.code);
-    if (result.projections.length < 1) {
-      dispatch(setNoProjection(result.sportCode));
-    }
-    if (result.projections.length > 0) {
-      setSelectStatTitle(result.projections[0].title);
-    }
-    setStatsAndData(result.projections[0]);
-    if (result.metadata.notes) {
-      let noteFromApi = result.metadata.notes;
-      if (noteFromApi[`${e.code}`]) {
-        setNotes(noteFromApi[`${e.code}`]);
-      }
-    }
-    console.log(result);
-    dispatch(addPropsDataCommingFromApi(result));
-    console.log(result.projections[0]);
-    dispatch(setCallClickSportApiFinish(true));
 
+    setStats([]);
+    setMatches([]);
+    setStatsAndData(null);
+
+    let currSelectSportProp = await propsDataCommingFromApi.filter(
+      (eachProp) => {
+        return eachProp.sportCode === e.code;
+      }
+    );
+    if (currSelectSportProp.length > 0) {
+      if (currSelectSportProp[0].projections.length < 1) {
+        dispatch(setNoProjection(currSelectSportProp[0].sportCode));
+      }
+      if (currSelectSportProp[0].projections.length > 0) {
+        setSelectStatTitle(currSelectSportProp[0].projections[0].title);
+      }
+      setStatsAndData(currSelectSportProp[0].projections[0]);
+      if (currSelectSportProp[0].metadata.notes) {
+        let noteFromApi = currSelectSportProp[0].metadata.notes;
+        if (noteFromApi[`${e.code}`]) {
+          setNotes(noteFromApi[`${e.code}`]);
+        }
+      }
+      console.log(currSelectSportProp);
+      dispatch(setCallClickSportApiFinish(true));
+    } else {
+      let result = await getPropsSport(e.code);
+      if (result.projections.length < 1) {
+        dispatch(setNoProjection(result.sportCode));
+      }
+      if (result.projections.length > 0) {
+        setSelectStatTitle(result.projections[0].title);
+      }
+      setStatsAndData(result.projections[0]);
+      if (result.metadata.notes) {
+        let noteFromApi = result.metadata.notes;
+        if (noteFromApi[`${e.code}`]) {
+          setNotes(noteFromApi[`${e.code}`]);
+        }
+      }
+      console.log(result);
+      dispatch(addPropsDataCommingFromApi(result));
+      console.log(result.projections[0]);
+      dispatch(setCallClickSportApiFinish(true));
+    }
+
+    // let result = await getPropsSport(e.code);
+    // if (result.projections.length < 1) {
+    //   dispatch(setNoProjection(result.sportCode));
+    // }
+    // if (result.projections.length > 0) {
+    //   setSelectStatTitle(result.projections[0].title);
+    // }
+    // setStatsAndData(result.projections[0]);
+    // if (result.metadata.notes) {
+    //   let noteFromApi = result.metadata.notes;
+    //   if (noteFromApi[`${e.code}`]) {
+    //     setNotes(noteFromApi[`${e.code}`]);
+    //   }
+    // }
+    // console.log(result);
+    // dispatch(addPropsDataCommingFromApi(result));
+    // console.log(result.projections[0]);
+    // dispatch(setCallClickSportApiFinish(true));
+
+    // //old
     // let statsDataFromRedux = currentSportsData.projections;
     // if (statsDataFromRedux.length > 0) {
     //   let statFilterData = statsDataFromRedux.filter((each) => {
@@ -826,6 +887,48 @@ export default function Props({
                       </Typography>
                     </Box>
                   ))}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: { sm: "row", xxxs: "column" },
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      flexWrap: "wrap",
+                      mr: { md: "20px", xxxs: "10px" },
+                    }}
+                    onClick={() => refresh(selectSports)}
+                  >
+                    {mode === "dark" ? (
+                      <img
+                        src="/refresh.png"
+                        style={{
+                          marginRight: "3px",
+                          height: "20px",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src="/refresh-dark.png"
+                        style={{
+                          marginRight: "3px",
+                          height: "20px",
+                        }}
+                      />
+                    )}
+
+                    <Typography
+                      sx={{
+                        fontSize: { md: fs.small, sm: fs.xxs, xxxs: fs.xxxs },
+                        fontFamily: "poppins",
+                        fontWeight: 500,
+                        color: "secondary.main",
+                        ml: { sm: "5px", xxxs: "0px" },
+                      }}
+                    >
+                      Refresh
+                    </Typography>
+                  </Box>
                 </Box>
                 <Input
                   startAdornment={
@@ -1305,7 +1408,7 @@ export default function Props({
                                     mt: "20px",
                                     textTransform: "none",
                                   }}
-                                  onClick={refresh}
+                                  onClick={() => refresh(selectSports)}
                                 >
                                   Refresh
                                 </Button>

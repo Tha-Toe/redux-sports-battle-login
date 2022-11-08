@@ -229,7 +229,7 @@ const GridItemComponent = ({
               sx={{
                 color: "secondary.dark_gray",
                 fontSize: {
-                  md: e.otherTeamLongName.length > 20 ? fs.xxxs : fs.xxs,
+                  md: e.otherTeamLongName.length > 15 ? fs.xxxs : fs.xxs,
                   sm: fs.xxxs,
                   xxxs: fs.xxs,
                 },
@@ -243,7 +243,7 @@ const GridItemComponent = ({
               sx={{
                 color: "secondary.dark_gray",
                 fontSize: {
-                  md: e.otherTeamLongName.length > 20 ? fs.xxxs : fs.xxs,
+                  md: e.otherTeamLongName.length > 15 ? fs.xxxs : fs.xxs,
                   sm: fs.xxxs,
                   xxxs: fs.xxs,
                 },
