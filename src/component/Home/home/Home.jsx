@@ -56,6 +56,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../../config/firebase";
+import { useSelect } from "@mui/base";
 
 export const onSportsCounterUpdate = async ({
   dispatch,
@@ -210,6 +211,12 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [bonus, setBonus] = useState(null);
   const [cash, setCash] = useState(null);
+  const sportDataCommingFromApi = useSelector(
+    (state) => state.user.sportDataCommingFromApi
+  );
+  const propsDataCommingFromApi = useSelector(
+    (state) => state.user.propsDataCommingFromApi
+  );
 
   useEffect(() => {
     if (userDetail) {
@@ -228,7 +235,12 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const idpverified = useSelector((state) => state.user.idpverified);
   useEffect(() => {
     const getPropsData = () => {
-      if (userDetail && preventDoubleCall) {
+      if (
+        userDetail &&
+        preventDoubleCall &&
+        propsDataCommingFromApi.length < 1 &&
+        !sportDataCommingFromApi
+      ) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
         onPropsOUCounterUpdate({ dispatch });
@@ -237,7 +249,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
     };
     getPropsData();
     // console.log(userDetail);
-  }, [userDetail]);
+  }, [userDetail, sportDataCommingFromApi, propsDataCommingFromApi]);
 
   const callPropsApi = async () => {
     // dispatch(removePropsDataCommingFromApi());
@@ -571,10 +583,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
       setMode("dark");
     }
   };
-
-  const sportDataCommingFromApi = useSelector(
-    (state) => state.user.sportDataCommingFromApi
-  );
 
   useEffect(() => {
     if (sportDataCommingFromApi) {

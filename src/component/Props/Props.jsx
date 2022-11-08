@@ -182,6 +182,17 @@ export default function Props({
         // console.log(selectedSportPropsData[0]);
         setCurrentSportsData(selectedSportPropsData[0]);
         dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
+
+        //get notes
+        if (selectedSportPropsData[0].metadata.notes) {
+          let noteFromApi = selectedSportPropsData[0].metadata.notes;
+          if (noteFromApi[`${selectSports}`]) {
+            setNotes(noteFromApi[`${selectSports}`]);
+          } else {
+            setNotes(null);
+          }
+        }
+
         //get statOUKeys
         let statOUKeys = selectedSportPropsData[0].statOUKeys;
         statOUKeys.map((each) => {
