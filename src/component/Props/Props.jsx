@@ -1254,7 +1254,6 @@ export default function Props({
                                 addCard={addCard}
                                 mode={mode}
                                 selectSports={selectSports}
-                                setSelectSports={setSelectSports}
                                 selectColor={selectColor}
                                 selectSrc={selectSrc}
                                 scrollDownFunc={scrollDownFunc}

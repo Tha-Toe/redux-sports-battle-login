@@ -17,7 +17,7 @@ const initialState = {
   user: null,
   checking: true,
   userDetail: [],
-  sportDataCommingFromApi: null,
+  sportDataCommingFromApi: [],
   upComingDataCommingFromApi: null,
   liveDataCommingFromApi: null,
   completeDataCommingFromApi: null,
@@ -63,7 +63,8 @@ export const userSlice = createSlice({
     },
     addSportDataCommingFromApi: (state, action) => {
       console.log(action.payload);
-      state.sportDataCommingFromApi = action.payload;
+      let newArray = [...action.payload];
+      state.sportDataCommingFromApi = newArray;
     },
     addUpComingDataCommingFromApi: (state, action) => {
       state.upComingDataCommingFromApi = action.payload;

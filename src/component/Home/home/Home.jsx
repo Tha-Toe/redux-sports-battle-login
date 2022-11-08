@@ -64,7 +64,6 @@ export const onSportsCounterUpdate = async ({
 }) => {
   const q = query(collection(db, "sports_counter"));
   onSnapshot(q, (querySnapshot) => {
-    dispatch(addSportDataCommingFromApi(null));
     var allsports = [];
     getAllSports()
       .then((result) => {
@@ -76,9 +75,9 @@ export const onSportsCounterUpdate = async ({
                 allsports.push(x);
               }
             });
+            dispatch(addSportDataCommingFromApi(allsports));
           }
           // console.log(allsports);
-          dispatch(addSportDataCommingFromApi(allsports));
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
         } else {
@@ -206,15 +205,16 @@ export const getUserById = async (userId) => {
 export function Home({ mode, setMode, updateGetUserById }) {
   let navigate = useNavigate();
   let location = useLocation();
+  let dispatch = useDispatch();
 
   //getUserDetail
   const userDetail = useSelector((state) => state.user.userDetail);
   const [bonus, setBonus] = useState(null);
   const [cash, setCash] = useState(null);
-  const sportDataCommingFromApi = useSelector(
+  let sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
-  const propsDataCommingFromApi = useSelector(
+  let propsDataCommingFromApi = useSelector(
     (state) => state.user.propsDataCommingFromApi
   );
 
@@ -239,7 +239,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
         userDetail &&
         preventDoubleCall &&
         propsDataCommingFromApi.length < 1 &&
-        !sportDataCommingFromApi
+        sportDataCommingFromApi.length < 1
       ) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
@@ -252,10 +252,11 @@ export function Home({ mode, setMode, updateGetUserById }) {
   }, [userDetail, sportDataCommingFromApi, propsDataCommingFromApi]);
 
   const callPropsApi = async () => {
-    // dispatch(removePropsDataCommingFromApi());
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
     dispatch(removePropsDataCommingFromApi());
+
+    //call api for all sports
 
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
     if (allSports && allSports.length > 0) {
@@ -585,7 +586,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
   };
 
   useEffect(() => {
-    if (sportDataCommingFromApi) {
+    if (sportDataCommingFromApi.length > 0 && openTag === "props") {
       let firstSportName = sportDataCommingFromApi[0].code;
       let firstSportSrc = sportDataCommingFromApi[0].activeSrc;
       let firstSportColor = sportDataCommingFromApi[0].color;
@@ -593,13 +594,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       setSelectSrc(firstSportSrc);
       setSelectColor(firstSportColor);
     }
-  }, [sportDataCommingFromApi]);
+  }, [sportDataCommingFromApi, openTag]);
 
   const [openDropDown, setOpenDropDown] = useState(false);
 
   const [selectSports, setSelectSports] = useState(null);
-  const [selectSrc, setSelectSrc] = useState("/mlb.png");
-  const [selectColor, setSelectColor] = useState("blue");
+  const [selectSrc, setSelectSrc] = useState(null);
+  const [selectColor, setSelectColor] = useState(null);
 
   const homeRef = useRef();
   const homeContainerRef = useRef();
@@ -608,7 +609,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
     homeRef.current.scrollTop = 0;
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
-  const dispatch = useDispatch();
   const logOut = () => {
     if (auth) {
       signOut(auth);
