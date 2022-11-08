@@ -642,7 +642,7 @@ export default function Props({
           let statsDataClone = statFilterData[0];
           let statsTitle = statsDataClone.title;
           let filterMatchesData = statsDataClone.data.filter((each) => {
-            return each.gameName === e.gameName;
+            return each.gameId === e.gameId;
           });
           let filterMatches = { title: statsTitle, data: filterMatchesData };
           setStatsAndData(filterMatches);
@@ -1392,6 +1392,7 @@ export default function Props({
                                     color: "white",
                                     width: "80%",
                                     mt: "20px",
+                                    textAlign: "center",
                                   }}
                                 >
                                   No open projections at the moment for this
