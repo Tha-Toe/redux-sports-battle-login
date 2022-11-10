@@ -69,3 +69,9 @@ export const getUrls = ocApiGatewayCommon + 'app/urls';
 
 //get referal history
 export const getRefHistory = ocApiGatewayusers + 'id/{userId}/referrals';
+
+//get add phone number
+export const getAddPhone = ocApiGatewayusers + 'phone/{phonenumber}';
+
+//post verify sms
+export const postVerifySms = ocApiGatewayPayment + 'sms/verify';

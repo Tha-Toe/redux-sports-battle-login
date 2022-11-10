@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Input } from "@mui/material";
 import { useSelector } from "react-redux";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 export default function AddPhoneNumber({
   setOpenTag,
   phoneNumber,
@@ -122,3 +124,17 @@ export default function AddPhoneNumber({
     </Box>
   );
 }
+
+
+//add phone number
+
+export const getAddPhone = async (phonenumber) => {
+  var apiUrl = APIURLs.getAddPhone;
+  apiUrl = apiUrl.replace("{phonenumber}", phonenumber);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};

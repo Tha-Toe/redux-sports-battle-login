@@ -10,6 +10,8 @@ import { Input } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckIcon from "@mui/icons-material/Check";
 import { useSelector } from "react-redux";
+import { APIURLs } from "../../api/ApiUrls";
+import { makePOSTAPICall } from "../../api/methods";
 export default function VerifycationCode({
   setOpenTag,
   phoneNumber,
@@ -226,3 +228,26 @@ export default function VerifycationCode({
     </Box>
   );
 }
+
+
+//verify sms otp code
+
+export const postVerifySms = async (userId, phoneNumber, verfCode) => {
+  var apiUrl = APIURLs.postVerifySms;
+
+  var reqBody = {
+    userId: userId,
+    phoneNumber: phoneNumber,
+    verfCode: verfCode,
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};
