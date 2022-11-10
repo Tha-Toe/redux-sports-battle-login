@@ -63,3 +63,6 @@ export const submitProjections = ocApiGatewayContests + 'join/v2/id/undefined';
 
 //get Faq
 export const getFaq = ocApiGatewayCommon + 'faq/all';
+
+//get social media urls
+export const getUrls = ocApiGatewayCommon + 'app/urls';

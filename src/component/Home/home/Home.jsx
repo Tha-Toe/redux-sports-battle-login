@@ -1366,3 +1366,16 @@ export function Home({ mode, setMode, updateGetUserById }) {
     </div>
   );
 }
+
+
+//get urls
+
+export const getUrls = async () => {
+  var apiUrl = APIURLs.getUrls;
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
