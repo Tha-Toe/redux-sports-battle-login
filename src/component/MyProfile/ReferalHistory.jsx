@@ -7,6 +7,8 @@ import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./profile.css";
 import { useSelector } from "react-redux";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 export default function ReferalHistory({ setOpenReferalHistory, mode }) {
   const fs = useSelector((state) => state.user.fs);
   const [data, setData] = useState([
@@ -242,3 +244,16 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
     </Box>
   );
 }
+
+//get referal history
+
+export const getRefHistory = async (userId) => {
+  var apiUrl = APIURLs.getRefHistory;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};

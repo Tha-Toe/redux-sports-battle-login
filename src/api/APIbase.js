@@ -66,3 +66,6 @@ export const getFaq = ocApiGatewayCommon + 'faq/all';
 
 //get social media urls
 export const getUrls = ocApiGatewayCommon + 'app/urls';
+
+//get referal history
+export const getRefHistory = ocApiGatewayusers + 'id/{userId}/referrals';
