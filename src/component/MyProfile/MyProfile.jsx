@@ -1288,7 +1288,7 @@ export default function MyProfile({
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
-                    ml: { xs: "10px", xxxs: "5px" },
+                    ml: { xs: "15px", xxxs: "15px" },
                     maxWidth: "80%",
                   }}
                 >
@@ -1360,7 +1360,7 @@ export default function MyProfile({
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
-                    ml: { xs: "37px", xxxs: "10px" },
+                    ml: { xs: "26px", xxxs: "10px" },
                   }}
                 >
                   Referral History
@@ -1403,7 +1403,7 @@ export default function MyProfile({
                     fontWeight: 400,
                     fontFamily: "poppins",
                     color: "secondary.dark_gray",
-                    ml: { xs: "37px", xxxs: "10px" },
+                    ml: { xs: "26px", xxxs: "10px" },
                   }}
                 >
                   Redeem Referral Code{" "}
