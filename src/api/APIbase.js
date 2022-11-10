@@ -61,3 +61,5 @@ export const addIdentityVerify = ocApiGatewayPayment + 'user/verify/age';
 //submitProjections 
 export const submitProjections = ocApiGatewayContests + 'join/v2/id/undefined';
 
+//get Faq
+export const getFaq = ocApiGatewayCommon + 'faq/all';

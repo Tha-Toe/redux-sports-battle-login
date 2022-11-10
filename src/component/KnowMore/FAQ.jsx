@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./knowMore.css";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 
 export default function FAQ() {
   const fs = useSelector((state) => state.user.fs);
@@ -102,3 +104,15 @@ export default function FAQ() {
     </Box>
   );
 }
+
+//get faqs
+
+export const getFaq = async () => {
+  var apiUrl = APIURLs.getFaq;
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
