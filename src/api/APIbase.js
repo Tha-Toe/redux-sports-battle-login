@@ -81,3 +81,7 @@ export const getTxHistory = ocApiGatewayusers + 'id/{userId}/txn/{pageNo}';
 
 //get withdraw history
 export const getWithdrawHistory = ocApiGatewayusers + 'id/{userId}/withdrawals';
+
+//post redeem referal code
+export const postRedeemCode = ocApiGatewayusers + 'redeem/code';
+
