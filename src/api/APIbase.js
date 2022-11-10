@@ -75,3 +75,9 @@ export const getAddPhone = ocApiGatewayusers + 'phone/{phonenumber}';
 
 //post verify sms
 export const postVerifySms = ocApiGatewayPayment + 'sms/verify';
+
+//get tx history
+export const getTxHistory = ocApiGatewayusers + 'id/{userId}/txn/{pageNo}';
+
+//get withdraw history
+export const getWithdrawHistory = ocApiGatewayusers + 'id/{userId}/withdrawals';

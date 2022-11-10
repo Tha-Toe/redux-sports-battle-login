@@ -5,6 +5,8 @@ import Detail from "../MyProps/Detail";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import NotFound from "./NotFound";
 import { useSelector } from "react-redux";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 export default function TransactionHistory({ mode }) {
   const [history, setHistory] = useState([
     {
@@ -316,3 +318,18 @@ export default function TransactionHistory({ mode }) {
     return <LoadingSpinnerEachSection />;
   }
 }
+
+
+//get Tx History
+
+export const getTxHistory = async (userId, pageNo) => {
+  var apiUrl = APIURLs.getTxHistory;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  apiUrl = apiUrl.replace("{pageNo}", pageNo);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};

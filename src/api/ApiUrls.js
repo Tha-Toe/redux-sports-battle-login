@@ -1,4 +1,4 @@
-import { getUserInfo,getAllSports,getPropsSport,getMyProps,getEachProp,withdrawProp,getFpsSport,getFantasyPoints,getUserAddress,addUserAddress,getStates,addIdentityVerify,submitProjections,getFaq,getUrls,getRefHistory,getAddPhone,postVerifySms } from "./APIbase";
+import { getUserInfo,getAllSports,getPropsSport,getMyProps,getEachProp,withdrawProp,getFpsSport,getFantasyPoints,getUserAddress,addUserAddress,getStates,addIdentityVerify,submitProjections,getFaq,getUrls,getRefHistory,getAddPhone,postVerifySms,getTxHistory,getWithdrawHistory } from "./APIbase";
 
 
 var APIURLs = {
@@ -19,7 +19,9 @@ var APIURLs = {
     getUrls,
     getRefHistory,
     getAddPhone,
-    postVerifySms
+    postVerifySms,
+    getTxHistory,
+    getWithdrawHistory
 };
 
 export { APIURLs };
