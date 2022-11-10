@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./profile.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
 
 import { Grid, Card } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -207,3 +209,17 @@ export default function MyWithDraw({ mode }) {
     </Box>
   );
 }
+
+
+//get my withdrawal History
+
+export const getWithdrawHistory = async (userId) => {
+  var apiUrl = APIURLs.getWithdrawHistory;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
