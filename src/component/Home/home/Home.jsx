@@ -43,6 +43,7 @@ import {
   setCallClickSportApiFinish,
   setNoProjection,
   AddIdpverified,
+  addUrlData,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -211,6 +212,8 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [bonus, setBonus] = useState(null);
   const [cash, setCash] = useState(null);
+  const [discordUrl, setDiscordUrl] = useState(null);
+  const [twitterUrl, setTwitterUrl] = useState(null);
   let sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
@@ -244,6 +247,17 @@ export function Home({ mode, setMode, updateGetUserById }) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
         onPropsOUCounterUpdate({ dispatch });
+        //get url
+        getUrls()
+          .then((result) => {
+            dispatch(addUrlData(result));
+          })
+          .catch((error) => {
+            if (error) {
+              console.log(error);
+            }
+          });
+
         // getIdpVerified();
       }
     };
@@ -251,6 +265,28 @@ export function Home({ mode, setMode, updateGetUserById }) {
     // console.log(userDetail);
   }, [userDetail, sportDataCommingFromApi, propsDataCommingFromApi]);
 
+  //get url data from redux
+  const urlData = useSelector((state) => state.user.urlData);
+  useEffect(() => {
+    if (urlData.length > 0) {
+      let socialObject = urlData.filter((each) => {
+        return each.type === "social";
+      });
+      if (socialObject.length > 0) {
+        socialObject[0].value.map((e) => {
+          if (e.name === "Join our Discord") {
+            setDiscordUrl(e.web_value);
+            console.log(e.web_value);
+          } else {
+            setTwitterUrl(e.web_value);
+            console.log(e.web_value);
+          }
+        });
+        console.log("discord", socialObject[0].value[0].web_value);
+        console.log("twitter", socialObject[0].value[1].web_value);
+      }
+    }
+  }, [urlData]);
   const callPropsApi = async () => {
     dispatch(setCallClickSportApiFinish(false));
     dispatch(setPropsApiCallComplete(false));
@@ -1195,69 +1231,81 @@ export function Home({ mode, setMode, updateGetUserById }) {
               >
                 Our Socials
               </Typography>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: { lg: "row", sm: "column", xxxs: "row" },
-                  alignItems: "center",
-                  justifyContent: {
-                    lg: "flex-start",
-                    sm: "center",
-                    xxxs: "flex-start",
-                  },
-                }}
+              <a
+                href={`${discordUrl ? discordUrl : ""}`}
+                style={{ width: "100%" }}
+                target="_blank"
               >
-                <img
-                  src="/discord.png"
-                  className={`${"discord-logo"} ${
-                    mode !== "dark" && "lightMode"
-                  }`}
-                />
-                <Typography
+                <Box
                   sx={{
-                    fontFamily: "poppins",
-                    fontSize: { xl: fs.small, xxxs: fs.xs },
-                    ml: { lg: "12px", sm: "0px", xxxs: "8px" },
-                    textAlign: "center",
-                    color: "secondary.dark_gray",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: { lg: "row", sm: "column", xxxs: "row" },
+                    alignItems: "center",
+                    justifyContent: {
+                      lg: "flex-start",
+                      sm: "center",
+                      xxxs: "flex-start",
+                    },
                   }}
                 >
-                  Join our Discord
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: { lg: "row", sm: "column", xxxs: "row" },
-                  alignItems: "center",
-                  justifyContent: {
-                    lg: "flex-start",
-                    sm: "center",
-                    xxxs: "flex-start",
-                  },
-                  mt: "10px",
-                }}
+                  <img
+                    src="/discord.png"
+                    className={`${"discord-logo"} ${
+                      mode !== "dark" && "lightMode"
+                    }`}
+                  />
+                  <Typography
+                    sx={{
+                      fontFamily: "poppins",
+                      fontSize: { xl: fs.small, xxxs: fs.xs },
+                      ml: { lg: "12px", sm: "0px", xxxs: "8px" },
+                      textAlign: "center",
+                      color: "secondary.dark_gray",
+                    }}
+                  >
+                    Join our Discord
+                  </Typography>
+                </Box>
+              </a>
+              <a
+                href={`${twitterUrl ? twitterUrl : ""}`}
+                style={{ width: "100%" }}
+                target="_blank"
               >
-                <img
-                  src="/twitter.png"
-                  className={`${"twitter-logo"} ${
-                    mode !== "dark" && "lightMode"
-                  }`}
-                />
-                <Typography
+                <Box
                   sx={{
-                    fontFamily: "poppins",
-                    fontSize: { xl: fs.small, xxxs: fs.xs },
-                    ml: { lg: "12px", sm: "0px", xxxs: "8px" },
-                    textAlign: "center",
-                    color: "secondary.dark_gray",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: { lg: "row", sm: "column", xxxs: "row" },
+                    alignItems: "center",
+                    justifyContent: {
+                      lg: "flex-start",
+                      sm: "center",
+                      xxxs: "flex-start",
+                    },
+                    mt: "10px",
                   }}
                 >
-                  Follow Twitter{" "}
-                </Typography>
-              </Box>
+                  <img
+                    src="/twitter.png"
+                    className={`${"twitter-logo"} ${
+                      mode !== "dark" && "lightMode"
+                    }`}
+                  />
+                  <Typography
+                    sx={{
+                      fontFamily: "poppins",
+                      fontSize: { xl: fs.small, xxxs: fs.xs },
+                      ml: { lg: "12px", sm: "0px", xxxs: "8px" },
+                      textAlign: "center",
+                      color: "secondary.dark_gray",
+                    }}
+                  >
+                    Follow Twitter{" "}
+                  </Typography>
+                </Box>
+              </a>
             </Box>
           </Toolbar>
         </AppBar>
@@ -1366,7 +1414,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
     </div>
   );
 }
-
 
 //get urls
 

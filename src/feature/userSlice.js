@@ -37,6 +37,7 @@ const initialState = {
   addressFromApi: [],
   propCartData: null,
   currentSportDataRedux: null,
+  urlData: [],
 };
 
 export const userSlice = createSlice({
@@ -170,6 +171,9 @@ export const userSlice = createSlice({
     addCurrentSportDataRedux: (state, action) => {
       state.currentSportDataRedux = action.payload;
     },
+    addUrlData: (state, action) => {
+      state.urlData = action.payload;
+    },
   },
 });
 
@@ -206,6 +210,7 @@ export const {
   setAddressFromApi,
   addPropCartData,
   addCurrentSportDataRedux,
+  addUrlData,
 } = userSlice.actions;
 
 export default userSlice.reducer;
