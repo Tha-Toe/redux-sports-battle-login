@@ -223,7 +223,11 @@ export default function ReferalHistory({ setOpenReferalHistory, mode }) {
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        borderBottom: "1px solid #7a7a7a",
+                        borderBottom: `${
+                          referrals.referrals.length === index + 1
+                            ? "none"
+                            : "1px solid #7a7a7a"
+                        }`,
                         alignItems: "center",
                         pt: "8px",
                         pb: "16px",
