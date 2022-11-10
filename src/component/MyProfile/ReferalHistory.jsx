@@ -27,7 +27,7 @@ const DateComponent = ({ date, fs }) => {
       if (mm < 10) {
         mm = "0" + mm;
       }
-      let dateDataToShow = dd + "/" + mm + "/" + yyyy;
+      let dateDataToShow = mm + "/" + dd + "/" + yyyy;
       setDateToShow(dateDataToShow);
     }
   }, [date]);
