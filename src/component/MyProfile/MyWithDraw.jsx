@@ -231,12 +231,17 @@ export default function MyWithDraw({ mode }) {
                     {e.mailingAddress && (
                       <Typography
                         sx={{
-                          fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
+                          fontSize: {
+                            xl: fs.xs,
+                            xs: fs.xxs,
+                            xxs: fs.xxs,
+                            xxxs: fs.xxxs,
+                          },
                           fontWeight: 500,
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           mt: "6px",
-                          maxWidth: "80%",
+                          maxWidth: "90%",
                         }}
                       >
                         Mail to {e.mailingAddress.addrLine1}{" "}
@@ -248,12 +253,17 @@ export default function MyWithDraw({ mode }) {
                     {e.comment && (
                       <Typography
                         sx={{
-                          fontSize: { xs: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
+                          fontSize: {
+                            xl: fs.xs,
+                            xs: fs.xxs,
+                            xxs: fs.xxs,
+                            xxxs: fs.xxxs,
+                          },
                           fontWeight: 500,
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           mt: "6px",
-                          maxWidth: "80%",
+                          maxWidth: "90%",
                         }}
                       >
                         {e.comment}{" "}
