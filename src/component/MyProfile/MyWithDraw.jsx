@@ -192,7 +192,8 @@ export default function MyWithDraw({ mode }) {
                     bgcolor: "primary.main",
                     bgcolor: "transparent",
                     boxShadow: "none",
-                    height: { lg: "170px", md: "200px", xxxs: "auto" },
+                    // height: { lg: "210px", md: "200px", xxxs: "auto" },
+                    height: "100%",
                   }}
                 >
                   <Box
@@ -235,7 +236,7 @@ export default function MyWithDraw({ mode }) {
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           mt: "6px",
-                          maxWidth: "100%",
+                          maxWidth: "80%",
                         }}
                       >
                         Mail to {e.mailingAddress.addrLine1}{" "}
@@ -252,7 +253,7 @@ export default function MyWithDraw({ mode }) {
                           fontFamily: "poppins",
                           color: "secondary.dark_gray",
                           mt: "6px",
-                          maxWidth: "90%",
+                          maxWidth: "80%",
                         }}
                       >
                         {e.comment}{" "}
@@ -278,7 +279,7 @@ export default function MyWithDraw({ mode }) {
                       flexDirection: "row",
                       alignItems: "center",
                       cursor: "pointer",
-                      mr: "10px",
+                      mr: "20px",
                     }}
                   >
                     <Typography
