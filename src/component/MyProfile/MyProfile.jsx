@@ -30,6 +30,7 @@ export default function MyProfile({
   newUser,
   goDepositNewUser,
   goAddCashBonus,
+  callProfileApi,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [wallet, setWallet] = useState([
@@ -117,6 +118,9 @@ export default function MyProfile({
     },
   ]);
   const [openTag, setOpenTag] = useState("profile");
+
+  // const [openTag, setOpenTag] = useState("verifycation-code");
+
   const [alreadyChooseWidthDraw, setAlreadyChooseWidthDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);
 
@@ -212,6 +216,7 @@ export default function MyProfile({
         phoneNumber={phoneNumber}
         setVerify={setVerify}
         setOpenTag={setOpenTag}
+        callProfileApi={callProfileApi}
       />
     );
   } else if (openTag === "account-setup") {
@@ -555,8 +560,10 @@ export default function MyProfile({
                   }}
                 >
                   $
-                  {Number(myAccountDataCommingFromApi.numCash) +
-                    Number(myAccountDataCommingFromApi.unutilizedCash)}
+                  {(
+                    Number(myAccountDataCommingFromApi.numCash) +
+                    Number(myAccountDataCommingFromApi.unutilizedCash)
+                  ).toFixed(2)}
                 </Box>
               </Box>
               <Box

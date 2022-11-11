@@ -23,7 +23,7 @@ const initialState = {
   completeDataCommingFromApi: null,
   myAccountDataCommingFromApi: null,
   idpverified: false,
-  txHistoryDataCommingFromApi: null,
+  txHistoryDataCommingFromApi: [],
   supportChatDataCommingFromApi: null,
   knowMoreDataCommingFromApi: null,
   errorPopUp: false,
@@ -105,6 +105,12 @@ export const userSlice = createSlice({
     },
     addTxHistoryDataCommingFromApi: (state, action) => {
       state.txHistoryDataCommingFromApi = action.payload;
+    },
+    addTxHistoryDataCommingFromApiNewPage: (state, action) => {
+      let newArray = action.payload;
+      let combineArray = [...state.txHistoryDataCommingFromApi, ...newArray];
+      state.txHistoryDataCommingFromApi = combineArray;
+      console.log(combineArray);
     },
     addSupportChatDataCommingFromApi: (state, action) => {
       state.supportChatDataCommingFromApi = action.payload;
@@ -194,6 +200,7 @@ export const {
   addCompleteDataCommingFromApiNewPage,
   addMyAccountDataCommingFromApi,
   addTxHistoryDataCommingFromApi,
+  addTxHistoryDataCommingFromApiNewPage,
   addSupportChatDataCommingFromApi,
   addKnowMoreDataCommingFromApi,
   addEmailPrefrenceDataCommingFromApi,

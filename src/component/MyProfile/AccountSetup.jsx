@@ -95,7 +95,6 @@ export default function AccountSetup({
             pb: "22px",
             cursor: "pointer",
           }}
-          onClick={() => setOpenTag("add-phone-number")}
         >
           <Box
             sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -151,6 +150,7 @@ export default function AccountSetup({
                 color: "#459F48 ",
                 width: "120px",
               }}
+              onClick={() => setOpenTag("add-phone-number")}
             >
               Verify Phone
             </Typography>

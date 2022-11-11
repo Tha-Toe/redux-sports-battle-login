@@ -1,5 +1,5 @@
 import "./profile.css";
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -14,9 +14,24 @@ export default function AddPhoneNumber({
   setPhoneNumber,
 }) {
   const fs = useSelector((state) => state.user.fs);
-  const goToVerifyCodePage = () => {
+  const [exists, setExists] = useState(false);
+  const goToVerifyCodePage = async () => {
     if (phoneNumber) {
-      setOpenTag("verifycation-code");
+      getAddPhone(phoneNumber)
+        .then((res) => {
+          if (res.exists && res.exists) {
+            console.log(res);
+            setExists(true);
+          } else {
+            console.log(res);
+            setOpenTag("verifycation-code");
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
     }
   };
   return (
@@ -100,8 +115,25 @@ export default function AddPhoneNumber({
         }}
         placeholder="Phone Number"
         type="number"
-        onChange={(e) => setPhoneNumber(e.target.value)}
+        onChange={(e) => {
+          setPhoneNumber(e.target.value);
+          setExists(false);
+        }}
       />
+      {exists && (
+        <Typography
+          sx={{
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+            fontFamily: "poppins",
+            fontWeight: 400,
+            color: "red",
+            mt: "13px",
+            width: "100%",
+          }}
+        >
+          Phone number already exists.
+        </Typography>
+      )}
       <Button
         sx={{
           padding: { xs: "17px 145px 10px 149px", xxxs: "15px 70px 10px 70px" },
@@ -124,7 +156,6 @@ export default function AddPhoneNumber({
     </Box>
   );
 }
-
 
 //add phone number
 

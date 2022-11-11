@@ -449,10 +449,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
       });
   };
 
-  //getTxHistoryFromApi
-  const callTxHistoryApi = () => {
-    return;
-  };
+
 
   //getEnterReferalCodeDataFromApi
   const enterReferalCodeDataCommingFromApi = useSelector(
@@ -511,7 +508,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
     navigate("/home", { replace: true });
     setOpenSideNav(false);
     setOpenTag("transaction-history");
-    callTxHistoryApi();
   };
   const goDepositNewUser = () => {
     if (!idpverified) {
@@ -1356,6 +1352,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
               goAddCashBonus={goAddCashBonus}
               newUser={newUser}
               setOpenTag={setOpenTag}
+              callProfileApi={callProfileApi}
             />
           )}
           {!location.search && openTag === "transaction-history" && (
