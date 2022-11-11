@@ -437,6 +437,7 @@ export default function TransactionHistory({ mode }) {
                             fontSize: { xs: "16px", xxs: "14px", xxxs: "12px" },
                             fontWeight: 600,
                             fontFamily: "poppins",
+                            mr: { sm: "16px", xxs: "7px", xxxs: "4px" },
                             // color: `${
                             //   e.won
                             //     ? mode === "dark"
@@ -451,17 +452,19 @@ export default function TransactionHistory({ mode }) {
                         >
                           ${e.amount}
                         </Typography>
-
-                        <ArrowForwardIosIcon
-                          sx={{
-                            color: "#494949",
-                            mr: { sm: "13px", xxs: "7px", xxxs: "4px" },
-
-                            ml: "16px",
-                            ml: { sm: "16px", xxs: "7px", xxxs: "4px" },
-                            fontSize: { xs: "20px", xxs: "18px", xxxs: "16px" },
-                          }}
-                        />
+                        {e.txnType.indexOf("prop") === 0 && (
+                          <ArrowForwardIosIcon
+                            sx={{
+                              color: "#494949",
+                              mr: { sm: "13px", xxs: "7px", xxxs: "4px" },
+                              fontSize: {
+                                xs: "20px",
+                                xxs: "18px",
+                                xxxs: "16px",
+                              },
+                            }}
+                          />
+                        )}
                       </Box>
                     )}
                   </Card>
