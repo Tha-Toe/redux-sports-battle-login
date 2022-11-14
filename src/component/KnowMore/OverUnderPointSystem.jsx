@@ -35,7 +35,7 @@ export function EntireTitleContainer({ each, index }) {
   const [lastElement, setLastElement] = useState(null);
   if (ouPoints) {
     return (
-      <Box key={index}>
+      <Box>
         <Box
           sx={{
             display: "flex",
@@ -495,7 +495,7 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.Batting.map((e, index) => (
-                  <Box sx={{ width: "100%" }}>
+                  <Box sx={{ width: "100%" }} key={index}>
                     {e.Points !== "+0" && (
                       <Box
                         key={index}
@@ -602,7 +602,7 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.Bowling.map((e, index) => (
-                  <Box sx={{ width: "100%" }}>
+                  <Box sx={{ width: "100%" }} key={index}>
                     {e.Points !== "+0" && (
                       <Box
                         key={index}
@@ -709,10 +709,15 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.Fielding.map((e, index) => (
-                  <>
+                  <Box
+                    key={index}
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                    }}
+                  >
                     {e.Points !== "+0" && (
                       <Box
-                        key={index}
                         sx={{
                           display: "flex",
                           width: "95%",
@@ -723,7 +728,6 @@ export default function OverUnderPointSystem({
                         }}
                       >
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             flexDirection: "column",
@@ -773,7 +777,7 @@ export default function OverUnderPointSystem({
                         </Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </>
             )}
@@ -816,10 +820,16 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.StrikeRate.map((e, index) => (
-                  <>
+                  <Box
+                    key={index}
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {" "}
                     {e.Points !== "+0" && (
                       <Box
-                        key={index}
                         sx={{
                           display: "flex",
                           width: "95%",
@@ -880,7 +890,7 @@ export default function OverUnderPointSystem({
                         </Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </>
             )}
@@ -923,10 +933,16 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.EconomyRate.map((e, index) => (
-                  <>
+                  <Box
+                    key={index}
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {" "}
                     {e.Points !== "+0" && (
                       <Box
-                        key={index}
                         sx={{
                           display: "flex",
                           width: "95%",
@@ -987,7 +1003,7 @@ export default function OverUnderPointSystem({
                         </Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </>
             )}
@@ -1030,10 +1046,16 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.Other.map((e, index) => (
-                  <>
+                  <Box
+                    key={index}
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {" "}
                     {e.Points !== "+0" && (
                       <Box
-                        key={index}
                         sx={{
                           display: "flex",
                           width: "95%",
@@ -1094,7 +1116,7 @@ export default function OverUnderPointSystem({
                         </Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </>
             )}
@@ -1240,10 +1262,16 @@ export default function OverUnderPointSystem({
                   </Typography>
                 </Box>
                 {apiData.OtherNotes.map((e, index) => (
-                  <>
+                  <Box
+                    key={index}
+                    sx={{
+                      width: "100%",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {" "}
                     {e.Points !== "+0" && (
                       <Box
-                        key={index}
                         sx={{
                           display: "flex",
                           width: "95%",
@@ -1304,7 +1332,7 @@ export default function OverUnderPointSystem({
                         </Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </>
             )}

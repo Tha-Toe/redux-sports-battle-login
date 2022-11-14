@@ -447,8 +447,9 @@ export default function WidthDrawCash({
       >
         PLEASE NOTE!{" "}
       </Typography>
-      {note.map((e) => (
+      {note.map((e, index) => (
         <Box
+          key={index}
           sx={{
             width: "100%",
             display: "flex",
