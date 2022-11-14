@@ -1,13 +1,9 @@
 import { Box, Input, Typography } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import "./newAddCashForm.css";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate } from "react-router-dom";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddIcon from "@mui/icons-material/Add";
 import SelectState from "./SelectState";
@@ -16,8 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall, makeGETAPICall } from "../../api/methods";
 import FailAddAddress from "./FailAddAddress";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import { setAddressFromApi } from "../../feature/userSlice";
 
 export default function AddAddress({ setAddress, mode }) {
   const dispatch = useDispatch();

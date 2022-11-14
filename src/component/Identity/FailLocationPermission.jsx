@@ -1,14 +1,10 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Typography, Button, Input } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import HomeIcon from "@mui/icons-material/Home";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./newAddCashForm.css";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
-import Clear from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 export default function FailLocationPermission({ mode, setLocationBlock }) {
   const fs = useSelector((state) => state.user.fs);

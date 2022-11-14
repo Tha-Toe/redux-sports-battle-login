@@ -12,25 +12,7 @@ export default function SelectState({
   setSelectState,
 }) {
   const fs = useSelector((state) => state.user.fs);
-  // const [stateList, setStateList] = useState([
-  //   { name: "Alabama", select: false },
-  //   { name: "Alaska", select: false },
-  //   { name: "Arizona", select: false },
-  //   { name: "Arkansas", select: false },
-  //   { name: "California", select: false },
-  //   { name: "Colorado", select: false },
-  //   { name: "Connecticut", select: false },
-  //   { name: "Delaware", select: false },
-  //   { name: "Florida", select: false },
-  //   { name: "Georgia", select: false },
-  //   { name: "Hawaii", select: false },
-  //   { name: "Banda", select: false },
-  //   { name: "Kluer", select: false },
-  //   { name: "Maja", select: false },
-  //   { name: "San Moski", select: false },
-  //   { name: "Mogok", select: false },
-  //   { name: "Dinel", select: false },
-  // ]);
+
   const [selectName, setSelectName] = useState(null);
   return (
     <Box

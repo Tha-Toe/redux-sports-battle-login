@@ -1,12 +1,7 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Typography, Button, Input } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import HomeIcon from "@mui/icons-material/Home";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./newAddCashForm.css";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Clear from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 export default function FailAddAddress({ mode, setFailAddAddress }) {
