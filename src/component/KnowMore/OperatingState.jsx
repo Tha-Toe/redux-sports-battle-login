@@ -11,24 +11,6 @@ import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSecti
 
 export default function OperatingState({ openTag }) {
   const fs = useSelector((state) => state.user.fs);
-  const [operatingState, setOperatingState] = useState([
-    { name: "Alabama", status: false, age: "18", collegeSports: false },
-    { name: "Alaska", status: true, age: "18", collegeSports: false },
-    { name: "Arizona", status: false, age: "18", collegeSports: false },
-    { name: "Arkansas", status: true, age: "18", collegeSports: false },
-    { name: "California ", status: true, age: "18", collegeSports: true },
-    { name: "Colorado", status: true, age: "18", collegeSports: true },
-    { name: "Connecticut", status: false, age: "18", collegeSports: false },
-    { name: "Delaware", status: false, age: "18", collegeSports: true },
-    { name: "Florida", status: true, age: "18", collegeSports: true },
-    { name: "Delaware", status: true, age: "18", collegeSports: true },
-    { name: "California", status: true, age: "18", collegeSports: false },
-    { name: "California", status: true, age: "18", collegeSports: false },
-    { name: "California", status: true, age: "18", collegeSports: true },
-    { name: "California", status: true, age: "18", collegeSports: false },
-    { name: "California", status: true, age: "18", collegeSports: false },
-    { name: "California", status: true, age: "18", collegeSports: true },
-  ]);
   const [os, setOs] = useState([]);
   useEffect(() => {
     if (openTag === "Operating States") {

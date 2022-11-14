@@ -23,7 +23,6 @@ import { useContext, useState, useEffect, useRef } from "react";
 import Protected from "./protected/Protected";
 import Redirect from "./protected/Redirect";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-// import { APIURLs } from "../../api/ApiUrls";
 import { makeGETAPICall } from "./api/methods";
 import { APIURLs } from "./api/ApiUrls";
 
@@ -68,8 +67,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
-  // const [user, setUser] = useState(null);
-
   const [preventFromMultipleTimesRun, setPreventFromMulitpleTimesRun] =
     useState(false);
 
@@ -82,7 +79,6 @@ function App() {
       if (user_from_localstorage) {
         //if user exists in local storage
         dispatch(addUserInfo(user_from_localstorage));
-        // setUser(user_from_localstorage);
         setPreventFromMulitpleTimesRun(true);
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
@@ -95,7 +91,6 @@ function App() {
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         console.log(firUser);
-        // setUser(firUser);
         console.log(clickedSignUp);
         if (clickedSignUp) {
           getUserById(firUser.uid)

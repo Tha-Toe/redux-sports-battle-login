@@ -53,56 +53,7 @@ const Time = ({ date }) => {
 
 export default function MyWithDraw({ mode }) {
   const fs = useSelector((state) => state.user.fs);
-  const [detail, setDetail] = useState([
-    {
-      name: "Standard eCheck",
-      condition: "In-Review",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$25",
-    },
-    {
-      name: "Direct Deposit",
-      condition: "In-Review",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$25",
-    },
-    {
-      name: "Standard eCheck",
-      condition: "Completed",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$65",
-    },
-    {
-      name: "Standard eCheck",
-      condition: "Completed",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$65",
-    },
-    {
-      name: "Paper Check",
-      condition: "Completed",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$65",
-    },
-    {
-      name: "Paper Check",
-      condition: "Completed",
-      gmail: "Electronic check to dattaganeshan@gmail.com",
-      date: "08/06/2022, 11:28 PM",
-      code: "Conf# c68270",
-      amount: "$65",
-    },
-  ]);
+
   const [loading, setLoading] = useState(true);
   const [myWithdrawData, setMyWithdrawData] = useState([]);
   useEffect(() => {

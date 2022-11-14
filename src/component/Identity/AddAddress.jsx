@@ -423,10 +423,6 @@ export default function AddAddress({ setAddress, mode }) {
           background: "#4831D4",
         }}
         onClick={() => {
-          // setAddress(
-          //   "27834 Gateway Blvd B308 Farmington hills, Michigan, 48334"
-          // );
-          // goDepositForm();
           handleAddAddress();
         }}
       >

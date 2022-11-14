@@ -29,10 +29,6 @@ const useVerticalScrollMyProps = ({
     const containerRefl = containerRef.current;
     if (containerRefl) {
       const onWheel = (e) => {
-        // console.log(containerRefl.scrollTop);
-        // console.log(containerRefl.scrollHeight);
-        // console.log(containerRefl.clientHeight);
-
         if (containerRefl.scrollHeight === containerRefl.clientHeight) {
           return;
         } else if (
@@ -293,8 +289,6 @@ export default function MyPropsCardContainer({
         console.log("error", error);
       }
     }
-    // console.log(index);
-    // userId, status, propid
   };
   const refreshAndCallDetailApi = async (e) => {
     setDetailLoading(true);
@@ -313,109 +307,6 @@ export default function MyPropsCardContainer({
       }
     }
   };
-  const [upCommingDetailData, setUpComminngDetailData] = useState([
-    {
-      player: { name: "Mohamed Salah", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "Not Started",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-    },
-    {
-      player: { name: "Sadio Mane", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "Not Started",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-    },
-    {
-      player: { name: "Gabriel Jesus", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "Not Started",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-    },
-  ]);
-  const [LiveDetailData, setLiveDetailData] = useState([
-    {
-      player: { name: "Mohamed Salah", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "Not Started",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-    },
-    {
-      player: { name: "Sadio Mane", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "In-reivew",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "1",
-      color: "#459F48",
-      bar: "full",
-    },
-    {
-      player: { name: "Gabriel Jesus", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "Not Started",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-      bar: "half",
-    },
-  ]);
-  const [CompletedDetailData, setCompletedDetailData] = useState([
-    {
-      player: { name: "Mohamed Salah", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "won",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-    },
-    {
-      player: { name: "Sadio Mane", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "won",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "1",
-      color: "#459F48",
-      bar: "full",
-    },
-    {
-      player: { name: "Gabriel Jesus", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "lost",
-      goal: { amount: "0.5", name: "Goal" },
-      actual: "0",
-      actualBar: "50%",
-      bar: "half",
-    },
-  ]);
   const [openDetail, setOpenDetail] = useState(null);
   const [clickedId, setClickedId] = useState(null);
   const completeDataCommingFromApi = useSelector(

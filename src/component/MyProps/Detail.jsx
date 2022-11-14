@@ -42,12 +42,7 @@ export default function Detail({
       setCode(userDetail.referralCode);
     }
   }, [userDetail]);
-  const [tabelHead, setTabelHead] = useState([
-    "Game",
-    "Status",
-    "Over",
-    "Actual",
-  ]);
+
   const [openPayoutScenarious, setOpenPayoutScenarious] = useState(false);
   const [projection, setProjection] = useState([]);
   const [isRefunded, setIsRefunded] = useState(false);

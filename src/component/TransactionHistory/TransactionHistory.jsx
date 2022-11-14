@@ -20,15 +20,6 @@ const TxnType = ({ txnType }) => {
         const mySentence = txnType;
         let words = mySentence.replace(/_/gi, " ");
         words = words[0].toUpperCase() + words.substring(1);
-        // const words = mySentence.replace(/_/gi, " ").split(" ");
-
-        // let str = "";
-        // await words
-        //   .map((word) => {
-        //     let upperCase = word[0].toUpperCase() + word.substring(1);
-        //     str = str + " " + upperCase;
-        //   })
-        //   .join(" ");
         setTxnHeader(words);
       }
     };
@@ -378,10 +369,7 @@ export default function TransactionHistory({ mode }) {
                       bgcolor: "transparent",
                       boxShadow: "none",
                     }}
-                    onClick={() => {
-                      // setClicked(index);
-                      // setOpenHistoryDetail(true);
-                    }}
+                    onClick={() => {}}
                   >
                     <Box
                       sx={{

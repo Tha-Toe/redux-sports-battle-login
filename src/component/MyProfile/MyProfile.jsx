@@ -119,8 +119,6 @@ export default function MyProfile({
   ]);
   const [openTag, setOpenTag] = useState("profile");
 
-  // const [openTag, setOpenTag] = useState("verifycation-code");
-
   const [alreadyChooseWidthDraw, setAlreadyChooseWidthDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);
 

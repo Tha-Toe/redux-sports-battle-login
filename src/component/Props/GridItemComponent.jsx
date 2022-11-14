@@ -74,14 +74,6 @@ const GridItemComponent = ({
 
   const { innerWidth } = window;
 
-  // name: "Frank Schwindel",
-  // cubs: "Chicago Cubs - Batter",
-  // vs: "vs Miami Marlins",
-  // time: "09:08",
-  // last: "0,0,1,0,0",
-  // avg: "0.20",
-  // bat: "0.5",
-
   const [avg, setAvg] = useState(null);
   useEffect(() => {
     if (e.history) {

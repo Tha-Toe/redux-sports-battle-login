@@ -12,12 +12,6 @@ export default function PayoutScenarious({
 }) {
   const fs = useSelector((state) => state.user.fs);
 
-  const [pays, setPays] = useState([
-    "3 considered & 3/3 correct - pays 2.25x",
-    "3 considered & 2/3 correct - pays 1.25x",
-    "2 considered & 2/3 correct - pays 1.25x",
-    "2 considered & 1/3 correct - pays 0.25x",
-  ]);
   return (
     <Box
       sx={{
@@ -89,20 +83,6 @@ export default function PayoutScenarious({
           In • n event player(s) is not lc • nsideredir th entry is downgraded
           and payouts are adjusted accordingly as per below{" "}
         </Typography>
-        {/* {pays.map((e) => (
-          <Typography
-            sx={{
-              width: "95%",
-              fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
-              fontWeight: 400,
-              fontFamily: "poppins",
-              color: "secondary.dark_gray",
-              mt: "4px",
-            }}
-          >
-            {e}
-          </Typography>
-        ))} */}
         {detailData &&
           detailData.props[0].prop.payouts.map((each, index) => (
             <Typography

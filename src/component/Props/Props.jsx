@@ -68,11 +68,6 @@ const useHorizontalScrollStats = (
         if (e.deltaY == 0) return;
         e.preventDefault();
         statsRefl.scrollLeft = statsRefl.scrollLeft + e.deltaY;
-
-        // statsRefl.scrollTo({
-        //   left: statsRefl.scrollLeft + e.deltaY,
-        //   behavior: "smooth",
-        // });
       };
       statsRefl.addEventListener("wheel", onWheel);
       return () => statsRefl.removeEventListener("wheel", onWheel);
@@ -101,10 +96,6 @@ const useHorizontalScrollMatches = ({
         if (e.deltaY == 0) return;
         e.preventDefault();
         matchesRefl.scrollLeft = matchesRefl.scrollLeft + e.deltaY;
-        // matchesRefl.scrollTo({
-        //   left: matchesRefl.scrollLeft + e.deltaY,
-        //   behavior: "smooth",
-        // });
       };
       matchesRefl.addEventListener("wheel", onWheel);
       return () => matchesRefl.removeEventListener("wheel", onWheel);
@@ -182,8 +173,6 @@ export default function Props({
       let rulesArray = [];
       let gamesArray = [];
       if (selectedSportPropsData.length > 0) {
-        //set current sports data in
-        // console.log(selectedSportPropsData[0]);
         setCurrentSportsData(selectedSportPropsData[0]);
         dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
         console.log(selectedSportPropsData);
@@ -199,13 +188,10 @@ export default function Props({
 
         //get projection stats data
         let statsData = selectedSportPropsData[0].projections[0];
-        // console.log(statsData);
-        // console.log(selectMatches);
-        // console.log(selectStatTitle);
+
         if (!selectMatches && statsData && !selectStatTitle) {
           setStatsAndData(statsData);
           setSelectStatTitle(statsData.title);
-          // console.log(statsData);
         }
 
         //get statOUKeys
@@ -286,9 +272,6 @@ export default function Props({
     }
   }, [selectSports, propsDataCommingFromApi, selectMatches, selectStatTitle]);
 
-  // useEffect(() => {
-  //   console.log(stats);
-  // }, [stats]);
   const noProjection = useSelector((state) => state.user.noProjection);
 
   const refresh = async () => {
@@ -512,7 +495,6 @@ export default function Props({
     if (e.code === selectSports) return;
     dispatch(setCallClickSportApiFinish(false));
     setNotes(null);
-    // console.log(noDataSports);
     dispatch(setNoProjection(null));
     setSelectMatches(null);
     setSelectSports(e.code);
@@ -564,38 +546,6 @@ export default function Props({
       console.log(result.projections[0]);
       dispatch(setCallClickSportApiFinish(true));
     }
-
-    // let result = await getPropsSport(e.code);
-    // if (result.projections.length < 1) {
-    //   dispatch(setNoProjection(result.sportCode));
-    // }
-    // if (result.projections.length > 0) {
-    //   setSelectStatTitle(result.projections[0].title);
-    // }
-    // setStatsAndData(result.projections[0]);
-    // if (result.metadata.notes) {
-    //   let noteFromApi = result.metadata.notes;
-    //   if (noteFromApi[`${e.code}`]) {
-    //     setNotes(noteFromApi[`${e.code}`]);
-    //   }
-    // }
-    // console.log(result);
-    // dispatch(addPropsDataCommingFromApi(result));
-    // console.log(result.projections[0]);
-    // dispatch(setCallClickSportApiFinish(true));
-
-    // //old
-    // let statsDataFromRedux = currentSportsData.projections;
-    // if (statsDataFromRedux.length > 0) {
-    //   let statFilterData = statsDataFromRedux.filter((each) => {
-    //     return each.title === result.projections[0].title;
-    //   });
-    //   console.log(statsDataFromRedux);
-    //   console.log(result.projections[0].title);
-    //   if (statFilterData.length > 0) {
-    //     setStatsAndData(statFilterData[0]);
-    //   }
-    // }
   };
 
   //select stats func
@@ -609,11 +559,7 @@ export default function Props({
       });
       if (statFilterData.length > 0) {
         setStatsAndData(statFilterData[0]);
-        // console.log(statFilterData[0]);
-        // console.log(selectSports);
-        // console.log(e);
       }
-      // console.log(statFilterData[0]);
     }
   };
 
@@ -632,7 +578,6 @@ export default function Props({
       }
     } else {
       setSelectMatches(e);
-      // console.log(e);
       let statsDataFromRedux = currentSportsData.projections;
       if (statsDataFromRedux.length > 0) {
         let statFilterData = statsDataFromRedux.filter((each) => {
@@ -678,10 +623,8 @@ export default function Props({
               each.statDisplay.toLowerCase().includes(searchText.toLowerCase())
             );
           });
-          // let prevstatsAndData = statsAndData;
           let title = statsAndData.title;
           let statsAndDataToAdd = { data: filterStatData, title: title };
-          // prevstatsAndData.data = filterStatData;
           setStatsAndData(statsAndDataToAdd);
           console.log(filterStatData);
           console.log(statsAndDataToAdd);

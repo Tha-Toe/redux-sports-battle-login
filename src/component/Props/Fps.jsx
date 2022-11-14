@@ -248,25 +248,6 @@ export function EventTag({
 export default function Fps({ setOpenFps, mode, currentSportsData }) {
   const fs = useSelector((state) => state.user.fs);
 
-  const [point, setPoint] = useState([
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-    { name: "Single Batter", point: "+3" },
-  ]);
-
   const sportDataCommingFromApi = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );

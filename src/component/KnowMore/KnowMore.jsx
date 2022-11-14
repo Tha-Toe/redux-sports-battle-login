@@ -51,147 +51,7 @@ export default function KnowMore({ mode }) {
   ]);
 
   const [openTag, setOpenTag] = useState("Above-Below Points System");
-  // const [overUnderNav, setOverUnderNav] = useState([
-  //   {
-  //     name: "MLB",
-  //     src: "/mlb.png",
-  //     light_src: "/mlb_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "PGA",
-  //     src: "/pga.png",
-  //     light_src: "/pga_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "GOLF",
-  //     src: "/golf.png",
-  //     light_src: "/golf_light.png",
-  //     color: "#E431F4",
-  //   },
-  //   {
-  //     name: "NFL",
-  //     src: "/nfl.png",
-  //     light_src: "/nfl_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "WNBA",
-  //     src: "/wnba.png",
-  //     light_src: "/wnba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "Cricket",
-  //     src: "/cricket.png",
-  //     light_src: "/cricket_light.png",
-  //     color: "#D04643",
-  //   },
-  //   {
-  //     name: "CSGO",
-  //     src: "/csgo.png",
-  //     light_src: "/csgo_light.png",
-  //     color: "#00ffff",
-  //   },
-  //   {
-  //     name: "MMA",
-  //     src: "/mma.png",
-  //     light_src: "/mma_light.png",
-  //     color: "orange",
-  //   },
-  //   { name: "F1", src: "/f1.png", light_src: "/f1_light.png", color: "red" },
-  //   {
-  //     name: "CFL",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "DOTA2",
-  //     src: "/dota2.png",
-  //     light_src: "/dota2_light.png",
-  //     color: "#00ffff",
-  //   },
-  //   {
-  //     name: "VAL",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "Soccer",
-  //     src: "/soccer.png",
-  //     light_src: "/soccer_light.png",
-  //     color: "#52C03C",
-  //   },
-  //   {
-  //     name: "NBA",
-  //     src: "/nba.png",
-  //     light_src: "/nba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CoD",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "Nascor",
-  //     src: "/f1.png",
-  //     light_src: "/f1_light.png",
-  //     color: "red",
-  //   },
-  //   {
-  //     name: "WTA",
-  //     src: "/wta-light.png",
-  //     light_src: "/wta.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "Can-FL",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "HR-Dby",
-  //     src: "/mlb.png",
-  //     light_src: "/mlb_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "NHL",
-  //     src: "/nhl.png",
-  //     light_src: "/nhl-light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CBB",
-  //     src: "/wnba.png",
-  //     light_src: "/wnba_light.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "LoL",
-  //     src: "/val.png",
-  //     light_src: "/val_light.png",
-  //     color: "blue",
-  //   },
-  //   {
-  //     name: "ATP",
-  //     src: "/wta-light.png",
-  //     light_src: "/wta.png",
-  //     color: "#F5A922",
-  //   },
-  //   {
-  //     name: "CFB",
-  //     src: "/cfl.png",
-  //     light_src: "/cfl_light.svg",
-  //     color: "#F5A922",
-  //   },
-  // ]);
+
   const overUnderNav = useSelector(
     (state) => state.user.sportDataCommingFromApi
   );
@@ -207,9 +67,6 @@ export default function KnowMore({ mode }) {
     openTag,
   });
 
-  // const knowMoreDataCommingFromApi = useSelector(
-  //   (state) => state.user.knowMoreDataCommingFromApi
-  // );
   const knowMoreDataCommingFromApi = true;
   const [apiData, setApiData] = useState(null);
   useEffect(() => {
@@ -271,15 +128,6 @@ export default function KnowMore({ mode }) {
                       sx={{
                         height: { xs: "34px", xxxs: "30px" },
                         width: { xs: "34px", xxxs: "30px" },
-                        // border: `${
-                        //   e.code === selectSports
-                        //     ? `1px solid ${e.color}`
-                        //     : noDataSports.indexOf(e.code) > -1
-                        //     ? "1px solid gray"
-                        //     : activeSports.indexOf(e.code) > -1
-                        //     ? "1px solid white"
-                        //     : "1px solid gray"
-                        // }`,
                         border: `${
                           e.code === selectSports
                             ? `1px solid ${e.color}`

@@ -59,7 +59,6 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         " " +
         currTime.toTimeString().toString();
       const res = await axios.get("https://geolocation-db.com/json/");
-      // console.log(res.data);
       if (!res.data) {
         return;
       }
@@ -72,31 +71,20 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
         // setStatus("Locating...");
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            // setStatus(null);
             locationObject.latitude = position.coords.latitude;
             locationObject.longitude = position.coords.longitude;
             locationObject.altitude = 0;
             locationObject.speed = -1;
-            // console.log(position.coords);
-            // setLat(position.coords.latitude);
-            // setLong(position.coords.longitude);
-            // setAltitude(position.coords.altitude);
-            // setSpeed(position.coords.speed);
+
             userObject.userId = userDetailFromLocalStorage.uid;
             userObject.email = userDetailFromLocalStorage.email;
             userObject.firstName = firstName;
             userObject.lastName = lastName;
             userObject.phoneNumber = "";
             userObject.dob = dob;
-            // userObject.address =
-            // console.log(address);
+
             userObject.address = {};
             userObject.address.address = address.address;
-            // console.log(locationObject);
-            // console.log(deviceTime);
-            // console.log(ipAddress);
-            // console.log(ipAdressCountry);
-            // console.log(userObject);
             if (
               locationObject &&
               deviceTime &&
@@ -132,7 +120,6 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           },
 
           () => {
-            // setStatus('Unable to retrieve your location');
             setLocationBlock(true);
             setStartAnimation(false);
           }
@@ -388,9 +375,6 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           }}
           onClick={() => {
             getLocation();
-            // setStartAnimation(true);
-            // goSuccess();
-            // setNewUser(false);
           }}
         >
           {startAnimation ? (
