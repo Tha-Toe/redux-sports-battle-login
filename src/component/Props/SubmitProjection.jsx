@@ -8,7 +8,7 @@ import ChooseType from "./ChooseType";
 import Balance from "./Balance";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useSelector } from "react-redux";
-import FailLocationPermission from "../AddCash/FailLocationPermission";
+import FailLocationPermission from "../Identity/FailLocationPermission";
 import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall } from "../../api/methods";
 import axios from "axios";

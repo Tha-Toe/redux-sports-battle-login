@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import "./addCash.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Clear from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
