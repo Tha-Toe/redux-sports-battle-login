@@ -477,17 +477,21 @@ export function Home({ mode, setMode, updateGetUserById }) {
     return;
   };
 
-  const propsOpen = () => {
-    navigate("/home", { replace: true });
+  const propsOpen = (openTag) => {
     setOpenSideNav(false);
-    setOpenTag("props");
-    callPropsApi();
+    if (openTag !== "props") {
+      navigate("/home", { replace: true });
+      setOpenTag("props");
+      callPropsApi();
+    }
   };
-  const knowMoreOpen = () => {
-    navigate("/home", { replace: true });
+  const knowMoreOpen = (openTag) => {
     setOpenSideNav(false);
-    setOpenTag("know-more");
-    callKnowMoreApi();
+    if (openTag !== "know-more") {
+      navigate("/home", { replace: true });
+      setOpenTag("know-more");
+      callKnowMoreApi();
+    }
   };
   const emailPrefrenceOpen = () => {
     navigate("/home", { replace: true });
@@ -506,19 +510,22 @@ export function Home({ mode, setMode, updateGetUserById }) {
     }
     navigate("/home", { replace: true });
     setOpenSideNav(false);
-    // setOpenTag("support-chat");
     callSupportChatApi();
   };
-  const myProfileOpen = () => {
-    navigate("/home", { replace: true });
+  const myProfileOpen = (openTag) => {
     setOpenSideNav(false);
-    setOpenTag("my-profile");
-    callProfileApi();
+    if (openTag !== "my-profile") {
+      navigate("/home", { replace: true });
+      setOpenTag("my-profile");
+      callProfileApi();
+    }
   };
-  const transactionHistoryOpen = () => {
-    navigate("/home", { replace: true });
+  const transactionHistoryOpen = (openTag) => {
     setOpenSideNav(false);
-    setOpenTag("transaction-history");
+    if (openTag !== "transaction-history") {
+      navigate("/home", { replace: true });
+      setOpenTag("transaction-history");
+    }
   };
   const goDepositNewUser = () => {
     if (!idpverified) {
@@ -545,14 +552,19 @@ export function Home({ mode, setMode, updateGetUserById }) {
     setOpenSideNav(false);
     setOpenTag("email-prefrence");
   };
-  const myPropsOpen = () => {
-    navigate("/home", { replace: true });
+  const myPropsOpen = (openTag) => {
     setOpenSideNav(false);
-    setOpenTag("my-props");
-    callUpCommingMyPropsApi();
+    if (openTag !== "my-props") {
+      navigate("/home", { replace: true });
+      setOpenTag("my-props");
+      callUpCommingMyPropsApi();
+    }
   };
   const [activeTag, setActiveTag] = useState("props");
   const [number, setNumber] = useState(null);
+  const [openSideNav, setOpenSideNav] = useState(false);
+  const [openTag, setOpenTag] = useState("props");
+
   const [sideBar, setSideBar] = useState([
     {
       name: "Props",
@@ -600,8 +612,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
     },
   ]);
   const [newUser, setNewUser] = useState(true);
-  const [openSideNav, setOpenSideNav] = useState(false);
-  const [openTag, setOpenTag] = useState("props");
   const [address, setAddress] = useState(null);
 
   const [openInviteFriend, setOpenInviteFriend] = useState(false);
@@ -1036,8 +1046,15 @@ export function Home({ mode, setMode, updateGetUserById }) {
                     mb: "20px",
                   }}
                   onClick={() => {
-                    setOpenTag(e.activeName);
-                    e.func();
+                    if (e.activeName === "props") {
+                      propsOpen(openTag);
+                    } else if (e.activeName === "my-props") {
+                      myPropsOpen(openTag);
+                    } else if (e.activeName === "my-profile") {
+                      myProfileOpen(openTag);
+                    } else if (e.activeName === "transaction-history") {
+                      transactionHistoryOpen(openTag);
+                    }
                   }}
                 >
                   <Box sx={{ width: "auto" }}>
@@ -1111,11 +1128,10 @@ export function Home({ mode, setMode, updateGetUserById }) {
                     mb: "20px",
                   }}
                   onClick={() => {
-                    if (e.activeName === "support-chat") {
-                      e.func();
-                    } else {
-                      setOpenTag(e.activeName);
-                      e.func();
+                    if (e.activeName === "know-more") {
+                      knowMoreOpen(openTag);
+                    } else if (e.activeName === "support-chat") {
+                      supportChatOpen(openTag);
                     }
                   }}
                 >
