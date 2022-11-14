@@ -477,10 +477,15 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.Fielding.map((e, index) => (
-                    <>
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        margin: "0 auto",
+                      }}
+                    >
                       {e.Points !== "+0" && (
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             width: "95%",
@@ -541,7 +546,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           </Typography>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   ))}
                 </>
               )}
@@ -584,10 +589,16 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.StrikeRate.map((e, index) => (
-                    <>
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        margin: "0 auto",
+                      }}
+                    >
+                      {" "}
                       {e.Points !== "+0" && (
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             width: "95%",
@@ -648,7 +659,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           </Typography>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   ))}
                 </>
               )}
@@ -691,10 +702,16 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.EconomyRate.map((e, index) => (
-                    <>
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        margin: "0 auto",
+                      }}
+                    >
+                      {" "}
                       {e.Points !== "+0" && (
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             width: "95%",
@@ -755,7 +772,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           </Typography>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   ))}
                 </>
               )}
@@ -798,10 +815,16 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.Other.map((e, index) => (
-                    <>
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        margin: "0 auto",
+                      }}
+                    >
+                      {" "}
                       {e.Points !== "+0" && (
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             width: "95%",
@@ -862,7 +885,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           </Typography>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   ))}
                 </>
               )}
@@ -1008,10 +1031,16 @@ export default function FpsCricket({ setOpenFps, mode }) {
                     </Typography>
                   </Box>
                   {apiData.OtherNotes.map((e, index) => (
-                    <>
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        margin: "0 auto",
+                      }}
+                    >
+                      {" "}
                       {e.Points !== "+0" && (
                         <Box
-                          key={index}
                           sx={{
                             display: "flex",
                             width: "95%",
@@ -1072,7 +1101,7 @@ export default function FpsCricket({ setOpenFps, mode }) {
                           </Typography>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   ))}
                 </>
               )}
