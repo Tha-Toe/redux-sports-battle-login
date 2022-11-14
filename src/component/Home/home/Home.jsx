@@ -228,8 +228,13 @@ export function Home({ mode, setMode, updateGetUserById }) {
       setCash(userDetail.numCash + userDetail.unutilizedCash);
       console.log(userDetail);
       dispatch(AddIdpverified(userDetail.idpVerified));
+      window.Intercom("boot", {
+        app_id: "ow5887i2",
+        name: userDetail.name,
+        email: userDetail.email,
+        user_id: userDetail.uid,
+      });
     }
-    // console.log(userDetail);
   }, [userDetail]);
 
   //getSportsdata
@@ -449,8 +454,6 @@ export function Home({ mode, setMode, updateGetUserById }) {
       });
   };
 
-
-
   //getEnterReferalCodeDataFromApi
   const enterReferalCodeDataCommingFromApi = useSelector(
     (state) => state.user.enterReferalCodeDataCommingFromApi
@@ -492,10 +495,18 @@ export function Home({ mode, setMode, updateGetUserById }) {
     setOpenTag("email-prefrence");
     callEmailPrefrenceApi();
   };
+  let sportChatOpen = false;
   const supportChatOpen = () => {
+    if (sportChatOpen) {
+      window.Intercom("hide");
+      sportChatOpen = false;
+    } else {
+      window.Intercom("show");
+      sportChatOpen = true;
+    }
     navigate("/home", { replace: true });
     setOpenSideNav(false);
-    setOpenTag("support-chat");
+    // setOpenTag("support-chat");
     callSupportChatApi();
   };
   const myProfileOpen = () => {
@@ -642,6 +653,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
   const logOut = () => {
+    window.Intercom("shutdown");
     if (auth) {
       signOut(auth);
     }
@@ -1113,8 +1125,12 @@ export function Home({ mode, setMode, updateGetUserById }) {
                     mb: "20px",
                   }}
                   onClick={() => {
-                    setOpenTag(e.activeName);
-                    e.func();
+                    if (e.activeName === "support-chat") {
+                      e.func();
+                    } else {
+                      setOpenTag(e.activeName);
+                      e.func();
+                    }
                   }}
                 >
                   {openTag === e.activeName ? (
