@@ -267,6 +267,8 @@ export default function Props({
         dispatch(setCallClickSportApiFinish(false));
         setStats([]);
         setMatches([]);
+        setSelectStatTitle(null);
+        setSelectMatches(null);
         setStatsAndData(null);
       }
     }

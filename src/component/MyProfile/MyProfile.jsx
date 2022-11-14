@@ -134,6 +134,7 @@ export default function MyProfile({
   const [completePercent, setCompletePercent] = useState(0);
   useEffect(() => {
     if (myAccountDataCommingFromApi) {
+      console.log(myAccountDataCommingFromApi);
       setPhoneNumber(null);
       let deposit = myAccountDataCommingFromApi.firstDeposit;
       let phone = myAccountDataCommingFromApi.phoneNumberVerified;
