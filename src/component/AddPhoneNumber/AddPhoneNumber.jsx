@@ -7,6 +7,7 @@ import { Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { APIURLs } from "../../api/ApiUrls";
 import { makeGETAPICall } from "../../api/methods";
+import "./verifycationCode.css";
 export default function AddPhoneNumber({
   setOpenTag,
   phoneNumber,
@@ -16,15 +17,19 @@ export default function AddPhoneNumber({
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [exists, setExists] = useState(false);
+  const [startButtonAnimation, setStartButtonAnimation] = useState(false);
   const goToVerifyCodePage = async () => {
     if (phoneNumber) {
+      setStartButtonAnimation(true);
       getAddPhone(phoneNumber)
         .then((res) => {
           if (res.exists && res.exists) {
             console.log(res);
             setExists(true);
+            setStartButtonAnimation(false);
           } else {
             console.log(res);
+            setStartButtonAnimation(false);
             setOpenTag("verifycation-code");
           }
         })
@@ -171,7 +176,15 @@ export default function AddPhoneNumber({
         }}
         onClick={goToVerifyCodePage}
       >
-        Submit
+        {startButtonAnimation ? (
+          <div className="circleSubmitContainer">
+            <div className="circle-one"></div>
+            <div className="circle-two"></div>
+            <div className="circle-three"></div>
+          </div>
+        ) : (
+          "Submit"
+        )}
       </Button>
     </Box>
   );

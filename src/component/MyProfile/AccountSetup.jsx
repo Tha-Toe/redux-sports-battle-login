@@ -227,7 +227,7 @@ export default function AccountSetup({
                 width: "120px",
               }}
             >
-              Verify Deposit
+              Make Deposit
             </Typography>
           )}
         </Box>
