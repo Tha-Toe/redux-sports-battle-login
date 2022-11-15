@@ -32,8 +32,11 @@ export default function MyProfile({
   goAddCashBonus,
   callProfileApi,
   updateGetUserById,
+  scrollTop,
 }) {
   const fs = useSelector((state) => state.user.fs);
+  const [openTag, setOpenTag] = useState("profile");
+
   const [wallet, setWallet] = useState([
     {
       name: "Total Won Cash",
@@ -74,6 +77,11 @@ export default function MyProfile({
       goAddCashBonus();
     }
   };
+  useEffect(() => {
+    if (openTag) {
+      scrollTop();
+    }
+  }, [openTag]);
   const [info, setInfo] = useState([
     {
       name: "Deposit",
@@ -118,7 +126,6 @@ export default function MyProfile({
       secondWin: "Wins",
     },
   ]);
-  const [openTag, setOpenTag] = useState("profile");
 
   const [alreadyChooseWidthDraw, setAlreadyChooseWidthDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);

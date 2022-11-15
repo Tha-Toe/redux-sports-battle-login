@@ -648,6 +648,11 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     homeRef.current.scrollTop = 0;
     homeContainerRef.current.scrollTop = 0;
   }, [location]);
+
+  const scrollTop = () => {
+    homeRef.current.scrollTop = 0;
+  };
+
   const logOut = () => {
     window.Intercom("shutdown");
     if (auth) {
@@ -1373,6 +1378,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
               setOpenTag={setOpenTag}
               callProfileApi={callProfileApi}
               updateGetUserById={updateGetUserById}
+              scrollTop={scrollTop}
             />
           )}
           {!location.search && openTag === "transaction-history" && (
