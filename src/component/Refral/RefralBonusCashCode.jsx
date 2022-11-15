@@ -20,7 +20,7 @@ export default function RefralBonusCashCode({
   const fs = useSelector((state) => state.user.fs);
 
   let navigate = useNavigate();
-  const [clicked, setClicked] = useState(false);
+  const [error, setError] = useState(false);
   const [disableVerify, setDisableVerify] = useState(true);
   const [referCode, setReferCode] = useState(null);
   useEffect(() => {
@@ -54,12 +54,30 @@ export default function RefralBonusCashCode({
     navigate("/home", { replace: true });
     callProfileApi();
   };
+  const user = JSON.parse(localStorage.getItem("user"));
   const [success, setSuccess] = useState(false);
+  const [startButtonAnimation, setStartButtonAnimation] = useState(false);
   const handleClick = () => {
-    setTimeout(() => {
-      setSuccess(true);
-      setClicked(false);
-    }, 2000);
+    if (user && referCode) {
+      setStartButtonAnimation(true);
+      setError(false);
+      postRedeemCode(user.uid, referCode)
+        .then((res) => {
+          if (res && res.status === "success") {
+            console.log(res);
+            setSuccess(true);
+            setStartButtonAnimation(false);
+          } else {
+            setError(true);
+            setStartButtonAnimation(false);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+    }
   };
   const [loadingSpinner, setLoadingSpinner] = useState(true);
   let userData = JSON.parse(localStorage.getItem("user"));
@@ -192,7 +210,7 @@ export default function RefralBonusCashCode({
           }}
           onChange={(e) => setReferCode(e.target.value)}
         />
-        {clicked && (
+        {error && (
           <Box
             sx={{
               width: "100%",
@@ -252,9 +270,9 @@ export default function RefralBonusCashCode({
               sx={{
                 background: "#4831D4",
                 fontSize: { md: fs.small, sm: fs.xs, xxxs: fs.xxs },
-                fontWeight: 400,
+                fontWeight: 600,
                 fontFamily: "poppins",
-                padding: { xs: "17px 119px 9px 123px", xxxs: "10px 70px" },
+                padding: { xs: "17px 119px 17px 123px", xxxs: "10px 70px" },
                 color: "white",
                 "&.MuiButtonBase-root:hover": {
                   background: "#4831D4",
@@ -265,11 +283,18 @@ export default function RefralBonusCashCode({
               disabled={disableVerify}
               className="disableButton"
               onClick={() => {
-                setClicked(true);
                 handleClick();
               }}
             >
-              Apply Code{" "}
+              {startButtonAnimation ? (
+                <div className="circleSubmitContainer">
+                  <div className="circle-one"></div>
+                  <div className="circle-two"></div>
+                  <div className="circle-three"></div>
+                </div>
+              ) : (
+                "Apply Code"
+              )}{" "}
             </Button>
           </ThemeProvider>
         )}
@@ -308,7 +333,6 @@ export default function RefralBonusCashCode({
     );
   }
 }
-
 
 //redeem referal code api
 

@@ -7,9 +7,13 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SelectDepositOption from "./SelectDepositOption";
 import { useSelector } from "react-redux";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
+import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
+
 export default function AddCash({ mode }) {
   const fs = useSelector((state) => state.user.fs);
-
+  const userDetail = useSelector((state) => state.user.userDetail);
   const [amountList, setAmountList] = useState([
     { amount: "$30", bonus: 30 },
     { amount: "$50", bonus: 50 },
@@ -21,10 +25,47 @@ export default function AddCash({ mode }) {
   const [Bonus, setBonus] = useState(30);
   const [showLimit, setShowLimit] = useState(false);
   const [openSelectDepositOption, setOpenSelectDepositOption] = useState(false);
+  const [supportChatOpen, setSupportChatOpen] = useState(false);
+  const [firstDeposit, setFirstDeposit] = useState(false);
+  const openSupportChat = () => {
+    if (supportChatOpen) {
+      window.Intercom("hide");
+      setSupportChatOpen(false);
+    } else {
+      window.Intercom("show");
+      setSupportChatOpen(true);
+    }
+  };
+  useEffect(() => {
+    if (userDetail) {
+      setFirstDeposit(userDetail.firstDeposit);
+    }
+  }, [userDetail]);
+  //get FAQ
+  const [loading, setLoading] = useState(true);
+  const [paymentFaq, setPaymentFaq] = useState(null);
+  useEffect(() => {
+    getFaq()
+      .then((result) => {
+        let paymentFaqFromApi = result.filter((each) => {
+          return each.title === "Payment";
+        });
+        if (paymentFaqFromApi.length > 0) {
+          console.log(paymentFaqFromApi[0]);
+          setPaymentFaq(paymentFaqFromApi[0]);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+  }, []);
   return (
     <Box
       sx={{
-        minHeight: "100%",
+        height: "100%",
         width: {
           xl: "900px",
           lg: "800px",
@@ -163,8 +204,8 @@ export default function AddCash({ mode }) {
             mt: "23px",
           }}
         >
-          You will receive: ${Bonus ? Bonus * 2 : 0} (Bonus: $
-          {Bonus ? Bonus : 0})
+          You will receive: ${firstDeposit ? Bonus : Bonus ? Bonus * 2 : 0}{" "}
+          (Bonus: ${firstDeposit ? 0 : Bonus ? Bonus : 0})
         </Typography>
         <Typography
           sx={{
@@ -224,160 +265,153 @@ export default function AddCash({ mode }) {
             width: { xs: "240px", xxxs: "200px" },
             height: "40px",
           }}
+          onClick={openSupportChat}
         >
           Support Chat
         </Button>
       </Box>
-      <Box
-        component="div"
-        sx={{
-          width: { lg: "50%", md: "100%" },
-          height: { lg: "100%", xxxs: "auto" },
-          display: "flex",
-          flexDirection: "column",
-          alignItem: "center",
-          justifyContent: "flex-start",
-          borderLeft: { lg: "1px solid #494949", xxxs: 0 },
-          px: { lg: "20px", xxxs: 0 },
-          ml: { lg: "18px", xxxs: 0 },
-          mb: { xxxs: "30px", lg: 0 },
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: { xs: fs.normal, xxxs: fs.small },
-            fontWeight: 600,
-            fontFamily: "poppins",
-            color: "#4831D4",
-            mt: "20px",
-            mb: "2px",
-          }}
-        >
-          NOTE
-        </Typography>
+      {loading ? (
         <Box
+          component="div"
           sx={{
+            width: { lg: "50%", md: "100%" },
+            minHeight: { lg: "100%", xxxs: "auto" },
             display: "flex",
-            flexDirection: "rows",
-            alignItems: "center",
-            justifyContent: "flex-start",
+            flexDirection: "column",
+            alignItem: "center",
+            justifyContent: "center",
+            borderLeft: { lg: "1px solid #494949", xxxs: 0 },
+            px: { lg: "20px", xxxs: 0 },
+            ml: { lg: "18px", xxxs: 0 },
+            mb: { xxxs: "30px", lg: 0 },
           }}
         >
-          <CheckCircleIcon
-            sx={{
-              color: "#52C03C",
-              fontSize: { xs: fs.x_large, xxxs: fs.large },
-              mr: "12px",
-            }}
-          />
+          <LoadingSpinnerEachSection />
+        </Box>
+      ) : (
+        <Box
+          component="div"
+          sx={{
+            width: { lg: "50%", md: "100%" },
+            maxHeight: { lg: "100%", xxxs: "100%" },
+            display: "flex",
+            flexDirection: "column",
+            alignItem: "center",
+            justifyContent: "flex-start",
+            borderLeft: { lg: "1px solid #494949", xxxs: 0 },
+            px: { lg: "20px", xxxs: 0 },
+            ml: { lg: "18px", xxxs: 0 },
+            mb: { xxxs: "30px", lg: 0 },
+            overflow: "scroll",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
           <Typography
             sx={{
-              color: "secondary.dark_gray",
-              fontSize: { xs: fs.small, xxxs: fs.xs },
+              fontSize: { xs: fs.normal, xxxs: fs.small },
               fontWeight: 600,
               fontFamily: "poppins",
+              color: "#4831D4",
+              mt: "20px",
+              mb: "2px",
             }}
           >
-            First time deposits, we will match 100% deposit in bonus cash upto
-            $100{" "}
+            NOTE
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "rows",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              borderBottom: "2px solid #494949",
+              mb: "15px",
+              pb: "14px",
+            }}
+          >
+            <CheckCircleIcon
+              sx={{
+                color: "#52C03C",
+                fontSize: { xs: fs.x_large, xxxs: fs.large },
+                mr: "12px",
+              }}
+            />
+            <Typography
+              sx={{
+                color: "secondary.dark_gray",
+                fontSize: { xs: fs.small, xxxs: fs.xs },
+                fontWeight: 600,
+                fontFamily: "poppins",
+              }}
+            >
+              First time deposits, we will match 100% deposit in bonus cash upto
+              $100{" "}
+            </Typography>
+          </Box>
+
+          <Typography
+            sx={{
+              fontSize: { xs: fs.normal, xxxs: fs.small },
+              fontWeight: 600,
+              fontFamily: "poppins",
+              color: "secondary.dark_gray",
+              mb: "14px",
+            }}
+          >
+            Payment FAQ’s
+          </Typography>
+          {paymentFaq &&
+            paymentFaq.data &&
+            paymentFaq.data.length > 0 &&
+            paymentFaq.data.map((each, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  mb: "15px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: fs.normal, xxxs: fs.small },
+                    fontWeight: 500,
+                    fontFamily: "poppins",
+                    color: "secondary.dark_gray",
+                    mb: "10px",
+                  }}
+                >
+                  {each.question}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { xs: fs.small, xxxs: fs.xs },
+                    fontWeight: 400,
+                    fontFamily: "poppins",
+                    color: "secondary.dark_gray",
+                    mb: "10px",
+                  }}
+                >
+                  {each.answer}
+                </Typography>
+                {paymentFaq.data.length !== index + 1 && (
+                  <Box
+                    sx={{
+                      background: "#494949",
+                      height: "2px",
+                      width: "100%",
+                      mt: "14px",
+                    }}
+                  ></Box>
+                )}
+              </Box>
+            ))}
         </Box>
-        <Box
-          sx={{ background: "#494949", height: "2px", mt: "14px", mb: "15px" }}
-        ></Box>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.normal, xxxs: fs.small },
-            fontWeight: 600,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "14px",
-          }}
-        >
-          Payment FAQ’s
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.normal, xxxs: fs.small },
-            fontWeight: 500,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          What can I use to depoist to my wallet?
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.small, xxxs: fs.xs },
-            fontWeight: 400,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          We accept credit & debit cards methods of deposit Right Now, American
-          express is not supported yet. **You should only deposit funds into
-          your SportsBattle account with a payment method registered in your
-          name{" "}
-        </Typography>
-        <Box
-          sx={{ background: "#494949", height: "2px", mt: "14px", mb: "15px" }}
-        ></Box>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.normal, xxxs: fs.small },
-            fontWeight: 500,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          What can I use to depoist to my wallet?
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.small, xxxs: fs.xs },
-            fontWeight: 400,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          We accept credit & debit cards methods of deposit Right Now, American
-          express is not supported yet. **You should only deposit funds into
-          your SportsBattle account with a payment method registered in your
-          name{" "}
-        </Typography>
-        <Box
-          sx={{ background: "#494949", height: "2px", mt: "14px", mb: "15px" }}
-        ></Box>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.normal, xxxs: fs.small },
-            fontWeight: 500,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          What can I use to depoist to my wallet?
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: fs.small, xxxs: fs.xs },
-            fontWeight: 400,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
-            mb: "10px",
-          }}
-        >
-          We accept credit & debit cards methods of deposit Right Now, American
-          express is not supported yet. **You should only deposit funds into
-          your SportsBattle account with a payment method registered in your
-          name{" "}
-        </Typography>
-      </Box>
+      )}
       {openSelectDepositOption && (
         <SelectDepositOption
           setOpenSelectDepositOption={setOpenSelectDepositOption}
@@ -387,3 +421,13 @@ export default function AddCash({ mode }) {
     </Box>
   );
 }
+
+export const getFaq = async () => {
+  var apiUrl = APIURLs.getFaq;
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};

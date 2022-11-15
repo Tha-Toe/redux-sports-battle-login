@@ -1,20 +1,21 @@
 disableButton:disabled {
   background-color: rgba(72, 49, 212, 0.4);
 }
-.circleContainer {
+.circleSubmitContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  height: 27px;
 }
 .circle-one,
 .circle-two,
 .circle-three {
-  height: 9px;
-  width: 9px;
   background-color: white;
   border-radius: 50%;
-  margin-right: 5px;
+  height: 5px;
+  width: 5px;
+  margin-right: 10px;
 }
 .circle-one {
   animation: oneAni 0.7s ease-in-out infinite;
@@ -30,7 +31,7 @@ disableButton:disabled {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.5);
+    transform: scale(3);
   }
   100% {
     transform: scale(1);
