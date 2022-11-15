@@ -11,6 +11,8 @@ export default function AddPhoneNumber({
   setOpenTag,
   phoneNumber,
   setPhoneNumber,
+  clickedRefral,
+  setClickedRefral,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [exists, setExists] = useState(false);
@@ -62,7 +64,10 @@ export default function AddPhoneNumber({
           mt: "15px",
           cursor: "pointer",
         }}
-        onClick={() => setOpenTag("profile")}
+        onClick={() => {
+          setClickedRefral(false);
+          setOpenTag("profile");
+        }}
       >
         <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
         <Typography
@@ -77,6 +82,22 @@ export default function AddPhoneNumber({
           Add Phone Number{" "}
         </Typography>
       </Box>
+      {clickedRefral && (
+        <Typography
+          sx={{
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+            fontFamily: "poppins",
+            fontWeight: 400,
+            color: "#4831D4",
+            mt: "13px",
+            width: "100%",
+          }}
+        >
+          Please verify phone number to redeem referral bonus cash. We require
+          you to verify phone number to make sure every user maintains only one
+          playing profile
+        </Typography>
+      )}
       <Typography
         sx={{
           fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },

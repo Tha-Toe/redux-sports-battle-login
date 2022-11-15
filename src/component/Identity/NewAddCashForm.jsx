@@ -13,7 +13,12 @@ import FailLocationPermission from "./FailLocationPermission";
 import axios from "axios";
 import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall } from "../../api/methods";
-export default function NewAddCashFrom({ address, setNewUser, mode }) {
+export default function NewAddCashFrom({
+  address,
+  setNewUser,
+  mode,
+  updateGetUserById,
+}) {
   const fs = useSelector((state) => state.user.fs);
 
   let navigate = useNavigate();
@@ -24,16 +29,9 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
     navigate("/home?deposit=new&page=address", { replace: true });
   };
   const goAddCashPage = () => {
-    setTimeout(() => {
-      navigate("/home?deposit=old-user", { replace: true });
-    }, 2000);
+    navigate("/home?deposit=old-user", { replace: true });
   };
 
-  const goSuccess = () => {
-    setTimeout(() => {
-      setSuccessOpen(true);
-    }, 2000);
-  };
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [dob, setDob] = useState(null);
@@ -106,6 +104,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
                     setMessage(result.idp.message);
                     setStartAnimation(false);
                   } else {
+                    updateGetUserById();
                     setSuccessOpen(true);
                     setStartAnimation(false);
                   }
@@ -125,6 +124,17 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           }
         );
       }
+    }
+  };
+
+  let supportChatOpen = false;
+  const openSupportChat = () => {
+    if (supportChatOpen) {
+      window.Intercom("hide");
+      supportChatOpen = false;
+    } else {
+      window.Intercom("show");
+      supportChatOpen = true;
     }
   };
 
@@ -400,6 +410,7 @@ export default function NewAddCashFrom({ address, setNewUser, mode }) {
           bgcolor: "primary.main",
           borderRadius: "8px",
         }}
+        onClick={() => openSupportChat()}
       >
         Support Chat
       </Button>

@@ -56,6 +56,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useSelect } from "@mui/base";
+import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
 
 export const onSportsCounterUpdate = async ({
   dispatch,
@@ -201,7 +202,7 @@ export const getUserById = async (userId) => {
   }
 };
 
-export function Home({ mode, setMode, updateGetUserById }) {
+export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   let navigate = useNavigate();
   let location = useLocation();
   let dispatch = useDispatch();
@@ -501,14 +502,14 @@ export function Home({ mode, setMode, updateGetUserById }) {
     setOpenTag("email-prefrence");
     callEmailPrefrenceApi();
   };
-  let sportChatOpen = false;
-  const supportChatOpen = () => {
-    if (sportChatOpen) {
+  let supportChatOpen = false;
+  const openSupportChat = () => {
+    if (supportChatOpen) {
       window.Intercom("hide");
-      sportChatOpen = false;
+      supportChatOpen = false;
     } else {
       window.Intercom("show");
-      sportChatOpen = true;
+      supportChatOpen = true;
     }
     navigate("/home", { replace: true });
     setOpenSideNav(false);
@@ -607,7 +608,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
       activeSrc: "/nomore-active.png",
       unactiveSrc: "/nomore-unactive.png",
       activeName: "support-chat",
-      func: supportChatOpen,
+      func: openSupportChat,
     },
   ]);
   const [newUser, setNewUser] = useState(true);
@@ -659,6 +660,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
   const fs = useSelector((state) => state.user.fs);
   return (
     <div className="logged-container" ref={homeContainerRef}>
+      {updatingUserDetail && <LoadingSpinner />}
       <Box
         component="div"
         sx={{
@@ -1370,6 +1372,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
               newUser={newUser}
               setOpenTag={setOpenTag}
               callProfileApi={callProfileApi}
+              updateGetUserById={updateGetUserById}
             />
           )}
           {!location.search && openTag === "transaction-history" && (
@@ -1391,6 +1394,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
               address={address}
               mode={mode}
               setNewUser={setNewUser}
+              updateGetUserById={updateGetUserById}
             />
           )}
           {location.search === "?deposit=new&page=address" && (

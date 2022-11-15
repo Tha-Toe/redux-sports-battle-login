@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function AccountSetup({
   setOpenTag,
   myAccountDataCommingFromApi,
+  setClickedRefral,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const navigate = useNavigate();
@@ -150,7 +151,10 @@ export default function AccountSetup({
                 color: "#459F48 ",
                 width: "120px",
               }}
-              onClick={() => setOpenTag("add-phone-number")}
+              onClick={() => {
+                setClickedRefral(false);
+                setOpenTag("add-phone-number");
+              }}
             >
               Verify Phone
             </Typography>

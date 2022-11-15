@@ -6,7 +6,16 @@ import Clear from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 export default function FailAddAddress({ mode, setFailAddAddress }) {
   const fs = useSelector((state) => state.user.fs);
-
+  let supportChatOpen = false;
+  const openSupportChat = () => {
+    if (supportChatOpen) {
+      window.Intercom("hide");
+      supportChatOpen = false;
+    } else {
+      window.Intercom("show");
+      supportChatOpen = true;
+    }
+  };
   return (
     <Box
       sx={{
@@ -96,6 +105,7 @@ export default function FailAddAddress({ mode, setFailAddAddress }) {
 
               textTransform: "none",
             }}
+            onClick={() => openSupportChat()}
           >
             Support Chat
           </Button>

@@ -19,6 +19,7 @@ export default function VerifycationCode({
   setVerify,
   callProfileApi,
   verify,
+  updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -51,6 +52,7 @@ export default function VerifycationCode({
       postVerifySms(user.uid, phoneNumber, verifyCode)
         .then((res) => {
           if (res.status === "success") {
+            updateGetUserById();
             setVerify(true);
             callProfileApi();
             setStartButtonAnimation(false);

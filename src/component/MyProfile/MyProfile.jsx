@@ -31,6 +31,7 @@ export default function MyProfile({
   goDepositNewUser,
   goAddCashBonus,
   callProfileApi,
+  updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [wallet, setWallet] = useState([
@@ -170,11 +171,13 @@ export default function MyProfile({
       }
     }
   }, [myAccountDataCommingFromApi]);
-
+  const [clickedRefral, setClickedRefral] = useState(false);
   const checkRefralBonusCashRedeem = () => {
     if (phoneNumber) {
+      setClickedRefral(false);
       goRefralBonusCashRadeem();
     } else {
+      setClickedRefral(true);
       setOpenTag("add-phone-number");
     }
   };
@@ -219,6 +222,8 @@ export default function MyProfile({
         setOpenTag={setOpenTag}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
+        clickedRefral={clickedRefral}
+        setClickedRefral={setClickedRefral}
       />
     );
   } else if (openTag === "verifycation-code") {
@@ -228,6 +233,7 @@ export default function MyProfile({
         setVerify={setVerify}
         setOpenTag={setOpenTag}
         callProfileApi={callProfileApi}
+        updateGetUserById={updateGetUserById}
       />
     );
   } else if (openTag === "account-setup") {
@@ -235,6 +241,7 @@ export default function MyProfile({
       <AccountSetup
         setOpenTag={setOpenTag}
         myAccountDataCommingFromApi={myAccountDataCommingFromApi}
+        setClickedRefral={setClickedRefral}
       />
     );
   } else {
@@ -445,7 +452,10 @@ export default function MyProfile({
                       },
                       textTransform: "none",
                     }}
-                    onClick={() => setOpenTag("add-phone-number")}
+                    onClick={() => {
+                      setClickedRefral(false);
+                      setOpenTag("add-phone-number");
+                    }}
                   >
                     Add Phone Number{" "}
                   </Button>
@@ -579,7 +589,11 @@ export default function MyProfile({
                   $
                   {(
                     Number(myAccountDataCommingFromApi.numCash) +
-                    Number(myAccountDataCommingFromApi.unutilizedCash)
+                    Number(
+                      myAccountDataCommingFromApi.unutilizedCash
+                        ? myAccountDataCommingFromApi.unutilizedCash
+                        : 0
+                    )
                   ).toFixed(2)}
                 </Box>
               </Box>
@@ -672,17 +686,32 @@ export default function MyProfile({
                   >
                     Total Unused Cash
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
-                      fontWeight: 700,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mb: "16px",
-                    }}
-                  >
-                    ${myAccountDataCommingFromApi.unutilizedCash.toFixed(2)}
-                  </Typography>
+                  {myAccountDataCommingFromApi.unutilizedCash ? (
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "16px",
+                      }}
+                    >
+                      ${myAccountDataCommingFromApi.unutilizedCash.toFixed(2)}
+                    </Typography>
+                  ) : (
+                    <Typography
+                      sx={{
+                        fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
+                        fontWeight: 700,
+                        fontFamily: "poppins",
+                        color: "secondary.dark_gray",
+                        mb: "16px",
+                      }}
+                    >
+                      $0
+                    </Typography>
+                  )}
+
                   <Typography
                     sx={{
                       fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },

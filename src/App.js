@@ -183,18 +183,22 @@ function App() {
         });
     }
   }, [preventFromMultipleTimesRun]);
+  const [updatingUserDetail, setUpdatingUserDetail] = useState(false);
 
   const updateGetUserById = () => {
+    setUpdatingUserDetail(true);
     getUserById(user.uid)
       .then((result) => {
         if (result) {
           console.log("updated");
           //user is not null will get details
           dispatch(addUserDetail(result));
+          setUpdatingUserDetail(false);
           // console.log(result);
         } else {
           //user is null create user
           dispatch(addUserDetail(null));
+          setUpdatingUserDetail(false);
         }
       })
       .catch((err) => {
@@ -351,6 +355,7 @@ function App() {
                     mode={mode}
                     setMode={setMode}
                     updateGetUserById={updateGetUserById}
+                    updatingUserDetail={updatingUserDetail}
                   />
                 </Protected>
               }
