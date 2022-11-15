@@ -1414,6 +1414,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
             <RefralBonusCashCode
               getUserById={getUserById}
               setOpenTag={setOpenTag}
+              callProfileApi={callProfileApi}
             />
           )}
           {!location.search && openTag === "support-chat" && (
