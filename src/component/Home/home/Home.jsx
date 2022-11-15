@@ -502,14 +502,14 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     setOpenTag("email-prefrence");
     callEmailPrefrenceApi();
   };
-  let supportChatOpen = false;
+  const [supportChatOpen, setSupportChatOpen] = useState(false);
   const openSupportChat = () => {
     if (supportChatOpen) {
       window.Intercom("hide");
-      supportChatOpen = false;
+      setSupportChatOpen(false);
     } else {
       window.Intercom("show");
-      supportChatOpen = true;
+      setSupportChatOpen(true);
     }
     navigate("/home", { replace: true });
     setOpenSideNav(false);
@@ -1137,7 +1137,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                     if (e.activeName === "know-more") {
                       knowMoreOpen(openTag);
                     } else if (e.activeName === "support-chat") {
-                      supportChatOpen(openTag);
+                      openSupportChat(openTag);
                     }
                   }}
                 >
