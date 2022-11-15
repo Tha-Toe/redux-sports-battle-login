@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./refralBonus.css";
+import { APIURLs } from "../../api/ApiUrls";
+import { makePOSTAPICall } from "../../api/methods";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
@@ -306,3 +308,24 @@ export default function RefralBonusCashCode({
     );
   }
 }
+
+
+//redeem referal code api
+
+export const postRedeemCode = async (userId, referralCode) => {
+  var apiUrl = APIURLs.postRedeemCode;
+  var reqBody = {
+    userId: userId,
+    referralCode: referralCode,
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};
