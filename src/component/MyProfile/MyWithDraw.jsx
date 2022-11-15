@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { APIURLs } from "../../api/ApiUrls";
 import { makeGETAPICall } from "../../api/methods";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { Grid, Card } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -51,7 +52,7 @@ const Time = ({ date }) => {
   );
 };
 
-export default function MyWithDraw({ mode }) {
+export default function MyWithDraw({ mode, setOpenTag }) {
   const fs = useSelector((state) => state.user.fs);
 
   const [loading, setLoading] = useState(true);
@@ -72,6 +73,11 @@ export default function MyWithDraw({ mode }) {
         });
     }
   }, []);
+
+  const backToProfile = () => {
+    setOpenTag("profile");
+  };
+
   if (loading) {
     return (
       <Box sx={{ width: "100%", height: "100%" }}>
@@ -96,17 +102,30 @@ export default function MyWithDraw({ mode }) {
         }}
         component="div"
       >
-        <Typography
+        <Box
           sx={{
-            fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
-            fontWeight: 700,
-            fontFamily: "poppins",
-            color: "secondary.dark_gray",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
             mt: "23px",
+            cursor: "pointer",
           }}
+          onClick={backToProfile}
         >
-          My Withdrawals
-        </Typography>
+          <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
+          <Typography
+            sx={{
+              fontSize: { xs: fs.normal, xxs: fs.small, xxxs: fs.xs },
+              fontWeight: 700,
+              fontFamily: "poppins",
+              color: "secondary.dark_gray",
+              ml: "10px",
+            }}
+          >
+            My Withdrawals
+          </Typography>
+        </Box>
         <Box
           sx={{
             width: { xs: "232px", xxxs: "150px" },

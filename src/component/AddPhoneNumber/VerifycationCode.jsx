@@ -199,7 +199,7 @@ export default function VerifycationCode({
             mt: "24px",
             pb: "16px",
           }}
-          placeholder="Enter Verifycation Code"
+          placeholder="Enter Verification Code"
           type="number"
           onChange={(e) => {
             setVerifyCode(e.target.value);

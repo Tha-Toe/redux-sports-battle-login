@@ -159,33 +159,38 @@ export default function AddPhoneNumber({
           Phone number already exists.
         </Typography>
       )}
-      <Button
-        sx={{
-          padding: { xs: "17px 145px 10px 149px", xxxs: "15px 70px 10px 70px" },
-          background: "#4831D4",
-          color: "white",
-          mt: "24px",
-          textTransform: "none",
-          borderRadius: "8px",
-          "&.MuiButtonBase-root:hover": {
+      {phoneNumber && phoneNumber.length === 10 && (
+        <Button
+          sx={{
+            padding: {
+              xs: "17px 145px 10px 149px",
+              xxxs: "15px 70px 10px 70px",
+            },
             background: "#4831D4",
-          },
-          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
-          fontWeight: 600,
-          fontFamily: "poppins",
-        }}
-        onClick={goToVerifyCodePage}
-      >
-        {startButtonAnimation ? (
-          <div className="circleSubmitContainer">
-            <div className="circle-one"></div>
-            <div className="circle-two"></div>
-            <div className="circle-three"></div>
-          </div>
-        ) : (
-          "Submit"
-        )}
-      </Button>
+            color: "white",
+            mt: "24px",
+            textTransform: "none",
+            borderRadius: "8px",
+            "&.MuiButtonBase-root:hover": {
+              background: "#4831D4",
+            },
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+            fontWeight: 600,
+            fontFamily: "poppins",
+          }}
+          onClick={goToVerifyCodePage}
+        >
+          {startButtonAnimation ? (
+            <div className="circleSubmitContainer">
+              <div className="circle-one"></div>
+              <div className="circle-two"></div>
+              <div className="circle-three"></div>
+            </div>
+          ) : (
+            "Submit"
+          )}
+        </Button>
+      )}
     </Box>
   );
 }

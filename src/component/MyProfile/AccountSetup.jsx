@@ -14,6 +14,15 @@ export default function AccountSetup({
 }) {
   const fs = useSelector((state) => state.user.fs);
   const navigate = useNavigate();
+  const idpverified = useSelector((state) => state.user.idpverified);
+  const goDeposit = () => {
+    if (!idpverified) {
+      navigate("/home?deposit=new&page=verify", { replace: true });
+    } else {
+      navigate("/home?deposit=old-user", { replace: true });
+    }
+  };
+
   if (myAccountDataCommingFromApi) {
     return (
       <Box
@@ -225,7 +234,9 @@ export default function AccountSetup({
                 fontFamily: "poppins",
                 color: "#459F48 ",
                 width: "120px",
+                cursor: "pointer",
               }}
+              onClick={() => goDeposit()}
             >
               Make Deposit
             </Typography>

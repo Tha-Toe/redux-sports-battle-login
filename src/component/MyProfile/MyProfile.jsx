@@ -132,6 +132,7 @@ export default function MyProfile({
 
   const [address, setAddress] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
+  const [phoneNumberFromRedux, setPhoneNumberFromRedux] = useState(null);
   const [verify, setVerify] = useState(false);
 
   const user = useSelector((state) => state.user.user);
@@ -145,10 +146,11 @@ export default function MyProfile({
     (state) => state.user.myAccountDataCommingFromApi
   );
   const [completePercent, setCompletePercent] = useState(0);
+
   useEffect(() => {
     if (myAccountDataCommingFromApi) {
       console.log(myAccountDataCommingFromApi);
-      setPhoneNumber(null);
+      setPhoneNumberFromRedux(null);
       let deposit = myAccountDataCommingFromApi.firstDeposit;
       let phone = myAccountDataCommingFromApi.phoneNumberVerified;
       let account =
@@ -156,7 +158,7 @@ export default function MyProfile({
         myAccountDataCommingFromApi.idpVerified;
       setVerify(false);
       if (phone) {
-        setPhoneNumber(myAccountDataCommingFromApi.phoneNumber);
+        setPhoneNumberFromRedux(myAccountDataCommingFromApi.phoneNumber);
       }
       if (deposit && phone && account) {
         setCompletePercent(100);
@@ -180,7 +182,7 @@ export default function MyProfile({
   }, [myAccountDataCommingFromApi]);
   const [clickedRefral, setClickedRefral] = useState(false);
   const checkRefralBonusCashRedeem = () => {
-    if (phoneNumber) {
+    if (phoneNumberFromRedux) {
       setClickedRefral(false);
       goRefralBonusCashRadeem();
     } else {
@@ -222,7 +224,7 @@ export default function MyProfile({
       />
     );
   } else if (openTag === "myWithDraw") {
-    return <MyWithDraw mode={mode} />;
+    return <MyWithDraw mode={mode} setOpenTag={setOpenTag} />;
   } else if (openTag === "add-phone-number") {
     return (
       <AddPhoneNumber
@@ -433,7 +435,7 @@ export default function MyProfile({
                 >
                   Phone Number{" "}
                 </Typography>
-                {phoneNumber ? (
+                {phoneNumberFromRedux ? (
                   <Typography
                     sx={{
                       fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
@@ -443,7 +445,7 @@ export default function MyProfile({
                       mt: "11px",
                     }}
                   >
-                    {phoneNumber}
+                    {phoneNumberFromRedux}
                   </Typography>
                 ) : (
                   <Button
@@ -534,14 +536,19 @@ export default function MyProfile({
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
                       mt: "4px",
-                      maxWidth: "485px",
+                      maxWidth: "60%",
                     }}
                   >
                     Withdraw eligible cash. If unused cash is not available,
                     cash from here is used to join game plays
                   </Typography>
                 </Box>
-                <Box sx={{ position: "absolute", right: "50px" }}>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    right: { sm: "50px", xxxs: "20px" },
+                  }}
+                >
                   <Typography
                     sx={{
                       fontSize: { sm: fs.large, xs: fs.normal, xxxs: fs.small },
@@ -773,7 +780,7 @@ export default function MyProfile({
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
+                      fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
                       fontWeight: 400,
                       fontFamily: "poppins",
                       color: "secondary.dark_gray",
