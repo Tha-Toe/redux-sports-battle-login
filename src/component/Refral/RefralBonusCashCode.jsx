@@ -10,7 +10,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
-export default function RefralBonusCashCode({ getUserById }) {
+export default function RefralBonusCashCode({ getUserById, setOpenTag }) {
   const fs = useSelector((state) => state.user.fs);
 
   let navigate = useNavigate();
@@ -44,7 +44,8 @@ export default function RefralBonusCashCode({ getUserById }) {
     },
   });
   const goVerifyPhoneNumberCode = () => {
-    navigate("/home?deposit=verify-phone-number-code", { replace: true });
+    setOpenTag("my-profile");
+    navigate("/home", { replace: true });
   };
   const [success, setSuccess] = useState(false);
   const handleClick = () => {

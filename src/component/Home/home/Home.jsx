@@ -1411,7 +1411,10 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
           )}
 
           {location.search === "?deposit=refral-bonus-cash-code" && (
-            <RefralBonusCashCode getUserById={getUserById} />
+            <RefralBonusCashCode
+              getUserById={getUserById}
+              setOpenTag={setOpenTag}
+            />
           )}
           {!location.search && openTag === "support-chat" && (
             <SupportChat mode={mode} />
