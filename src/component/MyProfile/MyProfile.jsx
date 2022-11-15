@@ -127,10 +127,15 @@ export default function MyProfile({
   const [verify, setVerify] = useState(false);
 
   const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    }
+  }, [user]);
   const myAccountDataCommingFromApi = useSelector(
     (state) => state.user.myAccountDataCommingFromApi
   );
-
   const [completePercent, setCompletePercent] = useState(0);
   useEffect(() => {
     if (myAccountDataCommingFromApi) {
@@ -166,6 +171,13 @@ export default function MyProfile({
     }
   }, [myAccountDataCommingFromApi]);
 
+  const checkRefralBonusCashRedeem = () => {
+    if (phoneNumber) {
+      goRefralBonusCashRadeem();
+    } else {
+      setOpenTag("add-phone-number");
+    }
+  };
   if (openTag === "WidthDrawCash") {
     return (
       <WidthDrawCash
@@ -228,7 +240,7 @@ export default function MyProfile({
   } else {
     return (
       <>
-        {myAccountDataCommingFromApi ? (
+        {myAccountDataCommingFromApi && user ? (
           <Box
             sx={{
               width: {
@@ -307,7 +319,8 @@ export default function MyProfile({
                       color: "secondary.main",
                     }}
                   >
-                    {user && user.username}
+                    {myAccountDataCommingFromApi &&
+                      myAccountDataCommingFromApi.name}
                   </Typography>
                   <Typography
                     sx={{
@@ -318,7 +331,12 @@ export default function MyProfile({
                       mt: "2px",
                     }}
                   >
-                    {user && user.username.split(" ").join("").toLowerCase()}
+                    {myAccountDataCommingFromApi &&
+                      myAccountDataCommingFromApi.name &&
+                      myAccountDataCommingFromApi.name
+                        .split(" ")
+                        .join("")
+                        .toLowerCase()}
                   </Typography>
                 </Box>
               </Box>
@@ -576,58 +594,6 @@ export default function MyProfile({
                   flexWrap: "wrap",
                 }}
               >
-                {/* {wallet.map((e, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      width: { xs: "24%", xxxs: "48%" },
-                      bgcolor: "primary.main",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      borderRadius: "4px",
-                      mt: { xs: 0, xxxs: "5px" },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: { sm: "12px", xs: "10px", xxxs: "8px" },
-                        fontWeight: 600,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mt: "27px",
-                        mb: "16px",
-                      }}
-                    >
-                      {e.name}{" "}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
-                        fontWeight: 700,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mb: "16px",
-                      }}
-                    >
-                      {e.amount}{" "}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: { sm: "10px", xs: "8px", xxxs: "6px" },
-                        fontWeight: 400,
-                        fontFamily: "poppins",
-                        color: "secondary.dark_gray",
-                        mb: "26px",
-                        maxWidth: "90%",
-
-                        textAlign: "center",
-                      }}
-                    >
-                      {e.paragraph}
-                    </Typography>
-                  </Box>
-                ))} */}
                 <Box
                   sx={{
                     width: { xs: "28%", xxxs: "65%" },
@@ -1393,7 +1359,7 @@ export default function MyProfile({
                 pb: "9px",
                 cursor: "pointer",
               }}
-              onClick={goRefralBonusCashRadeem}
+              onClick={checkRefralBonusCashRedeem}
             >
               <Box
                 sx={{

@@ -16,8 +16,6 @@ import AddCash from "../../AddCash/AddCash";
 import NewAddCashVerify from "../../Identity/NewAddCashVerify";
 import NewAddCashForm from "../../Identity/NewAddCashForm";
 import Address from "../../Identity/Address";
-import RefralBonusCashRandoom from "../../Refral/RefralBonusCashRandoom";
-import VerifyPhoneNumberCode from "../../Refral/VerifyPhoneNumberCode";
 import RefralBonusCashCode from "../../Refral/RefralBonusCashCode";
 import KnowMore from "../../KnowMore/KnowMore";
 import BonusOffer from "../../BonusOffer/BonusOffer";
@@ -225,7 +223,11 @@ export function Home({ mode, setMode, updateGetUserById }) {
     if (userDetail) {
       // console.log(userDetail);
       setBonus(userDetail.numOUBonusCash);
-      setCash(userDetail.numCash + userDetail.unutilizedCash);
+      if (userDetail.unutilizedCash) {
+        setCash(userDetail.numCash + userDetail.unutilizedCash);
+      } else {
+        setCash(userDetail.numCash);
+      }
       console.log(userDetail);
       dispatch(AddIdpverified(userDetail.idpVerified));
       window.Intercom("boot", {
@@ -539,12 +541,9 @@ export function Home({ mode, setMode, updateGetUserById }) {
   };
   const goRefralBonusCashRadeem = () => {
     setOpenTag("enter-referral-code");
-    navigate("/home?deposit=go-refral-bonus-cash-randoom", { replace: true });
+    navigate("/home?deposit=refral-bonus-cash-code", { replace: true });
     setOpenSideNav(false);
     callEnterRefralCodeApi();
-  };
-  const goVerifyPhoneNumberCode = () => {
-    navigate("/home?deposit=verify-phone-number-code", { replace: true });
   };
   const goEmailPrefrencePage = () => {
     setOpenDropDown(false);
@@ -1400,21 +1399,7 @@ export function Home({ mode, setMode, updateGetUserById }) {
           {location.search === "?deposit=new&page=add-address" && (
             <AddAddress setAddress={setAddress} mode={mode} />
           )}
-          {location.search === "?deposit=go-refral-bonus-cash-randoom" && (
-            <RefralBonusCashRandoom
-              setNumber={setNumber}
-              number={number}
-              setOpenTag={setOpenTag}
-              getUserById={getUserById}
-            />
-          )}
-          {location.search === "?deposit=verify-phone-number-code" && (
-            <VerifyPhoneNumberCode
-              number={number}
-              mode={mode}
-              getUserById={getUserById}
-            />
-          )}
+
           {location.search === "?deposit=refral-bonus-cash-code" && (
             <RefralBonusCashCode getUserById={getUserById} />
           )}

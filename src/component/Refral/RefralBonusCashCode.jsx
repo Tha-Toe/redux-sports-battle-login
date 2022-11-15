@@ -61,7 +61,7 @@ export default function RefralBonusCashCode({ getUserById }) {
       setLoadingSpinner(true);
       getUserById(userData.uid).then((res) => {
         if (!res.phoneNumber || !res.idpVerified) {
-          navigate("/home?deposit=go-refral-bonus-cash-randoom", {
+          navigate("/home", {
             replace: true,
           });
         }
