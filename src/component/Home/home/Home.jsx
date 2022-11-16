@@ -248,10 +248,10 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   );
   const idpverified = useSelector((state) => state.user.idpverified);
   useEffect(() => {
-    const getPropsData = () => {
+    const getPropsData = async () => {
       if (userDetail && preventDoubleCall) {
         preventDoubleCall = false;
-        onSportsCounterUpdate({ dispatch, preventDoubleCall });
+        await onSportsCounterUpdate({ dispatch, preventDoubleCall });
         //get url
         getUrls()
           .then((result) => {
@@ -268,17 +268,31 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     };
     getPropsData();
     // console.log(userDetail);
-  }, [userDetail]);
-  //get props for each sport
+  }, [userDetail, preventDoubleCall]);
+  //  get props for each sport
+
+  const [preventDoubleCallForProps, setPreventDoubleCallForProps] =
+    useState(true);
   useEffect(() => {
-    if (
-      userDetail &&
-      sportDataCommingFromApi.length > 0 &&
-      sportDataFromLocalstorage
-    ) {
-      onPropsOUCounterUpdate({ dispatch });
-    }
-  }, [userDetail, sportDataFromLocalstorage, sportDataCommingFromApi]);
+    const getPropsOuData = () => {
+      if (
+        userDetail &&
+        sportDataCommingFromApi.length > 0 &&
+        sportDataFromLocalstorage &&
+        preventDoubleCallForProps
+      ) {
+        setPreventDoubleCallForProps(false);
+        console.log("calling props");
+        onPropsOUCounterUpdate({ dispatch });
+      }
+    };
+    return getPropsOuData();
+  }, [
+    userDetail,
+    sportDataFromLocalstorage,
+    sportDataCommingFromApi,
+    preventDoubleCallForProps,
+  ]);
 
   //get url data from redux
   const urlData = useSelector((state) => state.user.urlData);
