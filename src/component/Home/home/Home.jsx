@@ -79,7 +79,6 @@ export const onSportsCounterUpdate = async ({
           }
           // console.log(allsports);
           localStorage.setItem("all_sports", JSON.stringify(result));
-          onPropsOUCounterUpdate({ dispatch });
           preventDoubleCall = true;
         } else {
           // console.log("null");
@@ -243,7 +242,9 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
 
   //getSportsdata
   let preventDoubleCall = true;
-
+  const sportDataFromLocalstorage = JSON.parse(
+    localStorage.getItem("all_sports")
+  );
   const idpverified = useSelector((state) => state.user.idpverified);
   useEffect(() => {
     const getPropsData = () => {
@@ -267,6 +268,16 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     getPropsData();
     // console.log(userDetail);
   }, [userDetail]);
+  //get props for each sport
+  useEffect(() => {
+    if (
+      userDetail &&
+      sportDataCommingFromApi.length > 0 &&
+      sportDataFromLocalstorage
+    ) {
+      onPropsOUCounterUpdate({ dispatch });
+    }
+  }, [userDetail, sportDataFromLocalstorage, sportDataCommingFromApi]);
 
   //get url data from redux
   const urlData = useSelector((state) => state.user.urlData);
