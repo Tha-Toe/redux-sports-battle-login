@@ -739,7 +739,7 @@ export default function MyProfile({
                       textAlign: "center",
                     }}
                   >
-                    Cash that can be used 100% for over-under & player-battle.
+                    Cash that can be used 100% for above-below & player-battle.
                     Cannot be withdrawn.
                   </Typography>
                 </Box>
