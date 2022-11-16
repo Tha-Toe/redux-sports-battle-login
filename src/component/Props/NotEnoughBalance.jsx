@@ -113,7 +113,6 @@ export default function NotEnoughBalance({
               },
             }}
             onClick={() => {
-              setSelectedCardList([]);
               setNotEnoughBalance(false);
             }}
           >

@@ -83,7 +83,6 @@ export default function ErrorSubmit({
             },
           }}
           onClick={() => {
-            setSelectedCardList([]);
             setErrorSubmit(null);
           }}
         >

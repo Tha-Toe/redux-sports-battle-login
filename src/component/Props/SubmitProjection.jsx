@@ -93,8 +93,9 @@ const SubmitProjection = ({
       let totalBalance =
         userDetail.numOUBonusCash +
         userDetail.numCash +
-        userDetail.unutilizedCash;
-
+        userDetail.unutilizedCash
+          ? userDetail.unutilizedCash
+          : 0;
       let continues = false;
       if (selectAmount === "Other") {
         if (inputAmount > totalBalance) {
