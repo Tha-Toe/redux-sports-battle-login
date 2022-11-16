@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./profile.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import { APIURLs } from "../../api/ApiUrls";
 import { makeGETAPICall } from "../../api/methods";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -164,6 +165,7 @@ export default function MyWithDraw({ mode, setOpenTag }) {
                     boxShadow: "none",
                     // height: { lg: "210px", md: "200px", xxxs: "auto" },
                     height: "100%",
+                    position: "relative",
                   }}
                 >
                   <Box
@@ -252,12 +254,46 @@ export default function MyWithDraw({ mode, setOpenTag }) {
                     >
                       Conf# :: {e._id.substr(e._id.length - 6)}
                     </Typography>
+                    {e.status === "a" && (
+                      <Button
+                        sx={{
+                          color: "#32a038",
+                          background: "#aff0af",
+                          padding: "7px 15px",
+                          borderRadius: "4px",
+                          fontSize: { xs: fs.xxs, xxs: fs.xxxs, xxxs: fs.xxxs },
+                          fontFamily: "poppins",
+                          fontWeight: 600,
+                          "&.MuiButtonBase-root:hover": {
+                            background: "#aff0af",
+                          },
+                          textTransform: "none",
+                          mb: "8px",
+                        }}
+                      >
+                        Withdraw remaining ${e.amount}
+                      </Button>
+                    )}
+                    {e.status === "a" && (
+                      <Typography
+                        sx={{
+                          fontSize: { xs: fs.xxs, xxs: fs.xxxs, xxxs: fs.xxxs },
+                          fontWeight: 400,
+                          fontFamily: "poppins",
+                          color: "#aff0af",
+                          mb: "10px",
+                        }}
+                      >
+                        Please click the above button to finish your withdrawl{" "}
+                      </Typography>
+                    )}
                   </Box>
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                      justifyContent: "center",
                       cursor: "pointer",
                       mr: "20px",
                     }}
