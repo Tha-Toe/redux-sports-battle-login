@@ -494,3 +494,20 @@ export const getTxHistory = async (userId, pageNo) => {
     return null;
   }
 };
+
+//onclick each prop
+
+export const getEachProp = async (userId, propid) => {
+  var apiUrl = APIURLs.getEachProp;
+  apiUrl = apiUrl.replace("{userId}", userId);
+  apiUrl = apiUrl.replace("{status}", "all");
+  const apiResponse = await makeGETAPICall(apiUrl, [
+    { "app-version": 2 },
+    { "prop-id": propid },
+  ]);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
