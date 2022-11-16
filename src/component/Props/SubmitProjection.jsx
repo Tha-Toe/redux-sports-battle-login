@@ -210,7 +210,6 @@ const SubmitProjection = ({
                     if (result) {
                       if (result.status && result.status === "fail") {
                         setErrorSubmit(result.message);
-                        setSelectedCardList([]);
                       } else {
                         if (result.status === "success") {
                           setSuccessSubmit(true);
