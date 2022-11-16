@@ -76,6 +76,7 @@ export const onSportsCounterUpdate = async ({
               }
             });
             dispatch(addSportDataCommingFromApi(allsports));
+            onPropsOUCounterUpdate({ dispatch });
           }
           // console.log(allsports);
           localStorage.setItem("all_sports", JSON.stringify(result));
@@ -254,7 +255,6 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
       ) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
-        onPropsOUCounterUpdate({ dispatch });
         //get url
         getUrls()
           .then((result) => {
@@ -665,6 +665,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     }
     dispatch(removeUserInfo());
     localStorage.removeItem("user");
+    localStorage.removeItem("all_sports");
   };
   const user = useSelector((state) => state.user.user);
   const fs = useSelector((state) => state.user.fs);
