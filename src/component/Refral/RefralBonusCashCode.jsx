@@ -87,7 +87,7 @@ export default function RefralBonusCashCode({
     try {
       setLoadingSpinner(true);
       getUserById(userData.uid).then((res) => {
-        if (!res.phoneNumberVerified || !res.idpVerified) {
+        if (!res.phoneNumber || !res.idpVerified) {
           navigate("/home", {
             replace: true,
           });

@@ -84,14 +84,10 @@ function App() {
         //if user not exists in local storage but exists in firebase
         console.log("user not exists running");
         //get user name
-        let userName = currentUser.displayName
-          ? currentUser.displayName.replace("+", " ").toString()
-          : null;
+        let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
         //get first name letter
-        let firstNameLetter = currentUser.displayName
-          ? currentUser.displayName.slice(0, 2).toUpperCase()
-          : null;
+        let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         console.log(firUser);
