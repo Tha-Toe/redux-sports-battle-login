@@ -247,12 +247,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   const idpverified = useSelector((state) => state.user.idpverified);
   useEffect(() => {
     const getPropsData = () => {
-      if (
-        userDetail &&
-        preventDoubleCall &&
-        propsDataCommingFromApi.length < 1 &&
-        sportDataCommingFromApi.length < 1
-      ) {
+      if (userDetail && preventDoubleCall) {
         preventDoubleCall = false;
         onSportsCounterUpdate({ dispatch, preventDoubleCall });
         //get url
@@ -271,7 +266,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     };
     getPropsData();
     // console.log(userDetail);
-  }, [userDetail, sportDataCommingFromApi, propsDataCommingFromApi]);
+  }, [userDetail]);
 
   //get url data from redux
   const urlData = useSelector((state) => state.user.urlData);
