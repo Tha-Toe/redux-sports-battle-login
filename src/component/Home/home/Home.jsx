@@ -480,6 +480,11 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     return;
   };
 
+  //identity state data
+  const [firstNameIdentity, setFirstNameIdentity] = useState(null);
+  const [lastNameIdentity, setLastNameIdentity] = useState(null);
+  const [dobIdentity, setDobIdentity] = useState(null);
+
   const propsOpen = (openTag) => {
     setOpenSideNav(false);
     if (openTag !== "props") {
@@ -531,7 +536,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     }
   };
   const goDepositNewUser = () => {
-    if (!idpverified) {
+    if (idpverified) {
       navigate("/home?deposit=new&page=verify", { replace: true });
     } else {
       navigate("/home?deposit=old-user", { replace: true });
@@ -849,7 +854,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                   },
                 }}
                 onClick={() => {
-                  if (idpverified) {
+                  if (!idpverified) {
                     goAddCashBonus();
                   } else {
                     setOpenTag("addCash");
@@ -1401,6 +1406,12 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
               mode={mode}
               setNewUser={setNewUser}
               updateGetUserById={updateGetUserById}
+              firstNameIdentity={firstNameIdentity}
+              setFirstNameIdentity={setFirstNameIdentity}
+              lastNameIdentity={lastNameIdentity}
+              setLastNameIdentity={setLastNameIdentity}
+              dobIdentity={dobIdentity}
+              setDobIdentity={setDobIdentity}
             />
           )}
           {location.search === "?deposit=new&page=address" && (

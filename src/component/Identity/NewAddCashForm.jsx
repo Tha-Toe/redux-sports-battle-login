@@ -18,6 +18,12 @@ export default function NewAddCashFrom({
   setNewUser,
   mode,
   updateGetUserById,
+  firstNameIdentity,
+  setFirstNameIdentity,
+  lastNameIdentity,
+  setLastNameIdentity,
+  dobIdentity,
+  setDobIdentity,
 }) {
   const fs = useSelector((state) => state.user.fs);
 
@@ -32,9 +38,6 @@ export default function NewAddCashFrom({
     navigate("/home?deposit=old-user", { replace: true });
   };
 
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [dob, setDob] = useState(null);
   const [startAnimation, setStartAnimation] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [failOpen, setFailOpen] = useState(false);
@@ -47,7 +50,7 @@ export default function NewAddCashFrom({
   const [message, setMessage] = useState(null);
   let userDetailFromLocalStorage = JSON.parse(localStorage.getItem("user"));
   const getLocation = async () => {
-    if (firstName && lastName && dob) {
+    if (firstNameIdentity && lastNameIdentity && dobIdentity) {
       let locationObject = {};
       let userObject = {};
       setStartAnimation(true);
@@ -76,10 +79,10 @@ export default function NewAddCashFrom({
 
             userObject.userId = userDetailFromLocalStorage.uid;
             userObject.email = userDetailFromLocalStorage.email;
-            userObject.firstName = firstName;
-            userObject.lastName = lastName;
+            userObject.firstName = firstNameIdentity;
+            userObject.lastName = lastNameIdentity;
             userObject.phoneNumber = "";
-            userObject.dob = dob;
+            userObject.dob = dobIdentity;
 
             userObject.address = {};
             userObject.address.address = address.address;
@@ -210,6 +213,7 @@ export default function NewAddCashFrom({
             type="text"
             placeholder="Legal First Name"
             variant="outlined"
+            value={firstNameIdentity}
             sx={{
               color: "secondary.dark_gray",
               borderBottom: "1px solid #494949",
@@ -221,7 +225,7 @@ export default function NewAddCashFrom({
               outline: "none",
             }}
             onChange={(e) => {
-              setFirstName(e.target.value);
+              setFirstNameIdentity(e.target.value);
             }}
           />
         </Box>
@@ -240,6 +244,7 @@ export default function NewAddCashFrom({
           <Input
             type="text"
             placeholder="Legal First Name"
+            value={lastNameIdentity}
             variant="outlined"
             sx={{
               color: "secondary.dark_gray",
@@ -252,7 +257,7 @@ export default function NewAddCashFrom({
               outline: "none",
             }}
             onChange={(e) => {
-              setLastName(e.target.value);
+              setLastNameIdentity(e.target.value);
             }}
           />
         </Box>
@@ -273,8 +278,9 @@ export default function NewAddCashFrom({
           type="text"
           variant="outlined"
           placeholder="MM/DD/YYYY"
+          value={dobIdentity}
           onChange={(e) => {
-            setDob(e.target.value);
+            setDobIdentity(e.target.value);
           }}
           sx={{
             color: "secondary.dark_gray",
@@ -336,15 +342,13 @@ export default function NewAddCashFrom({
             }}
           >
             {address
-              ? address.address.abbreviation +
-                " " +
-                address.address.addrCity +
-                " " +
-                address.address.addrLine1 +
+              ? address.address.addrLine1 +
                 " " +
                 address.address.addrLine2 +
                 " " +
-                address.address.addrStat +
+                address.address.addrCity +
+                ", " +
+                address.address.addrState +
                 ", " +
                 address.address.addrZip
               : "Select your address"}
@@ -366,7 +370,7 @@ export default function NewAddCashFrom({
         Please enter your details as per your license or any form of legal
         document{" "}
       </Typography>
-      {address && firstName && lastName && dob && (
+      {address && firstNameIdentity && lastNameIdentity && dobIdentity && (
         <Button
           sx={{
             background: "#4831D4",
