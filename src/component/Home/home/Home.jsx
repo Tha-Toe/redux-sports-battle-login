@@ -76,10 +76,10 @@ export const onSportsCounterUpdate = async ({
               }
             });
             dispatch(addSportDataCommingFromApi(allsports));
-            onPropsOUCounterUpdate({ dispatch });
           }
           // console.log(allsports);
           localStorage.setItem("all_sports", JSON.stringify(result));
+          onPropsOUCounterUpdate({ dispatch });
           preventDoubleCall = true;
         } else {
           // console.log("null");
