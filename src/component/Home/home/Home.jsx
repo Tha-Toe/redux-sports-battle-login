@@ -42,6 +42,7 @@ import {
   setNoProjection,
   AddIdpverified,
   addUrlData,
+  logoutUser
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -667,6 +668,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     window.Intercom("shutdown");
     if (auth) {
       signOut(auth);
+      dispatch(logoutUser());
     }
     dispatch(removeUserInfo());
     localStorage.removeItem("user");

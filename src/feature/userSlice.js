@@ -180,6 +180,8 @@ export const userSlice = createSlice({
     addUrlData: (state, action) => {
       state.urlData = action.payload;
     },
+
+    logoutUser: () => initialState
   },
 });
 
@@ -218,6 +220,7 @@ export const {
   addPropCartData,
   addCurrentSportDataRedux,
   addUrlData,
+  logoutUser
 } = userSlice.actions;
 
 export default userSlice.reducer;

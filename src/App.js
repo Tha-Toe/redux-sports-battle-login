@@ -36,6 +36,7 @@ import {
   addUserDetail,
   setUserAccountNotExist,
   setUserAccountExist,
+  logoutUser
 } from "./feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SelectUserName from "./component/SignUp/SignUpWithGoogleOrEmail/SelectUserName";
@@ -83,6 +84,7 @@ function App() {
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
         console.log("user not exists running");
+        dispatch(logoutUser());
         //get user name
         let userName = currentUser.displayName
           ? currentUser.displayName.replace("+", " ").toString()
@@ -113,6 +115,7 @@ function App() {
                 if (auth) {
                   signOut(auth);
                 }
+                //dispatch(logoutUser());
                 dispatch(removeUserInfo());
                 setClickedSignUp(false);
                 dispatch(endChecking());
@@ -147,6 +150,7 @@ function App() {
                 if (auth) {
                   signOut(auth);
                 }
+                //dispatch(logoutUser());
                 dispatch(removeUserInfo());
               }
               //loading false
