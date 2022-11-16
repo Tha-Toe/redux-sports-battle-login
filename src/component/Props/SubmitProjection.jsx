@@ -90,12 +90,12 @@ const SubmitProjection = ({
   let doubleClick = false;
   const getLocation = async () => {
     if (userDetail) {
-      let totalBalance =
-        userDetail.numOUBonusCash +
-        userDetail.numCash +
-        userDetail.unutilizedCash
-          ? userDetail.unutilizedCash
-          : 0;
+      let totalBalance = userDetail.unutilizedCash
+        ? userDetail.numOUBonusCash +
+          userDetail.numCash +
+          userDetail.unutilizedCash
+        : userDetail.numOUBonusCash + userDetail.numCash;
+
       let continues = false;
       if (selectAmount === "Other") {
         if (inputAmount > totalBalance) {

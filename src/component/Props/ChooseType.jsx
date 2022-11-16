@@ -21,7 +21,7 @@ export default function ({ setPickPlayType, pickPlayType, mode }) {
       >
         Next, Choose a play type
       </Typography>
-      {propCartData.attackOnlyEntry && (
+      {propCartData && propCartData.attackOnlyEntry && (
         <Typography
           sx={{
             fontSize: { xl: fs.xxs, md: fs.xxxs, xxxs: "6px" },
