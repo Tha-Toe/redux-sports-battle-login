@@ -536,7 +536,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     }
   };
   const goDepositNewUser = () => {
-    if (idpverified) {
+    if (!idpverified) {
       navigate("/home?deposit=new&page=verify", { replace: true });
     } else {
       navigate("/home?deposit=old-user", { replace: true });
@@ -854,7 +854,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                   },
                 }}
                 onClick={() => {
-                  if (!idpverified) {
+                  if (idpverified) {
                     goAddCashBonus();
                   } else {
                     setOpenTag("addCash");
