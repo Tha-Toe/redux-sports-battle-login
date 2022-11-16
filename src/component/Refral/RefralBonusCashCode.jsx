@@ -20,7 +20,7 @@ export default function RefralBonusCashCode({
   const fs = useSelector((state) => state.user.fs);
 
   let navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [disableVerify, setDisableVerify] = useState(true);
   const [referCode, setReferCode] = useState(null);
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function RefralBonusCashCode({
   const handleClick = () => {
     if (user && referCode) {
       setStartButtonAnimation(true);
-      setError(false);
+      setError(null);
       postRedeemCode(user.uid, referCode)
         .then((res) => {
           if (res && res.status === "success") {
@@ -68,7 +68,8 @@ export default function RefralBonusCashCode({
             setSuccess(true);
             setStartButtonAnimation(false);
           } else {
-            setError(true);
+            console.log(res);
+            setError(res);
             setStartButtonAnimation(false);
           }
         })
@@ -229,7 +230,7 @@ export default function RefralBonusCashCode({
                 color: "#E4313C",
               }}
             >
-              Code invalid, Reach out to support for help
+              {error.errorMsg}
             </Typography>
           </Box>
         )}
