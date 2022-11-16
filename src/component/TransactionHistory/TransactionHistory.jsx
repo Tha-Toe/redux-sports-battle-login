@@ -201,43 +201,14 @@ export default function TransactionHistory({ mode }) {
   ]);
 
   const [openHistoryDetail, setOpenHistoryDetail] = useState(false);
-  const [historyDetailData, setHistoryDetailData] = useState([
-    {
-      player: { name: "Issac Paredes", forward: "LIV - Forward " },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " CHI vs KC",
-      },
-      status: "lost",
-      goal: { amount: "43.5", name: "Longest Field Goal" },
-      actual: "0",
-    },
-    {
-      player: { name: "Mohamed Salah", forward: "TB - Batter" },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " TB vs BAL",
-      },
-      status: "won",
-      goal: { amount: "0.5", name: "Bat.Runs + RBIs" },
-      actual: "3",
-      color: "#459F48",
-    },
-    {
-      player: { name: "Isiah Pacheco", forward: "KC - RB" },
-      game: {
-        playType: { type: "soccer", src: "/soccer.png" },
-        vs: " LIV vs CRY",
-      },
-      status: "lost",
-      goal: { amount: "30.5 ", name: "Goal" },
-      actual: "11",
-      actualBar: "50%",
-    },
-  ]);
+  const [detailData, setDetailData] = useState(null);
+
   const [referCode] = useState(true);
   const [clicked, setClicked] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [clicked_id, setClicked_id] = useState(null);
+
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -279,6 +250,33 @@ export default function TransactionHistory({ mode }) {
         });
     }
   }, [pageNumberToChange, pageNumber]);
+  let user = JSON.parse(localStorage.getItem("user"));
+  const [detailLoading, setDetailLoading] = useState(false);
+
+  const getEachDetail = (e) => {
+    console.log(e);
+    if (e.txnType.indexOf("prop") === 0) {
+      setDetailLoading(true);
+      setOpenHistoryDetail(true);
+      setClicked(e.contestId);
+      setClicked_id(e._id);
+      getEachProp(user.uid, e.contestId)
+        .then((res) => {
+          if (res) {
+            console.log(res);
+            setDetailData(res);
+            setDetailLoading(false);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+    } else {
+      return;
+    }
+  };
 
   if (loading) {
     return <LoadingSpinnerEachSection />;
@@ -333,13 +331,13 @@ export default function TransactionHistory({ mode }) {
             display: "flex",
             flexDirection: { md: "row", xxxs: "column" },
             wdith: "100%",
+            alignItems: "flex-start",
           }}
         >
           <Box
             sx={{
               width: { md: "50%", xxxs: "100%" },
-              height: "100vh",
-              maxHeight: "100vh",
+              maxHeight: "1000px",
               overflow: "scroll",
               "&::-webkit-scrollbar": { display: "none" },
               borderBottom: "1px solid #494949",
@@ -359,7 +357,7 @@ export default function TransactionHistory({ mode }) {
                       width: { md: "98%", xxxs: "98%" },
                       borderRadius: "4px",
                       border: `${
-                        clicked === index
+                        clicked_id === e._id
                           ? "1px solid #4831D4"
                           : mode === "dark"
                           ? "1px solid #494949"
@@ -369,7 +367,9 @@ export default function TransactionHistory({ mode }) {
                       bgcolor: "transparent",
                       boxShadow: "none",
                     }}
-                    onClick={() => {}}
+                    onClick={() => {
+                      getEachDetail(e);
+                    }}
                   >
                     <Box
                       sx={{
@@ -463,7 +463,8 @@ export default function TransactionHistory({ mode }) {
           {openHistoryDetail ? (
             <Detail
               setOpenDetail={setOpenHistoryDetail}
-              detailData={historyDetailData}
+              detailData={detailData}
+              detailLoading={detailLoading}
               referCode={referCode}
               clicked={clicked}
               mainDetail={history}
