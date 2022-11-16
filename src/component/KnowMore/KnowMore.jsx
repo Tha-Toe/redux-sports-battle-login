@@ -45,9 +45,24 @@ export default function KnowMore({ mode }) {
     },
   ]);
   const [legal, setLegal] = useState([
-    { name: "Terms of Service", src: "/howto.png", darkSrc: "/howto-dark.png" },
-    { name: "Privacy Policy", src: "/rules.png", darkSrc: "/rules-dark.png" },
-    { name: "Responsible Play", src: "/fps.png", darkSrc: "/fps-dark.png" },
+    {
+      name: "Terms of Service",
+      src: "/howto.png",
+      darkSrc: "/howto-dark.png",
+      link: "https://sportsbattleapp.com/termsofuse.html",
+    },
+    {
+      name: "Privacy Policy",
+      src: "/rules.png",
+      darkSrc: "/rules-dark.png",
+      link: "https://sportsbattleapp.com/PrivacyPolicy.html",
+    },
+    {
+      name: "Responsible Play",
+      src: "/fps.png",
+      darkSrc: "/fps-dark.png",
+      link: "https://sportsbattleapp.com/responsibleplay.html",
+    },
   ]);
 
   const [openTag, setOpenTag] = useState("Above-Below Points System");
@@ -299,48 +314,54 @@ export default function KnowMore({ mode }) {
               }}
             ></Box>
             {legal.map((e, index) => (
-              <Box
+              <a
+                href={e.link}
+                style={{ width: "100%" }}
+                target="_blank"
                 key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                  width: "100%",
-                  mb: "20px",
-                  borderBottom: { xs: "none", xxxs: "1px solid #494949" },
-                }}
               >
-                {mode === "dark" ? (
-                  <img src={e.src} className="know-icon" />
-                ) : (
-                  <img src={e.darkSrc} className="know-icon" />
-                )}
-                <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
-                  <Typography
-                    sx={{
-                      fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
-                      fontWeight: 700,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                    }}
-                  >
-                    {e.name}
-                  </Typography>
-                  {e.extra && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    width: "100%",
+                    mb: "20px",
+                    borderBottom: { xs: "none", xxxs: "1px solid #494949" },
+                  }}
+                >
+                  {mode === "dark" ? (
+                    <img src={e.src} className="know-icon" />
+                  ) : (
+                    <img src={e.darkSrc} className="know-icon" />
+                  )}
+                  <Box sx={{ width: "100%", ml: { sm: "8px", xxxs: "2px" } }}>
                     <Typography
                       sx={{
-                        fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
-                        fontWeight: 400,
+                        fontSize: { lg: fs.small, xs: fs.xs, xxxs: fs.xxs },
+                        fontWeight: 700,
                         fontFamily: "poppins",
                         color: "secondary.dark_gray",
                       }}
                     >
-                      {e.extra}
+                      {e.name}
                     </Typography>
-                  )}
+                    {e.extra && (
+                      <Typography
+                        sx={{
+                          fontSize: { lg: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
+                          fontWeight: 400,
+                          fontFamily: "poppins",
+                          color: "secondary.dark_gray",
+                        }}
+                      >
+                        {e.extra}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
-              </Box>
+              </a>
             ))}
           </Box>
           <Box sx={{ width: { xs: "65%", xxxs: "75%" } }}>
