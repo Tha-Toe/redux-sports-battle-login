@@ -78,7 +78,7 @@ export default function ({ winAmount }) {
             color: "secondary.dark_gray",
           }}
         >
-          ${userDetail.unutilizedCash.toFixed(2)}
+          ${userDetail.unutilizedCash ? userDetail.unutilizedCash.toFixed(2) : 0}
         </Typography>
       </Box>
       <Box

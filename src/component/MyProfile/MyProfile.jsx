@@ -349,7 +349,7 @@ export default function MyProfile({
                   >
                     {myAccountDataCommingFromApi &&
                       myAccountDataCommingFromApi.name &&
-                      myAccountDataCommingFromApi.name
+                      myAccountDataCommingFromApi.username
                         .split(" ")
                         .join("")
                         .toLowerCase()}
@@ -557,7 +557,7 @@ export default function MyProfile({
                       color: "#459F48",
                     }}
                   >
-                    ${myAccountDataCommingFromApi.ouWonAmount}
+                    ${myAccountDataCommingFromApi.numCash}
                   </Typography>
                 </Box>
               </Box>
