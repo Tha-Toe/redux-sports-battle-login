@@ -607,7 +607,8 @@ export default function MyProfile({
                       myAccountDataCommingFromApi.unutilizedCash
                         ? myAccountDataCommingFromApi.unutilizedCash
                         : 0
-                    )
+                    ) +
+                    Number(myAccountDataCommingFromApi.numOUBonusCash)
                   ).toFixed(2)}
                 </Box>
               </Box>
@@ -622,58 +623,6 @@ export default function MyProfile({
                   flexWrap: "wrap",
                 }}
               >
-                <Box
-                  sx={{
-                    width: { xs: "28%", xxxs: "65%" },
-                    height: "195px",
-                    bgcolor: "primary.main",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    borderRadius: "4px",
-                    mt: { xs: 0, xxxs: "5px" },
-                    ml: "10px",
-                    mr: "10px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: { sm: fs.xs, xs: fs.xxs, xxxs: fs.xxxs },
-                      fontWeight: 600,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mt: "27px",
-                      mb: "16px",
-                    }}
-                  >
-                    Total Won Cash
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { sm: "30px", xs: "28px", xxxs: "26px" },
-                      fontWeight: 700,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mb: "16px",
-                    }}
-                  >
-                    ${myAccountDataCommingFromApi.numCash}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { sm: fs.xxs, xs: fs.xxxs, xxxs: "6px" },
-                      fontWeight: 400,
-                      fontFamily: "poppins",
-                      color: "secondary.dark_gray",
-                      mb: "26px",
-                      maxWidth: "90%",
-
-                      textAlign: "center",
-                    }}
-                  >
-                    Cash won that is withdraw eligible.
-                  </Typography>
-                </Box>
                 <Box
                   sx={{
                     width: { xs: "28%", xxxs: "65%" },
@@ -765,7 +714,7 @@ export default function MyProfile({
                       mb: "16px",
                     }}
                   >
-                    O/U & P/B Bonus
+                    Bonus Cash
                   </Typography>
                   <Typography
                     sx={{
