@@ -36,6 +36,7 @@ import {
   addUserDetail,
   setUserAccountNotExist,
   setUserAccountExist,
+  logoutUser
 } from "./feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SelectUserName from "./component/SignUp/SignUpWithGoogleOrEmail/SelectUserName";
@@ -83,6 +84,7 @@ function App() {
       } else if (currentUser && !user) {
         //if user not exists in local storage but exists in firebase
         console.log("user not exists running");
+        dispatch(logoutUser());
         //get user name
         let userName = currentUser.displayName.replace("+", " ").toString();
         currentUser.userName = userName;
@@ -90,8 +92,8 @@ function App() {
         let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
-        console.log(firUser);
-        console.log(clickedSignUp);
+        //console.log(firUser);
+        //console.log(clickedSignUp);
         if (clickedSignUp) {
           getUserById(firUser.uid)
             .then((result) => {
@@ -130,7 +132,7 @@ function App() {
                 dispatch(addUserInfo(currentUser));
                 //user is not null will get details
                 dispatch(addUserDetail(result));
-                console.log(result);
+                //console.log(result);
               } else {
                 //user is null create user
                 localStorage.removeItem("user");

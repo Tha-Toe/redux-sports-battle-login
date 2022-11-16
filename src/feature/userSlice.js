@@ -63,7 +63,7 @@ export const userSlice = createSlice({
       state.userDetail = action.payload;
     },
     addSportDataCommingFromApi: (state, action) => {
-      console.log(action.payload);
+      //console.log(action.payload);
       let newArray = [...action.payload];
       state.sportDataCommingFromApi = newArray;
     },
@@ -180,6 +180,7 @@ export const userSlice = createSlice({
     addUrlData: (state, action) => {
       state.urlData = action.payload;
     },
+    logoutUser: () => initialState
   },
 });
 
@@ -218,6 +219,7 @@ export const {
   addPropCartData,
   addCurrentSportDataRedux,
   addUrlData,
+  logoutUser
 } = userSlice.actions;
 
 export default userSlice.reducer;

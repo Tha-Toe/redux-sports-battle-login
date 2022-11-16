@@ -175,7 +175,7 @@ export default function Props({
       if (selectedSportPropsData.length > 0) {
         setCurrentSportsData(selectedSportPropsData[0]);
         dispatch(addCurrentSportDataRedux(selectedSportPropsData[0]));
-        console.log(selectedSportPropsData);
+        //console.log(selectedSportPropsData);
         //get notes
         if (selectedSportPropsData[0].metadata.notes) {
           let noteFromApi = selectedSportPropsData[0].metadata.notes;

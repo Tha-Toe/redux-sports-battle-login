@@ -42,6 +42,7 @@ import {
   setNoProjection,
   AddIdpverified,
   addUrlData,
+  logoutUser
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -229,7 +230,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
       } else {
         setCash(userDetail.numCash);
       }
-      console.log(userDetail);
+      //console.log(userDetail);
       dispatch(AddIdpverified(userDetail.idpVerified));
       window.Intercom("boot", {
         app_id: "ow5887i2",
@@ -290,14 +291,14 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
         socialObject[0].value.map((e) => {
           if (e.name === "Join our Discord") {
             setDiscordUrl(e.web_value);
-            console.log(e.web_value);
+            //console.log(e.web_value);
           } else {
             setTwitterUrl(e.web_value);
-            console.log(e.web_value);
+            //console.log(e.web_value);
           }
         });
-        console.log("discord", socialObject[0].value[0].web_value);
-        console.log("twitter", socialObject[0].value[1].web_value);
+        //console.log("discord", socialObject[0].value[0].web_value);
+        //console.log("twitter", socialObject[0].value[1].web_value);
       }
     }
   }, [urlData]);
@@ -668,10 +669,10 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     window.Intercom("shutdown");
     if (auth) {
       signOut(auth);
+      dispatch(logoutUser());
     }
     dispatch(removeUserInfo());
-    localStorage.removeItem("user");
-    localStorage.removeItem("all_sports");
+    localStorage.clear();
   };
   const user = useSelector((state) => state.user.user);
   const fs = useSelector((state) => state.user.fs);
