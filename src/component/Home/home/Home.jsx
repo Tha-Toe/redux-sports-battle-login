@@ -211,6 +211,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [bonus, setBonus] = useState(null);
   const [cash, setCash] = useState(null);
+  const [firstNameLetter, setFirstNameLetter] = useState(null);
   const [discordUrl, setDiscordUrl] = useState(null);
   const [twitterUrl, setTwitterUrl] = useState(null);
   let sportDataCommingFromApi = useSelector(
@@ -229,6 +230,10 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
       } else {
         setCash(userDetail.numCash);
       }
+      let firstNameLetterFromUserDetail = userDetail.name
+        ? userDetail.name.slice(0, 2).toUpperCase()
+        : null;
+      setFirstNameLetter(firstNameLetterFromUserDetail);
       console.log(userDetail);
       dispatch(AddIdpverified(userDetail.idpVerified));
       window.Intercom("boot", {
@@ -893,7 +898,7 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                     alignItems: "center",
                   }}
                 >
-                  {user && user.firstNameLetter}
+                  {firstNameLetter}
                 </Box>
                 {openDropDown ? (
                   <KeyboardArrowUpIcon
