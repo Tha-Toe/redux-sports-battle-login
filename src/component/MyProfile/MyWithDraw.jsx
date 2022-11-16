@@ -284,7 +284,7 @@ export default function MyWithDraw({ mode, setOpenTag }) {
                           mb: "10px",
                         }}
                       >
-                        Please click the above button to finish your withdrawl{" "}
+                        Please click the above button to finish your withdrawal{" "}
                       </Typography>
                     )}
                   </Box>
