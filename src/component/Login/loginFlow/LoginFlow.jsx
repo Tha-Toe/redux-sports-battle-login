@@ -20,6 +20,7 @@ import {
   OAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 
 import { auth } from "../../../config/firebase";
@@ -50,21 +51,21 @@ const LoginFlow = ({ mode, setMode }) => {
   };
 
   const [showPass, setShowPass] = useState(false);
-  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [disableButton, setDisableButton] = useState(false);
 
   useEffect(() => {
-    if (name && password) {
+    if (email && password) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
-  }, [name, password]);
+  }, [email, password]);
   let navigate = useNavigate();
-  const handleContinue = () => {
-    navigate("/home", { replace: true });
-  };
+  // const handleContinue = () => {
+  //   navigate("/home", { replace: true });
+  // };
   const switchMode = () => {
     if (mode === "dark") {
       setMode("light");
@@ -94,6 +95,53 @@ const LoginFlow = ({ mode, setMode }) => {
   const userAccountNotExist = useSelector(
     (state) => state.user.userAccountNotExist
   );
+
+  //signin with email and password
+  const [errorUserNotFound, setErrorUserNotFound] = useState(null);
+  const [errorWrongPassword, setErrorWrongPassword] = useState(null);
+  const [loadingLoginWithEmail, setLoadingLoginWithEmail] = useState(false);
+  const handleSignInEmailAndPassword = () => {
+    if (email && password) {
+      setLoadingLoginWithEmail(true);
+      setErrorUserNotFound(null);
+      setErrorWrongPassword(null);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          console.log(error);
+          const errorCode = error.code;
+          let errorMessage = error.message;
+          if (errorMessage) {
+            let userNotFound = errorMessage.search("user-not-found");
+            if (userNotFound >= 0) {
+              setErrorUserNotFound("User Not Found. Please check your email");
+              setLoadingLoginWithEmail(false);
+            } else {
+              let invalidEmail = errorMessage.search("invalid-email");
+              if (invalidEmail >= 0) {
+                setErrorUserNotFound("Invalid Email");
+                setLoadingLoginWithEmail(false);
+              } else {
+                let wrongPassword = errorMessage.search("wrong-password");
+                if (wrongPassword >= 0) {
+                  setErrorWrongPassword("Incorrect Password");
+                  setLoadingLoginWithEmail(false);
+                } else {
+                  let tooManyRequest = errorMessage.search("too-many-requests");
+                  if (tooManyRequest >= 0) {
+                    setErrorUserNotFound("Too many requests. Try again later");
+                  }
+                }
+              }
+            }
+          }
+          console.log(errorMessage);
+        });
+    }
+  };
 
   return (
     <div className="login-flow-container">
@@ -259,12 +307,37 @@ const LoginFlow = ({ mode, setMode }) => {
                 </Button>
               </Box>
             </Box>
+            {errorUserNotFound && (
+              <Typography
+                sx={{
+                  fontSize: { xs: fs.small, xxxs: fs.xs },
+                  mb: 1,
+                  fontFamily: "Poppins",
+                  fontWieght: 300,
+                  color: "red",
+                }}
+              >
+                {errorUserNotFound}
+              </Typography>
+            )}
             <InputComponentLogin
-              placeholder={"User Name"}
-              setName={setName}
+              placeholder={"Email Address"}
+              setName={setEmail}
               mode={mode}
             />
-
+            {errorWrongPassword && (
+              <Typography
+                sx={{
+                  fontSize: { xs: fs.small, xxxs: fs.xs },
+                  mb: 1,
+                  fontFamily: "Poppins",
+                  fontWieght: 300,
+                  color: "red",
+                }}
+              >
+                {errorWrongPassword}
+              </Typography>
+            )}
             <PasswordInputComponentLogin
               placeholder={"Password"}
               showPass={showPass}
@@ -302,7 +375,7 @@ const LoginFlow = ({ mode, setMode }) => {
             <ButtonComponent
               name={"Login to Your Account"}
               disabled={disableButton}
-              handleContinue={handleContinue}
+              handleContinue={handleSignInEmailAndPassword}
             />
             <Box
               component="div"
@@ -361,6 +434,7 @@ const LoginFlow = ({ mode, setMode }) => {
       {checking && <LoadingSpinner />}{" "}
       {errorPopUp && <NotAllowSameEmail mode={mode} errorPopUp={errorPopUp} />}
       {userAccountNotExist && <UserAccountNotExist mode={mode} />}
+      {loadingLoginWithEmail && <LoadingSpinner />}
     </div>
   );
 };

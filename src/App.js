@@ -86,10 +86,14 @@ function App() {
         console.log("user not exists running");
         dispatch(logoutUser());
         //get user name
-        let userName = currentUser.displayName.replace("+", " ").toString();
+        let userName = currentUser.displayName
+          ? currentUser.displayName.replace("+", " ").toString()
+          : null;
         currentUser.userName = userName;
         //get first name letter
-        let firstNameLetter = currentUser.displayName.slice(0, 2).toUpperCase();
+        let firstNameLetter = currentUser.displayName
+          ? currentUser.displayName.slice(0, 2).toUpperCase()
+          : null;
         currentUser.firstNameLetter = firstNameLetter;
         var firUser = getUserInfoFromFirebaseUser(currentUser, userName);
         //console.log(firUser);

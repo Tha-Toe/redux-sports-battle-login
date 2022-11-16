@@ -133,6 +133,7 @@ export default function MyProfile({
   const [address, setAddress] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [phoneNumberFromRedux, setPhoneNumberFromRedux] = useState(null);
+  const [phoneNumberVerified, setPhoneNumberVerified] = useState(false);
   const [verify, setVerify] = useState(false);
 
   const user = useSelector((state) => state.user.user);
@@ -151,6 +152,7 @@ export default function MyProfile({
     if (myAccountDataCommingFromApi) {
       console.log(myAccountDataCommingFromApi);
       setPhoneNumberFromRedux(null);
+      setPhoneNumberVerified(myAccountDataCommingFromApi.phoneNumberVerified);
       let deposit = myAccountDataCommingFromApi.firstDeposit;
       let phone = myAccountDataCommingFromApi.phoneNumberVerified;
       let account =
@@ -182,7 +184,7 @@ export default function MyProfile({
   }, [myAccountDataCommingFromApi]);
   const [clickedRefral, setClickedRefral] = useState(false);
   const checkRefralBonusCashRedeem = () => {
-    if (phoneNumberFromRedux) {
+    if (phoneNumberVerified) {
       setClickedRefral(false);
       goRefralBonusCashRadeem();
     } else {
@@ -317,7 +319,8 @@ export default function MyProfile({
                     justifyContent: "center",
                   }}
                 >
-                  {user && user.firstNameLetter}
+                  {myAccountDataCommingFromApi &&
+                    myAccountDataCommingFromApi.name.slice(0, 2).toUpperCase()}
                 </Typography>
                 <Box
                   sx={{
@@ -435,7 +438,7 @@ export default function MyProfile({
                 >
                   Phone Number{" "}
                 </Typography>
-                {phoneNumberFromRedux ? (
+                {phoneNumberVerified ? (
                   <Typography
                     sx={{
                       fontSize: { sm: fs.small, xs: fs.xs, xxxs: fs.xxs },
