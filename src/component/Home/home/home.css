@@ -28,8 +28,12 @@
 }
 .twitter-logo {
   padding: 2px;
-  border-radius: 3px;
-  width: 26px;
+  font-size: 25px;
+  color: white;
+  /* width: 26px; */
+}
+.light-mode-icon {
+  color: #494949;
 }
 .exit-image {
   width: 48px;
@@ -69,6 +73,10 @@
   filter: brightness(0) saturate(100%) invert(20%) sepia(14%) saturate(4%)
     hue-rotate(314deg) brightness(102%) contrast(72%);
 }
+.side-bar-icon-fontawesome {
+  height: 26px;
+  width: 26px;
+}
 .side-bar-icon-active {
   filter: brightness(0) saturate(100%) invert(13%) sepia(69%) saturate(6685%)
     hue-rotate(252deg) brightness(88%) contrast(88%);
@@ -78,7 +86,8 @@
   width: 26px;
 }
 @media (min-width: 1600px) {
-  .side-bar-icon {
+  .side-bar-icon,
+  .side-bar-icon-fontawesome {
     height: 28px;
     width: 28px;
   }
@@ -93,7 +102,8 @@
   }
 }
 @media (max-width: 1100px) {
-  .side-bar-icon {
+  .side-bar-icon,
+  .side-bar-icon-fontawesome {
     margin-left: 0px;
   }
 }

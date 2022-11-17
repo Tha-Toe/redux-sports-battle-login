@@ -58,6 +58,9 @@ import {
 import { db } from "../../../config/firebase";
 import { useSelect } from "@mui/base";
 import LoadingSpinner from "../../loadingSpinner/LoadingSpinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 export const onSportsCounterUpdate = async ({
   dispatch,
@@ -615,7 +618,8 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
     },
     {
       name: "My Account",
-      activeSrc: "/myAccount-active.svg",
+      // activeSrc: "/myAccount-active.svg",
+      icon: faCircleUser,
       unactiveSrc: "/myAccount.png",
       activeName: "my-profile",
       func: myProfileOpen,
@@ -1098,12 +1102,34 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                   }}
                 >
                   <Box sx={{ width: "auto" }}>
-                    <img
-                      src={e.activeSrc}
-                      className={`${"side-bar-icon"} ${
-                        openTag === e.activeName && "side-bar-icon-active"
-                      }`}
-                    />
+                    {e.activeSrc ? (
+                      <img
+                        src={e.activeSrc}
+                        className={`${"side-bar-icon"} ${
+                          openTag === e.activeName && "side-bar-icon-active"
+                        }`}
+                      />
+                    ) : (
+                      <div
+                        className="side-bar-icon-fontawesome"
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={e.icon}
+                          style={{
+                            fontSize: "22px",
+                            color: `${
+                              openTag === e.activeName ? "#4831d4" : "#494949"
+                            }`,
+                          }}
+                        />
+                      </div>
+                    )}
                   </Box>
                   <Typography
                     sx={{
@@ -1343,10 +1369,10 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                     mt: "10px",
                   }}
                 >
-                  <img
-                    src="/twitter.png"
+                  <FontAwesomeIcon
+                    icon={faTwitter}
                     className={`${"twitter-logo"} ${
-                      mode !== "dark" && "lightMode"
+                      mode !== "dark" && "light-mode-icon"
                     }`}
                   />
                   <Typography
