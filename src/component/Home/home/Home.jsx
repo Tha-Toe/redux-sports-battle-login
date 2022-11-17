@@ -63,7 +63,7 @@ export const onSportsCounterUpdate = async ({
   dispatch,
   preventDoubleCall,
 }) => {
-  const q = query(collection(db, "sports_counter"));
+  const q = doc(db, "oc_configurations","sports_counter");
   onSnapshot(q, (querySnapshot) => {
     var allsports = [];
     getAllSports()
@@ -92,7 +92,7 @@ export const onSportsCounterUpdate = async ({
   });
 };
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
-  const q = query(collection(db, "props_ou_counter"));
+  const q = doc(db, "oc_configurations","props_ou_counter");
   onSnapshot(q, async (querySnapshot) => {
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
     if (allSports && allSports.length > 0) {
