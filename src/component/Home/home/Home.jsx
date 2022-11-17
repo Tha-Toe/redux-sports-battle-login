@@ -69,7 +69,7 @@ export const onSportsCounterUpdate = async ({
     getAllSports()
       .then((result) => {
         if (result) {
-          //console.log(result);
+          console.log(result);
           if (result.length > 0) {
             result.forEach((x) => {
               if (x.code !== "home" && x.activeSw) {
@@ -78,7 +78,7 @@ export const onSportsCounterUpdate = async ({
             });
             dispatch(addSportDataCommingFromApi(allsports));
           }
-          // console.log(allsports);
+          //console.log(allsports);
           localStorage.setItem("all_sports", JSON.stringify(result));
           preventDoubleCall = true;
         } else {

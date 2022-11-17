@@ -196,7 +196,7 @@ export default function OperatingState({ openTag }) {
             >
               {e.minAge}
             </Typography>
-            {e.allowed ? (
+            {e.college ? (
               <Box sx={{ width: "25%", textAlign: "center" }}>
                 <CheckCircleIcon sx={{ color: "#52C03C" }} />
               </Box>
