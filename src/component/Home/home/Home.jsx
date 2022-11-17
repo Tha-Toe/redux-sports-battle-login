@@ -42,7 +42,7 @@ import {
   setNoProjection,
   AddIdpverified,
   addUrlData,
-  logoutUser
+  logoutUser,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -63,7 +63,7 @@ export const onSportsCounterUpdate = async ({
   dispatch,
   preventDoubleCall,
 }) => {
-  const q = doc(db, "oc_configurations","sports_counter");
+  const q = doc(db, "oc_configurations", "sports_counter");
   onSnapshot(q, (querySnapshot) => {
     var allsports = [];
     getAllSports()
@@ -92,7 +92,7 @@ export const onSportsCounterUpdate = async ({
   });
 };
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
-  const q = doc(db, "oc_configurations","props_ou_counter");
+  const q = doc(db, "oc_configurations", "props_ou_counter");
   onSnapshot(q, async (querySnapshot) => {
     let allSports = JSON.parse(localStorage.getItem("all_sports"));
     if (allSports && allSports.length > 0) {
@@ -232,9 +232,9 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
         setCash(userDetail.numCash);
       }
       let firstNameLetterFromUserDetail = userDetail.name
-      ? userDetail.name.slice(0, 2).toUpperCase()
-      : null;
-    setFirstNameLetter(firstNameLetterFromUserDetail);
+        ? userDetail.name.slice(0, 2).toUpperCase()
+        : null;
+      setFirstNameLetter(firstNameLetterFromUserDetail);
       //console.log(userDetail);
       dispatch(AddIdpverified(userDetail.idpVerified));
       window.Intercom("boot", {
@@ -566,10 +566,12 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
       navigate("/home?deposit=new&page=verify", { replace: true });
     } else {
       navigate("/home?deposit=old-user", { replace: true });
+      setOpenTag("my-profile");
     }
   };
   const goAddCashBonus = () => {
     navigate("/home?deposit=old-user", { replace: true });
+    setOpenTag("my-profile");
   };
   const goRefralBonusCashRadeem = () => {
     setOpenTag("enter-referral-code");

@@ -272,7 +272,13 @@ export default function Props({
         setStatsAndData(null);
       }
     }
-  }, [selectSports, propsDataCommingFromApi, selectMatches, selectStatTitle]);
+  }, [
+    selectSports,
+    propsDataCommingFromApi,
+    selectMatches,
+    selectStatTitle,
+    sportDataCommingFromApi,
+  ]);
 
   const noProjection = useSelector((state) => state.user.noProjection);
 
