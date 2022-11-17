@@ -109,7 +109,7 @@ export default function PaperECheck({
             alignItems: "center",
           }}
         >
-          <img src="/mailbox1.png" className="chooseIcon" />
+          <img src="/mailbox1.svg" className="chooseIcon svg-blue" />
           <Box
             sx={{
               display: "flex",

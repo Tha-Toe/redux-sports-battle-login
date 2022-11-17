@@ -66,6 +66,12 @@
 .side-bar-icon {
   height: 26px;
   width: 26px;
+  filter: brightness(0) saturate(100%) invert(20%) sepia(14%) saturate(4%)
+    hue-rotate(314deg) brightness(102%) contrast(72%);
+}
+.side-bar-icon-active {
+  filter: brightness(0) saturate(100%) invert(13%) sepia(69%) saturate(6685%)
+    hue-rotate(252deg) brightness(88%) contrast(88%);
 }
 
 .other-logo {

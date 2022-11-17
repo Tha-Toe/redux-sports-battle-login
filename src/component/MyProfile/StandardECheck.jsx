@@ -101,7 +101,7 @@ export default function StandardECheck({
             alignItems: "center",
           }}
         >
-          <img src="/check1.png" className="chooseIcon" />
+          <img src="/check1.svg" className="chooseIcon svg-blue" />
           <Box
             sx={{
               display: "flex",

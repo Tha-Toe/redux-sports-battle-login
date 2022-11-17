@@ -46,6 +46,12 @@
 .circle-three {
   animation: oneAni 0.7s ease-in-out infinite 1s;
 }
+
+.svg-blue {
+  filter: brightness(0) saturate(100%) invert(13%) sepia(69%) saturate(6685%)
+    hue-rotate(252deg) brightness(88%) contrast(88%);
+}
+
 @keyframes oneAni {
   0% {
     transform: scale(1);

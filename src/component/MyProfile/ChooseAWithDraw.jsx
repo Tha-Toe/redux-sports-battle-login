@@ -19,7 +19,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
 
   const [chooseType, setChooseType] = useState([
     {
-      icon: "/mailbox1.png",
+      icon: "/mailbox1.svg",
       name: "Paper Check",
       waitingTime: "Takes upto 7-10 business days",
       about:
@@ -27,14 +27,14 @@ export default function ChooseAWithDraw({ setOpenTag }) {
       func: openPaperECheck,
     },
     {
-      icon: "/bank1.png",
+      icon: "/bank1.svg",
       name: "Direct Deposit ",
       waitingTime: "Takes upto 3-5 business days",
       about:
         "Funds are directly deposited into your M4' bank account Make sure to provide your own bank information, transactions will fail otherwise",
     },
     {
-      icon: "/check1.png",
+      icon: "/check1.svg",
       name: "Standard eCheck",
       waitingTime: "Under 24 hours ",
       about:
@@ -113,7 +113,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
               alignItems: "center",
             }}
           >
-            <img src={e.icon} className="chooseIcon" />
+            <img src={e.icon} className="chooseIcon svg-blue" />
             <Box
               sx={{
                 display: "flex",

@@ -601,28 +601,28 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   const [sideBar, setSideBar] = useState([
     {
       name: "Props",
-      activeSrc: "/props-active.png",
+      activeSrc: "/props-active.svg",
       unactiveSrc: "/props-unactive.png",
       activeName: "props",
       func: propsOpen,
     },
     {
       name: "My Props",
-      activeSrc: "/my-props-active.png",
+      activeSrc: "/my-props-active.svg",
       unactiveSrc: "/my-prop-unactive.png",
       activeName: "my-props",
       func: myPropsOpen,
     },
     {
       name: "My Account",
-      activeSrc: "/myAccount-active.png",
+      activeSrc: "/myAccount-active.svg",
       unactiveSrc: "/myAccount.png",
       activeName: "my-profile",
       func: myProfileOpen,
     },
     {
       name: "Transaction History",
-      activeSrc: "/transcationHistoryActive.png",
+      activeSrc: "/transcationHistoryActive.svg",
       unactiveSrc: "/transcationHistory.png",
       activeName: "transaction-history",
       func: transactionHistoryOpen,
@@ -631,14 +631,14 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   const [sideBarOther, setSideBarOther] = useState([
     {
       name: "Know More",
-      activeSrc: "/nomore-active.png",
+      activeSrc: "/nomore-active.svg",
       unactiveSrc: "/nomore-unactive.png",
       activeName: "know-more",
       func: knowMoreOpen,
     },
     {
       name: "Support Chat",
-      activeSrc: "/nomore-active.png",
+      activeSrc: "/nomore-active.svg",
       unactiveSrc: "/nomore-unactive.png",
       activeName: "support-chat",
       func: openSupportChat,
@@ -1098,11 +1098,12 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                   }}
                 >
                   <Box sx={{ width: "auto" }}>
-                    {openTag === e.activeName ? (
-                      <img src={e.activeSrc} className="side-bar-icon" />
-                    ) : (
-                      <img src={e.unactiveSrc} className="side-bar-icon" />
-                    )}
+                    <img
+                      src={e.activeSrc}
+                      className={`${"side-bar-icon"} ${
+                        openTag === e.activeName && "side-bar-icon-active"
+                      }`}
+                    />
                   </Box>
                   <Typography
                     sx={{
@@ -1175,11 +1176,12 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
                     }
                   }}
                 >
-                  {openTag === e.activeName ? (
-                    <img src={e.activeSrc} className="other-logo" />
-                  ) : (
-                    <img src={e.unactiveSrc} className="other-logo" />
-                  )}
+                  <img
+                    src={e.activeSrc}
+                    className={`${"side-bar-icon"} ${
+                      openTag === e.activeName && "side-bar-icon-active"
+                    }`}
+                  />
                   <Typography
                     sx={{
                       fontFamily: "poppins",

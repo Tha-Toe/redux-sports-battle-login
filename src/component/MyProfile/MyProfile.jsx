@@ -86,25 +86,25 @@ export default function MyProfile({
     {
       name: "Deposit",
       note: "Credit Card (Visa, Master, Discover)",
-      icon: "/upload1.png",
+      icon: "/upload1.svg",
       func: goDeposit,
     },
     {
       name: "Withdraw Cash",
       note: "Credit Card (Visa, Master, Discover)",
       func: openWidthDrawCash,
-      icon: "/deposit1.png",
+      icon: "/deposit1.svg",
     },
     {
       name: "My Withdrawals",
       note: "Credit Card (Visa, Master, Discover)",
       func: openMyWithDraw,
-      icon: "/withdrawal1.png",
+      icon: "/withdrawal1.svg",
     },
     {
       name: "Transaction History",
       note: "",
-      icon: "/transcationHistoryActive.png",
+      icon: "/transcationHistoryActive.svg",
       func: transactionHistoryOpen,
     },
   ]);
@@ -772,7 +772,7 @@ export default function MyProfile({
                     ml: "10px",
                   }}
                 >
-                  <img src={e.icon} className="depositIcon" />
+                  <img src={e.icon} className="depositIcon svg-blue" />
                   <Box
                     sx={{
                       display: "flex",

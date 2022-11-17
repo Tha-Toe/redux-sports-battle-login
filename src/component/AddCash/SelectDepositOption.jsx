@@ -21,7 +21,7 @@ export default function SelectDepositOption({
         background: `${
           mode === "dark" ? "rgba(0,0,0,0.9)" : "rgba(115, 115, 115, 0.7)"
         }`,
-        zIndex: "20",
+        zIndex: "101",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

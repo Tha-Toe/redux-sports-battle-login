@@ -217,7 +217,10 @@ export default function WidthDrawCash({
                     alignItems: "center",
                   }}
                 >
-                  <img src="/credit-card1.png" className="chooseIcon" />
+                  <img
+                    src="/credit-card1.svg"
+                    className="chooseIcon svg-blue"
+                  />
                   <Box
                     sx={{
                       display: "flex",
@@ -321,7 +324,10 @@ export default function WidthDrawCash({
                     alignItems: "center",
                   }}
                 >
-                  <img src="/credit-card1.png" className="chooseIcon" />
+                  <img
+                    src="/credit-card1.svg"
+                    className="chooseIcon svg-blue"
+                  />
                   <Box
                     sx={{
                       display: "flex",
@@ -503,6 +509,7 @@ export default function WidthDrawCash({
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              borderRadius: "8px",
             }}
           >
             <Box
