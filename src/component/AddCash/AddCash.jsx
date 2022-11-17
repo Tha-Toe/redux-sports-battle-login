@@ -176,8 +176,17 @@ export default function AddCash({ mode }) {
                 outline: "none",
               }}
               onChange={(e) => {
-                setShowLimit(true);
-                setBonus(e.target.valueAsNumber);
+                if (e.target.valueAsNumber !== e.target.valueAsNumber) {
+                  setBonus(0);
+                  setShowLimit(false);
+                } else {
+                  setBonus(e.target.valueAsNumber);
+                  if (e.target.valueAsNumber >= 500) {
+                    setShowLimit(true);
+                  } else {
+                    setShowLimit(false);
+                  }
+                }
               }}
             />
             {showLimit && (
@@ -205,7 +214,7 @@ export default function AddCash({ mode }) {
           }}
         >
           You will receive: ${firstDeposit ? Bonus : Bonus ? Bonus * 2 : 0}{" "}
-          (Bonus: ${firstDeposit ? 0 : Bonus ? Bonus : 0})
+          {!firstDeposit && `(Bonus: $${Bonus ? Bonus : 0})`}
         </Typography>
         <Typography
           sx={{
