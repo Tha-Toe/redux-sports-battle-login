@@ -68,69 +68,73 @@ export const onSportsCounterUpdate = async ({
 }) => {
   const q = doc(db, "oc_configurations", "sports_counter");
   onSnapshot(q, (querySnapshot) => {
-    var allsports = [];
-    getAllSports()
-      .then((result) => {
-        if (result) {
-          console.log(result);
-          if (result.length > 0) {
-            result.forEach((x) => {
-              if (x.code !== "home" && x.activeSw) {
-                allsports.push(x);
-              }
-            });
-            dispatch(addSportDataCommingFromApi(allsports));
+    if (querySnapshot) {
+      var allsports = [];
+      getAllSports()
+        .then((result) => {
+          if (result) {
+            console.log(result);
+            if (result.length > 0) {
+              result.forEach((x) => {
+                if (x.code !== "home" && x.activeSw) {
+                  allsports.push(x);
+                }
+              });
+              dispatch(addSportDataCommingFromApi(allsports));
+            }
+            //console.log(allsports);
+            localStorage.setItem("all_sports", JSON.stringify(result));
+            preventDoubleCall = true;
+          } else {
+            // console.log("null");
+            preventDoubleCall = true;
           }
-          //console.log(allsports);
-          localStorage.setItem("all_sports", JSON.stringify(result));
-          preventDoubleCall = true;
-        } else {
-          // console.log("null");
-          preventDoubleCall = true;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   });
 };
 export const onPropsOUCounterUpdate = async ({ dispatch }) => {
   const q = doc(db, "oc_configurations", "props_ou_counter");
   onSnapshot(q, async (querySnapshot) => {
-    let allSports = JSON.parse(localStorage.getItem("all_sports"));
-    if (allSports && allSports.length > 0) {
-      let count = 0;
-      for (let i = 0; i < allSports.length; i++) {
-        let x = allSports[i];
-        if (x.code != "home" && x.activeSw) {
-          if (i == 1) {
-            try {
-              let result = await getPropsSport(x.code);
-              count++;
-              // console.log(result);
-              dispatch(addPropsDataCommingFromApi(result));
-              if (count > 0) {
-                dispatch(setPropsApiCallComplete(true));
-              }
-            } catch (err) {
-              console.log(err);
-            }
-          } else {
-            getPropsSport(x.code)
-              .then((result) => {
+    if (querySnapshot) {
+      let allSports = JSON.parse(localStorage.getItem("all_sports"));
+      if (allSports && allSports.length > 0) {
+        let count = 0;
+        for (let i = 0; i < allSports.length; i++) {
+          let x = allSports[i];
+          if (x.code != "home" && x.activeSw) {
+            if (i == 1) {
+              try {
+                let result = await getPropsSport(x.code);
                 count++;
-                //console.log(result);
+                // console.log(result);
                 dispatch(addPropsDataCommingFromApi(result));
                 if (count > 0) {
                   dispatch(setPropsApiCallComplete(true));
                 }
-              })
-              .catch((err) => {
+              } catch (err) {
                 console.log(err);
-              });
+              }
+            } else {
+              getPropsSport(x.code)
+                .then((result) => {
+                  count++;
+                  //console.log(result);
+                  dispatch(addPropsDataCommingFromApi(result));
+                  if (count > 0) {
+                    dispatch(setPropsApiCallComplete(true));
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          } else {
+            count++;
           }
-        } else {
-          count++;
         }
       }
     }
@@ -701,6 +705,46 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   };
   const user = useSelector((state) => state.user.user);
   const fs = useSelector((state) => state.user.fs);
+
+  //handle inactive
+  // let timeout = null;
+  // let localStorageUser = JSON.parse(localStorage.getItem("user"));
+  // const callLogoutFunc = () => {
+  //   if (localStorageUser) {
+  //     logOut();
+  //   }
+  // };
+
+  // const restartAutoReset = () => {
+  //   if (timeout) {
+  //     clearTimeout(timeout);
+  //   }
+  //   timeout = setTimeout(() => {
+  //     callLogoutFunc();
+  //   }, 600000);
+  // };
+
+  // useEffect(() => {
+  //   restartAutoReset();
+  //   if (localStorageUser) {
+  //     window.addEventListener("mousemove", restartAutoReset);
+  //     window.addEventListener("click", restartAutoReset);
+  //     window.addEventListener("keypress", restartAutoReset);
+  //   } else {
+  //     window.removeEventListener("mousemove", restartAutoReset);
+  //     window.removeEventListener("click", restartAutoReset);
+  //     window.removeEventListener("keypress", restartAutoReset);
+  //   }
+  //   return () => {
+  //     if (timeout) {
+  //       clearTimeout(timeout);
+  //       window.removeEventListener("mousemove", restartAutoReset);
+  //       window.removeEventListener("click", restartAutoReset);
+  //       window.removeEventListener("keypress", restartAutoReset);
+  //     }
+  //   };
+  // }, [localStorageUser, location]);
+
   return (
     <div className="logged-container" ref={homeContainerRef}>
       {updatingUserDetail && <LoadingSpinner />}
