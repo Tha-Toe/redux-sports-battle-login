@@ -245,6 +245,7 @@ export default function MyProfile({
         setOpenTag={setOpenTag}
         callProfileApi={callProfileApi}
         updateGetUserById={updateGetUserById}
+        setPhoneNumber={setPhoneNumber}
       />
     );
   } else if (openTag === "account-setup") {

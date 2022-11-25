@@ -6,7 +6,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { APIURLs } from "../../api/ApiUrls";
-import { makeGETAPICall } from "../../api/methods";
+import { makeGETAPICall, makePOSTAPICall } from "../../api/methods";
 import "./verifycationCode.css";
 export default function AddPhoneNumber({
   setOpenTag,
@@ -16,8 +16,9 @@ export default function AddPhoneNumber({
   setClickedRefral,
 }) {
   const fs = useSelector((state) => state.user.fs);
-  const [exists, setExists] = useState(false);
+  const [exists, setExists] = useState(null);
   const [startButtonAnimation, setStartButtonAnimation] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
   const goToVerifyCodePage = async () => {
     if (phoneNumber) {
       setStartButtonAnimation(true);
@@ -25,12 +26,19 @@ export default function AddPhoneNumber({
         .then((res) => {
           if (res.exists && res.exists) {
             console.log(res);
-            setExists(true);
+            setExists("Phone number already exists on another account.");
             setStartButtonAnimation(false);
           } else {
             console.log(res);
-            setStartButtonAnimation(false);
-            setOpenTag("verifycation-code");
+            postSendSms(user.uid, phoneNumber).then((response) => {
+              if (response.status === "success") {
+                setStartButtonAnimation(false);
+                setOpenTag("verifycation-code");
+              } else {
+                setStartButtonAnimation(false);
+                setExists(response.errorMsg);
+              }
+            });
           }
         })
         .catch((err) => {
@@ -142,7 +150,7 @@ export default function AddPhoneNumber({
         type="number"
         onChange={(e) => {
           setPhoneNumber(e.target.value);
-          setExists(false);
+          setExists(null);
         }}
       />
       {exists && (
@@ -151,12 +159,12 @@ export default function AddPhoneNumber({
             fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
             fontFamily: "poppins",
             fontWeight: 400,
-            color: "red",
+            color: "#E4313C",
             mt: "13px",
             width: "100%",
           }}
         >
-          Phone number already exists.
+          {exists}
         </Typography>
       )}
       {phoneNumber && phoneNumber.length === 10 && (
@@ -215,7 +223,7 @@ export const postSendSms = async (userId, phoneNumber) => {
 
   var reqBody = {
     phoneNumber: phoneNumber,
-    userId: userId
+    userId: userId,
   };
   //console.log(apiUrl);
   const apiResponse = await makePOSTAPICall(apiUrl, reqBody);

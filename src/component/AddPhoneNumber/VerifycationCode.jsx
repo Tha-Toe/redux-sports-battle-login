@@ -22,20 +22,27 @@ export default function VerifycationCode({
   updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState(false);
+  const [resendingCode, setResendingCode] = useState(false);
   const [startButtonAnimation, setStartButtonAnimation] = useState(false);
   const [codeIncorrect, setCodeIncorrect] = useState(false);
+  const [verifyCode, setVerifyCode] = useState(null);
+
   const resendCode = async () => {
-    if (phoneNumber && count < 1) {
-      setLoading(true);
-      getAddPhone(phoneNumber)
+    if (phoneNumber && count < 1 && !startButtonAnimation) {
+      setVerifyCode(null);
+      setResendingCode(true);
+      postSendSms(user.uid, phoneNumber)
         .then((res) => {
-          if (res.exists && res.exists) {
-            setOpenTag("add-phone-number");
-            setLoading(false);
+          if (res.status === "success") {
+            console.log("code resend success");
+            setCodeIncorrect(false);
+            setResendingCode(false);
+            setCount(30);
           } else {
-            setLoading(false);
+            setOpenTag("add-phone-number");
+            setResendingCode(false);
           }
         })
         .catch((err) => {
@@ -45,7 +52,6 @@ export default function VerifycationCode({
         });
     }
   };
-  let user = JSON.parse(localStorage.getItem("user"));
   const goToVerifyCodePage = () => {
     if (verifyCode && phoneNumber && user) {
       setStartButtonAnimation(true);
@@ -67,7 +73,6 @@ export default function VerifycationCode({
         });
     }
   };
-  const [verifyCode, setVerifyCode] = useState(null);
   const [count, setCount] = useState(30);
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -142,7 +147,10 @@ export default function VerifycationCode({
               mt: "15px",
               cursor: "pointer",
             }}
-            onClick={() => setOpenTag("add-phone-number")}
+            onClick={() => {
+              setPhoneNumber(null);
+              setOpenTag("add-phone-number");
+            }}
           >
             <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
             <Typography
@@ -159,7 +167,10 @@ export default function VerifycationCode({
           </Box>
           <ClearIcon
             sx={{ color: "secondary.dark_gray", cursor: "pointer" }}
-            onClick={() => setOpenTag("profile")}
+            onClick={() => {
+              setPhoneNumber(null);
+              setOpenTag("profile");
+            }}
           />
         </Box>
         <Typography
@@ -206,6 +217,56 @@ export default function VerifycationCode({
             setCodeIncorrect(false);
           }}
         />
+        {verify && (
+          <Box
+            sx={{
+              width: "100%",
+              mt: "24px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <CheckIcon sx={{ color: "#52C03C" }} />
+            <Typography
+              sx={{
+                color: "#52C03C",
+                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
+                ml: { xs: "21px", xxxs: "10px" },
+                fontWeight: 400,
+                fontFamily: "poppins",
+              }}
+            >
+              Your mobile number has been verified successfully
+            </Typography>
+          </Box>
+        )}
+        {codeIncorrect && (
+          <Box
+            sx={{
+              width: "100%",
+              mt: "24px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <ClearIcon sx={{ color: "#E4313C" }} />
+            <Typography
+              sx={{
+                color: "#E4313C",
+                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
+                ml: { xs: "21px", xxxs: "10px" },
+                fontWeight: 400,
+                fontFamily: "poppins",
+              }}
+            >
+              Verification code incorrect{" "}
+            </Typography>
+          </Box>
+        )}
         <Box
           sx={{
             width: "100%",
@@ -236,7 +297,15 @@ export default function VerifycationCode({
               resendCode();
             }}
           >
-            Resend Code {count > 0 && `(${count}s)`}
+            {resendingCode ? (
+              <div className="circleSubmitContainer">
+                <div className="circle-one"></div>
+                <div className="circle-two"></div>
+                <div className="circle-three"></div>
+              </div>
+            ) : (
+              `Resend Code ${count > 0 ? "(" + count + "s)" : ""}`
+            )}
           </Button>
           <Button
             sx={{
@@ -266,61 +335,12 @@ export default function VerifycationCode({
             )}
           </Button>
         </Box>
-        {verify && (
-          <Box
-            sx={{
-              width: "100%",
-              mt: "30px",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <CheckIcon sx={{ color: "#52C03C" }} />
-            <Typography
-              sx={{
-                color: "#52C03C",
-                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
-                ml: { xs: "21px", xxxs: "10px" },
-                fontWeight: 400,
-                fontFamily: "poppins",
-              }}
-            >
-              Your mobile number has been verified successfully
-            </Typography>
-          </Box>
-        )}
-        {codeIncorrect && (
-          <Box
-            sx={{
-              width: "100%",
-              mt: "30px",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <ClearIcon sx={{ color: "#E4313C" }} />
-            <Typography
-              sx={{
-                color: "#E4313C",
-                fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
-                ml: { xs: "21px", xxxs: "10px" },
-                fontWeight: 400,
-                fontFamily: "poppins",
-              }}
-            >
-              Verification code incorrect{" "}
-            </Typography>
-          </Box>
-        )}
       </Box>
     );
   }
 }
 
+//check phone number already exist or not
 export const getAddPhone = async (phonenumber) => {
   var apiUrl = APIURLs.getAddPhone;
   apiUrl = apiUrl.replace("{phonenumber}", phonenumber);
@@ -329,6 +349,26 @@ export const getAddPhone = async (phonenumber) => {
     return apiResponse.data;
   } else {
     return null;
+  }
+};
+
+//send sms
+export const postSendSms = async (userId, phoneNumber) => {
+  var apiUrl = APIURLs.postSendSms;
+
+  var reqBody = {
+    phoneNumber: phoneNumber,
+    userId: userId,
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
   }
 };
 
