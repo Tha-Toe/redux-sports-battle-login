@@ -73,6 +73,9 @@ export const getRefHistory = ocApiGatewayusers + 'id/{userId}/referrals';
 //get add phone number
 export const getAddPhone = ocApiGatewayusers + 'phone/{phonenumber}';
 
+//post send sms
+export const postSendSms = ocApiGatewayPayment + 'sms/new';
+
 //post verify sms
 export const postVerifySms = ocApiGatewayPayment + 'sms/verify';
 

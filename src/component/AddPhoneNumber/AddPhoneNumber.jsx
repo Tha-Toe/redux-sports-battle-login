@@ -207,3 +207,24 @@ export const getAddPhone = async (phonenumber) => {
     return null;
   }
 };
+
+//send sms
+
+export const postSendSms = async (userId, phoneNumber) => {
+  var apiUrl = APIURLs.postSendSms;
+
+  var reqBody = {
+    phoneNumber: phoneNumber,
+    userId: userId
+  };
+  //console.log(apiUrl);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return {
+      status: "failed",
+      errorMsg: "Error occurred, Please try later.",
+    };
+  }
+};
