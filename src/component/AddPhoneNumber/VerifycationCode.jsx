@@ -281,7 +281,7 @@ export default function VerifycationCode({
             sx={{
               py: "14px",
               background: "#000000",
-              color: "white",
+              color: `${count < 1 ? "#fafafa" : " #494949"}`,
               textTransform: "none",
               borderRadius: "8px",
               "&.MuiButtonBase-root:hover": {
@@ -290,7 +290,9 @@ export default function VerifycationCode({
               fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
               fontWeight: 600,
               fontFamily: "poppins",
-              border: "1px solid #fafafa",
+              border: `${
+                count < 1 ? "1px solid #fafafa" : "1px solid #494949"
+              }`,
               width: "45%",
             }}
             onClick={() => {
