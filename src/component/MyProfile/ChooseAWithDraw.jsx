@@ -8,7 +8,10 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useSelector } from "react-redux";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-export default function ChooseAWithDraw({ setOpenTag }) {
+export default function ChooseAWithDraw({
+  setOpenTag,
+  setAlreadyChooseWithDraw,
+}) {
   const fs = useSelector((state) => state.user.fs);
   const openStandardECheck = () => {
     setOpenTag("standardECheck");
@@ -16,7 +19,10 @@ export default function ChooseAWithDraw({ setOpenTag }) {
   const openPaperECheck = () => {
     setOpenTag("paperECheck");
   };
-
+  const openDirectDeposit = () => {
+    setAlreadyChooseWithDraw("direct-deposit");
+    setOpenTag("WithDrawCash");
+  };
   const [chooseType, setChooseType] = useState([
     {
       icon: "/mailbox1.svg",
@@ -32,7 +38,9 @@ export default function ChooseAWithDraw({ setOpenTag }) {
       waitingTime: "Takes upto 3-5 business days",
       about:
         "Funds are directly deposited into your M4' bank account Make sure to provide your own bank information, transactions will fail otherwise",
+      func: openDirectDeposit,
     },
+
     {
       icon: "/check1.svg",
       name: "Standard eCheck",
@@ -74,7 +82,7 @@ export default function ChooseAWithDraw({ setOpenTag }) {
           cursor: "pointer",
           mb: "31px",
         }}
-        onClick={() => setOpenTag("WidthDrawCash")}
+        onClick={() => setOpenTag("WithDrawCash")}
       >
         <ArrowBackIosNewIcon sx={{ color: "secondary.dark_gray" }} />
         <Typography

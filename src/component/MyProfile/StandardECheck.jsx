@@ -9,9 +9,14 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useSelector } from "react-redux";
 export default function StandardECheck({
   setOpenTag,
-  setAlreadyChooseWidthDraw,
+  setAlreadyChooseWithDraw,
 }) {
   const fs = useSelector((state) => state.user.fs);
+  const myAccountDataCommingFromApi = useSelector(
+    (state) => state.user.myAccountDataCommingFromApi
+  );
+  const user = useSelector((state) => state.user.user);
+
   return (
     <Box
       sx={{
@@ -92,6 +97,7 @@ export default function StandardECheck({
           mb: "11px",
           cursor: "pointer",
         }}
+        onClick={() => setOpenTag("chooseAWithdrawMethod")}
       >
         <Box
           sx={{
@@ -194,7 +200,7 @@ export default function StandardECheck({
             ml: "8px",
           }}
         >
-          PHANI GUNDAMRAJ{" "}
+          {myAccountDataCommingFromApi && myAccountDataCommingFromApi.name}
         </Typography>
       </Box>
       <Box
@@ -226,7 +232,7 @@ export default function StandardECheck({
             ml: "8px",
           }}
         >
-          dattaganeshan@gmail.com{" "}
+          {user && user.email}
         </Typography>
       </Box>
       <Button
@@ -245,8 +251,8 @@ export default function StandardECheck({
           textTransform: "none",
         }}
         onClick={() => {
-          setAlreadyChooseWidthDraw("standard-eCheck");
-          setOpenTag("WidthDrawCash");
+          setAlreadyChooseWithDraw("standard-eCheck");
+          setOpenTag("WithDrawCash");
         }}
       >
         Choose Standard eCheck

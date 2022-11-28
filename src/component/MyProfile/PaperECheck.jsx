@@ -12,7 +12,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useSelector } from "react-redux";
 export default function PaperECheck({
   setOpenTag,
-  setAlreadyChooseWidthDraw,
+  setAlreadyChooseWithDraw,
   address,
 }) {
   const fs = useSelector((state) => state.user.fs);
@@ -100,6 +100,7 @@ export default function PaperECheck({
           mb: "11px",
           cursor: "pointer",
         }}
+        onClick={() => setOpenTag("chooseAWithdrawMethod")}
       >
         <Box
           sx={{
@@ -251,34 +252,47 @@ export default function PaperECheck({
               width: { md: "25%", xs: "40%", xxxs: "60%" },
             }}
           >
-            {address ? address : "Select your address"}
+            {address
+              ? address.address.addrLine1 +
+                " " +
+                address.address.addrLine2 +
+                " " +
+                address.address.addrCity +
+                ", " +
+                address.address.addrState +
+                ", " +
+                address.address.addrZip
+              : "Select your address"}{" "}
           </Typography>
         </Box>
         <ArrowForwardIosIcon sx={{ width: "10%", color: "white" }} />
       </Box>
-
-      <Button
-        sx={{
-          fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
-          fontWeight: 600,
-          fontFamily: "poppins",
-          color: "white",
-          background: "#4831D4",
-          padding: { xs: "14px 77px", xxxs: "10px 60px" },
-          mt: "32px",
-          borderRadius: "8px",
-          "&.MuiButtonBase-root:hover": {
+      {address && (
+        <Button
+          sx={{
+            fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },
+            fontWeight: 600,
+            fontFamily: "poppins",
+            color: "white",
             background: "#4831D4",
-          },
-          textTransform: "none",
-        }}
-        onClick={() => {
-          setAlreadyChooseWidthDraw("paper-eCheck");
-          setOpenTag("WidthDrawCash");
-        }}
-      >
-        Choose Paper eCheck{" "}
-      </Button>
+            padding: { xs: "14px 77px", xxxs: "10px 60px" },
+            mt: "32px",
+            borderRadius: "8px",
+            "&.MuiButtonBase-root:hover": {
+              background: "#4831D4",
+            },
+            textTransform: "none",
+          }}
+          onClick={() => {
+            if (address) {
+              setAlreadyChooseWithDraw("paper-eCheck");
+              setOpenTag("WithDrawCash");
+            }
+          }}
+        >
+          Choose Paper eCheck{" "}
+        </Button>
+      )}
       <Typography
         sx={{
           fontSize: { sm: fs.small, xxs: fs.xs, xxxs: fs.xxs },

@@ -13,17 +13,24 @@ import { APIURLs } from "../../api/ApiUrls";
 import { makePOSTAPICall, makeGETAPICall } from "../../api/methods";
 import FailAddAddress from "./FailAddAddress";
 
-export default function AddAddress({ setAddress, mode }) {
+export default function AddAddress({
+  setAddress,
+  mode,
+  openInMyAccount,
+  setOpenTag,
+}) {
   const dispatch = useDispatch();
   const fs = useSelector((state) => state.user.fs);
   let navigate = useNavigate();
   const goAddress = () => {
-    navigate("/home?deposit=new&page=address", { replace: true });
+    if (openInMyAccount) {
+      setOpenTag("select-address-paper-check");
+    } else {
+      navigate("/home?deposit=new&page=address", { replace: true });
+    }
   };
   const [openStatePicker, setOpenStatePicker] = useState(false);
-  const goDepositForm = () => {
-    navigate("/home?deposit=new&page=form", { replace: true });
-  };
+
   const [stateData, setStateData] = useState([]);
   useEffect(() => {
     console.log("call");
@@ -140,7 +147,11 @@ export default function AddAddress({ setAddress, mode }) {
         .then((result) => {
           if (result) {
             setShowLoadingButton(false);
-            navigate("/home?deposit=new&page=address", { replace: true });
+            if (openInMyAccount) {
+              setOpenTag("select-address-paper-check");
+            } else {
+              navigate("/home?deposit=new&page=address", { replace: true });
+            }
           }
         })
         .catch((error) => {

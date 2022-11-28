@@ -30,6 +30,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Box

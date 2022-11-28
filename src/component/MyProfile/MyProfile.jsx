@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ProfileComplete from "./ProfileComplete";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import WidthDrawCash from "./WidthDrawCash";
+import WithDrawCash from "./WithDrawCash";
 import ChooseAWithDraw from "./ChooseAWithDraw";
 import StandardECheck from "./StandardECheck";
 import MyWithDraw from "./MyWithDraw";
@@ -22,6 +22,7 @@ import AccountSetup from "./AccountSetup";
 import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSection";
 import { useSelector } from "react-redux";
 import { addPropsDataCommingFromApi } from "../../feature/userSlice";
+import AddAddress from "../Identity/AddAddress";
 export default function MyProfile({
   mode,
   myProfileOpen,
@@ -63,8 +64,8 @@ export default function MyProfile({
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vulputate amet aliquet ",
     },
   ]);
-  const openWidthDrawCash = () => {
-    setOpenTag("WidthDrawCash");
+  const openWithDrawCash = () => {
+    setOpenTag("WithDrawCash");
   };
   const openMyWithDraw = () => {
     setOpenTag("myWithDraw");
@@ -92,7 +93,7 @@ export default function MyProfile({
     {
       name: "Withdraw Cash",
       note: "Credit Card (Visa, Master, Discover)",
-      func: openWidthDrawCash,
+      func: openWithDrawCash,
       icon: "/deposit1.svg",
     },
     {
@@ -127,7 +128,7 @@ export default function MyProfile({
     },
   ]);
 
-  const [alreadyChooseWidthDraw, setAlreadyChooseWidthDraw] = useState(null);
+  const [alreadyChooseWithDraw, setAlreadyChooseWithDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);
 
   const [address, setAddress] = useState(null);
@@ -192,28 +193,40 @@ export default function MyProfile({
       setOpenTag("add-phone-number");
     }
   };
-  if (openTag === "WidthDrawCash") {
+
+  // withdrawcash
+  const [enterDollarAmount, setEnterDollarAmount] = useState(null);
+
+  if (openTag === "WithDrawCash") {
     return (
-      <WidthDrawCash
+      <WithDrawCash
         setOpenTag={setOpenTag}
-        alreadyChooseWidthDraw={alreadyChooseWidthDraw}
+        alreadyChooseWithDraw={alreadyChooseWithDraw}
         mode={mode}
+        enterDollarAmount={enterDollarAmount}
+        setEnterDollarAmount={setEnterDollarAmount}
+        address={address}
       />
     );
   } else if (openTag === "chooseAWithdrawMethod") {
-    return <ChooseAWithDraw setOpenTag={setOpenTag} />;
+    return (
+      <ChooseAWithDraw
+        setOpenTag={setOpenTag}
+        setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
+      />
+    );
   } else if (openTag === "standardECheck") {
     return (
       <StandardECheck
         setOpenTag={setOpenTag}
-        setAlreadyChooseWidthDraw={setAlreadyChooseWidthDraw}
+        setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
       />
     );
   } else if (openTag === "paperECheck") {
     return (
       <PaperECheck
         setOpenTag={setOpenTag}
-        setAlreadyChooseWidthDraw={setAlreadyChooseWidthDraw}
+        setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
         address={address}
         setAddress={setAddress}
       />
@@ -224,6 +237,10 @@ export default function MyProfile({
         setOpenTag={setOpenTag}
         setAddress={setAddress}
       />
+    );
+  } else if (openTag === "addAddress") {
+    return (
+      <AddAddress mode={mode} openInMyAccount={true} setOpenTag={setOpenTag} />
     );
   } else if (openTag === "myWithDraw") {
     return <MyWithDraw mode={mode} setOpenTag={setOpenTag} />;

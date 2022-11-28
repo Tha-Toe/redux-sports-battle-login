@@ -36,6 +36,7 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: "8px",
         }}
       >
         <Box
