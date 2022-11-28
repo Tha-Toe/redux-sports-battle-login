@@ -23,6 +23,9 @@ import LoadingSpinnerEachSection from "../loadingSpinner/LoadingSpinnerEachSecti
 import { useSelector } from "react-redux";
 import { addPropsDataCommingFromApi } from "../../feature/userSlice";
 import AddAddress from "../Identity/AddAddress";
+import { APIURLs } from "../../api/ApiUrls";
+import { makeGETAPICall } from "../../api/methods";
+
 export default function MyProfile({
   mode,
   myProfileOpen,
@@ -64,8 +67,22 @@ export default function MyProfile({
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vulputate amet aliquet ",
     },
   ]);
-  const openWithDrawCash = () => {
+  const [withdrawCashData, setWithdrawCashData] = useState(null);
+  const openWithDrawCash = async () => {
+    setWithdrawCashData(null);
     setOpenTag("WithDrawCash");
+    await getWithdrawCashFunc()
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          setWithdrawCashData(res);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
   };
   const openMyWithDraw = () => {
     setOpenTag("myWithDraw");
@@ -195,7 +212,7 @@ export default function MyProfile({
   };
 
   // withdrawcash
-  const [enterDollarAmount, setEnterDollarAmount] = useState(null);
+  const [enterDollarAmount, setEnterDollarAmount] = useState("");
 
   if (openTag === "WithDrawCash") {
     return (
@@ -206,6 +223,7 @@ export default function MyProfile({
         enterDollarAmount={enterDollarAmount}
         setEnterDollarAmount={setEnterDollarAmount}
         address={address}
+        withdrawCashData={withdrawCashData}
       />
     );
   } else if (openTag === "chooseAWithdrawMethod") {
@@ -1417,3 +1435,15 @@ export default function MyProfile({
     );
   }
 }
+
+//get withdraw cash
+export const getWithdrawCashFunc = async () => {
+  var apiUrl = APIURLs.getWithdrawCash;
+  // apiUrl = apiUrl.replace("{propId}", propId);
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
