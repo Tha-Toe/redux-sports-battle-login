@@ -40,6 +40,7 @@ export default function MyProfile({
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [openTag, setOpenTag] = useState("profile");
+  const [enterDollarAmount, setEnterDollarAmount] = useState("");
 
   const [wallet, setWallet] = useState([
     {
@@ -68,9 +69,13 @@ export default function MyProfile({
     },
   ]);
   const [withdrawCashData, setWithdrawCashData] = useState(null);
+  const [alreadyChooseWithDraw, setAlreadyChooseWithDraw] = useState(null);
   const openWithDrawCash = async () => {
     setWithdrawCashData(null);
+    setAlreadyChooseWithDraw(null);
     setOpenTag("WithDrawCash");
+    setEnterDollarAmount("");
+    setAddress(null);
     await getWithdrawCashFunc()
       .then((res) => {
         if (res) {
@@ -145,7 +150,6 @@ export default function MyProfile({
     },
   ]);
 
-  const [alreadyChooseWithDraw, setAlreadyChooseWithDraw] = useState(null);
   const [openReferalHistory, setOpenReferalHistory] = useState(false);
 
   const [address, setAddress] = useState(null);
@@ -212,7 +216,24 @@ export default function MyProfile({
   };
 
   // withdrawcash
-  const [enterDollarAmount, setEnterDollarAmount] = useState("");
+  const [withdrawMethod, setWithdrawMethod] = useState([]);
+
+  const [paperCheckData, setPaperCheckData] = useState(null);
+  const [standardECheckData, setStandardCheckData] = useState(null);
+  const [directDepositData, setDirectDepositData] = useState(null);
+  useEffect(() => {
+    if (withdrawMethod.length > 0) {
+      let paperArray = withdrawMethod.map((each) => {
+        if (each.type === "mailbox") {
+          setPaperCheckData(each);
+        } else if (each.type === "bank-plus") {
+          setDirectDepositData(each);
+        } else {
+          setStandardCheckData(each);
+        }
+      });
+    }
+  }, [withdrawMethod]);
 
   if (openTag === "WithDrawCash") {
     return (
@@ -230,7 +251,11 @@ export default function MyProfile({
     return (
       <ChooseAWithDraw
         setOpenTag={setOpenTag}
+        enterDollarAmount={enterDollarAmount}
         setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
+        withdrawMethod={withdrawMethod}
+        setWithdrawMethod={setWithdrawMethod}
+        setAddress={setAddress}
       />
     );
   } else if (openTag === "standardECheck") {
@@ -238,6 +263,8 @@ export default function MyProfile({
       <StandardECheck
         setOpenTag={setOpenTag}
         setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
+        withdrawMethod={withdrawMethod}
+        standardECheckData={standardECheckData}
       />
     );
   } else if (openTag === "paperECheck") {
@@ -247,6 +274,8 @@ export default function MyProfile({
         setAlreadyChooseWithDraw={setAlreadyChooseWithDraw}
         address={address}
         setAddress={setAddress}
+        withdrawMethod={withdrawMethod}
+        paperCheckData={paperCheckData}
       />
     );
   } else if (openTag === "select-address-paper-check") {

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 export default function StandardECheck({
   setOpenTag,
   setAlreadyChooseWithDraw,
+  standardECheckData,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const myAccountDataCommingFromApi = useSelector(
@@ -127,7 +128,7 @@ export default function StandardECheck({
                 mb: "4px",
               }}
             >
-              Standard eCheck{" "}
+              {standardECheckData?.name}
             </Typography>
             <Typography
               sx={{
@@ -139,7 +140,7 @@ export default function StandardECheck({
                 mb: "4px",
               }}
             >
-              Under 24 hours{" "}
+              {standardECheckData?.subtext}
             </Typography>
             <Typography
               sx={{
@@ -151,9 +152,7 @@ export default function StandardECheck({
                 mb: "4px",
               }}
             >
-              An eCheck is emailed within 3-5 business P days to your email
-              address. You can print this check and deposit at the bank in your
-              preferred way.{" "}
+              {standardECheckData?.description}
             </Typography>
           </Box>
         </Box>

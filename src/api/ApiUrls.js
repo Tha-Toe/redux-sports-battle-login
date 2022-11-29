@@ -22,6 +22,7 @@ import {
   getWithdrawHistory,
   postRedeemCode,
   getWithdrawCash,
+  getWithdrawMethod,
 } from "./APIbase";
 
 var APIURLs = {
@@ -48,6 +49,7 @@ var APIURLs = {
   getWithdrawHistory,
   postRedeemCode,
   getWithdrawCash,
+  getWithdrawMethod,
 };
 
 export { APIURLs };

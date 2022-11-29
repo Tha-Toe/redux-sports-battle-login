@@ -14,6 +14,8 @@ export default function PaperECheck({
   setOpenTag,
   setAlreadyChooseWithDraw,
   address,
+  withdrawMethod,
+  paperCheckData,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const goSelectAddressPaperCheck = () => {
@@ -130,7 +132,7 @@ export default function PaperECheck({
                 mb: "4px",
               }}
             >
-              Paper Check{" "}
+              {paperCheckData?.name}
             </Typography>
             <Typography
               sx={{
@@ -142,7 +144,7 @@ export default function PaperECheck({
                 mb: "4px",
               }}
             >
-              Takes upto 7-10 business days{" "}
+              {paperCheckData?.subtext}
             </Typography>
             <Typography
               sx={{
@@ -154,8 +156,7 @@ export default function PaperECheck({
                 mb: "4px",
               }}
             >
-              A paper check on your name is mailed to your address that can be
-              used to deposit at the bank in your preferred way.
+              {paperCheckData?.description}
             </Typography>
           </Box>
         </Box>

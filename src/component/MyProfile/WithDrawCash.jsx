@@ -443,32 +443,34 @@ export default function WithDrawCash({
                         >
                           Withdrawing to Paper Check{" "}
                         </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: {
-                              sm: fs.small,
-                              xxs: fs.xs,
-                              xxxs: fs.xxs,
-                            },
-                            fontWeight: 400,
-                            fontFamily: "poppins",
-                            color: "secondary.dark_gray",
-                            width: "100%",
-                            mb: "4px",
-                            width: { sm: "40%", xxxs: "80%" },
-                          }}
-                        >
-                          Standard Paper Check delivery to{" "}
-                          {address.address.addrLine1 +
-                            " " +
-                            address.address.addrLine2 +
-                            " " +
-                            address.address.addrCity +
-                            ", " +
-                            address.address.addrState +
-                            ", " +
-                            address.address.addrZip}
-                        </Typography>
+                        {address && (
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                sm: fs.small,
+                                xxs: fs.xs,
+                                xxxs: fs.xxs,
+                              },
+                              fontWeight: 400,
+                              fontFamily: "poppins",
+                              color: "secondary.dark_gray",
+                              width: "100%",
+                              mb: "4px",
+                              width: { sm: "40%", xxxs: "80%" },
+                            }}
+                          >
+                            Standard Paper Check delivery to{" "}
+                            {address.address.addrLine1 +
+                              " " +
+                              address.address.addrLine2 +
+                              " " +
+                              address.address.addrCity +
+                              ", " +
+                              address.address.addrState +
+                              ", " +
+                              address.address.addrZip}
+                          </Typography>
+                        )}
                       </Box>
                     </Box>
                     <ArrowForwardIosIcon />

@@ -81,3 +81,7 @@ export const postRedeemCode = ocApiGatewayusers + "redeem/code";
 
 //get withdraw cash
 export const getWithdrawCash = ocApiGatewayPayment + "options/Withdraw";
+
+//get withdraw method
+export const getWithdrawMethod =
+  ocApiGatewayPayment + "options/withdraw/{amount}";
