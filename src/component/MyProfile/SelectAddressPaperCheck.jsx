@@ -31,9 +31,9 @@ export default function SelectAddressPaperCheck({ setAddress, setOpenTag }) {
     if (user) {
       getUserAddress(user.uid)
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           if (result.length > 0) {
-            console.log(result);
+            // console.log(result);
             dispatch(setAddressFromApi(result));
             setLoading(false);
           } else {
@@ -53,9 +53,9 @@ export default function SelectAddressPaperCheck({ setAddress, setOpenTag }) {
     if (user) {
       getUserAddress(user.uid)
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           if (result.length > 0) {
-            console.log(result);
+            // console.log(result);
             dispatch(setAddressFromApi(result));
             setLoading(false);
           } else {
@@ -181,7 +181,7 @@ export default function SelectAddressPaperCheck({ setAddress, setOpenTag }) {
                   onClick={() => {
                     setAddress(each);
                     setOpenTag("paperECheck");
-                    console.log(each);
+                    // console.log(each);
                   }}
                 >
                   <LocationOnIcon

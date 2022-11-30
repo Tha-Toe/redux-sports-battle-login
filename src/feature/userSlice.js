@@ -168,7 +168,7 @@ export const userSlice = createSlice({
       state.noProjection = action.payload;
     },
     setAddressFromApi: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.addressFromApi = action.payload;
     },
     addPropCartData: (state, action) => {
@@ -180,7 +180,7 @@ export const userSlice = createSlice({
     addUrlData: (state, action) => {
       state.urlData = action.payload;
     },
-    logoutUser: () => initialState
+    logoutUser: () => initialState,
   },
 });
 
@@ -219,7 +219,7 @@ export const {
   addPropCartData,
   addCurrentSportDataRedux,
   addUrlData,
-  logoutUser
+  logoutUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

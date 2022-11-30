@@ -79,7 +79,7 @@ export default function MyProfile({
     await getWithdrawCashFunc()
       .then((res) => {
         if (res) {
-          console.log(res);
+          // console.log(res);
           setWithdrawCashData(res);
         }
       })
@@ -245,6 +245,10 @@ export default function MyProfile({
         setEnterDollarAmount={setEnterDollarAmount}
         address={address}
         withdrawCashData={withdrawCashData}
+        paperCheckData={paperCheckData}
+        standardECheckData={standardECheckData}
+        directDepositData={directDepositData}
+        withdrawMethod={withdrawMethod}
       />
     );
   } else if (openTag === "chooseAWithdrawMethod") {

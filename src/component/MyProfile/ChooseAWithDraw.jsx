@@ -30,33 +30,6 @@ export default function ChooseAWithDraw({
     setAlreadyChooseWithDraw("direct-deposit");
     setOpenTag("WithDrawCash");
   };
-  const [chooseType, setChooseType] = useState([
-    {
-      icon: "/mailbox1.svg",
-      name: "Paper Check",
-      waitingTime: "Takes upto 7-10 business days",
-      about:
-        "A paper check on your name is mailed to your address that can be used to deposit at the bank in your preferred way. ",
-      func: openPaperECheck,
-    },
-    {
-      icon: "/bank1.svg",
-      name: "Direct Deposit ",
-      waitingTime: "Takes upto 3-5 business days",
-      about:
-        "Funds are directly deposited into your M4' bank account Make sure to provide your own bank information, transactions will fail otherwise",
-      func: openDirectDeposit,
-    },
-
-    {
-      icon: "/check1.svg",
-      name: "Standard eCheck",
-      waitingTime: "Under 24 hours ",
-      about:
-        "An eCheck is emailed within 3-5 business P days to your email address. You can print this check and deposit at the bank in your preferred way.",
-      func: openStandardECheck,
-    },
-  ]);
 
   useEffect(() => {
     const getData = async () => {
@@ -64,7 +37,7 @@ export default function ChooseAWithDraw({
         setWithdrawMethod([]);
         await getWithdrawMethod(enterDollarAmount)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             setWithdrawMethod(res);
           })
           .catch((err) => {

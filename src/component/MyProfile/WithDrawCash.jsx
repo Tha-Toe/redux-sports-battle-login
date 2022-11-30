@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
 import "./profile.css";
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import ClearIcon from "@mui/icons-material/Clear";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Input } from "@mui/material";
@@ -24,27 +22,17 @@ export default function WithDrawCash({
   setEnterDollarAmount,
   enterDollarAmount,
   address,
+  paperCheckData,
+  standardECheckData,
+  directDepositData,
+  withdrawMethod,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const user = useSelector((state) => state.user.user);
+  const userDataFromLocalStorage = JSON.parse(localStorage.getItem("user"));
   const myAccountDataCommingFromApi = useSelector(
     (state) => state.user.myAccountDataCommingFromApi
   );
-  const [note, setNote] = useState([
-    {
-      note: "Once you request a withdrawal, it takes our Compliance Team around 1-2 business days to review it. ",
-    },
-    {
-      note: "Once approved, you will be notified to complete your withdrawal. ",
-    },
-    {
-      note: "When possible, we first refund all the deposits back to the card used. Any remaining balance after the deposits have been refunded will be delivered to your requested withdraw method. ",
-    },
-    {
-      note: "One time playthrough of deposit & bonus cash is required before requesting a withdrawal. ",
-    },
-    { note: "Minimum withdrawal is $20 " },
-  ]);
 
   const [exceed, setExceed] = useState(null);
   const exceedCheck = (e) => {
@@ -68,7 +56,53 @@ export default function WithDrawCash({
   const [wrong, setWrong] = useState(false);
 
   const openConfirm = () => {
-    setConfirm(true);
+    if (alreadyChooseWithDraw) {
+      setConfirm(true);
+      if (alreadyChooseWithDraw === "standard-eCheck") {
+        let standardECheckFormatData = {};
+        standardECheckFormatData.amount = Number(enterDollarAmount);
+        standardECheckFormatData.directDeposit = undefined;
+        standardECheckFormatData.email = myAccountDataCommingFromApi?.email;
+        standardECheckFormatData.name = standardECheckData.name;
+        standardECheckFormatData.serviceFee = standardECheckData.serviceFee;
+        standardECheckFormatData.type = standardECheckData.type;
+        standardECheckFormatData.userId = userDataFromLocalStorage.uid;
+        standardECheckFormatData.address = undefined;
+        standardECheckFormatData.selectedPayWithdrawOption = {
+          email: myAccountDataCommingFromApi?.email,
+          withdrawOption: standardECheckData,
+        };
+        console.log(standardECheckFormatData);
+      } else if (alreadyChooseWithDraw === "paper-eCheck") {
+        let paperCheckFormatData = {};
+        paperCheckFormatData.amount = Number(enterDollarAmount);
+        paperCheckFormatData.directDeposit = undefined;
+        paperCheckFormatData.email = myAccountDataCommingFromApi?.email;
+        paperCheckFormatData.name = paperCheckData.name;
+        paperCheckFormatData.serviceFee = paperCheckData.serviceFee;
+        paperCheckFormatData.type = paperCheckData.type;
+        paperCheckFormatData.userId = userDataFromLocalStorage.uid;
+        paperCheckFormatData.address = {
+          addrLine1: address.address.addrLine1,
+          addrLine2: address.address.addrLine2,
+          addrCity: address.address.addrCity,
+          addrZip: address.address.addrZip,
+          addrState: address.address.addrState,
+        };
+        paperCheckFormatData.selectedPayWithdrawOption = {
+          email: myAccountDataCommingFromApi?.email,
+          withdrawOption: paperCheckData,
+        };
+        console.log(paperCheckFormatData);
+      } else if (alreadyChooseWithDraw === "direct-deposit") {
+        // console.log("type : ", directDepositData.name);
+        // console.log("name : ", myAccountDataCommingFromApi?.name);
+        // console.log("email : ", myAccountDataCommingFromApi?.email);
+        // console.log("amount : $", enterDollarAmount);
+        // console.log("withdraw cash api res : ", withdrawCashData);
+        // console.log("method api res : ", withdrawMethod);
+      }
+    }
   };
 
   const [startAnimation, setStartAnimation] = useState(false);
@@ -79,6 +113,7 @@ export default function WithDrawCash({
       setSuccess(true);
     }, 2000);
   };
+
   if (withdrawCashData) {
     return (
       <Box
