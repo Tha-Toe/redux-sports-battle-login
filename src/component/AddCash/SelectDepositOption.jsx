@@ -312,7 +312,7 @@ export default function SelectDepositOption({
           >
             By continuing, you agree to SportsBattle’s
           </Typography>
-          <Typography
+          <Box
             sx={{
               fontSize: { sm: fs.xs, xxs: fs.xxs, xxxs: fs.xxxs },
               fontWeight: 400,
@@ -321,8 +321,22 @@ export default function SelectDepositOption({
               mb: "17px",
             }}
           >
-            terms, privacy policy & conditions
-          </Typography>
+            <a
+              href="https://sportsbattleapp.com/termsofuse.html"
+              target="_blank"
+              style={{ color: "#2582E3" }}
+            >
+              terms
+            </a>
+            ,{" "}
+            <a
+              href="https://sportsbattleapp.com/PrivacyPolicy.html"
+              target="_blank"
+              style={{ color: "#2582E3" }}
+            >
+              privacy policy & conditions
+            </a>
+          </Box>
         </Box>
       )}
 

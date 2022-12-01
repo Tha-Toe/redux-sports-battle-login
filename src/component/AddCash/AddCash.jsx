@@ -58,7 +58,6 @@ export default function AddCash({ mode }) {
   useEffect(() => {
     if (depositData?.depositAmounts.length > 0) {
       let depositAmountToNum = Number(depositData.depositAmounts[0]);
-      console.log(depositAmountToNum);
       setSelected(depositAmountToNum);
       setAmount(depositAmountToNum);
     }
