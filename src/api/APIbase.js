@@ -86,6 +86,10 @@ export const getWithdrawCash = ocApiGatewayPayment + "options/Withdraw";
 export const getWithdrawMethod =
   ocApiGatewayPayment + "options/withdraw/{amount}";
 
+//get withdraw method
+export const postWithdrawAPI =
+  ocApiGatewayPayment + "card/request-withdraw";
+
 //get deposit cash
 export const getDepositCash = ocApiGatewayPayment + "options/Payment";
 

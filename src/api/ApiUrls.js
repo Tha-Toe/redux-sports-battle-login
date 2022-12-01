@@ -25,6 +25,7 @@ import {
   getWithdrawMethod,
   getDepositCash,
   postDeposit,
+  postWithdrawAPI
 } from "./APIbase";
 
 var APIURLs = {
@@ -54,6 +55,7 @@ var APIURLs = {
   getWithdrawMethod,
   getDepositCash,
   postDeposit,
+  postWithdrawAPI
 };
 
 export { APIURLs };
