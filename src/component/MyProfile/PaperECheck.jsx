@@ -249,7 +249,6 @@ export default function PaperECheck({
               fontWeight: 300,
               fontFamily: "poppins",
               color: "white",
-              mb: "12px",
               width: { md: "25%", xs: "40%", xxxs: "60%" },
             }}
           >

@@ -85,6 +85,7 @@ const UpcomingWithdraw = ({ propData, setOpenWithdrawPopup }) => {
       }
     }
   };
+
   if (time) {
     return (
       <Box
@@ -333,6 +334,12 @@ export default function MyPropsCardContainer({
       console.log(containerRef.current.clientHeight);
     }
   }, []);
+
+  const detailEndRef = useRef(null);
+  const scrollDownFunc = () => {
+    detailEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   if (mainDetail && mainDetail.props.length === 0 && !openWithdrawLoading) {
     return <NoProps openTag={openTag} />;
   } else if (mainDetail && mainDetail.props.length > 0) {
@@ -355,7 +362,13 @@ export default function MyPropsCardContainer({
               sx={{
                 width: { md: "50%", xxxs: "100%" },
                 border: `${mode === "dark" ? "1px solid #494949" : "none"}`,
-                maxHeight: "1000px",
+                maxHeight: {
+                  md: "1000px",
+                  sm: "600px",
+                  xs: "500px",
+                  xxs: "400px",
+                  xxxs: "400px",
+                },
                 overflow: "scroll",
                 "&::-webkit-scrollbar": { display: "none" },
                 marginBottom: "50px",
@@ -431,7 +444,10 @@ export default function MyPropsCardContainer({
                       cursor: "pointer",
                       position: "relative",
                     }}
-                    onClick={() => handelOpenDetail(e)}
+                    onClick={() => {
+                      handelOpenDetail(e);
+                      scrollDownFunc();
+                    }}
                   >
                     <Box
                       sx={{
@@ -745,6 +761,7 @@ export default function MyPropsCardContainer({
                 detailLoading={detailLoading}
               />
             )}
+
             {openDetail === "Upcoming" && (
               <Detail
                 setOpenDetail={setOpenDetail}
@@ -782,6 +799,7 @@ export default function MyPropsCardContainer({
                 detailLoading={detailLoading}
               />
             )}
+            <div ref={detailEndRef} />
             {openWithdrawPopup && (
               <WithdrawPopup
                 mode={mode}

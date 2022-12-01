@@ -82,7 +82,8 @@ export default function AddCash({ mode }) {
     return (
       <Box
         sx={{
-          height: "100%",
+          height: { lg: "100%", xxxs: "auto" },
+          minHeight: "100%",
           width: {
             xl: "900px",
             lg: "800px",
@@ -104,11 +105,11 @@ export default function AddCash({ mode }) {
           component="div"
           sx={{
             width: { lg: "50%", md: "100%" },
-            height: { lg: "100%", xxxs: "auto" },
+            height: { lg: "100%", xxxs: "100%" },
             display: "flex",
             flexDirection: "column",
-            alignItem: "center",
-            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            justifyContent: { xxxs: "flex-start" },
             mb: { xxxs: "30px", lg: 0 },
           }}
         >
@@ -272,11 +273,13 @@ export default function AddCash({ mode }) {
               fontFamily: "poppins",
               background: "#439F48",
               borderRadius: "8px",
+              margin: "0 auto",
               mt: "16px",
               py: { xs: "16px", xxxs: "12px" },
               "&.MuiButtonBase-root:hover": {
                 background: "#439F48",
               },
+              width: { xs: "100%", xxxs: "80%" },
             }}
             onClick={() => {
               if (!showLimit && amount) {
@@ -323,7 +326,7 @@ export default function AddCash({ mode }) {
           component="div"
           sx={{
             width: { lg: "50%", md: "100%" },
-            maxHeight: { lg: "100%", xxxs: "100%" },
+            maxHeight: { lg: "100%", xxxs: "50vh" },
             display: "flex",
             flexDirection: "column",
             alignItem: "center",

@@ -260,6 +260,7 @@ export default function TransactionHistory({ mode }) {
       setOpenHistoryDetail(true);
       setClicked(e.contestId);
       setClicked_id(e._id);
+      scrollDownFunc();
       getEachProp(user.uid, e.contestId)
         .then((res) => {
           if (res) {
@@ -276,6 +277,11 @@ export default function TransactionHistory({ mode }) {
     } else {
       return;
     }
+  };
+
+  const detailEndRef = useRef(null);
+  const scrollDownFunc = () => {
+    detailEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   if (loading) {
@@ -337,7 +343,13 @@ export default function TransactionHistory({ mode }) {
           <Box
             sx={{
               width: { md: "50%", xxxs: "100%" },
-              maxHeight: "1000px",
+              maxHeight: {
+                md: "1000px",
+                sm: "600px",
+                xs: "500px",
+                xxs: "400px",
+                xxxs: "400px",
+              },
               overflow: "scroll",
               "&::-webkit-scrollbar": { display: "none" },
               borderBottom: "1px solid #494949",
@@ -476,6 +488,7 @@ export default function TransactionHistory({ mode }) {
               mode={mode}
             />
           )}
+          <div ref={detailEndRef}></div>
         </Box>
       </Box>
     );

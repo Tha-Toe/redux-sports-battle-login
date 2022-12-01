@@ -245,7 +245,7 @@ const SubmitProjection = ({
         width: { lg: "30%", md: "40%", sm: "50%", xxxs: "100%" },
         // minHeight: "522px",
         border: `${mode === "dark" ? "1px solid #2c2c2c" : "none"}`,
-        minHeight: "100%",
+        minHeight: { sm: "100%", xxxs: "50vh" },
         display: "flex",
         flexDirection: "column",
         ml: { sm: "5px", xxxs: "0px" },

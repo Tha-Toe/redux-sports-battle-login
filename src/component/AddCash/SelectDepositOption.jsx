@@ -275,9 +275,9 @@ export default function SelectDepositOption({
 
           <Button
             sx={{
-              py: "16px",
+              py: { xs: "16px", xxxs: "12px" },
               width: "90%",
-              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
+              fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.small },
               fontWeigh: 600,
               fontFamily: "poppins",
               color: "white",

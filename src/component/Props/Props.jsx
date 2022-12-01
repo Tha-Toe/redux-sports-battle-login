@@ -27,6 +27,8 @@ import {
 import NoProjection from "../loadingSpinner/NoProjection";
 import ErrorIcon from "@mui/icons-material/Error";
 import FpsCricket from "./FpsCricket";
+import { useMediaPredicate } from "react-media-hook";
+
 const useHorizontalScrollPropsNav = () => {
   const propsScrollRef = useRef();
 
@@ -646,6 +648,9 @@ export default function Props({
     }
   };
 
+  const currWidthLessThan1100 = useMediaPredicate("(max-width : 1100px)");
+  const currWidthLessThan500 = useMediaPredicate("(max-width: 500px)");
+
   if (sportDataCommingFromApi && propsApiCallComplete) {
     return (
       <main className="props-container">
@@ -967,11 +972,12 @@ export default function Props({
                         component="div"
                         sx={{
                           height: "100%",
-                          width: "100px",
+                          width: { xl: "100px", sm: "50px", xxxs: "30px" },
                           background:
                             "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
                           position: "absolute",
                           left: 0,
+                          display: { xs: "inline-block", xxxs: "none" },
                         }}
                       ></Box>
                       <Box
@@ -1021,11 +1027,29 @@ export default function Props({
                                 : "#DAD5F6"
                             }`,
                             minWidth: `${
-                              e.length < 5
-                                ? e.length * 25
-                                : e.length < 10
-                                ? e.length * 21
-                                : e.length * 10
+                              currWidthLessThan500
+                                ? e.length > 20
+                                  ? e.length * 6
+                                  : e.length > 10
+                                  ? e.length * 7
+                                  : e.length > 5
+                                  ? e.length * 14
+                                  : e.length * 12
+                                : currWidthLessThan1100
+                                ? e.length > 20
+                                  ? e.length * 8
+                                  : e.length > 10
+                                  ? e.length * 10
+                                  : e.length > 5
+                                  ? e.length * 16
+                                  : e.length * 14
+                                : e.length > 20
+                                ? e.length * 10
+                                : e.length > 10
+                                ? e.length * 12
+                                : e.length > 5
+                                ? e.length * 20
+                                : e.length * 16
                             }px`,
                             cursor: "pointer",
                           }}
@@ -1055,11 +1079,12 @@ export default function Props({
                         component="div"
                         sx={{
                           height: "100%",
-                          width: "80px",
+                          width: { xl: "100px", sm: "50px", xxxs: "30px" },
                           background:
                             "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
                           position: "absolute",
                           right: 0,
+                          display: { xs: "inline-block", xxxs: "none" },
                         }}
                       ></Box>
                       <Box
@@ -1143,6 +1168,8 @@ export default function Props({
                             "linear-gradient(to left, transparent, rgba(0,0,0,0.6))",
                           position: "absolute",
                           left: 0,
+                          display: { xs: "inline-block", xxxs: "none" },
+                          width: { xl: "100px", sm: "50px", xxxs: "30px" },
                         }}
                       ></Box>
                       <Box
@@ -1177,6 +1204,8 @@ export default function Props({
                           key={index}
                           handleSelectGame={handleSelectGame}
                           selectMatches={selectMatches}
+                          currWidthLessThan500={currWidthLessThan500}
+                          currWidthLessThan1100={currWidthLessThan1100}
                         />
                       ))}
                     </div>
@@ -1201,6 +1230,8 @@ export default function Props({
                             "linear-gradient(to right, transparent, rgba(0,0,0,0.6))",
                           position: "absolute",
                           right: 0,
+                          display: { xs: "inline-block", xxxs: "none" },
+                          width: { xl: "100px", sm: "50px", xxxs: "30px" },
                         }}
                       ></Box>
                       <Box
@@ -1263,9 +1294,10 @@ export default function Props({
                       width: "100%",
                       display: "flex",
                       flexDirection: { sm: "row", xxxs: "column" },
-                      justifyContent: "center",
+                      justifyContent: { sm: "center", xxxs: "flex-start" },
                       alignItems: { xs: "flex-start", xxxs: "center" },
-                      height: "100%",
+                      height: { sm: "100%", xxxs: "auto" },
+                      minHeight: "100%",
                       pb: "30px",
                     }}
                   >
@@ -1277,12 +1309,12 @@ export default function Props({
                           sm: "50%",
                           xxxs: "100%",
                         },
-                        height: "100%",
+                        height: { sm: "100%", xxxs: "50%" },
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         overflow: "scroll",
-                        maxHeight: "100%",
+                        maxHeight: { sm: "100%", xxxs: "50vh" },
                         "&::-webkit-scrollbar": {
                           display: "none",
                         },

@@ -175,7 +175,7 @@ a {
     max-width: 100%;
   }
   .statsContainer {
-    max-width: 86%;
+    max-width: 100%;
   }
 }
 
@@ -184,7 +184,7 @@ a {
     max-width: 100%;
   }
   .statsContainer {
-    max-width: 78%;
+    max-width: 100%;
   }
   .statsButton {
     height: 30px;

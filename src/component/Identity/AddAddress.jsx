@@ -172,13 +172,12 @@ export default function AddAddress({
           md: "500px",
           sm: "500px",
           xs: "80%",
-          xxxs: "95%",
+          xxxs: "85%",
         },
         margin: "0 auto",
         display: "flex",
         flexDirection: { lg: "column", xxxs: "column" },
         alignItem: "flex-start",
-        mt: { lg: 0, xxxs: "50px" },
       }}
     >
       <Box

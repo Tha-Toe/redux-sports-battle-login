@@ -907,7 +907,7 @@ export default function WithDrawCash({
           >
             <Box
               sx={{
-                width: { sm: "673px", xs: "90%" },
+                width: { sm: "673px", xxxs: "90%" },
                 bgcolor: "primary.dark",
                 display: "flex",
                 flexDirection: "column",

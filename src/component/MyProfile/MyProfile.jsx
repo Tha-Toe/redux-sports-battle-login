@@ -699,7 +699,7 @@ export default function MyProfile({
                 <Box
                   sx={{
                     width: { xs: "28%", xxxs: "65%" },
-                    height: "195px",
+                    height: { xs: "195px", xxxs: "150px" },
                     bgcolor: "primary.main",
                     display: "flex",
                     flexDirection: "column",

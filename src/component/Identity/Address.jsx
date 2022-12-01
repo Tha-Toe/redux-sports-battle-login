@@ -83,7 +83,7 @@ export default function Address({ setAddress }) {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          mt: { sm: "13px", xxxs: "30px" },
+          mt: { sm: "13px", xxxs: "13px" },
           cursor: "pointer",
           width: "100%",
           mb: "32px",

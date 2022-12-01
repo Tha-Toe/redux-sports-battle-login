@@ -5,6 +5,8 @@ export default function Games({
   mode,
   handleSelectGame,
   selectMatches,
+  currWidthLessThan500,
+  currWidthLessThan1100,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const [time, setTime] = useState(null);
@@ -87,11 +89,29 @@ export default function Games({
             : "#DAD5F6"
         }`,
         minWidth: `${
-          gameData.gameName.length < 5
-            ? gameData.gameName.length * 12
-            : gameData.gameName.length < 10
+          currWidthLessThan500
+            ? gameData.gameName.length > 20
+              ? gameData.gameName.length * 6
+              : gameData.gameName.length > 10
+              ? gameData.gameName.length * 7
+              : gameData.gameName.length > 5
+              ? gameData.gameName.length * 8
+              : gameData.gameName.length * 8
+            : currWidthLessThan1100
+            ? gameData.gameName.length > 20
+              ? gameData.gameName.length * 6
+              : gameData.gameName.length > 10
+              ? gameData.gameName.length * 7
+              : gameData.gameName.length > 5
+              ? gameData.gameName.length * 8
+              : gameData.gameName.length * 10
+            : gameData.gameName.length > 20
+            ? gameData.gameName.length * 8
+            : gameData.gameName.length > 10
             ? gameData.gameName.length * 10
-            : gameData.gameName.length * 8
+            : gameData.gameName.length > 5
+            ? gameData.gameName.length * 12
+            : gameData.gameName.length * 14
         }px`,
         cursor: "pointer",
       }}
