@@ -43,6 +43,7 @@ import {
   AddIdpverified,
   addUrlData,
   logoutUser,
+  addDepositData,
 } from "../../../feature/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { APIURLs } from "../../../api/ApiUrls";
@@ -688,6 +689,9 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   useEffect(() => {
     homeRef.current.scrollTop = 0;
     homeContainerRef.current.scrollTop = 0;
+    if (location?.search === "?deposit=old-user") {
+      setOpenTag("my-profile");
+    }
   }, [location]);
 
   const scrollTop = () => {
@@ -744,6 +748,24 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
   //     }
   //   };
   // }, [localStorageUser, location]);
+
+  //get deposit data
+  useEffect(() => {
+    callProfileApi();
+    getDepositCash()
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          // setDepositData(result);
+          dispatch(addDepositData(result));
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+  }, []);
 
   return (
     <div className="logged-container" ref={homeContainerRef}>
@@ -1545,6 +1567,17 @@ export function Home({ mode, setMode, updateGetUserById, updatingUserDetail }) {
 
 export const getUrls = async () => {
   var apiUrl = APIURLs.getUrls;
+  const apiResponse = await makeGETAPICall(apiUrl);
+  if (apiResponse.status === 200) {
+    return apiResponse.data;
+  } else {
+    return null;
+  }
+};
+
+//get deposit data
+export const getDepositCash = async () => {
+  var apiUrl = APIURLs.getDepositCash;
   const apiResponse = await makeGETAPICall(apiUrl);
   if (apiResponse.status === 200) {
     return apiResponse.data;

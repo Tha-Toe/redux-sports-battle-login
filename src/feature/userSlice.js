@@ -38,6 +38,7 @@ const initialState = {
   propCartData: null,
   currentSportDataRedux: null,
   urlData: [],
+  depositData: null,
 };
 
 export const userSlice = createSlice({
@@ -180,6 +181,9 @@ export const userSlice = createSlice({
     addUrlData: (state, action) => {
       state.urlData = action.payload;
     },
+    addDepositData: (state, action) => {
+      state.depositData = action.payload;
+    },
     logoutUser: () => initialState,
   },
 });
@@ -219,6 +223,7 @@ export const {
   addPropCartData,
   addCurrentSportDataRedux,
   addUrlData,
+  addDepositData,
   logoutUser,
 } = userSlice.actions;
 

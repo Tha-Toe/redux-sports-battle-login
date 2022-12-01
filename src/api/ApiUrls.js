@@ -23,6 +23,8 @@ import {
   postRedeemCode,
   getWithdrawCash,
   getWithdrawMethod,
+  getDepositCash,
+  postDeposit,
 } from "./APIbase";
 
 var APIURLs = {
@@ -50,6 +52,8 @@ var APIURLs = {
   postRedeemCode,
   getWithdrawCash,
   getWithdrawMethod,
+  getDepositCash,
+  postDeposit,
 };
 
 export { APIURLs };
