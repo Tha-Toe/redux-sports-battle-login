@@ -115,6 +115,7 @@ export default function Detail({
             position: "relative",
             left: "-5px",
           }}
+          id="detail"
         >
           SportsBattle
         </Typography>
