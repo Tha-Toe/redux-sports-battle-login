@@ -1,12 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./profile.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
-export default function Wrong({ setWrong, setOpenTag, mode }) {
+export default function Wrong({ setWrong, setOpenTag, mode, wrong }) {
   const fs = useSelector((state) => state.user.fs);
+
+  const [supportChatOpen, setSupportChatOpen] = useState(false);
+  const openSupportChat = () => {
+    if (supportChatOpen) {
+      window.Intercom("hide");
+      setSupportChatOpen(false);
+    } else {
+      window.Intercom("show");
+      setSupportChatOpen(true);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -33,24 +45,9 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
           borderRadius: "8px",
         }}
       >
-        <Box
-          sx={{
-            width: "90%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            mt: "26px",
-            mb: "18px",
-          }}
-        >
-          <ClearIcon
-            onClick={() => setWrong(false)}
-            sx={{ cursor: "pointer", color: "secondary.dark_gray" }}
-          />
-        </Box>
         <ClearIcon
           sx={{
+            mt: "36px",
             color: "primary.main",
             fontSize: { sm: "60px", xxs: "50px", xxxs: "40px" },
             background: "#E4313C",
@@ -68,7 +65,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
             textAlign: "center",
           }}
         >
-          Something went wrong, Please try again
+          {wrong || "Something went wrong, Please try again"}
         </Typography>
         <Box
           sx={{
@@ -99,8 +96,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
               mr: "24px",
             }}
             onClick={() => {
-              setWrong(false);
-              setOpenTag("profile");
+              setWrong(null);
             }}
           >
             Back to My Account
@@ -122,7 +118,7 @@ export default function Wrong({ setWrong, setOpenTag, mode }) {
                 background: "transparent",
               },
             }}
-            onClick={() => setWrong(false)}
+            onClick={() => openSupportChat()}
           >
             Support Chat{" "}
           </Button>

@@ -249,6 +249,7 @@ export default function MyProfile({
         standardECheckData={standardECheckData}
         directDepositData={directDepositData}
         withdrawMethod={withdrawMethod}
+        updateGetUserById={updateGetUserById}
       />
     );
   } else if (openTag === "chooseAWithdrawMethod") {

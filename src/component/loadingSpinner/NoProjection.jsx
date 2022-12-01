@@ -25,9 +25,9 @@ export default function NoProjection({ refresh }) {
       {noDataImg && <img className="noDataImage" src={noDataImg} />}
       <Typography
         sx={{
-          fontSize: fs.normal,
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontFamily: "poppins",
-          width: "500px",
+          width: { sm: "500px", xxxs: "80%" },
           textAlign: "center",
           color: "white",
         }}
@@ -37,7 +37,7 @@ export default function NoProjection({ refresh }) {
       </Typography>
       <Button
         sx={{
-          fontSize: fs.normal,
+          fontSize: { sm: fs.normal, xxs: fs.small, xxxs: fs.xs },
           fontFamily: "poppins",
           color: "white",
           padding: "5px 20px",

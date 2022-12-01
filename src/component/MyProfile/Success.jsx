@@ -7,10 +7,19 @@ import "./profile.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useSelector } from "react-redux";
 
-export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
-  const goWrongPage = () => {
-    setWrong(true);
-    setSuccess(false);
+export default function Success({
+  setConfirm,
+  setSuccess,
+  setWrong,
+  mode,
+  success,
+  setOpenTag,
+  updateGetUserById,
+}) {
+  const goBack = () => {
+    updateGetUserById();
+    setOpenTag("profile");
+    setSuccess(null);
   };
   const fs = useSelector((state) => state.user.fs);
   return (
@@ -39,24 +48,9 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
           borderRadius: "8px",
         }}
       >
-        <Box
-          sx={{
-            width: "90%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            mt: "26px",
-            mb: "18px",
-          }}
-        >
-          <ClearIcon
-            onClick={() => setSuccess(false)}
-            sx={{ cursor: "pointer", color: "secondary.dark_gray" }}
-          />
-        </Box>
         <CheckCircleIcon
           sx={{
+            mt: "36px",
             color: `${mode === "dark" ? "#C8E6CA" : "#439F48"}`,
             fontSize: { sm: "60px", xxs: "50px", xxxs: "40px" },
           }}
@@ -72,8 +66,7 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
             textAlign: "center",
           }}
         >
-          Request received. Please allow 1-2 business days for our Compliance
-          Team to review and approve the request.{" "}
+          {success}
         </Typography>
         <Button
           sx={{
@@ -93,7 +86,7 @@ export default function Success({ setConfirm, setSuccess, setWrong, mode }) {
               background: "#4831D4",
             },
           }}
-          onClick={goWrongPage}
+          onClick={goBack}
         >
           Back to my account
         </Button>

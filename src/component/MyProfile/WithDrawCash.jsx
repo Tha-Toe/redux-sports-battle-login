@@ -27,6 +27,7 @@ export default function WithDrawCash({
   standardECheckData,
   directDepositData,
   withdrawMethod,
+  updateGetUserById,
 }) {
   const fs = useSelector((state) => state.user.fs);
   const user = useSelector((state) => state.user.user);
@@ -53,66 +54,89 @@ export default function WithDrawCash({
   };
 
   const [confirm, setConfirm] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [wrong, setWrong] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [wrong, setWrong] = useState(null);
 
   const openConfirm = () => {
     if (alreadyChooseWithDraw) {
       setConfirm(true);
-      if (alreadyChooseWithDraw === "standard-eCheck") {
-        let standardECheckFormatData = {};
-        standardECheckFormatData.amount = Number(enterDollarAmount);
-        standardECheckFormatData.directDeposit = undefined;
-        standardECheckFormatData.email = myAccountDataCommingFromApi?.email;
-        standardECheckFormatData.name = standardECheckData.name;
-        standardECheckFormatData.serviceFee = standardECheckData.serviceFee;
-        standardECheckFormatData.type = standardECheckData.type;
-        standardECheckFormatData.userId = userDataFromLocalStorage.uid;
-        standardECheckFormatData.address = undefined;
-        standardECheckFormatData.selectedPayWithdrawOption = {
-          email: myAccountDataCommingFromApi?.email,
-          withdrawOption: standardECheckData,
-        };
-        console.log(standardECheckFormatData);
-      } else if (alreadyChooseWithDraw === "paper-eCheck") {
-        let paperCheckFormatData = {};
-        paperCheckFormatData.amount = Number(enterDollarAmount);
-        paperCheckFormatData.directDeposit = undefined;
-        paperCheckFormatData.email = myAccountDataCommingFromApi?.email;
-        paperCheckFormatData.name = paperCheckData.name;
-        paperCheckFormatData.serviceFee = paperCheckData.serviceFee;
-        paperCheckFormatData.type = paperCheckData.type;
-        paperCheckFormatData.userId = userDataFromLocalStorage.uid;
-        paperCheckFormatData.address = {
-          addrLine1: address.address.addrLine1,
-          addrLine2: address.address.addrLine2,
-          addrCity: address.address.addrCity,
-          addrZip: address.address.addrZip,
-          addrState: address.address.addrState,
-        };
-        paperCheckFormatData.selectedPayWithdrawOption = {
-          email: myAccountDataCommingFromApi?.email,
-          withdrawOption: paperCheckData,
-        };
-        console.log(paperCheckFormatData);
-      } else if (alreadyChooseWithDraw === "direct-deposit") {
-        // console.log("type : ", directDepositData.name);
-        // console.log("name : ", myAccountDataCommingFromApi?.name);
-        // console.log("email : ", myAccountDataCommingFromApi?.email);
-        // console.log("amount : $", enterDollarAmount);
-        // console.log("withdraw cash api res : ", withdrawCashData);
-        // console.log("method api res : ", withdrawMethod);
-      }
     }
   };
 
   const [startAnimation, setStartAnimation] = useState(false);
-  const goSuccess = () => {
-    setTimeout(() => {
-      setStartAnimation(false);
-      setConfirm(false);
-      setSuccess(true);
-    }, 2000);
+  const handleSubmit = async () => {
+    let reqObject = {};
+    if (alreadyChooseWithDraw === "standard-eCheck") {
+      reqObject.amount = Number(enterDollarAmount);
+      reqObject.directDeposit = undefined;
+      reqObject.email = myAccountDataCommingFromApi?.email;
+      reqObject.name = standardECheckData.name;
+      reqObject.serviceFee = standardECheckData.serviceFee;
+      reqObject.type = standardECheckData.type;
+      reqObject.userId = userDataFromLocalStorage.uid;
+      reqObject.address = undefined;
+      reqObject.selectedPayWithdrawOption = {
+        email: myAccountDataCommingFromApi?.email,
+        withdrawOption: standardECheckData,
+      };
+      console.log(reqObject);
+    } else if (alreadyChooseWithDraw === "paper-eCheck") {
+      reqObject.amount = Number(enterDollarAmount);
+      reqObject.directDeposit = undefined;
+      reqObject.email = myAccountDataCommingFromApi?.email;
+      reqObject.name = paperCheckData.name;
+      reqObject.serviceFee = paperCheckData.serviceFee;
+      reqObject.type = paperCheckData.type;
+      reqObject.userId = userDataFromLocalStorage.uid;
+      reqObject.address = {
+        addrLine1: address.address.addrLine1,
+        addrLine2: address.address.addrLine2,
+        addrCity: address.address.addrCity,
+        addrZip: address.address.addrZip,
+        addrState: address.address.addrState,
+      };
+      reqObject.selectedPayWithdrawOption = {
+        email: myAccountDataCommingFromApi?.email,
+        withdrawOption: paperCheckData,
+      };
+      console.log(reqObject);
+    } else if (alreadyChooseWithDraw === "direct-deposit") {
+      // console.log("type : ", directDepositData.name);
+      // console.log("name : ", myAccountDataCommingFromApi?.name);
+      // console.log("email : ", myAccountDataCommingFromApi?.email);
+      // console.log("amount : $", enterDollarAmount);
+      // console.log("withdraw cash api res : ", withdrawCashData);
+      // console.log("method api res : ", withdrawMethod);
+    }
+    console.log("reqObject", reqObject);
+    if (reqObject.type) {
+      postWithdrawAPI(reqObject)
+        .then((res) => {
+          if (res.status === "success") {
+            setSuccess(res.message);
+            setConfirm(false);
+            setStartAnimation(false);
+            console.log(res);
+          } else {
+            setWrong(res.message);
+            console.log(res);
+            setConfirm(false);
+            setStartAnimation(false);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+            setWrong("Something went wrong, Please try again");
+            setConfirm(false);
+            setStartAnimation(false);
+          }
+        });
+    }
+    // setTimeout(() => {
+    //   setStartAnimation(false);
+    //   setConfirm(false);
+    // }, 2000);
   };
 
   if (withdrawCashData) {
@@ -947,7 +971,7 @@ export default function WithDrawCash({
                   }}
                 >
                   {alreadyChooseWithDraw === "paper-eCheck"
-                    ? "Paper eCheck"
+                    ? "Paper Check"
                     : alreadyChooseWithDraw === "standard-eCheck"
                     ? "Standard eCheck"
                     : "Direct Deposit"}
@@ -982,7 +1006,17 @@ export default function WithDrawCash({
                     ml: "4px",
                   }}
                 >
-                  {user && user.email}
+                  {alreadyChooseWithDraw === "paper-eCheck"
+                    ? address?.address?.addrLine1 +
+                      " " +
+                      address?.address?.addrLine2 +
+                      " " +
+                      address?.address?.addrCity +
+                      ", " +
+                      address?.address?.addrState +
+                      ", " +
+                      address?.address?.addrZip
+                    : user?.email}
                 </Typography>
               </Box>
               <Box
@@ -1025,7 +1059,7 @@ export default function WithDrawCash({
                   fontFamily: "poppins",
                   color: "white",
                   background: "#4831D4",
-                  py: "14px",
+                  height: "45px",
                   mt: "25px",
                   width: "90%",
                   borderRadius: "8px",
@@ -1037,7 +1071,7 @@ export default function WithDrawCash({
                 }}
                 onClick={() => {
                   setStartAnimation(true);
-                  goSuccess();
+                  handleSubmit();
                 }}
               >
                 {startAnimation ? (
@@ -1071,16 +1105,42 @@ export default function WithDrawCash({
                   mb: "33px",
                 }}
               >
-                terms, privacy policy & payment terms{" "}
+                <a
+                  href="https://sportsbattleapp.com/termsofuse.html"
+                  target="_blank"
+                  style={{ color: "#2582E3" }}
+                >
+                  terms
+                </a>
+                ,{" "}
+                <a
+                  href="https://sportsbattleapp.com/PrivacyPolicy.html"
+                  target="_blank"
+                  style={{ color: "#2582E3" }}
+                >
+                  privacy policy & payment terms
+                </a>
               </Typography>
             </Box>
           </Box>
         )}
         {success && (
-          <Success setSuccess={setSuccess} setWrong={setWrong} mode={mode} />
+          <Success
+            setSuccess={setSuccess}
+            setWrong={setWrong}
+            mode={mode}
+            success={success}
+            setOpenTag={setOpenTag}
+            updateGetUserById={updateGetUserById}
+          />
         )}
         {wrong && (
-          <Wrong setWrong={setWrong} setOpenTag={setOpenTag} mode={mode} />
+          <Wrong
+            setWrong={setWrong}
+            setOpenTag={setOpenTag}
+            mode={mode}
+            wrong={wrong}
+          />
         )}
       </Box>
     );
@@ -1108,7 +1168,6 @@ export default function WithDrawCash({
     );
   }
 }
-
 
 export const postWithdrawAPI = async (reqObject) => {
   var apiUrl = APIURLs.postWithdrawAPI;
