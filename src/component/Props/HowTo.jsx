@@ -75,7 +75,7 @@ export default function HowTo({
               <CheckCircleIcon
                 sx={{
                   color: "#52C03C",
-                  fontSize: { xs: "35px", xxxs: "30px" },
+                  fontSize: { xs: "35px", xxxs: "25px" },
                   mr: "12px",
                 }}
               />
@@ -85,7 +85,6 @@ export default function HowTo({
                   fontSize: { xs: fs.normal, xxxs: fs.xs },
                   fontWeight: 400,
                   fontFamily: "poppins",
-                  textAlign: "justify",
                 }}
               >
                 {each}{" "}

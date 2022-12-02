@@ -1367,11 +1367,16 @@ export default function Props({
                               >
                                 <img
                                   src={currSports.noDataImage}
-                                  style={{ width: "150px", marginTop: "40px" }}
+                                  style={{
+                                    width: `${
+                                      currWidthLessThan500 ? "120px" : "150px"
+                                    }`,
+                                    marginTop: "40px",
+                                  }}
                                 />
                                 <Typography
                                   sx={{
-                                    fontSize: fs.normal,
+                                    fontSize: { sm: fs.normal, xxxs: fs.small },
                                     color: "white",
                                     width: "80%",
                                     mt: "20px",
@@ -1383,7 +1388,7 @@ export default function Props({
                                 </Typography>
                                 <Button
                                   sx={{
-                                    fontSize: fs.normal,
+                                    fontSize: { sm: fs.normal, xxxs: fs.small },
                                     fontFamily: "poppins",
                                     color: "white",
                                     padding: "5px 20px",
@@ -1391,6 +1396,7 @@ export default function Props({
                                     borderRadius: "8px",
                                     mt: "20px",
                                     textTransform: "none",
+                                    mb: { sm: "0px", xxxs: "50px" },
                                   }}
                                   onClick={() => refresh(selectSports)}
                                 >
