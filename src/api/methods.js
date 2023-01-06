@@ -26,7 +26,7 @@ export const makeGETAPICall = async (url, additionalHeaders) => {
 
 //PUT METHOD
 
-export const makePUTAPICall = async (url, body, additionalHeaders) => {
+export const makePUTAPICall = async (url, body) => {
   try {
     const idToken = await auth.currentUser.getIdToken(true);
     if (idToken) {
@@ -42,7 +42,7 @@ export const makePUTAPICall = async (url, body, additionalHeaders) => {
 
 // POST METHOD
 
-export const makePOSTAPICall = async (url, body) => {
+export const makePOSTAPICall = async (url, body, additionalHeaders) => {
   try {
     const idToken = await auth.currentUser.getIdToken(true);
     var apiResponse = {};
