@@ -353,7 +353,7 @@ export default function SelectDepositOption({
 export const postDeposit = async (submitObject) => {
   var apiUrl = APIURLs.postDeposit;
   var reqBody = submitObject;
-  const apiResponse = await makePOSTAPICall(apiUrl, reqBody);
+  const apiResponse = await makePOSTAPICall(apiUrl, reqBody, [{ "app-version": 2 }]);
   if (apiResponse.status === 200) {
     return apiResponse.data;
   } else {

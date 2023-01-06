@@ -26,7 +26,7 @@ export const makeGETAPICall = async (url, additionalHeaders) => {
 
 //PUT METHOD
 
-export const makePUTAPICall = async (url, body) => {
+export const makePUTAPICall = async (url, body, additionalHeaders) => {
   try {
     const idToken = await auth.currentUser.getIdToken(true);
     if (idToken) {
@@ -47,7 +47,10 @@ export const makePOSTAPICall = async (url, body) => {
     const idToken = await auth.currentUser.getIdToken(true);
     var apiResponse = {};
     if (idToken) {
-      apiResponse = await axios.post(url, body, setAxiosConfig(idToken));
+      apiResponse = await axios.post(url, body, setAxiosConfig(
+        idToken,
+        additionalHeaders ? additionalHeaders : undefined
+      ));
       return apiResponse;
     } else {
       throw new Error("Error occurred, please login again to continue");
